@@ -13,7 +13,7 @@ hr {
   display: grid;
   width: 100%;
   height: 100vh;
-  gap: 2%;
+  gap: 0;
   grid-template-columns: 1fr;
   grid-template-areas:
     "header"
@@ -84,7 +84,7 @@ hr {
   padding: 5px;
   position: relative;
   background-color: #7aade1;
-  margin: 4px;
+  margin: 10px;
 }
 #fp-contact {
   grid-area: contact;
@@ -101,7 +101,6 @@ hr {
 #frontPage footer {
   grid-area: footer;
   position: relative;
-  padding: 1vw;
   text-align: center;
   background-color: #67a0d8;
 }
