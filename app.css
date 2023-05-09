@@ -2,6 +2,7 @@ body {
   width: 100%;
   margin: 0;
   background-color: rgb(29, 108, 183);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 hr {
