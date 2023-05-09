@@ -1,0 +1,22 @@
+.link-content {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+section.active {
+  display: block;
+  padding: 2em;
+  margin: 2em;
+}
+
+body {
+  background-color: teal;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.highlighted {
+  background-color: red;
+}
