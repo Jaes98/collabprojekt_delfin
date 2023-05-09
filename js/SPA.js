@@ -1,13 +1,13 @@
 "use strict";
 
-window.addEventListener("load", start);
+window.addEventListener("load", viewControl);
 
-function start(params) {
+function viewControl() {
   window.addEventListener("hashchange", changeHash);
   changeHash();
 }
 
-function changeHash(event) {
+function changeHash() {
   let currentPage = "#abc1";
 
   if (location.hash) {
@@ -15,18 +15,20 @@ function changeHash(event) {
   }
 
   hideAllPages();
-  //   document.querySelector(currentPage).classList.remove("hidden");
   document.querySelector(currentPage).classList.add("active");
   setActivePage(currentPage);
 }
 
-function hideAllPages(params) {
+function hideAllPages() {
   document.querySelectorAll(".link-content").forEach((page) => page.classList.remove("active"));
+  document.querySelectorAll(".nav-link").forEach((page) => page.classList.remove("highlighted"));
 }
 
 function setActivePage(hashtag) {
-  console.log(hashtag);
   const activePage = document.querySelector(`a.nav-link[href="${hashtag}"]`);
-  console.log(activePage);
-  activePage.classList.remove("hidden");
+  if (activePage) {
+    activePage.classList.add("highlighted");
+  }
 }
+
+export { viewControl };

@@ -16,3 +16,7 @@ body {
   background-color: teal;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.highlighted {
+  background-color: red;
+}
