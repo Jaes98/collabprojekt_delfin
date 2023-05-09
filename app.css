@@ -63,7 +63,7 @@ hr {
   width: 15vw;
   max-width: 100px;
   max-height: 40px;
-  border: 2px solid black;
+  border: 2px solid #1d558e;
   height: 7vw;
   background-color: rgb(29, 108, 183);
   right: 0px;
@@ -80,7 +80,7 @@ hr {
 }
 
 #frontPage article {
-  border: 3px solid black;
+  border: 3px solid #4981b9;
   padding: 5px;
   position: relative;
   background-color: #7aade1;
