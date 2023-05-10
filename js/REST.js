@@ -51,9 +51,7 @@ function updateMember() {}
 
 function deleteMember() {}
 
-function showMembers() {}
 
-function showMember() {}
 
 function restSuccess() {}
 
