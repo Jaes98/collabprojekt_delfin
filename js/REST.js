@@ -25,26 +25,11 @@ function prepareData(listOfObjects) {
   return arrayFromFirebaseObject;
 }
 
-async function createNewMember(newMember) {
-  const newMember = {
-    name,
-    bday,
-    phonenumber,
-    adress,
-    gender,
-    email,
-    active,
-    competetive,
-    crawl,
-    butterfly,
-    backCrawl,
-    breaststroke,
-    trid,
-  };
-
+async function createdMember(newMember) {
+  console.log("createdMember");
   const json = JSON.stringify(newMember);
 
-  const response = await fetch(`${dolphinDatabase}/members.json`, {
+  const response = await fetch(`${dolphinDatabase}/members`, {
     method: "POST",
     body: json,
   });
@@ -61,15 +46,15 @@ async function createNewMember(newMember) {
 }
 
 async function updateMemberPUT(memberToUpdate) {
-  console.log(memberToUpdate.id)
-  const objectToJSON = JSON.stringify(memberToUpdate)
+  console.log(memberToUpdate.id);
+  const objectToJSON = JSON.stringify(memberToUpdate);
 
-  const response = await fetch(`${dolphinDatabase}/members/${id}`,{
+  const response = await fetch(`${dolphinDatabase}/members/${id}`, {
     method: "PUT",
-    body: objectToJSON
-  })
+    body: objectToJSON,
+  });
 
-  return response
+  return response;
 }
 
 function deleteMember() {}
@@ -78,5 +63,4 @@ function restSuccess() {}
 
 function restFail() {}
 
-
-export {updateMemberPUT}
+export { updateMemberPUT, createdMember };

@@ -167,6 +167,10 @@ dialog{
   background-color: rgb(138, 126, 126);
 }
 
+:required {
+  border: 2px solid green;
+}
+
 form{
 color: rgb(205, 177, 50);
 display: grid;
