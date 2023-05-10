@@ -126,11 +126,27 @@ section.active#front-page {
   /* padding: 2em;
   margin: 2em; */
 }
+section.active#formand {
+  background-color: grey;
+  display:grid; 
+  padding: 2em;
+  margin: 2em;
+}
+section.active#log-in {
+  display:grid; 
+  padding: 2em;
+  margin: 2em;
+}
+section.active#kasserer {
+  display:grid; 
+  padding: 2em;
+  margin: 2em;
+}
 section.active#trainer {
-  display: grid;
-  font-size: 300px;
-  /* padding: 2em;
-  margin: 2em; */
+  display:grid;
+  font-size: 300px; 
+  padding: 2em;
+  margin: 2em;
 }
 
 .highlighted {
@@ -143,4 +159,54 @@ section.active#trainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+}
+
+/* DIALOG */
+
+dialog{
+  background-color: rgb(138, 126, 126);
+}
+
+form{
+color: rgb(205, 177, 50);
+display: grid;
+grid-template-rows: 1fr 1fr;
+grid-template-columns: 1fr 1fr;
+width: 50vw;
+gap: 2px;
+font-size: 20px;
+
+}
+
+
+label{
+  float: left;
+  clear: both;
+}
+
+input{
+  background-color: rgb(211, 204, 204);
+  float: left;
+  clear: both;
+}
+
+.submit{
+  margin: 1em;
+  background-color: rgb(98, 190, 181);
+  border: 2px black solid;
+  border-radius: 4px;
+}
+
+field.form-text{
+  display: grid;
+  background-color: teal;
+}
+
+field.form-button{
+  display: flex;
+  background-color: teal;
+  justify-items: center;
+justify-content: center;
+text-align: center;
+gap: 10px;
 }
