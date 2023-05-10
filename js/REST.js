@@ -57,7 +57,17 @@ async function createNewMember(name, bday, phonenumber, adress, gender, email, a
   return response;
 }
 
-function updateMember() {}
+async function updateMemberPUT(memberToUpdate) {
+  console.log(memberToUpdate.id)
+  const objectToJSON = JSON.stringify(memberToUpdate)
+
+  const response = await fetch(`${dolphinDatabase}/members/${id}`,{
+    method: "PUT",
+    body: objectToJSON
+  })
+
+  return response
+}
 
 function deleteMember() {}
 
