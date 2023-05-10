@@ -9,6 +9,9 @@ function start() {
   viewControl();
 }
 
-function showMembers() {}
+function showMembers(array) {
+  
+
+}
 
 function showMember() {}
