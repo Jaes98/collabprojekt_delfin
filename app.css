@@ -133,3 +133,11 @@ section.active#trainer {
 .highlighted {
   background-color: red;
 }
+
+/* ************* create member dialog*********** */
+
+#form-create-member {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
