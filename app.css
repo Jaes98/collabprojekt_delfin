@@ -3,7 +3,8 @@
 body {
   width: 100%;
   margin: 0;
-  background-color: rgb(29, 108, 183);
+  /* background-color: rgb(29, 108, 183); */
+  background-color: #f3f3f3;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
@@ -89,7 +90,7 @@ hr {
   border: 3px solid #4981b9;
   padding: 5px;
   position: relative;
-  background-color: #7aade1;
+  background-color: #a3bfdc;
   margin: 10px;
 }
 #fp-contact {

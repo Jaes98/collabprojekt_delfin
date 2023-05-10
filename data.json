@@ -1,0 +1,65 @@
+{
+  "members": {
+    "-ghtf1-gggfgfgfgfgf": {
+      "name": "Lise Petculescu",
+      "bday": "1997-02-17",
+      "phonenumber": "+4523344556",
+      "adress": "Poppelvej 45, 2456, Tulleby",
+      "gender": "female",
+      "email": "noget@mail.com",
+      "active": true,
+      "competetive": true,
+      "crawl": true,
+      "butterfly": true,
+      "backCrawl": false,
+      "breaststroke": false,
+      "trid": "seniorCoach"
+    },
+    "-ghtf1-gggfgfgfgfgf2": {
+      "name": "Steen Hansen",
+      "bday": "1956-11-06",
+      "phonenumber": "+4523344555",
+      "adress": "Poppelvej 23, 2456, Tulleby",
+      "gender": "male",
+      "email": "nogetAndet@mail.com",
+      "active": false,
+      "competetive": false,
+      "crawl": false,
+      "butterfly": false,
+      "backCrawl": false,
+      "breaststroke": false,
+      "trid": ""
+    }
+  },
+  "results": {
+    "idErNoget": {
+      "competition": true,
+      "discipline": "crawl",
+      "date": "2023-05-06",
+      "compName": "SunSwim 2023",
+      "location": "Ballerup svømmehal",
+      "placement": 3,
+      "time": 179.2,
+      "uid": "-ghtf1-gggfgfgfgfgf"
+    },
+    "training23": {
+      "competition": false,
+      "discipline": "crawl",
+      "date": "2023-05-06",
+      "compName": "",
+      "location": "",
+      "placement": "",
+      "time": 203,
+      "uid": "-ghtf1-gggfgfgfgfgf"
+    }
+  },
+
+  "trainers": {
+    "juniorCoach": {
+      "name": "Holger Jacobsen"
+    },
+    "seniorCoach": {
+      "name": "Line Frederiksen"
+    }
+  }
+}
