@@ -34,7 +34,10 @@ async function createNewMember(newMember) {
 
   const json = JSON.stringify(newMember);
 
-  const response = await fetch(`${dolphinDatabase}/members.json`, { method: "POST", body: json });
+  const response = await fetch(`${dolphinDatabase}/members.json`, {
+    method: "POST",
+    body: json,
+  });
 
   if (response.status === 200) {
     console.log("member was send to the database");
