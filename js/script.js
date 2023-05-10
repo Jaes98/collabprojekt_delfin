@@ -8,3 +8,7 @@ function start() {
   console.log("start:");
   viewControl();
 }
+
+function showMembers() {}
+
+function showMember() {}
