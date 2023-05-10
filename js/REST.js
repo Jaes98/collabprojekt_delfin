@@ -4,7 +4,7 @@ function getData() {}
 
 function prepareData() {}
 
-function createMember() {}
+function createNewMember() {}
 
 function updateMember() {}
 
