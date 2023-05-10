@@ -3,12 +3,13 @@
 window.addEventListener("load", viewControl);
 
 function viewControl() {
+  console.log("HEJJJ");
   window.addEventListener("hashchange", changeHash);
   changeHash();
 }
 
 function changeHash() {
-  let currentPage = "#abc1";
+  let currentPage = "#front-page";
 
   if (location.hash) {
     currentPage = location.hash;
@@ -20,7 +21,7 @@ function changeHash() {
 }
 
 function hideAllPages() {
-  document.querySelectorAll(".link-content").forEach((page) => page.classList.remove("active"));
+  document.querySelectorAll(".page-view").forEach(page => page.classList.remove("active"));
   document.querySelectorAll(".nav-link").forEach((page) => page.classList.remove("highlighted"));
 }
 
