@@ -68,7 +68,66 @@
       </dialog>
     </section>
     <section class="page-view" id="log-in">1</section>
-    <section class="page-view" id="formand">2</section>
+    <section class="page-view" id="formand">
+
+      <button id="formand-update-button">Opdater medlem</button>
+      <dialog id="formand-update-dialog">
+        <form id="formand-update-form">
+          <field class="form-text">
+            <label for="formand-update-name">Navn</label>
+            <input type="text" id="formand-update-name" placeholder="Fulde navn" />
+          </field>
+          <field class="form-text">
+            <label for="formand-update-bday">Fødselsdag</label>
+            <input type="text" id="formand-update-bday" placeholder="åååå-mm-dd" />
+          </field>
+          <field class="form-text">
+            <label for="formand-update-phone">Tlf.</label>
+            <input type="text" id="formand-update-phone" />
+          </field>
+          <field class="form-text">
+            <label for="formand-update-email">Email</label>
+            <input type="text" id="formand-update-email" />
+          </field>
+          <field class="form-text">
+            <label for="formand-update-adress">Adresse</label>
+            <input type="text" id="formand-update-adress" />
+          </field>
+          <field class="form-button">
+            <p>Køn:</p>
+            <label for="formand-update-gender-male">Mand</label>
+            <input type="radio" id="formand-update-gender-male" name="gender" value="false" />
+            <label for="formand-update-gender-female">Kvinde</label>
+            <input type="radio" id="formand-update-gender-female" name="gender" value="true" />
+          </field>
+          <field class="form-button">
+            <p>Aktivitetsstatus</p>
+            <label for="formand-update-active-yes">Aktiv</label>
+            <input type="radio" id="formand-update-active-yes" name="activity" value="true" />
+            <label for="formand-update-active-no">Passiv</label>
+            <input type="radio" id="formand-update-active-no" name="activity" value="false" />
+          </field>
+          <field class="form-button">
+            <p>Konkurrencesvømmer:</p>
+            <label for="formand-update-competetive-no">Nej?</label>
+            <input type="radio" id="formand-update-competetive-no" name="comp" value="false" />
+            <label for="formand-update-competetive-yes">Ja?</label>
+            <input type="radio" id="formand-update-competetive-yes" name="comp" value="true" />
+          </field>
+          <label for="formand-update-crawl">Crawl</label>
+          <input type="checkbox" id="formand-update-crawl" />
+          <label for="formand-update-butterfly">Butterfly</label>
+          <input type="checkbox" id="formand-update-butterfly" />
+          <label for="formand-update-back-crawl">Rygsvømning</label>
+          <input type="checkbox" id="formand-update-back-crawl" />
+          <label for="formand-update-breat-stroke">Brystsvømning</label>
+          <input type="checkbox" id="formand-update-breast-stroke" />
+          <label for="formand-update-breat-trid">Træner</label>
+          <input type="text" id="formand-update-trid" />
+          <input type="submit" id="formand-update-submit" class="submit" value="Opdater medlem" />
+        </form>
+      </dialog>
+    </section>
     <section class="page-view" id="kasserer">3</section>
     <section class="page-view" id="trainer">4</section>
   </body>
