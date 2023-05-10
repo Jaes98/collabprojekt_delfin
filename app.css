@@ -13,9 +13,9 @@ hr {
   /* border-top: 2px solid darkblue; */
 }
 
-/*********** FrontPage **************/
+/*********** front-page **************/
 
-#frontPage {
+.front-page {
   display: grid;
   width: 100%;
   height: 100vh;
@@ -30,7 +30,7 @@ hr {
 }
 
 @media (min-width: 550px) {
-  #frontPage {
+  .front-page {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
       "header header header"
@@ -40,7 +40,7 @@ hr {
 }
 
 @media (min-width: 900px) {
-  #frontPage {
+  .front-page {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
       "header header header"
@@ -49,7 +49,7 @@ hr {
   }
 }
 
-#frontPage header {
+.front-page header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
@@ -86,7 +86,7 @@ hr {
   /*img source: https://www.rawpixel.com/image/6791666 */
 }
 
-#frontPage article {
+.front-page article {
   border: 3px solid #4981b9;
   padding: 5px;
   position: relative;
@@ -105,9 +105,33 @@ hr {
   /* margin-right: 10px; */
 }
 
-#frontPage footer {
+.front-page footer {
   grid-area: footer;
   position: relative;
   text-align: center;
   background-color: #67a0d8;
+}
+
+
+
+/* STUFF FOR THE SPA: */
+
+section.page-view {
+  display: none;
+}
+
+section.active#front-page {
+  display:grid; 
+  /* padding: 2em;
+  margin: 2em; */
+}
+section.active#trainer {
+  display:grid;
+  font-size: 300px; 
+  /* padding: 2em;
+  margin: 2em; */
+}
+
+.highlighted {
+  background-color: red;
 }
