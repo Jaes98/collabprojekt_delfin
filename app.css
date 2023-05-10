@@ -112,8 +112,6 @@ hr {
   background-color: #67a0d8;
 }
 
-
-
 /* STUFF FOR THE SPA: */
 
 section.page-view {
@@ -121,13 +119,13 @@ section.page-view {
 }
 
 section.active#front-page {
-  display:grid; 
+  display: grid;
   /* padding: 2em;
   margin: 2em; */
 }
 section.active#trainer {
-  display:grid;
-  font-size: 300px; 
+  display: grid;
+  font-size: 300px;
   /* padding: 2em;
   margin: 2em; */
 }
