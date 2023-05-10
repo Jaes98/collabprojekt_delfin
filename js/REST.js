@@ -4,16 +4,26 @@ const dolphinDatabase = "https://delfin-projekt-default-rtdb.europe-west1.fireba
 
 async function getData() {
   // henter data og omdanner til objekter
-  const membersFromDatabase = await fetch(`${dolphinDatabase} / members.json`);
+  const membersFromDatabase = await fetch(`${dolphinDatabase}/members.json`);
   const fetchedMembers = await membersFromDatabase.json();
 
   // sætter members objekter ind i et array
-  const membersToArray = prepareData(fetchedMembers);
+  // const membersToArray = prepareData(fetchedMembers);
+  // return membersToArray;
 
-  return membersToArray;
+  // Busters note: Vi kan vel bare returne med det samme, vi bruger vist ikke memeberstoarray til andet?:
+  return prepareData(fetchedMembers);
 }
 
-function prepareData() {}
+function prepareData(listOfObjects) {
+  const arrayFromFirebaseObject = [];
+  for (const object in listOfObjects) {
+    const member = listOfObjects[object];
+    member.id = object;
+    arrayFromFirebaseObject.push(member);
+  }
+  return arrayFromFirebaseObject;
+}
 
 async function createNewMember(name, bday, phonenumber, adress, gender, email, active, competetive, crawl, butterfly, backCrawl, breaststroke, trid) {
   const newMember = {
