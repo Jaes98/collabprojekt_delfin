@@ -74,3 +74,6 @@ function deleteMember() {}
 function restSuccess() {}
 
 function restFail() {}
+
+
+export {updateMemberPUT}
