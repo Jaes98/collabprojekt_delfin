@@ -4,7 +4,7 @@ const dolphinDatabase = "https://delfin-projekt-default-rtdb.europe-west1.fireba
 
 async function getData() {
   // henter data og omdanner til objekter
-  const membersFromDatabase = await fetch("https://delfin-projekt-default-rtdb.europe-west1.firebasedatabase.app/members.json");
+  const membersFromDatabase = await fetch(`${dolphinDatabase} / members.json`);
   const fetchedMembers = await membersFromDatabase.json();
 
   // sætter members objekter ind i et array
@@ -15,7 +15,7 @@ async function getData() {
 
 function prepareData() {}
 
-async function createNewMember(member) {
+async function createNewMember(name, bday, phonenumber, adress, gender, email, active, competetive, crawl, butterfly, backCrawl, breaststroke, trid) {
   const newMember = {
     name,
     bday,
@@ -50,8 +50,6 @@ async function createNewMember(member) {
 function updateMember() {}
 
 function deleteMember() {}
-
-
 
 function restSuccess() {}
 
