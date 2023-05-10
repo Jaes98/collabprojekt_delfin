@@ -59,134 +59,74 @@
     <h2>Medlemmer</h2>
     <section id="members-formand" class="member-container"></section> -->
 
-  <dialog id="dialog-create-member">
-    <h2>Tilføj nyt medlem</h2>
-    <form id="form-create-member">
-      <label for="name">Navn:</label>
-      <input id="name" type="text" name="name" placeholder="Skriv det fulde navn" required />
-      <label for="age">Fødselsdag:</label>
-      <input id="age" type="text" name="age" placeholder="åååå-mm-dd" required />
-      <label for="phonenumber">Tlf. Nummer:</label>
-      <input id="phonenumber" type="text" name="phonenumber" placeholder="+45xxxxxxxx" required />
-      <label for="adress">Adresse:</label>
-      <input id="adress" type="text" name="adress" placeholder="Adresse" required />
-      <label for="email">Email:</label>
-      <input id="email" type="email" name="email" placeholder="noget@domæne.dk" required />
-      <label for="gender">Vælg køn:</label>
-      <select name="gender" id="gender" autocomplete="off">
-        <option value=""></option>
-        <option value="Male">Mand</option>
-        <option value="Female">Dame</option>
-        <option value="Other">Andet</option>
-      </select>
 
-      <label for="active">Vælg medlemskab:</label>
-      <select name="active" id="active" autocomplete="off" required>
-        <option value=""></option>
-        <option value="true">Aktiv</option>
-        <option value="false">Passiv</option>
-      </select>
-      <label for="competetive">Vælg aktivitetsform</label>
-      <select name="competetive" id="competetive" autocomplete="off" required>
-        <option value=""></option>
-        <option value="true">Konkurrence</option>
-        <option value="false">Fritid</option>
-      </select>
-      <label>Vælg disciplin(er):</label>
-      <br>
-      <label>
-        <input type="checkbox" name="crawl" value="crawl">
-        Crawl
-      </label>
-      <label>
-        <input type="checkbox" name="backCrawl" value="backCrawl">
-        Rygcrawl
-      </label>
-      <label>
-        <input type="checkbox" name="butterfly" value="butterfly">
-        Butterfly
-      </label>
-      <label>
-        <input type="checkbox" name="breaststroke" value="breaststroke">
-        Brystsvømning
-      </label>
-      <input type="submit" class="float buttonAni" id="btn-submit" value="Tilføj medlem" />
-      <input type="button" class="float buttonAni" id="btn-no-create" value="Annullér" />
-    </form>
-  </dialog>
-  </section>
+
   <section class="page-view" id="log-in">1</section>
-  <section class="page-view" id="formand">2</section>
+  <section class="page-view" id="formand">
+
+
+
+
+    <button id="formand-update-button">Opdater medlem</button>
+    <dialog id="formand-update-dialog">
+      <form id="formand-update-form">
+        <field class="form-text">
+          <label for="formand-update-name">Navn</label>
+          <input type="text" id="formand-update-name" name="name" placeholder="Fulde navn" />
+        </field>
+        <field class="form-text">
+          <label for="formand-update-bday">Fødselsdag</label>
+          <input type="text" id="formand-update-bday" name="bday" placeholder="åååå-mm-dd" />
+        </field>
+        <field class="form-text">
+          <label for="formand-update-phone">Tlf.</label>
+          <input type="text" id="formand-update-phone" name="phone" />
+        </field>
+        <field class="form-text">
+          <label for="formand-update-email">Email</label>
+          <input type="text" id="formand-update-email" name="email" />
+        </field>
+        <field class="form-text">
+          <label for="formand-update-adress">Adresse</label>
+          <input type="text" id="formand-update-adress" name="adress" />
+        </field>
+        <field class="form-button">
+          <p>Køn:</p>
+          <label for="formand-update-gender-male">Mand</label>
+          <input type="radio" id="formand-update-gender-male" name="gender" value="false" />
+          <label for="formand-update-gender-female">Kvinde</label>
+          <input type="radio" id="formand-update-gender-female" name="gender" value="true" />
+        </field>
+        <field class="form-button">
+          <p>Aktivitetsstatus</p>
+          <label for="formand-update-active-yes">Aktiv</label>
+          <input type="radio" id="formand-update-active-yes" name="activity" value="true" />
+          <label for="formand-update-active-no">Passiv</label>
+          <input type="radio" id="formand-update-active-no" name="activity" value="false" />
+        </field>
+        <field class="form-button">
+          <p>Konkurrencesvømmer:</p>
+          <label for="formand-update-competetive-no">Nej?</label>
+          <input type="radio" id="formand-update-competetive-no" name="comp" value="false" />
+          <label for="formand-update-competetive-yes">Ja?</label>
+          <input type="radio" id="formand-update-competetive-yes" name="comp" value="true" />
+        </field>
+        <label for="formand-update-crawl">Crawl</label>
+        <input type="checkbox" id="formand-update-crawl" name="crawl" />
+        <label for="formand-update-butterfly">Butterfly</label>
+        <input type="checkbox" id="formand-update-butterfly" name="butterfly" />
+        <label for="formand-update-back-crawl">Rygsvømning</label>
+        <input type="checkbox" id="formand-update-back-crawl" name="backCrawl" />
+        <label for="formand-update-breat-stroke">Brystsvømning</label>
+        <input type="checkbox" id="formand-update-breast-stroke" name="breastStroke" />
+        <label for="formand-update-breat-trid">Træner</label>
+        <input type="text" id="formand-update-trid" />
+        <input type="submit" id="formand-update-submit" class="submit" value="Opdater medlem" />
+      </form>
+    </dialog>
+  </section>
   <section class="page-view" id="kasserer">3</section>
   <section class="page-view" id="trainer">4</section>
-</body>
-<script src="./js/script.js" type="module"></script>
-
-</html>
-
-<section class="page-view" id="log-in">1</section>
-<section class="page-view" id="formand">
-
-  <button id="formand-update-button">Opdater medlem</button>
-  <dialog id="formand-update-dialog">
-    <form id="formand-update-form">
-      <field class="form-text">
-        <label for="formand-update-name">Navn</label>
-        <input type="text" id="formand-update-name" name="name" placeholder="Fulde navn" />
-      </field>
-      <field class="form-text">
-        <label for="formand-update-bday">Fødselsdag</label>
-        <input type="text" id="formand-update-bday" name="bday" placeholder="åååå-mm-dd" />
-      </field>
-      <field class="form-text">
-        <label for="formand-update-phone">Tlf.</label>
-        <input type="text" id="formand-update-phone" name="phone" />
-      </field>
-      <field class="form-text">
-        <label for="formand-update-email">Email</label>
-        <input type="text" id="formand-update-email" name="email" />
-      </field>
-      <field class="form-text">
-        <label for="formand-update-adress">Adresse</label>
-        <input type="text" id="formand-update-adress" name="adress" />
-      </field>
-      <field class="form-button">
-        <p>Køn:</p>
-        <label for="formand-update-gender-male">Mand</label>
-        <input type="radio" id="formand-update-gender-male" name="gender" value="false" />
-        <label for="formand-update-gender-female">Kvinde</label>
-        <input type="radio" id="formand-update-gender-female" name="gender" value="true" />
-      </field>
-      <field class="form-button">
-        <p>Aktivitetsstatus</p>
-        <label for="formand-update-active-yes">Aktiv</label>
-        <input type="radio" id="formand-update-active-yes" name="activity" value="true" />
-        <label for="formand-update-active-no">Passiv</label>
-        <input type="radio" id="formand-update-active-no" name="activity" value="false" />
-      </field>
-      <field class="form-button">
-        <p>Konkurrencesvømmer:</p>
-        <label for="formand-update-competetive-no">Nej?</label>
-        <input type="radio" id="formand-update-competetive-no" name="comp" value="false" />
-        <label for="formand-update-competetive-yes">Ja?</label>
-        <input type="radio" id="formand-update-competetive-yes" name="comp" value="true" />
-      </field>
-      <label for="formand-update-crawl">Crawl</label>
-      <input type="checkbox" id="formand-update-crawl" name="crawl" />
-      <label for="formand-update-butterfly">Butterfly</label>
-      <input type="checkbox" id="formand-update-butterfly" name="butterfly" />
-      <label for="formand-update-back-crawl">Rygsvømning</label>
-      <input type="checkbox" id="formand-update-back-crawl" name="backCrawl" />
-      <label for="formand-update-breat-stroke">Brystsvømning</label>
-      <input type="checkbox" id="formand-update-breast-stroke" name="breastStroke" />
-      <label for="formand-update-breat-trid">Træner</label>
-      <input type="text" id="formand-update-trid" />
-      <input type="submit" id="formand-update-submit" class="submit" value="Opdater medlem" />
-    </form>
-  </dialog>
-</section>
-<section class="page-view" id="kasserer">3</section>
-<section class="page-view" id="trainer">4</section>
 </body>
 <script src="./js/script.js" type="module"></script>
 
