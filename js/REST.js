@@ -15,7 +15,7 @@ async function getData() {
 
 function prepareData() {}
 
-async function createNewMember(name, bday, phonenumber, adress, gender, email, active, competetive, crawl, butterfly, backCrawl, breaststroke, trid) {
+async function createNewMember(newMember) {
   const newMember = {
     name,
     bday,

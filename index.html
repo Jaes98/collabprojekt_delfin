@@ -60,10 +60,41 @@
       <dialog id="dialog-create-member">
         <h2>Tilføj nyt medlem</h2>
         <form id="form-create-member">
-          <label for="name">Navn</label>
+          <label for="name">Navn:</label>
           <input id="name" type="text" name="name" placeholder="Skriv det fulde navn" required />
-          <label for="age">Fødselsdag</label>
+          <label for="age">Fødselsdag:</label>
           <input id="age" type="text" name="age" placeholder="åååå-mm-dd" required />
+          <label for="phonenumber">Tlf. Nummer:</label>
+          <input id="phonenumber" type="text" name="phonenumber" placeholder="+45xxxxxxxx" required />
+          <label for="adress">Adresse:</label>
+          <input id="adress" type="text" name="adress" placeholder="Adresse" required />
+          <select name="gender" id="gender" autocomplete="off" required>
+            <option value="">Vælg køn:</option>
+            <option value="Male">Mand</option>
+            <option value="Female">Dame</option>
+            <option value="Other">Andet</option>
+          </select>
+          <label for="email">Email:</label>
+          <input id="email" type="email" name="email" placeholder="noget@domæne.dk" required />
+          <select name="active" id="active" autocomplete="off" required>
+            <option value="">Vælg medlemskab:</option>
+            <option value="true">Aktiv</option>
+            <option value="false">Passiv</option>
+          </select>
+          <select name="competetive" id="competetive" autocomplete="off" required>
+            <option value="">Vælg aktivitetsform:</option>
+            <option value="true">Konkurrence</option>
+            <option value="false">Fritid</option>
+          </select>
+          <select name="discipline" id="discipline" autocomplete="off" required>
+            <option value="">Vælg disciplin:</option>
+            <option value="crawl">Crawl</option>
+            <option value="backCrawl">Rygcrawl</option>
+            <option value="butterfly">Butterfly</option>
+            <option value="breaststroke">Brystsvømning</option>
+          </select>
+          <input type="submit" class="float buttonAni" id="btn-submit" value="Tilføj medlem" />
+          <input type="button" class="float buttonAni" id="btn-no-create" value="Annullér" />
         </form>
       </dialog>
     </section>
