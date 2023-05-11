@@ -214,3 +214,12 @@ justify-content: center;
 text-align: center;
 gap: 10px;
 }
+
+
+
+/* TABLE STUFF */
+
+table,td,th,tr{
+  border: 2px solid black;
+  margin: 2em;
+}

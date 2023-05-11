@@ -6,7 +6,8 @@ body {
 
 table{
   border: 3px solid black;
-  gap:2px
+  width: 100%;
+  /* gap:2px */
 }
 
 tr{
@@ -15,4 +16,13 @@ tr{
 
 td{
   border: 2px solid black;
+  text-align: right;
+}
+
+th{
+  border: 1px solid black;
+}
+
+#testtest{
+  width: 100%;
 }
