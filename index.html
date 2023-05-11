@@ -50,6 +50,7 @@
         <p><b>Deltagere fra klubben:</b> Peter, Rasmus, Oskar</p>
         <!-- https://www.svoem.org/Aktuelt/Kalender/?vis=&type=Svoemning&fritekst=S%C3%B8getekst&postnr=Postnr.+fra&postnrtil=Postnr.+til&dagfra=9&maanedfra=5&aarfra=2023&dagtil=1&maanedtil=5&aartil=2024#result -->
       </article>
+
       <footer>
         <h4>Made by: CodeQuest</h4>
       </footer>
@@ -60,7 +61,24 @@
     </section>
     <section class="page-view" id="log-in">1</section>
     <section class="page-view active" id="formand">
+      <table>
+        <thead>
+          <tr>
+            <th>Navn</th>
+            <th>Aldersgruppe</th>
+            <th>Medlemsskab</th>
+            <th>Motionist/konkurrence</th>
+            <th>Se detaljer</th>
+          </tr>
+        </thead>
+        <tbody id="formand-table-body">
+          <tr></tr>
+        </tbody>
+      </table>
+
       <button id="btn-formand-create">Tilføj medlem</button>
+
+      <dialog id="show-member-modal"></dialog>
 
       <dialog id="dialog-create-member">
         <h2>Tilføj nyt medlem</h2>
@@ -130,7 +148,7 @@
           </field>
           <field class="form-text">
             <label for="formand-update-phone">Tlf.</label>
-            <input type="text" id="formand-update-phone" name="phone" />
+            <input type="text" id="formand-update-phone" name="phonenumber" />
           </field>
           <field class="form-text">
             <label for="formand-update-email">Email</label>
@@ -168,7 +186,7 @@
           <label for="formand-update-back-crawl">Rygsvømning</label>
           <input type="checkbox" id="formand-update-back-crawl" name="backCrawl" />
           <label for="formand-update-breat-stroke">Brystsvømning</label>
-          <input type="checkbox" id="formand-update-breast-stroke" name="breastStroke" />
+          <input type="checkbox" id="formand-update-breaststroke" name="breaststroke" />
           <label for="formand-update-breat-trid">Træner</label>
           <input type="text" id="formand-update-trid" />
           <input type="submit" id="formand-update-submit" class="submit" value="Opdater medlem" />
