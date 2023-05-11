@@ -173,10 +173,12 @@ dialog{
 
 form{
 color: rgb(205, 177, 50);
-display: grid;
+margin: 1.2em;
+padding:1em;
+/* display: grid; */
 grid-template-rows: 1fr 1fr;
 grid-template-columns: 1fr 1fr;
-width: 50vw;
+
 gap: 2px;
 font-size: 20px;
 
