@@ -11,7 +11,9 @@ function start() {
 
   document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
-  document.querySelector("#form-delete-character").addEventListener("submit", deleteMemberYes);
+  document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
+  document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close()
+    );
 }
 
 function showMembers() {}
