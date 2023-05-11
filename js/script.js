@@ -1,7 +1,7 @@
 "use strict";
 
 import { viewControl } from "./SPA.js";
-import { updateMemberPUT } from "./REST.js";
+import { updateMemberPUT, deleteMember } from "./REST.js";
 
 window.addEventListener("load", start);
 
@@ -11,6 +11,7 @@ function start() {
 
   document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
+  document.querySelector("#form-delete-character").addEventListener("submit", deleteMemberYes);
 }
 
 function showMembers() {}
@@ -63,4 +64,25 @@ function updateMember(event) {
 
   // updateMemberPUT(updatedMember)
    document.querySelector("#formand-update-dialog").close();
+}
+
+
+function deleteClickedOpenModal(character) {
+  document.querySelector("#dialog-delete-character-title").textContent =
+    character.name;
+  document
+    .querySelector("#form-delete-character")
+    .setAttribute("data-id", character.id);
+  document.querySelector("#show-character-modal").close();
+  document.querySelector("#dialog-delete-character").showModal();
+}
+
+async function deleteMemberYes(event) {
+  const id = event.target.getAttribute("data-id");
+  const response = await deletePost(id);
+  console.log("!Deletion!");
+  if (response.ok) {
+    console.log(`svømmer ${id} slettet`);
+    getUpdatedFirebase();
+  }
 }
