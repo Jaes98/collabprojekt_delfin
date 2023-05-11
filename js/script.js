@@ -1,7 +1,7 @@
 "use strict";
 
 import { viewControl } from "./SPA.js";
-import { updateMemberPUT } from "./REST.js";
+import { updateMemberPUT, createdMember } from "./REST.js";
 
 window.addEventListener("load", start);
 
@@ -9,6 +9,9 @@ function start() {
   console.log("start:");
   viewControl();
 
+  document.querySelector("#btn-formand-create").addEventListener("click", createMemberClicked);
+  document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
+  document.querySelector("#btn-no-create").addEventListener("click", cancelCreate);
   document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
 }
@@ -17,8 +20,36 @@ function showMembers() {}
 
 function showMember() {}
 
+function createMemberClicked() {
+  console.log("createMemberClicked");
+  document.querySelector("#dialog-create-member").showModal();
+}
+
+function createNewMember(event) {
+  console.log("createNewMember");
+  event.preventDefault();
+  let form = event.target;
+
+  const newMember = {
+    name: form.name.value,
+    bday: form.bday.value,
+    phonenumber: form.phonenumber.value,
+    email: form.email.value,
+    adress: form.adress.value,
+    gender: form.gender.value,
+    active: form.active.value,
+    competetive: form.competetive.value,
+    crawl: form.crawl.value,
+    butterfly: form.butterfly.value,
+    backCrawl: form.backCrawl.value,
+    breastStroke: form.breaststroke.value,
+  };
+  console.log(newMember);
+  createdMember(newMember);
+}
+
 function updateMemberClicked(params) {
-  const updateForm = document.querySelector("#formand-update-dialog")
+  const updateForm = document.querySelector("#formand-update-dialog");
 
     // updateForm.name.value = member.name;
     // updateForm.bday.value = member.bday;
@@ -62,5 +93,9 @@ function updateMember(event) {
   console.log("updatedmember", updatedMember);
 
   // updateMemberPUT(updatedMember)
-   document.querySelector("#formand-update-dialog").close();
+  document.querySelector("#formand-update-dialog").close();
+}
+
+function cancelCreate() {
+  document.querySelector("#dialog-create-member").close();
 }
