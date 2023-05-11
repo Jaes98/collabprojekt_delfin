@@ -4,3 +4,15 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+table{
+  border: 3px solid black;
+  gap:2px
+}
+
+tr{
+  border: 2px solid black;
+}
+
+td{
+  border: 2px solid black;
+}
