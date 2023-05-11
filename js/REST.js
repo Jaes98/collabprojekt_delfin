@@ -93,4 +93,4 @@ function restSuccess() {}
 
 function restFail() {}
 
-export { updateMemberPUT, createdMember, deleteMember };
+export { updateMemberPUT, createdMember, deleteMember, getMembers };

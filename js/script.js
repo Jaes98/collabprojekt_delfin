@@ -1,7 +1,7 @@
 "use strict";
 
 import { viewControl } from "./SPA.js";
-import { updateMemberPUT, createdMember, deleteMember } from "./REST.js";
+import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
 
 window.addEventListener("load", start);
 
@@ -16,6 +16,8 @@ function start() {
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
+
+  getUpdatedFirebase();
 }
 
 function showMembers(array) {
@@ -33,10 +35,12 @@ function showMember(member) {
       <td>${member.bday}</td>
       <td>${member.active}</td>
       <td>${member.competetive}</td>
-      <button class="buttonAni" id="memberShowMore">Se mere</button>
+      <td>
+        <button class="buttonAni" id="memberShowMore">Se mere</button>
+      </td>
     </tr>
   `;
-  document.querySelector("#formand-table-body").insertAdjacentHTML(beforeend, html);
+  document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
   document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
 }
 
@@ -61,12 +65,12 @@ function showMemberModal(member) {
   </div>
   </article>
   `;
+  document.querySelector("#show-member-modal").innerHTML = html;
+  document.querySelector("#show-member-modal").showModal();
+
   document.querySelector("#btn-close-modal").addEventListener("click", () => document.querySelector("#show-member-modal").close());
   document.querySelector("#btn-update-member").addEventListener("click", () => updateMemberClicked(member));
   document.querySelector("#btn-delete-member").addEventListener("click", () => deleteClickedOpenModal(member));
-
-  document.querySelector("#show-member-modal").innerHTML = html;
-  document.querySelector("#show-member-modal").showModal();
 }
 
 function createNewMember(event) {
@@ -95,20 +99,20 @@ function createNewMember(event) {
 function updateMemberClicked(params) {
   const updateForm = document.querySelector("#formand-update-dialog");
 
-    // updateForm.name.value = member.name;
-    // updateForm.bday.value = member.bday;
-    // updateForm.phone.value = member.phonenumber;
-    // updateForm.email.value = member.email;
-    // updateForm.adress.value = member.adress;
-    // updateForm.gender.value = member.gender;
-    // updateForm.activity.value = member.activity;
-    // updateForm.comp.value = member.comp;
-    // updateForm.crawl.value = member.crawl;
-    // updateForm.butterfly.value = member.butterfly;
-    // updateForm.backCrawl.value = member.backCrawl;
-    // updateForm.breaststroke.value = member.breaststroke;
-    // updateForm.setAttribute("data-id", member.id);
-    document.querySelector("#formand-update-dialog").showModal()
+  // updateForm.name.value = member.name;
+  // updateForm.bday.value = member.bday;
+  // updateForm.phone.value = member.phonenumber;
+  // updateForm.email.value = member.email;
+  // updateForm.adress.value = member.adress;
+  // updateForm.gender.value = member.gender;
+  // updateForm.activity.value = member.activity;
+  // updateForm.comp.value = member.comp;
+  // updateForm.crawl.value = member.crawl;
+  // updateForm.butterfly.value = member.butterfly;
+  // updateForm.backCrawl.value = member.backCrawl;
+  // updateForm.breaststroke.value = member.breaststroke;
+  // updateForm.setAttribute("data-id", member.id);
+  document.querySelector("#formand-update-dialog").showModal();
 }
 
 function updateMember(event) {
@@ -132,7 +136,7 @@ function updateMember(event) {
     crawl: form.crawl.value,
     butterfly: form.butterfly.value,
     backCrawl: form.backCrawl.value,
-    breaststroke: form.breaststroke.value
+    breaststroke: form.breaststroke.value,
   };
   console.log("updatedmember", updatedMember);
 
@@ -155,4 +159,10 @@ async function deleteMemberYes(event) {
     console.log(`svømmer ${id} slettet`);
     // indsæt "getUpdatedFirebase" tilsvarende funktion
   }
+}
+
+async function getUpdatedFirebase(params) {
+  const result = await getMembers();
+
+  showMembers(result);
 }
