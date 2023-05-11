@@ -72,7 +72,7 @@ function updateMember(event) {
 function deleteClickedOpenModal(member) {
   document.querySelector("#dialog-delete-member-name").textContent = member.name;
   document.querySelector("#form-delete-member").setAttribute("data-id", member.id);
-  //document.querySelector("#show-member-modal").close();
+  // Måske skal vi bruge en close ? document.querySelector("#show-xxx-xxx").close();
   document.querySelector("#dialog-delete-member").showModal();
 }
 
