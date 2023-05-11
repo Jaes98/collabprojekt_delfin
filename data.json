@@ -179,7 +179,8 @@
       "rygcrawl": true,
       "brystsvømning": false,
       "trid": ""
-    },
+    }
+  },  
   "results": {
     "idErNoget": {
       "competition": true,
@@ -311,5 +312,5 @@
       "name": "Line Frederiksen"
     }
   }
-}
+
 }
