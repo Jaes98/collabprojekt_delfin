@@ -29,7 +29,7 @@ async function createdMember(newMember) {
   console.log("createdMember");
   const json = JSON.stringify(newMember);
 
-  const response = await fetch(`${dolphinDatabase}/members`, {
+  const response = await fetch(`${dolphinDatabase}/members.json`, {
     method: "POST",
     body: json,
   });

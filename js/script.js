@@ -10,7 +10,7 @@ function start() {
   viewControl();
 
   document.querySelector("#btn-formand-create").addEventListener("click", createMemberClicked);
-  document.querySelector("#btn-submit-create").addEventListener("submit", createNewMember);
+  document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
   document.querySelector("#btn-no-create").addEventListener("click", cancelCreate);
   document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
@@ -33,16 +33,16 @@ function createNewMember(event) {
   const newMember = {
     name: form.name.value,
     bday: form.bday.value,
-    phone: form.phone.value,
+    phonenumber: form.phonenumber.value,
     email: form.email.value,
     adress: form.adress.value,
     gender: form.gender.value,
-    activity: form.activity.value,
+    active: form.active.value,
     competetive: form.competetive.value,
     crawl: form.crawl.value,
     butterfly: form.butterfly.value,
     backCrawl: form.backCrawl.value,
-    breastStroke: form.breastStroke.value,
+    breastStroke: form.breaststroke.value,
   };
   console.log(newMember);
   createdMember(newMember);
