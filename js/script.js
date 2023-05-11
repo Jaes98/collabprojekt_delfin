@@ -166,3 +166,32 @@ async function getUpdatedFirebase(params) {
 
   showMembers(result);
 }
+
+function sortByX() {
+  //   let filteredListToSort = searchedList.slice(); --- fix hvilket array der skal sorteres på
+  let valueToSortBy = document.querySelector("#sort").value;
+
+  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showCharactersAll
+  if (valueToSortBy === "age") {
+    showMembers(filteredListToSort.sort(compareNumber));
+  } else if (valueToSortBy === "default") {
+    showMembers(searchedList);
+  } else {
+    showMembers(filteredListToSort.sort(compareString));
+  }
+
+  function compareString(member1, member2) {
+    return member1[valueToSortBy].localeCompare(member2[valueToSortBy]);
+  }
+
+  function compareNumber(member1, member2) {
+    let first = member1.age;
+    let second = member2.age;
+    if (first === "Unknown") {
+      first = 99999999;
+    } else if (second === "Unknown") {
+      second = 99999999;
+    }
+    return first - second;
+  }
+}
