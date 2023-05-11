@@ -50,7 +50,7 @@
         <p><b>Deltagere fra klubben:</b> Peter, Rasmus, Oskar</p>
         <!-- https://www.svoem.org/Aktuelt/Kalender/?vis=&type=Svoemning&fritekst=S%C3%B8getekst&postnr=Postnr.+fra&postnrtil=Postnr.+til&dagfra=9&maanedfra=5&aarfra=2023&dagtil=1&maanedtil=5&aartil=2024#result -->
       </article>
-      
+
       <footer>
         <h4>Made by: CodeQuest</h4>
       </footer>
@@ -62,6 +62,8 @@
     <section class="page-view" id="log-in">1</section>
     <section class="page-view active" id="formand">
       <button id="btn-formand-create">Tilføj medlem</button>
+
+      <dialog id="show-member-modal"></dialog>
 
       <dialog id="dialog-create-member">
         <h2>Tilføj nyt medlem</h2>
@@ -180,21 +182,10 @@
         <h2>Vil du slette dette medlem?</h2>
         <p id="dialog-delete-member-name">navn på medlem</p>
         <form method="dialog" id="form-delete-member">
-          <input
-            type="button"
-            value="Fortryd"
-            class="btn-cancel"
-            id="btn-no-delete"
-          />
-          <input
-            type="submit"
-            value="Bekræft"
-            id="btn-yes-delete"
-          />
+          <input type="button" value="Fortryd" class="btn-cancel" id="btn-no-delete" />
+          <input type="submit" value="Bekræft" id="btn-yes-delete" />
         </form>
       </dialog>
-
-
     </section>
     <section class="page-view" id="kasserer">3</section>
     <section class="page-view" id="trainer">4</section>
