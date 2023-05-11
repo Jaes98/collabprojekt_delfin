@@ -29,8 +29,158 @@
       "backCrawl": false,
       "breaststroke": false,
       "trid": ""
+    },
+    "-dhyf2-hfghh56ggfg": {
+    "name": "Lars Petersen",
+    "bday": "1999-05-21",
+    "phonenumber": "+4521122334",
+    "adress": "Røddingvej 7, 4760, Vordingborg",
+    "gender": "male",
+    "email": "larspetersen@mail.dk",
+    "active": true,
+    "competetive": true,
+    "crawl": true,
+    "butterfly": false,
+    "backCrawl": true,
+    "breaststroke": false,
+    "trid": "seniorCoach"
+    },
+    "-sdfh4-ksdhf83hsf": {
+    "name": "Mette Jensen",
+    "bday": "2003-07-17",
+    "phonenumber": "+4554321122",
+    "adress": "Ryttermarken 13, 9000, Aalborg",
+    "gender": "female",
+    "email": "mettejensen@mail.dk",
+    "active": true,
+    "competetive": true,
+    "crawl": true,
+    "butterfly": true,
+    "backCrawl": false,
+    "breaststroke": true,
+    "trid": "juniorCoach"
+    },
+    "-ssdc2-kjnjg67mkj": {
+    "name": "Anders Pedersen",
+    "bday": "2005-03-11",
+    "phonenumber": "+4523456789",
+    "adress": "Møllevangen 19, 2800, Kongens Lyngby",
+    "gender": "male",
+    "email": "anderspedersen@mail.dk",
+    "active": true,
+    "competetive": false,
+    "crawl": false,
+    "butterfly": false,
+    "backCrawl": true,
+    "breaststroke": true,
+    "trid": "juniorCoach"
+    },
+    "-kqas3-wdgsf89dsf": {
+    "name": "Sofie Nielsen",
+    "bday": "2008-11-01",
+    "phonenumber": "+4522223334",
+    "adress": "Jernbanevej 5, 3400, Hillerød",
+    "gender": "female",
+    "email": "sofniesofie@mail.dk",
+    "active": true,
+    "competetive": true,
+    "crawl": true,
+    "butterfly": false,
+    "backCrawl": true,
+    "breaststroke": false,
+    "trid": ""
+    },
+    "-zxca8-sfgv98sfgb": {
+    "name": "Niels Larsen",
+    "bday": "2001-02-25",
+    "phonenumber": "+4567890123",
+    "adress": "Østerbrogade 15, 2100, København Ø",
+    "gender": "male",
+    "email": "nielslarsen@mail.dk",
+    "active": true,
+    "competetive": false,
+    "crawl": true,
+    "butterfly": false,
+    "backCrawl": false,
+    "breaststroke": true,
+    "trid": ""
+    }, 
+    "-ghdsk-sdljdsj1": {
+      "navn": "Mads Nielsen",
+      "fødselsdag": "1993-06-22",
+      "telefonnummer": "+4522456987",
+      "adresse": "Østergade 12, 5000 Odense",
+      "køn": "mand",
+      "email": "madsnielsen@mail.com",
+      "aktiv": true,
+      "konkurrence": true,
+      "crawl": true,
+      "butterfly": false,
+      "rygcrawl": true,
+      "brystsvømning": true,
+      "trid": ""
+    },
+    "-ghdsk-sdljdsj2": {
+      "navn": "Anna Larsen",
+      "fødselsdag": "2001-03-15",
+      "telefonnummer": "+4521234567",
+      "adresse": "Nørrebrogade 56, 2200 København",
+      "køn": "kvinde",
+      "email": "annalarsen@mail.com",
+      "aktiv": true,
+      "konkurrence": false,
+      "crawl": true,
+      "butterfly": true,
+      "rygcrawl": false,
+      "brystsvømning": true,
+      "trid": ""
+    },
+    "-ghdsk-sdljdsj3": {
+      "navn": "Simon Pedersen",
+      "fødselsdag": "1988-12-01",
+      "telefonnummer": "+4522345678",
+      "adresse": "Bredgade 23, 8000 Aarhus",
+      "køn": "mand",
+      "email": "simonpedersen@mail.com",
+      "aktiv": false,
+      "konkurrence": false,
+      "crawl": false,
+      "butterfly": false,
+      "rygcrawl": false,
+      "brystsvømning": false,
+      "trid": ""
+    },
+    "-ghdsk-sdljdsj4": {
+      "navn": "Ida Jensen",
+      "fødselsdag": "2004-09-18",
+      "telefonnummer": "+4523456789",
+      "adresse": "Søndergade 7, 7100 Vejle",
+      "køn": "kvinde",
+      "email": "idajensen@mail.com",
+      "aktiv": true,
+      "konkurrence": true,
+      "crawl": true,
+      "butterfly": false,
+      "rygcrawl": true,
+      "brystsvømning": true,
+      "trid": ""
+    },
+    "-ghdsk-sdljdsj5": {
+      "navn": "Anders Petersen",
+      "fødselsdag": "1996-01-10",
+      "telefonnummer": "+4524567890",
+      "adresse": "Vesterbrogade 45, 1620 København",
+      "køn": "mand",
+      "email": "anderspetersen@mail.com",
+      "aktiv": true,
+      "konkurrence": true,
+      "crawl": true,
+      "butterfly": true,
+      "rygcrawl": true,
+      "brystsvømning": false,
+      "trid": ""
     }
-  },
+  },  
   "results": {
     "idErNoget": {
       "competition": true,
@@ -51,6 +201,106 @@
       "placement": "",
       "time": 203,
       "uid": "-ghtf1-gggfgfgfgfgf"
+    },
+    "id123": {
+      "competition": true,
+      "discipline": "butterfly",
+      "date": "2023-03-09",
+      "compName": "DM i svømning",
+      "location": "Køge svømmehal",
+      "placement": 2,
+      "time": 63.4,
+      "uid": "-ghtf1-gggfgfgfgfgf"
+    },
+    "id456": {
+      "competition": true,
+      "discipline": "rygcrawl",
+      "date": "2023-04-08",
+      "compName": "Forårsstævne",
+      "location": "Roskilde svømmecenter",
+      "placement": 1,
+      "time": 124.5,
+      "uid": "-ghtf1-gggfgfgfgfgf2"
+    },
+    "id789": {
+      "competition": true,
+      "discipline": "brystsvømning",
+      "date": "2023-08-10",
+      "compName": "Sommerstævne",
+      "location": "Odense Idrætspark",
+      "placement": 3,
+      "time": 162.3,
+      "uid": "-ghtf1-gggfgfgfgfgf3"
+    },
+    "id1011": {
+      "competition": false,
+      "discipline": "crawl",
+      "date": "2023-05-11",
+      "compName": "",
+      "location": "",
+      "placement": "",
+      "time": 185,
+      "uid": "-ghtf1-gggfgfgfgfgf4"
+    },
+    "id1213": {
+      "competition": true,
+      "discipline": "butterfly",
+      "date": "2023-11-07",
+      "compName": "Vinterstævne",
+      "location": "Esbjerg Svømmestadion",
+      "placement": 5,
+      "time": 70.1,
+      "uid": "-ghtf1-gggfgfgfgfgf5"
+    },
+    "id1415": {
+      "competition": true,
+      "discipline": "rygcrawl",
+      "date": "2023-06-11",
+      "compName": "Høststævne",
+      "location": "Frederiksberg svømmehal",
+      "placement": 4,
+      "time": 95.8,
+      "uid": "-ghtf1-gggfgfgfgfgf6"
+    },
+    "id1617": {
+      "competition": false,
+      "discipline": "brystsvømning",
+      "date": "2023-05-09",
+      "compName": "",
+      "location": "",
+      "placement": "",
+      "time": 194,
+      "uid": "-ghtf1-gggfgfgfgfgf3"
+    },
+    "id1819": {
+      "competition": true,
+      "discipline": "butterfly",
+      "date": "2023-12-10",
+      "compName": "Jule Stævne",
+      "location": "Aarhus Svømmestadion",
+      "placement": 1,
+      "time": 58.9,
+      "uid": "-ghtf1-gggfgfgfgfgf2"
+    },
+    "id2021": {
+      "competition": true,
+      "discipline": "crawl",
+      "date": "2023-05-07",
+      "compName": "Vandpolo Cup",
+      "location": "Helsingør svømmehal",
+      "placement": 3,
+      "time": 150.2,
+      "uid": "-ghtf1-gggfgfgfgfgf4"
+    },
+    "id2223": {
+      "competition": true,
+      "discipline": "butterfly",
+      "date": "2023-03-08",
+      "compName": "Påske Stævne",
+      "location": "Aalborg Svømmecenter",
+      "placement": 2,
+      "time": 64.3,
+      "uid": "-ghtf1-gggfgfgfgfgf1"
     }
   },
 
@@ -62,4 +312,5 @@
       "name": "Line Frederiksen"
     }
   }
+
 }

@@ -1,7 +1,7 @@
 "use strict";
 
 import { viewControl } from "./SPA.js";
-import { updateMemberPUT, createdMember } from "./REST.js";
+import { updateMemberPUT, createdMember, deleteMember } from "./REST.js";
 
 window.addEventListener("load", start);
 
@@ -14,6 +14,9 @@ function start() {
   document.querySelector("#btn-no-create").addEventListener("click", cancelCreate);
   document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
+  document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
+  document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close()
+    );
 }
 
 function showMembers() {}
@@ -94,8 +97,4 @@ function updateMember(event) {
 
   // updateMemberPUT(updatedMember)
   document.querySelector("#formand-update-dialog").close();
-}
-
-function cancelCreate() {
-  document.querySelector("#dialog-create-member").close();
 }
