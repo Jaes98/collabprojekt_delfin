@@ -2,7 +2,7 @@
 
 const dolphinDatabase = "https://delfin-projekt-default-rtdb.europe-west1.firebasedatabase.app";
 
-async function getData() {
+async function getMembers() {
   // henter data og omdanner til objekter
   const membersFromDatabase = await fetch(`${dolphinDatabase}/members.json`);
   const fetchedMembers = await membersFromDatabase.json();
@@ -13,6 +13,19 @@ async function getData() {
 
   // Busters note: Vi kan vel bare returne med det samme, vi bruger vist ikke memeberstoarray til andet?:
   return prepareData(fetchedMembers);
+}
+
+async function getResults() {
+  // henter data og omdanner til objekter
+  const resultsFromDatabase = await fetch(`${dolphinDatabase}/results.json`);
+  const fetchedResults = await membersFromDatabase.json();
+
+  // sætter members objekter ind i et array
+  // const membersToArray = prepareData(fetchedMembers);
+  // return membersToArray;
+
+  // Busters note: Vi kan vel bare returne med det samme, vi bruger vist ikke memeberstoarray til andet?:
+  return prepareData(fetchedResults);
 }
 
 function prepareData(listOfObjects) {

@@ -95,20 +95,20 @@ function createNewMember(event) {
 function updateMemberClicked(params) {
   const updateForm = document.querySelector("#formand-update-dialog");
 
-  // updateForm.name.value = member.name;
-  // updateForm.bday.value = member.bday;
-  // updateForm.phone.value = member.phone;
-  // updateForm.email.value = member.email;
-  // updateForm.adress.value = member.adress;
-  // updateForm.gender.value = member.gender;
-  // updateForm.activity.value = member.activity;
-  // updateForm.comp.value = member.comp;
-  // updateForm.crawl.value = member.crawl;
-  // updateForm.butterfly.value = member.butterfly;
-  // updateForm.backCrawl.value = member.backCrawl;
-  // updateForm.breastStroke.value = member.breastStroke;
-  // updateForm.setAttribute("data-id", member.id);
-  document.querySelector("#formand-update-dialog").showModal();
+    // updateForm.name.value = member.name;
+    // updateForm.bday.value = member.bday;
+    // updateForm.phone.value = member.phonenumber;
+    // updateForm.email.value = member.email;
+    // updateForm.adress.value = member.adress;
+    // updateForm.gender.value = member.gender;
+    // updateForm.activity.value = member.activity;
+    // updateForm.comp.value = member.comp;
+    // updateForm.crawl.value = member.crawl;
+    // updateForm.butterfly.value = member.butterfly;
+    // updateForm.backCrawl.value = member.backCrawl;
+    // updateForm.breaststroke.value = member.breaststroke;
+    // updateForm.setAttribute("data-id", member.id);
+    document.querySelector("#formand-update-dialog").showModal()
 }
 
 function updateMember(event) {
@@ -123,7 +123,7 @@ function updateMember(event) {
   const updatedMember = {
     name: form.name.value,
     bday: form.bday.value,
-    phone: form.phone.value,
+    phonenumber: form.phonenumber.value,
     email: form.email.value,
     adress: form.adress.value,
     gender: form.gender.value,
@@ -132,7 +132,7 @@ function updateMember(event) {
     crawl: form.crawl.value,
     butterfly: form.butterfly.value,
     backCrawl: form.backCrawl.value,
-    breastStroke: form.breastStroke.value,
+    breaststroke: form.breaststroke.value
   };
   console.log("updatedmember", updatedMember);
 
