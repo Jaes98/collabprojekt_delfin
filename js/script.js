@@ -22,7 +22,7 @@ function updateMemberClicked(params) {
 
     // updateForm.name.value = member.name;
     // updateForm.bday.value = member.bday;
-    // updateForm.phone.value = member.phone;
+    // updateForm.phone.value = member.phonenumber;
     // updateForm.email.value = member.email;
     // updateForm.adress.value = member.adress;
     // updateForm.gender.value = member.gender;
@@ -31,7 +31,7 @@ function updateMemberClicked(params) {
     // updateForm.crawl.value = member.crawl;
     // updateForm.butterfly.value = member.butterfly;
     // updateForm.backCrawl.value = member.backCrawl;
-    // updateForm.breastStroke.value = member.breastStroke;
+    // updateForm.breaststroke.value = member.breaststroke;
     // updateForm.setAttribute("data-id", member.id);
     document.querySelector("#formand-update-dialog").showModal()
 }
@@ -48,7 +48,7 @@ function updateMember(event) {
   const updatedMember = {
     name: form.name.value,
     bday: form.bday.value,
-    phone: form.phone.value,
+    phonenumber: form.phonenumber.value,
     email: form.email.value,
     adress: form.adress.value,
     gender: form.gender.value,
@@ -57,7 +57,7 @@ function updateMember(event) {
     crawl: form.crawl.value,
     butterfly: form.butterfly.value,
     backCrawl: form.backCrawl.value,
-    breastStroke: form.breastStroke.value
+    breaststroke: form.breaststroke.value
   };
   console.log("updatedmember", updatedMember);
 
