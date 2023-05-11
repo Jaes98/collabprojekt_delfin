@@ -10,27 +10,49 @@ function start() {
 }
 
 function showMembers(array) {
-  document.querySelector(".member-container").innerHTML="";
-  
+  document.querySelector(".member-container").innerHTML = "";
+
   for (const member of array) {
     showMember(member);
   }
-  
-
 }
 
 function showMember(member) {
   const html = /* HTML */ `
-  <article class="member-item">
-  <h3>${member.name}</h3>
-  <p>Alder: ${member.bday}</p>
-  <p>Tlf. Nummer: ${member.phonenumber}</p>
-  <p>Adress: ${member.adress} </p>
-  <p>Køn: ${member.gender}</p>
-  <p>Email: ${member.email}</p>
-  <p>Aktiv: ${member.active}</p>
-  <p>Konkurrence/motionist: ${member.competetive}</p>
-  <p>Trænere-id: ${member.trid} </p>
-  `
+    <tr class="member-item">
+      <td>${member.name}</td>
+      <td>${member.bday}</td>
+      <td>${member.active}</td>
+      <td>${member.competetive}</td>
+      <button class="buttonAni" id="memberShowMore">Se mere</button>
+    </tr>
+  `;
+  document.querySelector("#formand-table-body").insertAdjacentHTML(beforeend, html);
+  document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
+}
 
+function showMemberModal(member) {
+  const html = /*HTML*/ `
+  <article class="modal-item">
+  <h3>${member.name} 
+  <button id="btn-close-modal" class="buttonAni">Tilbage</button>
+  </h3>
+  <p>${member.bday}</p>
+  <p>${member.phonenumber}</p>
+  <p>${member.email}</p>
+  <p>${member.adress}</p>
+  <p>${member.gender}</p>
+  <hr>
+  <h4>Medlemskabs oplysninger:</h4>
+  <p>${member.active}</p>
+  <p>${member.competetive}</p>
+  <div>
+  <button id="btn-delete-member" class="buttonAni">Slet medlem</button>
+  <button id="btn-update-member" class="buttonAni">Opdatér medlem</button>
+  </div>
+  </article>
+  `;
+  document.querySelector("#btn-close-modal").addEventListener("click", () => document.querySelector("#show-member-modal").close());
+  document.querySelector("#show-member-modal").innerHTML = html;
+  document.querySelector("#show-member-modal").showModal();
 }
