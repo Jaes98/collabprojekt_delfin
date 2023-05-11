@@ -15,8 +15,7 @@ function start() {
   document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
-  document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close()
-    );
+  document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
 }
 
 function showMembers() {}
@@ -40,12 +39,12 @@ function createNewMember(event) {
     email: form.email.value,
     adress: form.adress.value,
     gender: form.gender.value,
-    active: form.active.value,
-    competetive: form.competetive.value,
-    crawl: form.crawl.value,
-    butterfly: form.butterfly.value,
-    backCrawl: form.backCrawl.value,
-    breastStroke: form.breaststroke.value,
+    active: form.active.value === "true",
+    competetive: form.competetive.value === "true",
+    crawl: form.crawl.checked,
+    butterfly: form.butterfly.checked,
+    backCrawl: form.backCrawl.checked,
+    breastStroke: form.breaststroke.checked,
   };
   console.log(newMember);
   createdMember(newMember);

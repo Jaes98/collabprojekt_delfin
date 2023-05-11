@@ -97,19 +97,19 @@
           <label>Vælg disciplin(er):</label>
           <br />
           <label>
-            <input type="checkbox" name="crawl" value="crawl" />
+            <input type="checkbox" name="crawl" />
             Crawl
           </label>
           <label>
-            <input type="checkbox" name="backCrawl" value="backCrawl" />
+            <input type="checkbox" name="backCrawl" />
             Rygcrawl
           </label>
           <label>
-            <input type="checkbox" name="butterfly" value="butterfly" />
+            <input type="checkbox" name="butterfly" />
             Butterfly
           </label>
           <label>
-            <input type="checkbox" name="breaststroke" value="breaststroke" />
+            <input type="checkbox" name="breaststroke" />
             Brystsvømning
           </label>
           <input type="submit" class="float buttonAni" id="btn-submit-create" value="Tilføj medlem" />
@@ -179,21 +179,10 @@
         <h2>Vil du slette dette medlem?</h2>
         <p id="dialog-delete-member-name">navn på medlem</p>
         <form method="dialog" id="form-delete-member">
-          <input
-            type="button"
-            value="Fortryd"
-            class="btn-cancel"
-            id="btn-no-delete"
-          />
-          <input
-            type="submit"
-            value="Bekræft"
-            id="btn-yes-delete"
-          />
+          <input type="button" value="Fortryd" class="btn-cancel" id="btn-no-delete" />
+          <input type="submit" value="Bekræft" id="btn-yes-delete" />
         </form>
       </dialog>
-
-
     </section>
     <section class="page-view" id="kasserer">3</section>
     <section class="page-view" id="trainer">4</section>
