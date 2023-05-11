@@ -18,7 +18,7 @@ hr {
 .front-page {
   display: grid;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   gap: 0;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -53,7 +53,7 @@ hr {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
-  /* max-height: 150px; */
+  max-height: 120px;
   text-align: center;
   position: relative;
   background-color: #67a0d8;
@@ -107,12 +107,13 @@ hr {
 
 .front-page footer {
   grid-area: footer;
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   text-align: center;
+  max-height: 100px;
   background-color: #67a0d8;
 }
-
-
 
 /* STUFF FOR THE SPA: */
 
@@ -121,17 +122,95 @@ section.page-view {
 }
 
 section.active#front-page {
-  display:grid; 
+  display: grid;
   /* padding: 2em;
   margin: 2em; */
+}
+section.active#formand {
+  background-color: grey;
+  display:grid; 
+  padding: 2em;
+  margin: 2em;
+}
+section.active#log-in {
+  display:grid; 
+  padding: 2em;
+  margin: 2em;
+}
+section.active#kasserer {
+  display:grid; 
+  padding: 2em;
+  margin: 2em;
 }
 section.active#trainer {
   display:grid;
   font-size: 300px; 
-  /* padding: 2em;
-  margin: 2em; */
+  padding: 2em;
+  margin: 2em;
 }
 
 .highlighted {
   background-color: red;
+}
+
+/* ************* create member dialog*********** */
+
+#form-create-member {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* DIALOG */
+
+dialog{
+  background-color: rgb(138, 126, 126);
+}
+
+:required {
+  border: 2px solid green;
+}
+
+form{
+color: rgb(205, 177, 50);
+display: grid;
+grid-template-rows: 1fr 1fr;
+grid-template-columns: 1fr 1fr;
+width: 50vw;
+gap: 2px;
+font-size: 20px;
+
+}
+
+
+label{
+  float: left;
+  clear: both;
+}
+
+input{
+  background-color: rgb(211, 204, 204);
+  float: left;
+  clear: both;
+}
+
+.submit{
+  margin: 1em;
+  background-color: rgb(98, 190, 181);
+  border: 2px black solid;
+  border-radius: 4px;
+}
+
+field.form-text{
+  display: grid;
+  background-color: teal;
+}
+
+field.form-button{
+  display: flex;
+  background-color: teal;
+  justify-items: center;
+justify-content: center;
+text-align: center;
+gap: 10px;
 }
