@@ -67,14 +67,11 @@ function updateMember(event) {
 }
 
 
-function deleteClickedOpenModal(character) {
-  document.querySelector("#dialog-delete-character-title").textContent =
-    character.name;
-  document
-    .querySelector("#form-delete-character")
-    .setAttribute("data-id", character.id);
-  document.querySelector("#show-character-modal").close();
-  document.querySelector("#dialog-delete-character").showModal();
+function deleteClickedOpenModal(member) {
+  document.querySelector("#dialog-delete-member-name").textContent = member.name;
+  document.querySelector("#form-delete-member").setAttribute("data-id", member.id);
+  //document.querySelector("#show-member-modal").close();
+  document.querySelector("#dialog-delete-member").showModal();
 }
 
 async function deleteMemberYes(event) {
@@ -83,6 +80,6 @@ async function deleteMemberYes(event) {
   console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
-    getUpdatedFirebase();
+    // indsæt "getUpdatedFirebase" tilsvarende funktion
   }
 }
