@@ -116,3 +116,7 @@ async function deleteMemberYes(event) {
     // indsæt "getUpdatedFirebase" tilsvarende funktion
   }
 }
+
+async function getUpdatedFirebase(){
+  
+}
