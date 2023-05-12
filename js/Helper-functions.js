@@ -6,4 +6,33 @@ function ageCalculator(bday) {
   return Math.floor(ageInMilis / miliSecondsInAYear);
 }
 
-export { ageCalculator };
+function ageToGroup(ageInYears) {
+  // const ageGroup =
+  if (ageInYears < 18) {
+    return "Junior";
+  } else if (ageInYears < 60) {
+    return "Senior";
+  } else {
+    return "Senior+";
+  }
+}
+
+function checkDiscipline(member) {
+  let listOfDisciplines = [];
+  if (member.crawl) {
+    listOfDisciplines.push("Crawl");
+  }
+  if (member.backCrawl) {
+    listOfDisciplines.push("Rygcrawl");
+  }
+  if (member.breaststroke) {
+    listOfDisciplines.push("Brystsvømning");
+  }
+  if (member.butterfly) {
+    listOfDisciplines.push("Butterfly");
+  }
+
+  return listOfDisciplines;
+}
+
+export { ageCalculator, ageToGroup, checkDiscipline };
