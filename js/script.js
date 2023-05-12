@@ -32,7 +32,7 @@ function showMembersAll() {
 }
 
 function showMembers(array) {
-  document.querySelector(".member-container").innerHTML = "";
+  document.querySelector("#formand-table-body").innerHTML = "";
 
   for (const member of array) {
     showMember(member);
@@ -156,11 +156,12 @@ function updateMemberClicked(member) {
   updateForm.butterfly.checked = member.butterfly;
   updateForm.backCrawl.checked = member.backCrawl;
   updateForm.breaststroke.checked = member.breaststroke;
+  console.log(member.id);
   updateForm.setAttribute("data-id", member.id);
   document.querySelector("#dialog-update-member2").showModal();
 }
 
-function updateMember(event) {
+async function updateMember(event) {
   event.preventDefault();
   console.log(event);
 
@@ -186,8 +187,10 @@ function updateMember(event) {
     backCrawl: form.backCrawl.checked,
     breaststroke: form.breaststroke.checked,
   };
-  console.log("updatedmember", updatedMember);
-  updateMemberPUT(updatedMember);
+
+  const id = form.getAttribute("data-id");
+  const response = await updateMemberPUT(updatedMember,id)
+  if (response.ok){getUpdatedFirebase()}
   document.querySelector("#dialog-update-member2").close();
 }
 
@@ -252,4 +255,8 @@ async function getUpdatedFirebase(params) {
 
   posts = result;
   showMembers(result);
+}
+
+function searchedList(list) {
+  
 }
