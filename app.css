@@ -115,6 +115,14 @@ hr {
   background-color: #67a0d8;
 }
 
+/*********** login-page **************/
+
+#brugernavn,
+#kodeord {
+    width: 15em;
+}
+
+
 /* STUFF FOR THE SPA: */
 
 section.page-view {

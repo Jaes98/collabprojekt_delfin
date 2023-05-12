@@ -6,6 +6,8 @@ import { ageCalculator, ageToGroup, checkDiscipline } from "./Helper-functions.j
 
 window.addEventListener("load", start);
 
+let posts;
+
 function start() {
   console.log("start:");
   viewControl();
@@ -17,8 +19,16 @@ function start() {
   document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
+  document.querySelector("#sort").addEventListener("change", setSort);
 
   getUpdatedFirebase();
+}
+
+function showMembersAll() {
+  const listOfAll = posts;
+  const sortedList = sortList(listOfAll);
+
+  showMembers(sortedList);
 }
 
 function showMembers(array) {
@@ -30,12 +40,10 @@ function showMembers(array) {
 }
 
 function showMember(member) {
-  const ageInYears = ageCalculator(member.bday);
-  const ageGroup = ageToGroup(ageInYears);
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
-      <td>${ageGroup}</td>
+      <td>${member.ageGroup}</td>
       <td>${member.active}</td>
       <td>${member.competetive}</td>
       <td>
@@ -44,10 +52,10 @@ function showMember(member) {
     </tr>
   `;
   document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
-  document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member, ageGroup, ageInYears));
+  document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
 }
 
-function showMemberModal(member, ageGroup, ageInYears) {
+function showMemberModal(member) {
   // console.log(member.crawl);
   const disciplines = checkDiscipline(member);
   const html = /*HTML*/ `
@@ -56,14 +64,14 @@ function showMemberModal(member, ageGroup, ageInYears) {
   <button id="btn-close-modal" class="buttonAni">Tilbage</button>
   </h3>
   <section id="member-modal-section">
-  <p>Alder: ${ageInYears} år</p>
+  <p>Alder: ${member.age} år</p>
   <p>Tlf: ${member.phonenumber}</p>
   <p>Email: ${member.email}</p>
   <p>Adresse: ${member.adress}</p>
   <p>Køn: ${member.gender}</p>
   <hr>
   <h4>Medlemskabsoplysninger:</h4>
-  <p>Aldersgruppe: ${ageGroup}</p>
+  <p>Aldersgruppe: ${member.ageGroup}</p>
   <p>Aktivitetsstatus: ${member.active}</p>
   <p>Aktivitetsgruppe: ${member.competetive}</p>
   <p>Træner: ${member.trid}</p>
@@ -123,20 +131,31 @@ function createNewMember(event) {
 function updateMemberClicked(params) {
   const updateForm = document.querySelector("#dialog-update-member2");
 
-  // updateForm.name.value = member.name;
-  // updateForm.bday.value = member.bday;
-  // updateForm.phone.value = member.phonenumber;
-  // updateForm.email.value = member.email;
-  // updateForm.adress.value = member.adress;
-  // updateForm.gender.value = member.gender;
-  // updateForm.activity.value = member.activity;
-  // updateForm.comp.value = member.comp;
-  // updateForm.crawl.value = member.crawl;
-  // updateForm.butterfly.value = member.butterfly;
-  // updateForm.backCrawl.value = member.backCrawl;
-  // updateForm.breaststroke.value = member.breaststroke;
-  // updateForm.setAttribute("data-id", member.id);
-  document.querySelector("#dialog-update-member2").showModal();
+  console.log(member);
+  // console.log("gender.value:",updateForm.gender.value)
+  // console.log("gender.checked:",updateForm.gender.checked)
+  // console.log("gender:",updateForm.gender)
+  // console.log("member.gender:",member.gender)
+  // console.log("member.activity:",member.active)
+  // console.log("member.comp:",member.competetive)
+  console.log("member.gender:", member.gender);
+  console.log("member.backcrawl:", member.backCrawl);
+  console.log("member.breaststroke:", member.breaststroke);
+  console.log("member.butterfly:", member.butterfly);
+  updateForm.name.value = member.name;
+  updateForm.bday.value = member.bday;
+  updateForm.phonenumber.value = member.phonenumber;
+  updateForm.email.value = member.email;
+  updateForm.adress.value = member.adress;
+  updateForm.gender.value = member.gender;
+  updateForm.active.value = member.active;
+  updateForm.competetive.value = member.competetive;
+  updateForm.crawl.checked = member.crawl;
+  updateForm.butterfly.checked = member.butterfly;
+  updateForm.backCrawl.checked = member.backCrawl;
+  updateForm.breaststroke.checked = member.breaststroke;
+  updateForm.setAttribute("data-id", member.id);
+  document.querySelector("#formand-update-dialog").showModal();
 }
 
 function updateMember(event) {
@@ -147,6 +166,9 @@ function updateMember(event) {
   let form = event.target;
   console.log(form.name.value);
   const name1 = form.name.value;
+  console.log("competeteive:", form.competetive.value);
+  console.log("crawl:", form.crawl.value);
+  console.log("butterfly:", form.butterfly.value);
 
   const updatedMember = {
     name: form.name.value,
@@ -155,8 +177,8 @@ function updateMember(event) {
     email: form.email.value,
     adress: form.adress.value,
     gender: form.gender.value,
-    activity: form.active.value === "true",
-    comp: form.competetive.value === "true",
+    active: form.active.value === "true",
+    competetive: form.competetive.value === "true",
     crawl: form.crawl.checked,
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
@@ -181,12 +203,52 @@ async function deleteMemberYes(event) {
   console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
+    document.querySelector("#dialog-delete-member");
     // indsæt "getUpdatedFirebase" tilsvarende funktion
+    getUpdatedFirebase();
+  }
+}
+
+let valueToSortBy = "";
+function setSort() {
+  valueToSortBy = document.querySelector("#sort").value;
+
+  showMembersAll();
+}
+function sortList(listToSort) {
+  console.log(listToSort);
+  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
+  if (valueToSortBy === "age") {
+    showMembers(listToSort.sort(compareNumber));
+  } else if (valueToSortBy === "default") {
+    showMembers(searchedList);
+  } else {
+    showMembers(listToSort.sort(compareString));
+  }
+
+  function compareString(member1, member2) {
+    return member1[valueToSortBy].localeCompare(member2[valueToSortBy]);
+  }
+
+  function compareNumber(member1, member2) {
+    let first = member1.age;
+    let second = member2.age;
+    if (first === "Unknown") {
+      first = 99999999;
+    } else if (second === "Unknown") {
+      second = 99999999;
+    }
+    return first - second;
   }
 }
 
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
 
+  result.forEach(ageCalculator);
+
+  result.forEach(ageToGroup);
+
+  posts = result;
   showMembers(result);
 }
