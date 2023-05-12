@@ -193,11 +193,7 @@ async function deleteMemberYes(event) {
   }
 }
 
-async function getUpdatedFirebase(params) {
-  const result = await getMembers();
-  posts = result;
-  showMembers(result);
-}
+
 
 let valueToSortBy = "";
 function setSort() {
@@ -206,6 +202,7 @@ function setSort() {
     showMembersAll();
 }
 function sortList(listToSort) {
+    console.log(listToSort);
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
     showMembers(listToSort.sort(compareNumber));
@@ -229,4 +226,12 @@ function sortList(listToSort) {
     }
     return first - second;
   }
+}
+
+async function getUpdatedFirebase(params) {
+  const result = await getMembers();
+  const ageInYears = ageCalculator(member.bday);
+  const ageGroup = ageToGroup(ageInYears);
+  posts = result;
+  showMembers(result);
 }
