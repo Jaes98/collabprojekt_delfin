@@ -27,7 +27,7 @@ function start() {
 function showMembersAll() {
   const listOfAll = posts;
   const sortedList = sortList(listOfAll);
-
+  console.log(sortedList);
   showMembers(sortedList);
 }
 
@@ -207,9 +207,8 @@ async function deleteMemberYes(event) {
   console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
-    document.querySelector("#dialog-delete-member");
-    // indsæt "getUpdatedFirebase" tilsvarende funktion
-    getUpdatedFirebase();
+    document.querySelector("#dialog-delete-member")
+    getUpdatedFirebase()
   }
 }
 
@@ -220,14 +219,14 @@ function setSort() {
   showMembersAll();
 }
 function sortList(listToSort) {
-  console.log(listToSort);
+    console.log(listToSort);
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
-    showMembers(listToSort.sort(compareNumber));
+    return listToSort.sort(compareNumber);
   } else if (valueToSortBy === "default") {
-    showMembers(searchedList);
+    return searchedList;
   } else {
-    showMembers(listToSort.sort(compareString));
+    return listToSort.sort(compareString);
   }
 
   function compareString(member1, member2) {
