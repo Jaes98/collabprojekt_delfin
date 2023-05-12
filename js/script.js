@@ -154,7 +154,7 @@ function deleteClickedOpenModal(member) {
 
 async function deleteMemberYes(event) {
   const id = event.target.getAttribute("data-id");
-  const response = await deletePost(id);
+  const response = await deleteMember(id);
   console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
