@@ -15,7 +15,6 @@ function start() {
   document.querySelector("#btn-formand-create").addEventListener("click", () => document.querySelector("#dialog-create-member").showModal());
   document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-member").close());
-  document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
@@ -228,7 +227,7 @@ function sortList(listToSort) {
   if (valueToSortBy === "age") {
     return listToSort.sort(compareNumber);
   } else if (valueToSortBy === "default") {
-    return listToSort.sort(compareName)
+    return listToSort.sort(compareName);
   } else {
     return listToSort.sort(compareString);
   }
