@@ -2,6 +2,7 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
+import { ageCalculator, ageToGroup, checkDiscipline } from "./Helper-functions.js";
 
 window.addEventListener("load", start);
 
@@ -30,10 +31,12 @@ function showMembers(array) {
 }
 
 function showMember(member) {
+  const ageInYears = ageCalculator(member.bday);
+  const ageGroup = ageToGroup(ageInYears);
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
-      <td>${member.bday}</td>
+      <td>${ageGroup}</td>
       <td>${member.active}</td>
       <td>${member.competetive}</td>
       <td>
@@ -42,24 +45,32 @@ function showMember(member) {
     </tr>
   `;
   document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
-  document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
+  document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member, ageGroup, ageInYears));
 }
 
-function showMemberModal(member) {
+function showMemberModal(member, ageGroup, ageInYears) {
+  // console.log(member.crawl);
+  const disciplines = checkDiscipline(member);
   const html = /*HTML*/ `
   <article class="modal-item">
   <h3>${member.name} 
   <button id="btn-close-modal" class="buttonAni">Tilbage</button>
   </h3>
-  <p>${member.bday}</p>
-  <p>${member.phonenumber}</p>
-  <p>${member.email}</p>
-  <p>${member.adress}</p>
-  <p>${member.gender}</p>
+  <section id="member-modal-section">
+  <p>Alder: ${ageInYears} år</p>
+  <p>Tlf: ${member.phonenumber}</p>
+  <p>Email: ${member.email}</p>
+  <p>Adresse: ${member.adress}</p>
+  <p>Køn: ${member.gender}</p>
   <hr>
-  <h4>Medlemskabs oplysninger:</h4>
-  <p>${member.active}</p>
-  <p>${member.competetive}</p>
+  <h4>Medlemskabsoplysninger:</h4>
+  <p>Aldersgruppe: ${ageGroup}</p>
+  <p>Aktivitetsstatus: ${member.active}</p>
+  <p>Aktivitetsgruppe: ${member.competetive}</p>
+  </section>
+  
+  
+
   <div>
   <button id="btn-delete-member" class="buttonAni">Slet medlem</button>
   <button id="btn-update-member" class="buttonAni">Opdatér medlem</button>
@@ -67,6 +78,17 @@ function showMemberModal(member) {
   </article>
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
+
+  if (member.competetive) {
+    document.querySelector("#member-modal-section").insertAdjacentHTML(
+      "beforeend",
+      `
+       <h4>Disciplin(er):</h4>
+       <p>${disciplines.join(", ")}</p>
+       `
+    );
+  }
+
   document.querySelector("#show-member-modal").showModal();
 
   document.querySelector("#btn-close-modal").addEventListener("click", () => document.querySelector("#show-member-modal").close());
@@ -86,12 +108,12 @@ function createNewMember(event) {
     email: form.email.value,
     adress: form.adress.value,
     gender: form.gender.value,
-    active: form.active.value,
-    competetive: form.competetive.value,
-    crawl: form.crawl.value,
-    butterfly: form.butterfly.value,
-    backCrawl: form.backCrawl.value,
-    breastStroke: form.breaststroke.value,
+    active: form.active.value === "true",
+    competetive: form.competetive.value === "true",
+    crawl: form.crawl.checked,
+    butterfly: form.butterfly.checked,
+    backCrawl: form.backCrawl.checked,
+    breastStroke: form.breaststroke.checked,
   };
   console.log(newMember);
   createdMember(newMember);
@@ -154,7 +176,7 @@ function deleteClickedOpenModal(member) {
 
 async function deleteMemberYes(event) {
   const id = event.target.getAttribute("data-id");
-  const response = await deletePost(id);
+  const response = await deleteMember(id);
   console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
