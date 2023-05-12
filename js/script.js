@@ -128,22 +128,32 @@ function createNewMember(event) {
   createdMember(newMember);
 }
 
-function updateMemberClicked(params) {
-  const updateForm = document.querySelector("#formand-update-dialog");
+function updateMemberClicked(member) {
+  const updateForm = document.querySelector("#formand-update-form");
 
-  // updateForm.name.value = member.name;
-  // updateForm.bday.value = member.bday;
-  // updateForm.phone.value = member.phonenumber;
-  // updateForm.email.value = member.email;
-  // updateForm.adress.value = member.adress;
-  // updateForm.gender.value = member.gender;
-  // updateForm.activity.value = member.activity;
-  // updateForm.comp.value = member.comp;
-  // updateForm.crawl.value = member.crawl;
-  // updateForm.butterfly.value = member.butterfly;
-  // updateForm.backCrawl.value = member.backCrawl;
-  // updateForm.breaststroke.value = member.breaststroke;
-  // updateForm.setAttribute("data-id", member.id);
+  // console.log("gender.value:",updateForm.gender.value)
+  // console.log("gender.checked:",updateForm.gender.checked)
+  // console.log("gender:",updateForm.gender)
+  // console.log("member.gender:",member.gender)
+  // console.log("member.activity:",member.active)
+  // console.log("member.comp:",member.competetive)
+  console.log("member.crawl:",member.crawl)
+  console.log("member.backcrawl:",member.backCrawl)
+  console.log("member.breaststroke:",member.breaststroke)
+  console.log("member.butterfly:",member.butterfly)
+  updateForm.name.value = member.name;
+  updateForm.bday.value = member.bday;
+  updateForm.phonenumber.value = member.phonenumber;
+  updateForm.email.value = member.email;
+  updateForm.adress.value = member.adress;
+  updateForm.gender.value = member.gender;
+  updateForm.active.value = member.active;
+  updateForm.competetive.value = member.competetive;
+  updateForm.crawl.checked = member.crawl;
+  updateForm.butterfly.checked = member.butterfly;
+  updateForm.backCrawl.checked = member.backCrawl;
+  updateForm.breaststroke.checked = member.breaststroke;
+  updateForm.setAttribute("data-id", member.id);
   document.querySelector("#formand-update-dialog").showModal();
 }
 
@@ -189,7 +199,9 @@ async function deleteMemberYes(event) {
   console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
+    document.querySelector("#dialog-delete-member")
     // indsæt "getUpdatedFirebase" tilsvarende funktion
+    getUpdatedFirebase()
   }
 }
 
