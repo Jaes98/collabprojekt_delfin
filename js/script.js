@@ -172,7 +172,7 @@ function sortByX() {
   //   let filteredListToSort = searchedList.slice(); --- fix hvilket array der skal sorteres på
   let valueToSortBy = document.querySelector("#sort").value;
 
-  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showCharactersAll
+  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
     showMembers(filteredListToSort.sort(compareNumber));
   } else if (valueToSortBy === "default") {
