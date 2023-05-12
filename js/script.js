@@ -121,13 +121,14 @@ function createNewMember(event) {
 function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-update-form");
 
+  console.log(member)
   // console.log("gender.value:",updateForm.gender.value)
   // console.log("gender.checked:",updateForm.gender.checked)
   // console.log("gender:",updateForm.gender)
   // console.log("member.gender:",member.gender)
   // console.log("member.activity:",member.active)
   // console.log("member.comp:",member.competetive)
-  console.log("member.crawl:",member.crawl)
+  console.log("member.gender:",member.gender)
   console.log("member.backcrawl:",member.backCrawl)
   console.log("member.breaststroke:",member.breaststroke)
   console.log("member.butterfly:",member.butterfly)
@@ -155,6 +156,9 @@ function updateMember(event) {
   let form = event.target;
   console.log(form.name.value);
   const name1 = form.name.value;
+  console.log("competeteive:",form.competetive.value)
+  console.log("crawl:",form.crawl.value)
+  console.log("butterfly:",form.butterfly.value)
 
   const updatedMember = {
     name: form.name.value,
@@ -163,12 +167,12 @@ function updateMember(event) {
     email: form.email.value,
     adress: form.adress.value,
     gender: form.gender.value,
-    activity: form.activity.value,
-    comp: form.comp.value,
-    crawl: form.crawl.value,
-    butterfly: form.butterfly.value,
-    backCrawl: form.backCrawl.value,
-    breaststroke: form.breaststroke.value,
+    active: form.active.value === "true",
+    competetive: form.competetive.value === "true",
+    crawl: form.crawl.checked,
+    butterfly: form.butterfly.checked,
+    backCrawl: form.backCrawl.checked,
+    breaststroke: form.breaststroke.checked,
   };
   console.log("updatedmember", updatedMember);
 
