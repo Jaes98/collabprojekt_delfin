@@ -19,6 +19,7 @@ function start() {
   document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
+  document.querySelector("#btn-formand-no-update").addEventListener("click", () => document.querySelector("#dialog-update-member2").close());
   document.querySelector("#sort").addEventListener("change", setSort);
 
   getUpdatedFirebase();
@@ -80,8 +81,8 @@ function showMemberModal(member) {
   
 
   <div>
-  <button id="btn-delete-member" class="buttonAni">Slet medlem</button>
   <button id="btn-update-member" class="buttonAni">Opdatér medlem</button>
+  <button id="btn-delete-member" class="buttonAni">Slet medlem</button>
   </div>
   </article>
   `;
@@ -130,6 +131,7 @@ function createNewMember(event) {
 
 function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");
+  document.querySelector("#show-member-modal").close();
 
   console.log(member);
   console.log(updateForm);
@@ -189,8 +191,10 @@ async function updateMember(event) {
   };
 
   const id = form.getAttribute("data-id");
-  const response = await updateMemberPUT(updatedMember,id)
-  if (response.ok){getUpdatedFirebase()}
+  const response = await updateMemberPUT(updatedMember, id);
+  if (response.ok) {
+    getUpdatedFirebase();
+  }
   document.querySelector("#dialog-update-member2").close();
 }
 
@@ -207,8 +211,8 @@ async function deleteMemberYes(event) {
   console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
-    document.querySelector("#dialog-delete-member")
-    getUpdatedFirebase()
+    document.querySelector("#dialog-delete-member");
+    getUpdatedFirebase();
   }
 }
 
@@ -219,7 +223,7 @@ function setSort() {
   showMembersAll();
 }
 function sortList(listToSort) {
-    console.log(listToSort);
+  console.log(listToSort);
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
     return listToSort.sort(compareNumber);
@@ -256,6 +260,4 @@ async function getUpdatedFirebase(params) {
   showMembers(result);
 }
 
-function searchedList(list) {
-  
-}
+function searchedList(list) {}
