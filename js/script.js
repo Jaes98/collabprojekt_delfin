@@ -27,13 +27,13 @@ function start() {
 function showMembersAll() {
   const listOfAll = posts;
   const sortedList = sortList(listOfAll);
-console.log(sortedList);
+  console.log(sortedList);
   showMembers(sortedList);
 }
 
 function showMembers(array) {
   document.querySelector(".member-container").innerHTML = "";
-    console.log(array);
+
   for (const member of array) {
     showMember(member);
   }
