@@ -58,11 +58,10 @@ async function createdMember(newMember) {
   return response;
 }
 
-async function updateMemberPUT(memberToUpdate) {
-  console.log(memberToUpdate.id);
+async function updateMemberPUT(memberToUpdate, id) {
   const objectToJSON = JSON.stringify(memberToUpdate);
 
-  const response = await fetch(`${dolphinDatabase}/members/${id}`, {
+  const response = await fetch(`${dolphinDatabase}/members/${id}.json`, {
     method: "PUT",
     body: objectToJSON,
   });
