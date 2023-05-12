@@ -200,7 +200,6 @@ async function deleteMemberYes(event) {
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
     document.querySelector("#dialog-delete-member")
-    // indsæt "getUpdatedFirebase" tilsvarende funktion
     getUpdatedFirebase()
   }
 }
@@ -214,7 +213,7 @@ function setSort() {
     showMembersAll();
 }
 function sortList(listToSort) {
-    console.log(listToSort);
+    // console.log(listToSort);
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
     showMembers(listToSort.sort(compareNumber));
