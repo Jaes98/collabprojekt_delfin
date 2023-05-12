@@ -216,9 +216,9 @@ function sortList(listToSort) {
     console.log(listToSort);
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
-    return (listToSort.sort(compareNumber));
+    return listToSort.sort(compareNumber);
   } else if (valueToSortBy === "default") {
-    return (searchedList);
+    return searchedList;
   } else {
     return (listToSort.sort(compareString));
   }
