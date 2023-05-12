@@ -68,7 +68,8 @@
 
          <input type="search" id="member-search" placeholder="Søg efter navn" autocomplete="off">
 
-         <label for="sort">Sort By:</label>
+         <button id="btn-formand-create" class="buttonAni">Tilføj medlem</button>
+      <label for="sort">Sort By:</label>
          <select id="sort" autocomplete="off">
         <option value="default"></option>
         <option value="name">Navn</option>
@@ -92,8 +93,6 @@
           <tr></tr>
         </tbody>
       </table>
-
-      <button id="btn-formand-create">Tilføj medlem</button>
 
       <dialog id="show-member-modal"></dialog>
 
@@ -150,7 +149,6 @@
         </form>
       </dialog>
 
-      <button id="formand-update-button">Opdater medlem</button>
       <dialog id="formand-update-dialog">
         <form id="formand-update-form">
           <field class="form-text">
@@ -223,20 +221,18 @@
           <input id="formand-update-email" type="email" name="email" placeholder="noget@domæne.dk" required />
           <label for="formand-update-gender">Vælg køn:</label>
           <select name="gender" id="formand-update-gender" autocomplete="off">
-            <option value=""></option>
+            <option value="Other">Andet</option>
             <option value="Male">Mand</option>
             <option value="Female">Dame</option>
-            <option value="Other">Andet</option>
           </select>
 
           <label for="formand-update-active">Opdatér medlemskab:</label>
           <select name="active" id="formand-update-active" autocomplete="off" required>
-            <option value=""></option>
             <option value="true">Aktiv</option>
             <option value="false">Passiv</option>
           </select>
           <label for="formand-update-competetive">Opdatér aktivitetsform</label>
-          <select name="competetive" id="formand-update-competetive" class="competetive" autocomplete="off" required>
+          <select name="competetive" id="formand-update-competetive" autocomplete="off" required>
             <option value=""></option>
             <option value="true">Konkurrence</option>
             <option value="false">Fritid</option>

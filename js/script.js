@@ -15,7 +15,6 @@ function start() {
   document.querySelector("#btn-formand-create").addEventListener("click", () => document.querySelector("#dialog-create-member").showModal());
   document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-member").close());
-  document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
@@ -226,7 +225,7 @@ function sortList(listToSort) {
   if (valueToSortBy === "age") {
     return listToSort.sort(compareNumber);
   } else if (valueToSortBy === "default") {
-    return searchedList;
+    return listToSort.sort(compareName);
   } else {
     return listToSort.sort(compareString);
   }
@@ -244,6 +243,9 @@ function sortList(listToSort) {
       second = 99999999;
     }
     return first - second;
+  }
+  function compareName(member1, member2) {
+    return member1["name"].localeCompare(member2["name"]);
   }
 }
 
