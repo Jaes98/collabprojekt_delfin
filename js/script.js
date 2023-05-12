@@ -6,6 +6,8 @@ import { ageCalculator, ageToGroup, checkDiscipline } from "./Helper-functions.j
 
 window.addEventListener("load", start);
 
+let posts;
+
 function start() {
   console.log("start:");
   viewControl();
@@ -17,8 +19,16 @@ function start() {
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
+  document.querySelector("#sort").addEventListener("change", setSort);
 
   getUpdatedFirebase();
+}
+
+function showMembersAll() {
+    const listOfAll = posts;
+    const sortedList = sortList(listOfAll)
+
+    showMembers(sortedList);
 }
 
 function showMembers(array) {
@@ -199,8 +209,45 @@ async function deleteMemberYes(event) {
   }
 }
 
+
+
+let valueToSortBy = "";
+function setSort() {
+    valueToSortBy = document.querySelector("#sort").value;
+
+    showMembersAll();
+}
+function sortList(listToSort) {
+    console.log(listToSort);
+  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
+  if (valueToSortBy === "age") {
+    showMembers(listToSort.sort(compareNumber));
+  } else if (valueToSortBy === "default") {
+    showMembers(searchedList);
+  } else {
+    showMembers(listToSort.sort(compareString));
+  }
+
+  function compareString(member1, member2) {
+    return member1[valueToSortBy].localeCompare(member2[valueToSortBy]);
+  }
+
+  function compareNumber(member1, member2) {
+    let first = member1.age;
+    let second = member2.age;
+    if (first === "Unknown") {
+      first = 99999999;
+    } else if (second === "Unknown") {
+      second = 99999999;
+    }
+    return first - second;
+  }
+}
+
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
-
+  const ageInYears = ageCalculator(member.bday);
+  const ageGroup = ageToGroup(ageInYears);
+  posts = result;
   showMembers(result);
 }
