@@ -13,6 +13,7 @@
       "butterfly": true,
       "backCrawl": false,
       "breaststroke": false,
+      "restance": true,
       "trid": "seniorCoach"
     },
     "-ghtf1-gggfgfgfgfgf2": {
@@ -28,6 +29,7 @@
       "butterfly": false,
       "backCrawl": false,
       "breaststroke": false,
+      "restance": false,
       "trid": ""
     },
     "-dhyf2-hfghh56ggfg": {
@@ -43,6 +45,7 @@
     "butterfly": false,
     "backCrawl": true,
     "breaststroke": false,
+    "restance": false,
     "trid": "seniorCoach"
     },
     "-sdfh4-ksdhf83hsf": {
@@ -58,6 +61,7 @@
     "butterfly": true,
     "backCrawl": false,
     "breaststroke": true,
+    "restance": false,
     "trid": "juniorCoach"
     },
     "-ssdc2-kjnjg67mkj": {
@@ -73,6 +77,7 @@
     "butterfly": false,
     "backCrawl": true,
     "breaststroke": true,
+    "restance": false,
     "trid": "juniorCoach"
     },
     "-kqas3-wdgsf89dsf": {
@@ -88,6 +93,7 @@
     "butterfly": false,
     "backCrawl": true,
     "breaststroke": false,
+    "restance": false,
     "trid": ""
     },
     "-zxca8-sfgv98sfgb": {
@@ -103,6 +109,7 @@
     "butterfly": false,
     "backCrawl": false,
     "breaststroke": true,
+    "restance": true,
     "trid": ""
     }, 
     "-ghdsk-sdljdsj1": {
@@ -118,6 +125,7 @@
       "butterfly": false,
       "rygcrawl": true,
       "brystsvømning": true,
+      "restance": false,
       "trid": ""
     },
     "-ghdsk-sdljdsj2": {
@@ -133,6 +141,7 @@
       "butterfly": true,
       "rygcrawl": false,
       "brystsvømning": true,
+      "restance": true,
       "trid": ""
     },
     "-ghdsk-sdljdsj3": {
@@ -148,6 +157,7 @@
       "butterfly": false,
       "rygcrawl": false,
       "brystsvømning": false,
+      "restance": true,
       "trid": ""
     },
     "-ghdsk-sdljdsj4": {
@@ -163,6 +173,7 @@
       "butterfly": false,
       "rygcrawl": true,
       "brystsvømning": true,
+      "restance": false,
       "trid": ""
     },
     "-ghdsk-sdljdsj5": {
@@ -178,6 +189,7 @@
       "butterfly": true,
       "rygcrawl": true,
       "brystsvømning": false,
+      "restance": false,
       "trid": ""
     }
   },  
