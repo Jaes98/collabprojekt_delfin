@@ -228,7 +228,7 @@ function sortList(listToSort) {
   if (valueToSortBy === "age") {
     return listToSort.sort(compareNumber);
   } else if (valueToSortBy === "default") {
-    return searchedList;
+    return listToSort
   } else {
     return listToSort.sort(compareString);
   }
