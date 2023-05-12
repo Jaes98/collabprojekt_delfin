@@ -228,7 +228,7 @@ function sortList(listToSort) {
   if (valueToSortBy === "age") {
     return listToSort.sort(compareNumber);
   } else if (valueToSortBy === "default") {
-    return listToSort
+    return listToSort.sort(compareName)
   } else {
     return listToSort.sort(compareString);
   }
@@ -246,6 +246,9 @@ function sortList(listToSort) {
       second = 99999999;
     }
     return first - second;
+  }
+  function compareName(member1, member2) {
+    return member1["name"].localeCompare(member2["name"]);
   }
 }
 
