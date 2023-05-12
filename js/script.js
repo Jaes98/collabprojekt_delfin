@@ -6,6 +6,8 @@ import { ageCalculator, ageToGroup, checkDiscipline } from "./Helper-functions.j
 
 window.addEventListener("load", start);
 
+let posts;
+
 function start() {
   console.log("start:");
   viewControl();
@@ -17,9 +19,16 @@ function start() {
   document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
-  document.querySelector("#sort").addEventListener("change", sortByX);
+  document.querySelector("#sort").addEventListener("change", setSort);
 
   getUpdatedFirebase();
+}
+
+function showMembersAll() {
+    const listOfAll = posts;
+    const sortedList = sortList(listOfAll)
+
+    showMembers(sortedList);
 }
 
 function showMembers(array) {
@@ -190,16 +199,20 @@ async function getUpdatedFirebase(params) {
   showMembers(result);
 }
 
-function sortByX() {
-  let valueToSortBy = document.querySelector("#sort").value;
 
+function setSort() {
+    valueToSortBy = document.querySelector("#sort").value;
+
+    showMembersAll();
+}
+function sortList(listToSort) {
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
-    showMembers(filteredListToSort.sort(compareNumber));
+    showMembers(listToSort.sort(compareNumber));
   } else if (valueToSortBy === "default") {
     showMembers(searchedList);
   } else {
-    showMembers(filteredListToSort.sort(compareString));
+    showMembers(listToSort.sort(compareString));
   }
 
   function compareString(member1, member2) {
