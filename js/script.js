@@ -14,7 +14,7 @@ function start() {
   document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-member").close());
   document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
-  document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
+  document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
 
@@ -66,6 +66,7 @@ function showMemberModal(member, ageGroup, ageInYears) {
   <p>Aldersgruppe: ${ageGroup}</p>
   <p>Aktivitetsstatus: ${member.active}</p>
   <p>Aktivitetsgruppe: ${member.competetive}</p>
+  <p>Træner: ${member.trid}</p>
   </section>
   
   
@@ -113,13 +114,14 @@ function createNewMember(event) {
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
     breastStroke: form.breaststroke.checked,
+    // coach: form.trid.value,
   };
   console.log(newMember);
   createdMember(newMember);
 }
 
 function updateMemberClicked(params) {
-  const updateForm = document.querySelector("#formand-update-dialog");
+  const updateForm = document.querySelector("#dialog-update-member2");
 
   // updateForm.name.value = member.name;
   // updateForm.bday.value = member.bday;
@@ -134,7 +136,7 @@ function updateMemberClicked(params) {
   // updateForm.backCrawl.value = member.backCrawl;
   // updateForm.breaststroke.value = member.breaststroke;
   // updateForm.setAttribute("data-id", member.id);
-  document.querySelector("#formand-update-dialog").showModal();
+  document.querySelector("#dialog-update-member2").showModal();
 }
 
 function updateMember(event) {
@@ -153,17 +155,17 @@ function updateMember(event) {
     email: form.email.value,
     adress: form.adress.value,
     gender: form.gender.value,
-    activity: form.activity.value,
-    comp: form.comp.value,
-    crawl: form.crawl.value,
-    butterfly: form.butterfly.value,
-    backCrawl: form.backCrawl.value,
-    breaststroke: form.breaststroke.value,
+    activity: form.active.value === "true",
+    comp: form.competetive.value === "true",
+    crawl: form.crawl.checked,
+    butterfly: form.butterfly.checked,
+    backCrawl: form.backCrawl.checked,
+    breaststroke: form.breaststroke.checked,
   };
   console.log("updatedmember", updatedMember);
 
   // updateMemberPUT(updatedMember)
-  document.querySelector("#formand-update-dialog").close();
+  document.querySelector("#dialog-update-member2").close();
 }
 
 function deleteClickedOpenModal(member) {
