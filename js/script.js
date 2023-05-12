@@ -195,11 +195,11 @@ async function deleteMemberYes(event) {
 
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
-
+  posts = result;
   showMembers(result);
 }
 
-
+let valueToSortBy = "";
 function setSort() {
     valueToSortBy = document.querySelector("#sort").value;
 
