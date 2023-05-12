@@ -245,3 +245,8 @@ tr {
   border: 2px solid black;
   margin: 2em;
 }
+
+
+#btn-formand-create {
+  width: 100px;
+}
