@@ -222,7 +222,7 @@ function sortList(listToSort) {
   } else if (valueToSortBy === "default") {
     return searchedList;
   } else {
-    return (listToSort.sort(compareString));
+    return listToSort.sort(compareString);
   }
 
   function compareString(member1, member2) {
