@@ -123,26 +123,26 @@
             <option value="false">Passiv</option>
           </select>
           <label for="competetive">Vælg aktivitetsform</label>
-          <select name="competetive" id="competetive" autocomplete="off" required>
+          <select name="competetive" id="competetive" class="competetive" autocomplete="off" required>
             <option value="true">Konkurrence</option>
             <option value="false">Fritid</option>
           </select>
           <label>Vælg disciplin(er):</label>
           <br />
           <label>
-            <input type="checkbox" name="crawl" />
+            <input type="checkbox" name="crawl" class="create-discipline" autocomplete="off"/>
             Crawl
           </label>
           <label>
-            <input type="checkbox" name="backCrawl" />
+            <input type="checkbox" name="backCrawl"class="create-discipline"  autocomplete="off"/>
             Rygcrawl
           </label>
           <label>
-            <input type="checkbox" name="butterfly" />
+            <input type="checkbox" name="butterfly" class="create-discipline"  autocomplete="off"/>
             Butterfly
           </label>
           <label>
-            <input type="checkbox" name="breaststroke" />
+            <input type="checkbox" name="breaststroke" class="create-discipline"  autocomplete="off"/>
             Brystsvømning
           </label>
           <input type="submit" class="float buttonAni" id="btn-submit-create" value="Tilføj medlem" />
@@ -236,7 +236,7 @@
             <option value="false">Passiv</option>
           </select>
           <label for="formand-update-competetive">Opdatér aktivitetsform</label>
-          <select name="competetive" id="formand-update-competetive" autocomplete="off" required>
+          <select name="competetive" id="formand-update-competetive" class="competetive" autocomplete="off" required>
             <option value=""></option>
             <option value="true">Konkurrence</option>
             <option value="false">Fritid</option>
@@ -244,19 +244,19 @@
           <label>Opdatér disciplin(er):</label>
           <br />
           <label>
-            <input type="checkbox" class="disciplin" name="crawl" value="crawl" />
+            <input type="checkbox" class="update-discipline" name="crawl" value="crawl" />
             Crawl
           </label>
           <label>
-            <input type="checkbox" class="disciplin" name="backCrawl" value="backCrawl" />
+            <input type="checkbox" class="update-discipline" name="backCrawl" value="backCrawl" />
             Rygcrawl
           </label>
           <label>
-            <input type="checkbox" class="disciplin" name="butterfly" value="butterfly" />
+            <input type="checkbox" class="update-discipline" name="butterfly" value="butterfly" />
             Butterfly
           </label>
           <label>
-            <input type="checkbox" class="disciplin" name="breaststroke" value="breaststroke" />
+            <input type="checkbox" class="update-discipline" name="breaststroke" value="breaststroke" />
             Brystsvømning
           </label>
           <input type="submit" class="float buttonAni" id="btn-formand-update-submit2" value="Opdatér medlem" />

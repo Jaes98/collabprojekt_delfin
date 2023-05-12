@@ -21,8 +21,12 @@ function start() {
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
   document.querySelector("#btn-formand-no-update").addEventListener("click", () => document.querySelector("#dialog-update-member2").close());
   document.querySelector("#sort").addEventListener("change", setSort);
-  document.querySelector("#member-search").addEventListener("keyup",searchBarChanged)
-  document.querySelector("#member-search").addEventListener("search",searchBarChanged)
+
+  document.querySelector("#member-search").addEventListener("keyup", searchBarChanged);
+  document.querySelector("#member-search").addEventListener("search", searchBarChanged);
+
+  document.querySelector("#formand-update-competetive").addEventListener("change", changeUpdateCheckboxes);
+  document.querySelector("#competetive").addEventListener("change", changeCreateCheckboxes);
 
   getUpdatedFirebase();
 }
@@ -30,8 +34,8 @@ function start() {
 function showMembersAll() {
   const listOfAll = posts;
   const sortedList = sortList(listOfAll);
-  const searchedList = searchList(posts)
-  const filteredList = filterList(searchedList)
+  const searchedList = searchList(posts);
+  const filteredList = filterList(searchedList);
 
   showMembers(sortedList);
 }
@@ -105,7 +109,10 @@ function showMemberModal(member) {
   document.querySelector("#show-member-modal").showModal();
 
   document.querySelector("#btn-close-modal").addEventListener("click", () => document.querySelector("#show-member-modal").close());
-  document.querySelector("#btn-update-member").addEventListener("click", () => updateMemberClicked(member));
+  document.querySelector("#btn-update-member").addEventListener("click", () => {
+    updateMemberClicked(member);
+    changeUpdateCheckboxes();
+  });
   document.querySelector("#btn-delete-member").addEventListener("click", () => deleteClickedOpenModal(member));
 }
 
@@ -137,19 +144,6 @@ function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");
   document.querySelector("#show-member-modal").close();
 
-  console.log(member);
-  console.log(updateForm);
-  console.log(updateForm.name);
-  // console.log("gender.value:",updateForm.gender.value)
-  // console.log("gender.checked:",updateForm.gender.checked)
-  // console.log("gender:",updateForm.gender)
-  // console.log("member.gender:",member.gender)
-  // console.log("member.activity:",member.active)
-  // console.log("member.comp:",member.competetive)
-  console.log("member.gender:", member.gender);
-  console.log("member.backcrawl:", member.backCrawl);
-  console.log("member.breaststroke:", member.breaststroke);
-  console.log("member.butterfly:", member.butterfly);
   updateForm.name.value = member.name;
   updateForm.bday.value = member.bday;
   updateForm.phonenumber.value = member.phonenumber;
@@ -264,15 +258,31 @@ async function getUpdatedFirebase(params) {
   showMembers(result);
 }
 
-let valueToSearchBy = ""
+let valueToSearchBy = "";
 function searchBarChanged() {
-  valueToSearchBy = document.querySelector("#member-search").value
-  
-  searchList(posts)
+  valueToSearchBy = document.querySelector("#member-search").value;
+
+  searchList(posts);
 }
 
 function searchList(sortedList) {
-  console.log("searchlist, valuetosortby:",valueToSearchBy);
+  console.log("searchlist, valuetosortby:", valueToSearchBy);
   console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
-  return sortedList.filter((member)=>member.name.toLowerCase().includes(valueToSearchBy))
+  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+}
+
+function changeCreateCheckboxes() {
+  const createBoxes = document.querySelectorAll(".create-discipline");
+  createBoxes.forEach(box => {
+    box.checked = false;
+    box.disabled = !box.disabled;
+  });
+}
+
+function changeUpdateCheckboxes() {
+  const updateValue = document.querySelector("#formand-update-competetive").value === "true";
+  const updateBoxes = document.querySelectorAll(".update-discipline");
+  updateBoxes.forEach(box => {
+    box.disabled = !updateValue;
+  });
 }
