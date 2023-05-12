@@ -128,10 +128,12 @@ function createNewMember(event) {
   createdMember(newMember);
 }
 
-function updateMemberClicked(params) {
-  const updateForm = document.querySelector("#dialog-update-member2");
+function updateMemberClicked(member) {
+  const updateForm = document.querySelector("#formand-form-update-member2");
 
   console.log(member);
+  console.log(updateForm);
+  console.log(updateForm.name);
   // console.log("gender.value:",updateForm.gender.value)
   // console.log("gender.checked:",updateForm.gender.checked)
   // console.log("gender:",updateForm.gender)
@@ -155,7 +157,7 @@ function updateMemberClicked(params) {
   updateForm.backCrawl.checked = member.backCrawl;
   updateForm.breaststroke.checked = member.breaststroke;
   updateForm.setAttribute("data-id", member.id);
-  document.querySelector("#formand-update-dialog").showModal();
+  document.querySelector("#dialog-update-member2").showModal();
 }
 
 function updateMember(event) {
@@ -185,8 +187,7 @@ function updateMember(event) {
     breaststroke: form.breaststroke.checked,
   };
   console.log("updatedmember", updatedMember);
-
-  // updateMemberPUT(updatedMember)
+  updateMemberPUT(updatedMember);
   document.querySelector("#dialog-update-member2").close();
 }
 
