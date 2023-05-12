@@ -20,6 +20,8 @@ function start() {
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
   document.querySelector("#sort").addEventListener("change", setSort);
+  document.querySelector("#member-search").addEventListener("keyup",searchBarChanged)
+  document.querySelector("#member-search").addEventListener("search",searchBarChanged)
 
   getUpdatedFirebase();
 }
@@ -27,6 +29,8 @@ function start() {
 function showMembersAll() {
   const listOfAll = posts;
   const sortedList = sortList(listOfAll);
+  const searchedList = searchList(posts)
+  const filteredList = filterList(searchedList)
 
   showMembers(sortedList);
 }
@@ -253,6 +257,15 @@ async function getUpdatedFirebase(params) {
   showMembers(result);
 }
 
-function searchedList(list) {
+let valueToSearchBy = ""
+function searchBarChanged() {
+  valueToSearchBy = document.querySelector("#member-search").value
   
+  searchList(posts)
+}
+
+function searchList(sortedList) {
+  console.log("searchlist, valuetosortby:",valueToSearchBy);
+  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
+  return sortedList.filter((member)=>member.name.toLowerCase().includes(valueToSearchBy))
 }
