@@ -16,9 +16,10 @@ function start() {
   document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-member").close());
   document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
-  document.querySelector("#formand-update-form").addEventListener("submit", updateMember);
+  document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
+  document.querySelector("#btn-formand-no-update").addEventListener("click", () => document.querySelector("#dialog-update-member2").close());
   document.querySelector("#sort").addEventListener("change", setSort);
   document.querySelector("#member-search").addEventListener("keyup",searchBarChanged)
   document.querySelector("#member-search").addEventListener("search",searchBarChanged)
@@ -78,13 +79,14 @@ function showMemberModal(member) {
   <p>Aldersgruppe: ${member.ageGroup}</p>
   <p>Aktivitetsstatus: ${member.active}</p>
   <p>Aktivitetsgruppe: ${member.competetive}</p>
+  <p>Træner: ${member.trid}</p>
   </section>
   
   
 
   <div>
-  <button id="btn-delete-member" class="buttonAni">Slet medlem</button>
   <button id="btn-update-member" class="buttonAni">Opdatér medlem</button>
+  <button id="btn-delete-member" class="buttonAni">Slet medlem</button>
   </div>
   </article>
   `;
@@ -125,15 +127,19 @@ function createNewMember(event) {
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
     breastStroke: form.breaststroke.checked,
+    // coach: form.trid.value,
   };
   console.log(newMember);
   createdMember(newMember);
 }
 
 function updateMemberClicked(member) {
-  const updateForm = document.querySelector("#formand-update-form");
+  const updateForm = document.querySelector("#formand-form-update-member2");
+  document.querySelector("#show-member-modal").close();
 
   console.log(member);
+  console.log(updateForm);
+  console.log(updateForm.name);
   // console.log("gender.value:",updateForm.gender.value)
   // console.log("gender.checked:",updateForm.gender.checked)
   // console.log("gender:",updateForm.gender)
@@ -158,7 +164,7 @@ function updateMemberClicked(member) {
   updateForm.breaststroke.checked = member.breaststroke;
   console.log(member.id);
   updateForm.setAttribute("data-id", member.id);
-  document.querySelector("#formand-update-dialog").showModal();
+  document.querySelector("#dialog-update-member2").showModal();
 }
 
 async function updateMember(event) {
@@ -189,9 +195,11 @@ async function updateMember(event) {
   };
 
   const id = form.getAttribute("data-id");
-  const response = await updateMemberPUT(updatedMember,id)
-  if (response.ok){getUpdatedFirebase()}
-  document.querySelector("#formand-update-dialog").close();
+  const response = await updateMemberPUT(updatedMember, id);
+  if (response.ok) {
+    getUpdatedFirebase();
+  }
+  document.querySelector("#dialog-update-member2").close();
 }
 
 function deleteClickedOpenModal(member) {
@@ -208,7 +216,6 @@ async function deleteMemberYes(event) {
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
     document.querySelector("#dialog-delete-member");
-    // indsæt "getUpdatedFirebase" tilsvarende funktion
     getUpdatedFirebase();
   }
 }
@@ -223,11 +230,11 @@ function sortList(listToSort) {
   console.log(listToSort);
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
-    showMembers(listToSort.sort(compareNumber));
+    return listToSort.sort(compareNumber);
   } else if (valueToSortBy === "default") {
-    showMembers(searchedList);
+    return searchedList;
   } else {
-    showMembers(listToSort.sort(compareString));
+    return listToSort.sort(compareString);
   }
 
   function compareString(member1, member2) {

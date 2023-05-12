@@ -122,6 +122,11 @@ hr {
     width: 15em;
 }
 
+/*********** front-page **************/
+#sort {
+    width: 12em;
+}
+
 
 /* STUFF FOR THE SPA: */
 
@@ -136,23 +141,23 @@ section.active#front-page {
 }
 section.active#formand {
   background-color: grey;
-  display:grid; 
+  display: grid;
   padding: 2em;
   margin: 2em;
 }
 section.active#log-in {
-  display:grid; 
+  display: grid;
   padding: 2em;
   margin: 2em;
 }
 section.active#kasserer {
-  display:grid; 
+  display: grid;
   padding: 2em;
   margin: 2em;
 }
 section.active#trainer {
-  display:grid;
-  font-size: 300px; 
+  display: grid;
+  font-size: 300px;
   padding: 2em;
   margin: 2em;
 }
@@ -161,7 +166,7 @@ section.active#trainer {
   background-color: red;
 }
 
-/* ************* create member dialog*********** */
+/* ************* create member form*********** */
 
 #form-create-member {
   display: grid;
@@ -169,9 +174,17 @@ section.active#trainer {
   gap: 10px;
 }
 
+/* ************* update member form*********** */
+
+#formand-form-update-member2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 /* DIALOG */
 
-dialog{
+dialog {
   background-color: rgb(138, 126, 126);
 }
 
@@ -179,58 +192,56 @@ dialog{
   border: 2px solid green;
 }
 
-form{
-color: rgb(205, 177, 50);
-margin: 1.2em;
-padding:1em;
-/* display: grid; */
-grid-template-rows: 1fr 1fr;
-grid-template-columns: 1fr 1fr;
+form {
+  color: rgb(205, 177, 50);
+  margin: 1.2em;
+  padding: 1em;
+  /* display: grid; */
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
-gap: 2px;
-font-size: 20px;
-
+  gap: 2px;
+  font-size: 20px;
 }
 
-
-label{
+label {
   float: left;
   clear: both;
 }
 
-input{
+input {
   background-color: rgb(211, 204, 204);
   float: left;
   clear: both;
 }
 
-.submit{
+.submit {
   margin: 1em;
   background-color: rgb(98, 190, 181);
   border: 2px black solid;
   border-radius: 4px;
 }
 
-field.form-text{
+field.form-text {
   display: grid;
   background-color: teal;
 }
 
-field.form-button{
+field.form-button {
   display: flex;
   background-color: teal;
   justify-items: center;
-justify-content: center;
-text-align: center;
-gap: 10px;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
 }
-
-
 
 /* TABLE STUFF */
 
-table,td,th,tr{
+table,
+td,
+th,
+tr {
   border: 2px solid black;
   margin: 2em;
 }
-
