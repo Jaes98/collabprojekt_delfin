@@ -119,14 +119,13 @@ hr {
 
 #brugernavn,
 #kodeord {
-    width: 15em;
+  width: 15em;
 }
 
 /*********** front-page **************/
 #sort {
-    width: 12em;
+  width: 12em;
 }
-
 
 /* STUFF FOR THE SPA: */
 
@@ -245,7 +244,6 @@ tr {
   border: 2px solid black;
   margin: 2em;
 }
-
 
 #btn-formand-create {
   width: 100px;

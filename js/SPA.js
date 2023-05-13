@@ -21,7 +21,7 @@ function changeHash() {
 }
 
 function hideAllPages() {
-  document.querySelectorAll(".page-view").forEach(page => page.classList.remove("active"));
+  document.querySelectorAll(".page-view").forEach((page) => page.classList.remove("active"));
   document.querySelectorAll(".nav-link").forEach((page) => page.classList.remove("highlighted"));
 }
 

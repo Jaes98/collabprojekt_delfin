@@ -71,21 +71,21 @@ async function updateMemberPUT(memberToUpdate, id) {
 
 // HTTP Method: DELETE
 async function deleteMember(id) {
-   // Fetch link med præcis ID af det post der skal slettes
-    const response = await fetch(`${dolphinDatabase}/members/${id}.json`, {
-      method: "DELETE",
-    });
-    console.log(`${dolphinDatabase}/members/${id}.json`);
-    // Hvis response er ok, udskriv log og opdater grid
+  // Fetch link med præcis ID af det post der skal slettes
+  const response = await fetch(`${dolphinDatabase}/members/${id}.json`, {
+    method: "DELETE",
+  });
+  console.log(`${dolphinDatabase}/members/${id}.json`);
+  // Hvis response er ok, udskriv log og opdater grid
 
-    //if (response.status === 200) {
-     // console.log("****************200***************");
-      //success();
-    //} else {
-      //console.log("################shit#############");
-      //failed();
-    //}
-    return response;
+  //if (response.status === 200) {
+  // console.log("****************200***************");
+  //success();
+  //} else {
+  //console.log("################shit#############");
+  //failed();
+  //}
+  return response;
 }
 
 function restSuccess() {}
