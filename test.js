@@ -9,3 +9,11 @@ function ageCalculator(bday) {
   const miliSecondsInAYear = 1000*60*60*24*365
   return Math.floor(ageInMilis/miliSecondsInAYear)
   }
+
+
+  document.querySelector("#select").addEventListener("change",changeBox)
+
+  function changeBox(params) {
+    console.log(document.querySelector("#testbox").checked)
+    document.querySelectorAll(".check").forEach((box)=> box.checked = false);
+  }
