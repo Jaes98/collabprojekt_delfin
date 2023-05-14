@@ -1,0 +1,414 @@
+/* ********** formand page ********** */
+
+
+
+@media (min-width: 400px) {
+    .formand-nav, #btn-formand-create,
+        #member-search,
+        #sort,
+        #nav-align {
+        position: relative;
+    }
+    .formand-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        position: relative;
+    }
+        
+}
+
+@media (min-width: 850px) {
+.formand-container {
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    
+    justify-content: center;
+    justify-items: center;
+}
+  
+  #member-search,
+  #sort,
+  #nav-align {
+      position: fixed;
+  }
+  
+}
+
+@media (min-width: 1000px) {
+.formand-container {
+        display: grid;
+        grid-template-rows: repeat(8, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+
+        justify-content: center;
+        justify-items: center;
+    }
+        #member-search,
+        #sort,
+        #nav-align {
+            position: fixed;
+        }
+        
+}
+  
+
+.formand-header {
+    grid-row: 1 / 2;
+    grid-column: 1 / 5;
+    background-color: #ccc;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    max-height: 120px;
+    text-align: center;
+    position: relative;
+    background-color: #67a0d8;
+    align-items: center;
+    justify-content: space-between;
+           
+}
+
+.formand-nav {
+    
+    grid-row: 2 / 9;
+    grid-column: 1 / 2;
+    background-color: #eee;
+    padding: 10px;
+    width: 100%;
+    
+ 
+}
+
+.formand-table {
+    grid-row: 2 / 9;
+    grid-column: 2 / 5;
+    background-color: #fff;
+    padding: 10px;
+    width: 100%;
+    display: grid;
+    position: relative;
+    text-align: left;
+}
+
+.formand-table h2 {
+    text-align: center;
+}
+
+/************** main ************/
+
+body {
+    width: 100%;
+    margin: 0;
+    /* background-color: rgb(29, 108, 183); */
+    background-color: #f3f3f3;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+hr {
+    border: 1px solid black;
+    /* border-top: 2px solid darkblue; */
+}
+
+/*********** front-page **************/
+
+.front-page {
+    display: grid;
+    width: 100%;
+    min-height: 100vh;
+    gap: 0;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "header"
+        "contact"
+        "nextUp"
+        "lastTime"
+        "footer";
+}
+
+@media (min-width: 550px) {
+    .front-page {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+            "header header header"
+            "contact nextUp lastTime"
+            "footer footer footer";
+    }
+}
+
+@media (min-width: 900px) {
+    .front-page {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+            "header header header"
+            "contact nextUp lastTime"
+            "footer footer footer";
+    }
+}
+
+.front-page header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    max-height: 120px;
+    text-align: center;
+    position: relative;
+    background-color: #67a0d8;
+    align-items: center;
+    justify-content: space-between;
+    grid-area: header;
+}
+
+#btn-logIn {
+    position: relative;
+    justify-self: end;
+    margin: 10px;
+    width: 15vw;
+    max-width: 100px;
+    max-height: 40px;
+    border: 2px solid #1d558e;
+    height: 7vw;
+    background-color: rgb(29, 108, 183);
+    right: 0px;
+}
+
+#logo {
+    position: relative;
+    width: 40%;
+    max-width: 100px;
+    max-height: 100px;
+    margin: 10px;
+    /* border: 2px solid black; */
+    /* background-color: white; */
+    /*img source: https://www.rawpixel.com/image/6791666 */
+}
+
+.front-page article {
+    border: 3px solid #4981b9;
+    padding: 5px;
+    position: relative;
+    background-color: #a3bfdc;
+    margin: 10px;
+}
+
+#fp-contact {
+    grid-area: contact;
+    /* margin-left: 10px; */
+}
+
+#fp-nextUp {
+    grid-area: nextUp;
+}
+
+#fp-lastTime {
+    grid-area: lastTime;
+    /* margin-right: 10px; */
+}
+
+.front-page footer {
+    grid-area: footer;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    max-height: 100px;
+    background-color: #67a0d8;
+}
+
+/*********** login-page **************/
+
+#brugernavn,
+#kodeord {
+    width: 15em;
+}
+
+/*********** front-page **************/
+#sort, #member-search {
+    width: 12em;
+    background-color: #a3bfdc;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(118, 118, 118);
+   
+}
+.nav label {
+    margin-left: 20px;
+}
+
+/* STUFF FOR THE SPA: */
+
+section.page-view {
+    display: none;
+}
+
+section.active#front-page {
+    display: grid;
+    /* padding: 2em;
+  margin: 2em; */
+}
+
+section.active#formand {
+    background-color: grey;
+    display: grid;
+    /* padding: 2em;
+    margin: 2em; */
+}
+
+section.active#log-in {
+    display: grid;
+    padding: 2em;
+    margin: 2em;
+}
+
+section.active#kasserer {
+    display: grid;
+    padding: 2em;
+    margin: 2em;
+}
+
+section.active#trainer {
+    display: grid;
+    font-size: 300px;
+    padding: 2em;
+    margin: 2em;
+}
+
+.highlighted {
+    background-color: red;
+}
+
+/* ************* create member form*********** */
+
+#form-create-member {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* ************* update member form*********** */
+
+#formand-form-update-member2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* DIALOG */
+
+dialog {
+    background-color: #67a0d8;
+}
+
+:required {
+    border: 2px solid green;
+}
+
+form {
+    color: rgb(205, 177, 50);
+    margin: 1.2em;
+    padding: 1em;
+    /* display: grid; */
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 2px;
+    font-size: 20px;
+}
+
+label {
+    float: left;
+    clear: both;
+}
+
+input {
+    background-color: rgb(211, 204, 204);
+    float: left;
+    clear: both;
+}
+
+.submit {
+    margin: 1em;
+    background-color: rgb(98, 190, 181);
+    border: 2px black solid;
+    border-radius: 4px;
+}
+
+field.form-text {
+    display: grid;
+    background-color: teal;
+}
+
+field.form-button {
+    display: flex;
+    background-color: teal;
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
+/* TABLE STUFF */
+/* source: https: //www.w3.org/Style/Examples/007/evenodd.en.html */
+
+table,
+tr {
+    border-collapse: collapse;
+}
+tr:nth-child(even) {
+    background-color: #a3bfdc;
+  
+}
+tr:nth-child(odd) {
+    background-color: #1d568e;
+}
+th {
+    background-color: #67a0d8;
+    padding: 2mm;
+}
+td {
+    padding: 5mm;
+}
+
+#btn-formand-create, #member-search, #sort, #nav-align {
+    
+    /* position: fixed; */
+    width: 12em;
+    margin-left: 20px;
+    left: 0;
+}
+
+.buttonAni {
+    background-color: #a6c1db;
+        border-width: 2px;
+        border-style: outset;
+        border-color: rgb(56, 107, 184);
+        box-shadow: 2px 2px 2px #1d558e;  
+}
+
+.buttonAni:hover {
+    background-color: #b8d5f4;;
+        border-width: 2px;
+        border-style: outset;
+        border-color: rgb(97, 132, 184);
+        box-shadow: 2px 2px 6px #6e88a3;
+}
+
+tr:nth-child(even):hover {
+box-shadow: 2px 2px 6px #798b9d;
+border: 6px solid #a6c1db74;
+transform: scale(1.05);
+}
+
+tr:nth-child(odd):hover {
+    box-shadow: 2px 2px 6px #1d568e4f;
+    border: 6px solid #17426c34;
+    transform: scale(1.05);
+    
+}
+
+#thh:hover {
+    border: none;
+    box-shadow: none;
+}
