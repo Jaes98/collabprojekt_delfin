@@ -24,7 +24,7 @@
 @media (min-width: 850px) {
   .formand-container {
     display: grid;
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: auto;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
     width: 100%;
@@ -43,7 +43,7 @@
 @media (min-width: 1000px) {
   .formand-container {
     display: grid;
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: auto;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
     width: 100%;
@@ -78,15 +78,16 @@
 
 .formand-nav {
 
-  grid-row: 2 / 9;
+  grid-row: auto;
   grid-column: 1 / 2;
   background-color: #eee;
-  padding: 10px;
+  padding: 25px;
   width: 100%;
+  padding-top: 0;
 }
 
 .formand-table {
-  grid-row: 2 / 9;
+  grid-row: auto;
   grid-column: 2 / 7;
   background-color: #fff;
   /* padding: 10px; */

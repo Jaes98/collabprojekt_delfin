@@ -270,6 +270,8 @@ function searchBarChanged() {
 function searchList(sortedList) {
   console.log("searchlist, valuetosortby:", valueToSearchBy);
   console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
+  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
+  showMembers(searchedList);
   return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
 }
 
