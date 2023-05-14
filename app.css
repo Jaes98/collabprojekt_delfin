@@ -1,3 +1,105 @@
+/* ********** formand page ********** */
+
+
+
+@media (min-width: 400px) {
+
+  .formand-nav,
+  #btn-formand-create,
+  #member-search,
+  #sort,
+  #nav-align {
+    position: relative;
+  }
+
+  .formand-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    position: relative;
+    width: 100%
+  }
+
+}
+
+@media (min-width: 850px) {
+  .formand-container {
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  #member-search,
+  #sort,
+  #nav-align {
+    position: fixed;
+  }
+
+}
+
+@media (min-width: 1000px) {
+  .formand-container {
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  #member-search,
+  #sort,
+  #nav-align {
+    position: fixed;
+  }
+
+}
+
+
+.formand-header {
+  grid-row: 1 / 2;
+  grid-column: 1 / 7;
+  background-color: #ccc;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  max-height: 120px;
+  text-align: center;
+  position: relative;
+  background-color: #67a0d8;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.formand-nav {
+
+  grid-row: 2 / 9;
+  grid-column: 1 / 2;
+  background-color: #eee;
+  padding: 10px;
+  width: 100%;
+}
+
+.formand-table {
+  grid-row: 2 / 9;
+  grid-column: 2 / 7;
+  background-color: #fff;
+  /* padding: 10px; */
+  width: 100%;
+  display: grid;
+  position: relative;
+  text-align: left;
+}
+
+.formand-table h2 {
+  text-align: center;
+}
+
 /************** main ************/
 
 body {
@@ -93,13 +195,16 @@ hr {
   background-color: #a3bfdc;
   margin: 10px;
 }
+
 #fp-contact {
   grid-area: contact;
   /* margin-left: 10px; */
 }
+
 #fp-nextUp {
   grid-area: nextUp;
 }
+
 #fp-lastTime {
   grid-area: lastTime;
   /* margin-right: 10px; */
@@ -123,8 +228,18 @@ hr {
 }
 
 /*********** front-page **************/
-#sort {
+#sort,
+#member-search {
   width: 12em;
+  background-color: #a3bfdc;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(118, 118, 118);
+
+}
+
+.nav label {
+  margin-left: 20px;
 }
 
 /* STUFF FOR THE SPA: */
@@ -138,22 +253,25 @@ section.active#front-page {
   /* padding: 2em;
   margin: 2em; */
 }
+
 section.active#formand {
   background-color: grey;
   display: grid;
-  padding: 2em;
-  margin: 2em;
+  /* width: 100%; */
 }
+
 section.active#log-in {
   display: grid;
   padding: 2em;
   margin: 2em;
 }
+
 section.active#kasserer {
   display: grid;
   padding: 2em;
   margin: 2em;
 }
+
 section.active#trainer {
   display: grid;
   font-size: 300px;
@@ -184,7 +302,7 @@ section.active#trainer {
 /* DIALOG */
 
 dialog {
-  background-color: rgb(138, 126, 126);
+  background-color: #67a0d8;
 }
 
 :required {
@@ -236,15 +354,76 @@ field.form-button {
 }
 
 /* TABLE STUFF */
+/* source: https: //www.w3.org/Style/Examples/007/evenodd.en.html */
 
 table,
-td,
-th,
 tr {
-  border: 2px solid black;
-  margin: 2em;
+  border-collapse: collapse;
 }
 
-#btn-formand-create {
-  width: 100px;
+tr:nth-child(even) {
+  background-color: #a3bfdc;
+
+}
+
+tr:nth-child(odd) {
+  background-color: #1d568e;
+}
+
+th {
+  background-color: #67a0d8;
+  padding: 2mm;
+}
+
+td {
+  padding: 5mm;
+}
+
+#btn-formand-create,
+#member-search,
+#sort,
+#nav-align {
+
+  /* position: fixed; */
+  width: 12em;
+  margin-left: 20px;
+  left: 0;
+}
+
+.buttonAni {
+  background-color: #a6c1db;
+  border-width: 2px;
+  border-style: outset;
+  border-color: rgb(56, 107, 184);
+  box-shadow: 2px 2px 2px #1d558e;
+}
+
+.buttonAni:hover {
+  background-color: #b8d5f4;
+  ;
+  border-width: 2px;
+  border-style: outset;
+  border-color: rgb(97, 132, 184);
+  box-shadow: 2px 2px 6px #6e88a3;
+}
+
+tr:nth-child(even):hover {
+  box-shadow: 2px 2px 6px #798b9d;
+  border: 6px solid #a6c1db74;
+  transform: scale(1.02);
+  background-color: #9ac3ef;
+}
+
+tr:nth-child(odd):hover {
+  box-shadow: 2px 2px 6px #1d568e4f;
+  border: 6px solid #17426c34;
+  transform: scale(1.02);
+  background-color: #3a7bbc;
+
+}
+
+#thh:hover {
+  border: none;
+  box-shadow: none;
+  transform: none;
 }
