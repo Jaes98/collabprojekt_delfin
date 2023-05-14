@@ -40,6 +40,7 @@ function showMembersAll() {
 }
 
 function showMembers(array) {
+  console.log("showmembers array:", array);
   document.querySelector("#formand-table-body").innerHTML = "";
 
   for (const member of array) {
@@ -269,13 +270,15 @@ function searchBarChanged() {
 
 function searchList(sortedList) {
   console.log("searchlist, valuetosortby:", valueToSearchBy);
-  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
-  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
+  console.log(searchedList);
+  showMembers(searchedList);
+  // return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
 }
 
 function changeCreateCheckboxes() {
   const createBoxes = document.querySelectorAll(".create-discipline");
-  createBoxes.forEach(box => {
+  createBoxes.forEach((box) => {
     box.checked = false;
     box.disabled = !box.disabled;
   });
@@ -284,7 +287,7 @@ function changeCreateCheckboxes() {
 function changeUpdateCheckboxes() {
   const updateValue = document.querySelector("#formand-update-competetive").value === "true";
   const updateBoxes = document.querySelectorAll(".update-discipline");
-  updateBoxes.forEach(box => {
+  updateBoxes.forEach((box) => {
     box.disabled = !updateValue;
   });
 }
