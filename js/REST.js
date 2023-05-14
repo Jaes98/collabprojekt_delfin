@@ -50,6 +50,7 @@ async function createdMember(newMember) {
   if (response.status === 200) {
     console.log("member was send to the database");
     restSuccess();
+    document.querySelector("#dialog-create-member").close();
   } else {
     console.error("member was NOT send to the database");
     restFail();
