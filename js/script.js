@@ -2,7 +2,7 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline } from "./Helper-functions.js";
+import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership } from "./Helper-functions.js";
 
 window.addEventListener("load", start);
 
