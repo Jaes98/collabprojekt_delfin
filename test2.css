@@ -13,6 +13,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
         position: relative;
+        width: 100%
     }
         
 }
@@ -21,9 +22,9 @@
 .formand-container {
     display: grid;
     grid-template-rows: repeat(8, 1fr);
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 10px;
-    
+    width: 100%;
     justify-content: center;
     justify-items: center;
 }
@@ -40,9 +41,9 @@
 .formand-container {
         display: grid;
         grid-template-rows: repeat(8, 1fr);
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         gap: 10px;
-
+        width: 100%;
         justify-content: center;
         justify-items: center;
     }
@@ -57,7 +58,7 @@
 
 .formand-header {
     grid-row: 1 / 2;
-    grid-column: 1 / 5;
+    grid-column: 1 / 7;
     background-color: #ccc;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -78,15 +79,13 @@
     background-color: #eee;
     padding: 10px;
     width: 100%;
-    
- 
 }
 
 .formand-table {
     grid-row: 2 / 9;
-    grid-column: 2 / 5;
+    grid-column: 2 / 7;
     background-color: #fff;
-    padding: 10px;
+    /* padding: 10px; */
     width: 100%;
     display: grid;
     position: relative;
@@ -252,8 +251,7 @@ section.active#front-page {
 section.active#formand {
     background-color: grey;
     display: grid;
-    /* padding: 2em;
-    margin: 2em; */
+    /* width: 100%; */
 }
 
 section.active#log-in {
@@ -398,17 +396,20 @@ td {
 tr:nth-child(even):hover {
 box-shadow: 2px 2px 6px #798b9d;
 border: 6px solid #a6c1db74;
-transform: scale(1.05);
+transform: scale(1.02);
+background-color: #9ac3ef;
 }
 
 tr:nth-child(odd):hover {
     box-shadow: 2px 2px 6px #1d568e4f;
     border: 6px solid #17426c34;
-    transform: scale(1.05);
+    transform: scale(1.02);
+    background-color: #3a7bbc;
     
 }
 
 #thh:hover {
     border: none;
     box-shadow: none;
+    transform: none;
 }
