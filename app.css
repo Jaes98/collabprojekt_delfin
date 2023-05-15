@@ -360,11 +360,13 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
   background-color: #1d568e;
+  color: white;
 }
 
 th {
   background-color: #67a0d8;
   padding: 2mm;
+  color: black;
 }
 
 td {
@@ -409,6 +411,7 @@ tr:nth-child(odd):hover {
   border: 6px solid #17426c34;
   transform: scale(1.02);
   background-color: #3a7bbc;
+  
 }
 
 #thh:hover {
