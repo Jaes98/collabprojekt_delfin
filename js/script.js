@@ -13,6 +13,7 @@ function start() {
   viewControl();
 
   document.querySelector("#btn-formand-create").addEventListener("click", () => document.querySelector("#dialog-create-member").showModal());
+  document.querySelector("#kasserer-update-button").addEventListener("click", () => document.querySelector("#kasserer-update-dialog").showModal());
   document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-member").close());
   document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
@@ -130,8 +131,8 @@ function memberOverview() {
   console.log(listOfMembers);
   const countActive = listOfMembers.filter((member) => member.active === "Aktivt medlem");
   const countPassiv = listOfMembers.filter((member) => member.active === "Passivt medlem");
-  const overview = document.querySelector("#overview")
-  overview.innerHTML = ""
+  const overview = document.querySelector("#overview");
+  overview.innerHTML = "";
   overview.insertAdjacentHTML(
     "beforeend",
     /*HTML */ `
@@ -171,11 +172,11 @@ function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");
   document.querySelector("#show-member-modal").close();
 
-  if (member.competetive === "Konkurrent") member.competetive = "true";
-  else member.competetive = "false";
+  if (member.competetive === "Konkurrent") member.competetive = true;
+  else member.competetive = false;
 
-  if (member.active === "Aktiv") member.active = "true";
-  else member.active = "false";
+  if (member.active === "Aktiv") member.active = true;
+  else member.active = false;
 
   updateForm.name.value = member.name;
   updateForm.bday.value = member.bday;
@@ -258,6 +259,7 @@ function sortList(listToSort) {
 
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
+
   result.forEach(refinedData);
   showMembers(result);
   listOfMembers = result;
