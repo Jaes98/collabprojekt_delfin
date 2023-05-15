@@ -234,25 +234,6 @@ async function deleteMemberYes(event) {
   }
 }
 
-let valueToSortBy = "name";
-function setSort() {
-  valueToSortBy = document.querySelector("#sort").value;
-
-  showMembersAll();
-}
-
-function sortList(listToSort) {
-  console.log(listToSort);
-  console.log("valuetosortby", valueToSortBy);
-  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
-  if (valueToSortBy === "") return listToSort;
-  if (valueToSortBy === "age") {
-    return listToSort.sort((first, second) => first - second);
-  } else {
-    return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
-  }
-}
-
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
   result.forEach(refinedData);
@@ -274,10 +255,23 @@ function refinedData(result) {
   return result;
 }
 
+let valueToSortBy = "name";
+function setSort() {
+  valueToSortBy = document.querySelector("#sort").value;
+  showMembersAll();
+}
+
+function sortList(listToSort) {
+  if (valueToSortBy === "age") {
+    return listToSort.sort((first, second) => first - second);
+  } else {
+    return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
+  }
+}
+
 let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
-
   showMembersAll();
 }
 
