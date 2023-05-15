@@ -33,5 +33,20 @@ function checkDiscipline(member) {
 
   return listOfDisciplines;
 }
+function checkCompetitorOrExerciser(member) {
+  if (member.competetive) {
+    member.competetive = "Konkurrent";
+  } else {
+    member.competetive = "Motionist";
+  }
+}
 
-export { ageCalculator, ageToGroup, checkDiscipline };
+function checkMembership(member) {
+  if (member.active) {
+    member.active = "Aktivt medlem";
+  } else {
+    member.active = "Passivt medlem";
+  }
+}
+
+export { ageCalculator, ageToGroup, checkDiscipline, checkMembership, checkCompetitorOrExerciser };

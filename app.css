@@ -1,3 +1,99 @@
+/* ********** formand page ********** */
+
+@media (min-width: 400px) {
+  .formand-nav,
+  #btn-formand-create,
+  #member-search,
+  #sort,
+  #nav-align {
+    position: relative;
+  }
+
+  .formand-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    position: relative;
+    width: 100%;
+  }
+}
+
+@media (min-width: 850px) {
+  .formand-container {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  #btn-formand-create,
+  #member-search,
+  #sort,
+  #nav-align {
+    position: fixed;
+  }
+}
+
+@media (min-width: 1000px) {
+  .formand-container {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  #btn-formand-create,
+  #member-search,
+  #sort,
+  #nav-align {
+    position: fixed;
+  }
+}
+
+.formand-header {
+  grid-row: 1 / 2;
+  grid-column: 1 / 7;
+  background-color: #ccc;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  max-height: 120px;
+  text-align: center;
+  position: relative;
+  background-color: #67a0d8;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.formand-nav {
+  grid-row: auto;
+  grid-column: 1 / 2;
+  background-color: #eee;
+  padding: 25px;
+  width: 100%;
+  padding-top: 0;
+}
+
+.formand-table {
+  grid-row: auto;
+  grid-column: 2 / 7;
+  background-color: #fff;
+  /* padding: 10px; */
+  width: 100%;
+  display: grid;
+  position: relative;
+  text-align: left;
+}
+
+.formand-table h2 {
+  text-align: center;
+}
+
 /************** main ************/
 
 body {
@@ -93,13 +189,16 @@ hr {
   background-color: #a3bfdc;
   margin: 10px;
 }
+
 #fp-contact {
   grid-area: contact;
   /* margin-left: 10px; */
 }
+
 #fp-nextUp {
   grid-area: nextUp;
 }
+
 #fp-lastTime {
   grid-area: lastTime;
   /* margin-right: 10px; */
@@ -119,14 +218,22 @@ hr {
 
 #brugernavn,
 #kodeord {
-    width: 15em;
+  width: 15em;
 }
 
 /*********** front-page **************/
-#sort {
-    width: 12em;
+#sort,
+#member-search {
+  width: 12em;
+  background-color: #a3bfdc;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(118, 118, 118);
 }
 
+.nav label {
+  margin-left: 20px;
+}
 
 /* STUFF FOR THE SPA: */
 
@@ -139,22 +246,25 @@ section.active#front-page {
   /* padding: 2em;
   margin: 2em; */
 }
+
 section.active#formand {
   background-color: grey;
   display: grid;
-  padding: 2em;
-  margin: 2em;
+  /* width: 100%; */
 }
+
 section.active#log-in {
   display: grid;
   padding: 2em;
   margin: 2em;
 }
+
 section.active#kasserer {
   display: grid;
   padding: 2em;
   margin: 2em;
 }
+
 section.active#trainer {
   display: grid;
   font-size: 300px;
@@ -185,7 +295,7 @@ section.active#trainer {
 /* DIALOG */
 
 dialog {
-  background-color: rgb(138, 126, 126);
+  background-color: #67a0d8;
 }
 
 :required {
@@ -237,11 +347,70 @@ field.form-button {
 }
 
 /* TABLE STUFF */
+/* source: https: //www.w3.org/Style/Examples/007/evenodd.en.html */
 
 table,
-td,
-th,
 tr {
-  border: 2px solid black;
-  margin: 2em;
+  border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+  background-color: #a3bfdc;
+}
+
+tr:nth-child(odd) {
+  background-color: #1d568e;
+  color: white;
+}
+
+th {
+  background-color: #67a0d8;
+  padding: 2mm;
+  color: black;
+}
+
+td {
+  padding: 5mm;
+}
+
+#btn-formand-create,
+#member-search,
+#sort,
+#nav-align {
+  /* position: fixed; */
+  width: 12em;
+  margin-left: 20px;
+  left: 0;
+}
+
+.buttonAni {
+  background-color: #a6c1db;
+  border-width: 2px;
+  border-style: outset;
+  border-color: rgb(56, 107, 184);
+  box-shadow: 2px 2px 2px #1d558e;
+}
+
+.buttonAni:hover {
+  background-color: #b8d5f4;
+  border-width: 2px;
+  border-style: outset;
+  border-color: rgb(97, 132, 184);
+  box-shadow: 2px 2px 6px #6e88a3;
+}
+
+tr:nth-child(even):hover {
+  transform: scale(1.02);
+  background-color: #9ac3ef;
+}
+
+tr:nth-child(odd):hover {
+  transform: scale(1.02);
+  background-color: #3a7bbc;
+}
+
+#thh:hover {
+  border: none;
+  box-shadow: none;
+  transform: none;
 }

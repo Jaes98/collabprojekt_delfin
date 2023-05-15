@@ -2,7 +2,8 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline } from "./Helper-functions.js";
+import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership} from "./Helper-functions.js";
+
 
 window.addEventListener("load", start);
 
@@ -15,12 +16,17 @@ function start() {
   document.querySelector("#btn-formand-create").addEventListener("click", () => document.querySelector("#dialog-create-member").showModal());
   document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-member").close());
-  document.querySelector("#formand-update-button").addEventListener("click", updateMemberClicked);
   document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
   document.querySelector("#form-delete-member").addEventListener("submit", deleteMemberYes);
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
   document.querySelector("#btn-formand-no-update").addEventListener("click", () => document.querySelector("#dialog-update-member2").close());
   document.querySelector("#sort").addEventListener("change", setSort);
+
+  document.querySelector("#member-search").addEventListener("keyup", searchBarChanged);
+  document.querySelector("#member-search").addEventListener("search", searchBarChanged);
+
+  document.querySelector("#formand-update-competetive").addEventListener("change", changeUpdateCheckboxes);
+  document.querySelector("#competetive").addEventListener("change", changeCreateCheckboxes);
 
   getUpdatedFirebase();
 }
@@ -28,8 +34,10 @@ function start() {
 function showMembersAll() {
   const listOfAll = posts;
   const sortedList = sortList(listOfAll);
-  console.log(sortedList);
-  showMembers(sortedList);
+  const searchedList = searchList(sortedList);
+  const filteredList = filterList(searchedList);
+
+  showMembers(filteredList);
 }
 
 function showMembers(array) {
@@ -41,6 +49,8 @@ function showMembers(array) {
 }
 
 function showMember(member) {
+    checkCompetitorOrExerciser(member);
+    checkMembership(member);
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -101,7 +111,10 @@ function showMemberModal(member) {
   document.querySelector("#show-member-modal").showModal();
 
   document.querySelector("#btn-close-modal").addEventListener("click", () => document.querySelector("#show-member-modal").close());
-  document.querySelector("#btn-update-member").addEventListener("click", () => updateMemberClicked(member));
+  document.querySelector("#btn-update-member").addEventListener("click", () => {
+    updateMemberClicked(member);
+    changeUpdateCheckboxes();
+  });
   document.querySelector("#btn-delete-member").addEventListener("click", () => deleteClickedOpenModal(member));
 }
 
@@ -133,19 +146,6 @@ function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");
   document.querySelector("#show-member-modal").close();
 
-  console.log(member);
-  console.log(updateForm);
-  console.log(updateForm.name);
-  // console.log("gender.value:",updateForm.gender.value)
-  // console.log("gender.checked:",updateForm.gender.checked)
-  // console.log("gender:",updateForm.gender)
-  // console.log("member.gender:",member.gender)
-  // console.log("member.activity:",member.active)
-  // console.log("member.comp:",member.competetive)
-  console.log("member.gender:", member.gender);
-  console.log("member.backcrawl:", member.backCrawl);
-  console.log("member.breaststroke:", member.breaststroke);
-  console.log("member.butterfly:", member.butterfly);
   updateForm.name.value = member.name;
   updateForm.bday.value = member.bday;
   updateForm.phonenumber.value = member.phonenumber;
@@ -228,7 +228,7 @@ function sortList(listToSort) {
   if (valueToSortBy === "age") {
     return listToSort.sort(compareNumber);
   } else if (valueToSortBy === "default") {
-    return searchedList;
+    return listToSort.sort(compareName);
   } else {
     return listToSort.sort(compareString);
   }
@@ -247,6 +247,9 @@ function sortList(listToSort) {
     }
     return first - second;
   }
+  function compareName(member1, member2) {
+    return member1["name"].localeCompare(member2["name"]);
+  }
 }
 
 async function getUpdatedFirebase(params) {
@@ -260,4 +263,33 @@ async function getUpdatedFirebase(params) {
   showMembers(result);
 }
 
-function searchedList(list) {}
+let valueToSearchBy = "";
+function searchBarChanged() {
+  valueToSearchBy = document.querySelector("#member-search").value;
+
+  searchList(posts);
+}
+
+function searchList(sortedList) {
+  console.log("searchlist, valuetosortby:", valueToSearchBy);
+  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
+  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
+  showMembers(searchedList);
+  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+}
+
+function changeCreateCheckboxes() {
+  const createBoxes = document.querySelectorAll(".create-discipline");
+  createBoxes.forEach(box => {
+    box.checked = false;
+    box.disabled = !box.disabled;
+  });
+}
+
+function changeUpdateCheckboxes() {
+  const updateValue = document.querySelector("#formand-update-competetive").value === "true";
+  const updateBoxes = document.querySelectorAll(".update-discipline");
+  updateBoxes.forEach(box => {
+    box.disabled = !updateValue;
+  });
+}
