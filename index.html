@@ -9,18 +9,6 @@
   </head>
 
   <body>
-    <!-- '  <div class="container">
-          <div class="header">Header Header Header Header</div>
-          <div class="nav">Nav</div>
-          <div class="table">Table Table Table Table</div>
-          <div class="table">Table Table Table Table</div>
-          <div class="table">Table Table Table Table</div>
-          <div class="nav">Nav</div>
-          <div class="table">Table Table Table Table</div>
-          <div class="table">Table Table Table Table</div>
-          <div class="table">Table Table Table Table</div>
-      </div>' -->
-
     <nav>
       <a class="nav-link highlighted" href="#front-page">frontpage</a>
       <a class="nav-link" href="#log-in">login</a>
@@ -75,8 +63,6 @@
       <input id="kodeord" name="kodeord" type="text" placeholder="Kodeord" required />
     </section>
     <section class="page-view active" id="formand">
-      <!-- EVENTUELT SORT HER? -->
-
       <div class="formand-container">
         <div class="formand-header">
           <img id="logo" src="images/dolphin logo.png" alt="logo" />
@@ -85,6 +71,9 @@
 
         <div class="formand-nav">
           <br />
+          <div id="overview">
+            <h3>Overblik over medlemmer:</h3>
+          </div>
           <button id="btn-formand-create" class="buttonAni">Tilføj nyt medlem</button>
           <br />
           <br />
@@ -102,27 +91,26 @@
             <option value="active">Medlemsskab</option>
             <option value="competetive">Motionist/Konkurrence</option>
           </select>
-        <br>
-        <br>
-        <label for="filter" id="nav-align">Filtrér svømmer efter:</label>
-        <br>
-        <select id="nav-filter" autocomplete="off">
-          <option value="default"></option>
-          <optgroup label="Aldersgruppe:">
-            <option value="junior">Junior</option>
-            <option value="senior">Senior</option>
-            <option value="senior+">Senior+</option>
-          </optgroup>
-          <optgroup label="Medlemskab:">
-            <option value="active">Aktiv</option>
-            <option value="passive">Passiv</option>
-            
-          </optgroup>
-          <optgroup label="Type:">
-            <option value="freetime">Motionist</option>
-            <option value="competition">konkurrence</option>
-          </optgroup>
-        </select>
+          <br />
+          <br />
+          <label for="filter" id="nav-align">Filtrér svømmer efter:</label>
+          <br />
+          <select id="nav-filter" autocomplete="off">
+            <option value="" selected>Intet filter</option>
+            <optgroup label="Aldersgruppe:">
+              <option value="Junior">Junior</option>
+              <option value="Senior">Senior</option>
+              <option value="Senior+">Senior+</option>
+            </optgroup>
+            <optgroup label="Medlemskab:">
+              <option value="Aktivt medlem">Aktiv</option>
+              <option value="Passivt medlem">Passiv</option>
+            </optgroup>
+            <optgroup label="Type:">
+              <option value="Motionist">Motionist</option>
+              <option value="Konkurrent">Konkurrence</option>
+            </optgroup>
+          </select>
         </div>
 
         <div class="formand-table">
@@ -133,7 +121,7 @@
                 <th>Navn</th>
                 <th>Aldersgruppe</th>
                 <th>Medlemsskab</th>
-                <th>Motionist/Konkurrence</th>
+                <th>Type</th>
                 <th>Se detaljer</th>
               </tr>
             </thead>
