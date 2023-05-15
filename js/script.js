@@ -2,8 +2,7 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach} from "./Helper-functions.js";
-
+import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach } from "./Helper-functions.js";
 
 window.addEventListener("load", start);
 
@@ -21,6 +20,7 @@ function start() {
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
   document.querySelector("#btn-formand-no-update").addEventListener("click", () => document.querySelector("#dialog-update-member2").close());
   document.querySelector("#sort").addEventListener("change", setSort);
+  document.querySelector("#nav-filter").addEventListener("change", chosenFilter);
 
   document.querySelector("#member-search").addEventListener("keyup", searchBarChanged);
   document.querySelector("#member-search").addEventListener("search", searchBarChanged);
@@ -49,8 +49,8 @@ function showMembers(array) {
 }
 
 function showMember(member) {
-    console.log(member.trid);
-    
+  console.log(member.trid);
+
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -256,21 +256,21 @@ async function getUpdatedFirebase(params) {
   const result = await getMembers();
   result.forEach(refinedData);
   showMembers(result);
-   posts = result;
+  posts = result;
 }
 
 function refinedData(result) {
-     ageCalculator(result);
+  ageCalculator(result);
 
-     ageToGroup(result);
+  ageToGroup(result);
 
-     addCoach(result);
+  addCoach(result);
 
-     checkCompetitorOrExerciser(result);
+  checkCompetitorOrExerciser(result);
 
-     checkMembership(result);
+  checkMembership(result);
 
-     return result
+  return result;
 }
 
 let valueToSearchBy = "";
@@ -282,15 +282,15 @@ function searchBarChanged() {
 
 function searchList(sortedList) {
   console.log("searchlist, valuetosortby:", valueToSearchBy);
-  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
+  console.log(sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy)));
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   showMembers(searchedList);
-  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  return sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
 }
 
 function changeCreateCheckboxes() {
   const createBoxes = document.querySelectorAll(".create-discipline");
-  createBoxes.forEach(box => {
+  createBoxes.forEach((box) => {
     box.checked = false;
     box.disabled = !box.disabled;
   });
@@ -299,7 +299,20 @@ function changeCreateCheckboxes() {
 function changeUpdateCheckboxes() {
   const updateValue = document.querySelector("#formand-update-competetive").value === "true";
   const updateBoxes = document.querySelectorAll(".update-discipline");
-  updateBoxes.forEach(box => {
+  updateBoxes.forEach((box) => {
     box.disabled = !updateValue;
   });
+}
+
+let valueToFilterBy = "";
+function chosenFilter() {
+  valueToFilterBy = document.querySelector("#nav-filter").value;
+
+  filterList(posts);
+}
+
+function filterList(searchedList) {
+  console.log("serachedlist:", searchedList);
+  const filteredList = searchedList;
+  searchedList.filter();
 }
