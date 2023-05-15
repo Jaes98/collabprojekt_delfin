@@ -29,6 +29,7 @@ function start() {
   document.querySelector("#competetive").addEventListener("change", changeCreateCheckboxes);
 
   getUpdatedFirebase();
+  
 }
 
 function showMembersAll() {
@@ -38,6 +39,7 @@ function showMembersAll() {
   const filteredList = filterList(searchedList);
 
   showMembers(filteredList);
+  
 }
 
 function showMembers(array) {
@@ -46,6 +48,7 @@ function showMembers(array) {
 
   for (const member of array) {
     showMember(member);
+    
   }
 }
 
@@ -65,6 +68,7 @@ function showMember(member) {
   `;
   document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
   document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
+ 
 }
 
 function showMemberModal(member) {
@@ -122,6 +126,19 @@ function showMemberModal(member) {
     changeUpdateCheckboxes();
   });
   document.querySelector("#btn-delete-member").addEventListener("click", () => deleteClickedOpenModal(member));
+}
+
+function memberOverview() {
+  // const list = prepareData(arrayFromFirebaseObject);
+  // const count = member.active;
+  console.log(listOfMembers);
+  document.querySelector("#overview").insertAdjacentHTML(
+    "beforeend",
+    /*HTML */ `
+  <p>${listOfMembers.length}</p>
+  <p>hello</p>
+  `
+  );
 }
 
 function createNewMember(event) {
@@ -236,6 +253,8 @@ async function deleteMemberYes(event) {
   }
 }
 
+
+
 let valueToSortBy = "";
 function setSort() {
   valueToSortBy = document.querySelector("#sort").value;
@@ -278,6 +297,7 @@ async function getUpdatedFirebase(params) {
   result.forEach(refinedData);
   showMembers(result);
   listOfMembers = result;
+  memberOverview();
 }
 
 function refinedData(result) {
