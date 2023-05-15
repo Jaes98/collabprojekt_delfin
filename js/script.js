@@ -306,7 +306,7 @@ function searchList(sortedList) {
   console.log(sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy)));
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   showMembers(searchedList);
-  return sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
+  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
 }
 
 let valueToFilterBy = "";
