@@ -55,4 +55,23 @@ if (member.competetive && member.age < 18) {
   member.trid = "Line Frederiksen"
 }  
 }
-export { ageCalculator, ageToGroup, checkDiscipline, checkMembership, checkCompetitorOrExerciser, addCoach };
+
+
+function changeCreateCheckboxes() {
+  const createBoxes = document.querySelectorAll(".create-discipline");
+  createBoxes.forEach(box => {
+    box.checked = false;
+    box.disabled = !box.disabled;
+  });
+}
+
+function changeUpdateCheckboxes() {
+  const updateValue = document.querySelector("#formand-update-competetive").value === "true";
+  const updateBoxes = document.querySelectorAll(".update-discipline");
+  updateBoxes.forEach(box => {
+    box.disabled = !updateValue;
+  });
+}
+
+
+export { ageCalculator, ageToGroup, checkDiscipline, checkMembership, checkCompetitorOrExerciser, addCoach, changeCreateCheckboxes,changeUpdateCheckboxes };

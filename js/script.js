@@ -2,11 +2,11 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach } from "./Helper-functions.js";
+import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach, changeCreateCheckboxes, changeUpdateCheckboxes } from "./Helper-functions.js";
 
 window.addEventListener("load", start);
 
-let posts;
+let listOfMembers;
 
 function start() {
   console.log("start:");
@@ -32,7 +32,7 @@ function start() {
 }
 
 function showMembersAll() {
-  const listOfAll = posts;
+  const listOfAll = listOfMembers;
   const sortedList = sortList(listOfAll);
   const searchedList = searchList(sortedList);
   const filteredList = filterList(searchedList);
@@ -41,6 +41,7 @@ function showMembersAll() {
 }
 
 function showMembers(array) {
+  console.log("showmembers array:", array);
   document.querySelector("#formand-table-body").innerHTML = "";
 
   for (const member of array) {
@@ -68,6 +69,10 @@ function showMember(member) {
 
 function showMemberModal(member) {
   // console.log(member.crawl);
+  let gender = "";
+  if (member.gender === "male") gender = "Mand";
+  else if (member.gender === "female") gender = "Kvinde";
+
   const disciplines = checkDiscipline(member);
   const html = /*HTML*/ `
   <article class="modal-item">
@@ -79,13 +84,12 @@ function showMemberModal(member) {
   <p>Tlf: ${member.phonenumber}</p>
   <p>Email: ${member.email}</p>
   <p>Adresse: ${member.adress}</p>
-  <p>Køn: ${member.gender}</p>
+  <p>Køn: ${gender}</p>
   <hr>
   <h4>Medlemskabsoplysninger:</h4>
   <p>Aldersgruppe: ${member.ageGroup}</p>
   <p>Aktivitetsstatus: ${member.active}</p>
   <p>Aktivitetsgruppe: ${member.competetive}</p>
-  <p>Træner: ${member.trid}</p>
   </section>
   
   
@@ -98,10 +102,12 @@ function showMemberModal(member) {
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
 
-  if (member.competetive) {
+  console.log("comp:", member.competetive);
+  if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
       "beforeend",
       `
+      <p>Træner: ${member.trid}</p>
        <h4>Disciplin(er):</h4>
        <p>${disciplines.join(", ")}</p>
        `
@@ -140,11 +146,23 @@ function createNewMember(event) {
   };
   console.log(newMember);
   createdMember(newMember);
+  getUpdatedFirebase();
 }
 
 function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");
   document.querySelector("#show-member-modal").close();
+
+  console.log("active:", member.active);
+  console.log("comp:", member.competetive);
+  console.log("comp:", member.gender);
+  if (member.competetive === "Konkurrent") member.competetive = "true";
+  else member.competetive = "false";
+
+  if (member.active === "Aktiv") member.active = "true";
+  else member.active = "false";
+  console.log("active:", member.active);
+  console.log("comp:", member.competetive);
 
   updateForm.name.value = member.name;
   updateForm.bday.value = member.bday;
@@ -201,11 +219,13 @@ async function updateMember(event) {
 function deleteClickedOpenModal(member) {
   document.querySelector("#dialog-delete-member-name").textContent = member.name;
   document.querySelector("#form-delete-member").setAttribute("data-id", member.id);
-  // Måske skal vi bruge en close ? document.querySelector("#show-xxx-xxx").close();
+
   document.querySelector("#dialog-delete-member").showModal();
 }
 
 async function deleteMemberYes(event) {
+  document.querySelector("#show-member-modal").close();
+
   const id = event.target.getAttribute("data-id");
   const response = await deleteMember(id);
   console.log("!Deletion!");
@@ -222,6 +242,7 @@ function setSort() {
 
   showMembersAll();
 }
+
 function sortList(listToSort) {
   console.log(listToSort);
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
@@ -256,7 +277,7 @@ async function getUpdatedFirebase(params) {
   const result = await getMembers();
   result.forEach(refinedData);
   showMembers(result);
-  posts = result;
+  listOfMembers = result;
 }
 
 function refinedData(result) {
@@ -277,13 +298,13 @@ let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
 
-  searchList(posts);
+  searchList(listOfMembers);
 }
 
 function searchList(sortedList) {
   console.log("searchlist, valuetosortby:", valueToSearchBy);
-  console.log(sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy)));
-  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
+  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
+  const searchedList = sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
   showMembers(searchedList);
   return sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
 }
