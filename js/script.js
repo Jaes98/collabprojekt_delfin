@@ -234,7 +234,7 @@ async function deleteMemberYes(event) {
   }
 }
 
-let valueToSortBy = "";
+let valueToSortBy = "name";
 function setSort() {
   valueToSortBy = document.querySelector("#sort").value;
 
@@ -256,8 +256,8 @@ function sortList(listToSort) {
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
   result.forEach(refinedData);
-  showMembers(result);
   listOfMembers = result;
+  showMembersAll(result);
 }
 
 function refinedData(result) {
