@@ -15,10 +15,11 @@
     grid-template-rows: 1fr;
     position: relative;
     width: 100%;
+    overflow: hidden;
   }
 }
 
-@media (min-width: 850px) {
+@media (min-width: 800px) {
   .formand-container {
     display: grid;
     grid-template-rows: auto;
@@ -35,6 +36,9 @@
   #nav-filter,
   #nav-align {
     position: fixed;
+  }
+  #overview {
+    margin-left: 20px;
   }
 }
 
@@ -55,6 +59,9 @@
   #nav-filter,
   #nav-align {
     position: fixed;
+  }
+  #overview {
+    margin-left: 20px;
   }
 }
 
@@ -78,6 +85,7 @@
   grid-column: 1 / 2;
   background-color: #eee;
   padding: 25px;
+
   width: 100%;
   padding-top: 0;
 }
@@ -102,6 +110,7 @@
 body {
   width: 100%;
   margin: 0;
+
   /* background-color: rgb(29, 108, 183); */
   background-color: #f3f3f3;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -418,4 +427,8 @@ tr:nth-child(odd):hover {
   border: none;
   box-shadow: none;
   transform: none;
+}
+
+#overview h3 {
+  margin: 0;
 }

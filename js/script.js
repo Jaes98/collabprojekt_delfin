@@ -35,7 +35,7 @@ function start() {
 function showMembersAll() {
   const listOfAll = listOfMembers;
   const sortedList = sortList(listOfAll);
-  const searchedList = sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  const searchedList = searchList(sortedList);
   const filteredList = filterList(searchedList);
 
   showMembers(filteredList);
@@ -53,6 +53,8 @@ function showMembers(array) {
 }
 
 function showMember(member) {
+  console.log(member.trid);
+
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -130,11 +132,15 @@ function memberOverview() {
   // const list = prepareData(arrayFromFirebaseObject);
   // const count = member.active;
   console.log(listOfMembers);
+  const countActive = listOfMembers.filter(member => member.active === "Aktivt medlem")
+const countPassiv = listOfMembers.filter(member => member.active === "Passivt medlem")
+
   document.querySelector("#overview").insertAdjacentHTML(
     "beforeend",
     /*HTML */ `
-  <p>${listOfMembers.length}</p>
-  <p>hello</p>
+  <p>Antal medlemmer: ${listOfMembers.length}</p>
+  <p>Antal aktive medlemmer: ${countActive.length}</p>
+  <p>Antal Passive medlemmer: ${countPassiv.length}</p>
   `
   );
 }
@@ -251,11 +257,50 @@ async function deleteMemberYes(event) {
   }
 }
 
+
+
+let valueToSortBy = "";
+function setSort() {
+  valueToSortBy = document.querySelector("#sort").value;
+
+  showMembersAll();
+}
+
+function sortList(listToSort) {
+  console.log(listToSort);
+  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
+  if (valueToSortBy === "age") {
+    return listToSort.sort(compareNumber);
+  } else if (valueToSortBy === "default") {
+    return listToSort.sort(compareName);
+  } else {
+    return listToSort.sort(compareString);
+  }
+
+  function compareString(member1, member2) {
+    return member1[valueToSortBy].localeCompare(member2[valueToSortBy]);
+  }
+
+  function compareNumber(member1, member2) {
+    let first = member1.age;
+    let second = member2.age;
+    if (first === "Unknown") {
+      first = 99999999;
+    } else if (second === "Unknown") {
+      second = 99999999;
+    }
+    return first - second;
+  }
+  function compareName(member1, member2) {
+    return member1["name"].localeCompare(member2["name"]);
+  }
+}
+
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
   result.forEach(refinedData);
+  showMembers(result);
   listOfMembers = result;
-  showMembersAll(result);
   memberOverview();
 }
 
@@ -273,33 +318,30 @@ function refinedData(result) {
   return result;
 }
 
-let valueToSortBy = "name";
-function setSort() {
-  valueToSortBy = document.querySelector("#sort").value;
-  showMembersAll();
-}
-
-function sortList(listToSort) {
-  if (valueToSortBy === "age") {
-    return listToSort.sort((first, second) => first - second);
-  } else {
-    return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
-  }
-}
-
 let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
-  showMembersAll();
+
+  searchList(listOfMembers);
+}
+
+function searchList(sortedList) {
+  console.log("searchlist, valuetosortby:", valueToSearchBy);
+  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
+  const searchedList = sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  showMembers(searchedList);
+  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
 }
 
 let valueToFilterBy = "";
 function chosenFilter() {
   valueToFilterBy = document.querySelector("#nav-filter").value;
-  showMembersAll();
+
+  filterList(posts);
 }
 
 function filterList(searchedList) {
-  if (valueToFilterBy === "") return searchedList;
-  return searchedList.filter(member => Object.values(member).includes(valueToFilterBy));
+  console.log("serachedlist:", searchedList);
+  const filteredList = searchedList;
+  searchedList.filter();
 }
