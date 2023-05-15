@@ -5,6 +5,7 @@
   #btn-formand-create,
   #member-search,
   #sort,
+  #nav-filter,
   #nav-align {
     position: relative;
   }
@@ -31,6 +32,7 @@
   #btn-formand-create,
   #member-search,
   #sort,
+  #nav-filter,
   #nav-align {
     position: fixed;
   }
@@ -50,6 +52,7 @@
   #btn-formand-create,
   #member-search,
   #sort,
+  #nav-filter,
   #nav-align {
     position: fixed;
   }
@@ -223,6 +226,7 @@ hr {
 
 /*********** front-page **************/
 #sort,
+#nav-filter,
 #member-search {
   width: 12em;
   background-color: #a3bfdc;
@@ -376,6 +380,7 @@ td {
 #btn-formand-create,
 #member-search,
 #sort,
+#nav-filter,
 #nav-align {
   /* position: fixed; */
   width: 12em;
