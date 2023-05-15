@@ -85,7 +85,6 @@ function showMemberModal(member) {
   <p>Aldersgruppe: ${member.ageGroup}</p>
   <p>Aktivitetsstatus: ${member.active}</p>
   <p>Aktivitetsgruppe: ${member.competetive}</p>
-  <p>Træner: ${member.trid}</p>
   </section>
   
   
@@ -98,10 +97,10 @@ function showMemberModal(member) {
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
 
-  if (member.competetive) {
+  if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
       "beforeend",
-      `
+      `<p>Træner: ${member.trid}</p>
        <h4>Disciplin(er):</h4>
        <p>${disciplines.join(", ")}</p>
        `
