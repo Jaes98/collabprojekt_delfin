@@ -303,26 +303,10 @@ function searchBarChanged() {
 
 function searchList(sortedList) {
   console.log("searchlist, valuetosortby:", valueToSearchBy);
-  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
-  const searchedList = sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  console.log(sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy)));
+  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   showMembers(searchedList);
   return sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
-}
-
-function changeCreateCheckboxes() {
-  const createBoxes = document.querySelectorAll(".create-discipline");
-  createBoxes.forEach((box) => {
-    box.checked = false;
-    box.disabled = !box.disabled;
-  });
-}
-
-function changeUpdateCheckboxes() {
-  const updateValue = document.querySelector("#formand-update-competetive").value === "true";
-  const updateBoxes = document.querySelectorAll(".update-discipline");
-  updateBoxes.forEach((box) => {
-    box.disabled = !updateValue;
-  });
 }
 
 let valueToFilterBy = "";
