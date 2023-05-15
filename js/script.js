@@ -89,7 +89,6 @@ function showMemberModal(member) {
   <p>Aldersgruppe: ${member.ageGroup}</p>
   <p>Aktivitetsstatus: ${member.active}</p>
   <p>Aktivitetsgruppe: ${member.competetive}</p>
-  <p>Træner: ${member.trid}</p>
   </section>
   
   
@@ -102,10 +101,12 @@ function showMemberModal(member) {
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
 
-  if (member.competetive) {
+  console.log("comp:", member.competetive);
+  if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
       "beforeend",
       `
+      <p>Træner: ${member.trid}</p>
        <h4>Disciplin(er):</h4>
        <p>${disciplines.join(", ")}</p>
        `
@@ -215,20 +216,18 @@ async function updateMember(event) {
 }
 
 function deleteClickedOpenModal(member) {
-   
   document.querySelector("#dialog-delete-member-name").textContent = member.name;
   document.querySelector("#form-delete-member").setAttribute("data-id", member.id);
-  
+
   document.querySelector("#dialog-delete-member").showModal();
 }
 
 async function deleteMemberYes(event) {
-    document.querySelector("#show-member-modal").close();
-    
-    const id = event.target.getAttribute("data-id");
-    const response = await deleteMember(id);
-    console.log("!Deletion!");
+  document.querySelector("#show-member-modal").close();
 
+  const id = event.target.getAttribute("data-id");
+  const response = await deleteMember(id);
+  console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
     document.querySelector("#dialog-delete-member");
@@ -277,7 +276,7 @@ async function getUpdatedFirebase(params) {
   const result = await getMembers();
   result.forEach(refinedData);
   showMembers(result);
-  posts = result;
+  listOfMembers = result;
 }
 
 function refinedData(result) {
