@@ -80,13 +80,13 @@ async function deleteMember(id) {
   console.log(`${dolphinDatabase}/members/${id}.json`);
   // Hvis response er ok, udskriv log og opdater grid
 
-  //if (response.status === 200) {
-  // console.log("****************200***************");
-  //success();
-  //} else {
-  //console.log("################shit#############");
-  //failed();
-  //}
+//  if (response.status === 200) {
+//    console.log("****************200***************");
+//    success();
+//  } else {
+//    console.log("################shit#############");
+//    failed();
+//  }
   return response;
 }
 

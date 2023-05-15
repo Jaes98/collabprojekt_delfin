@@ -73,5 +73,31 @@ function changeUpdateCheckboxes() {
   });
 }
 
+// function success() {
+//   const alertSuccess = document.createElement("div");
+//   alertSuccess.id = "createSuccess";
+//   alertSuccess.textContent = "Success :D";
+
+//   document.body.appendChild(alertSuccess);
+
+//   // Remove after 5 seconds
+//   setTimeout(() => {
+//     alertSuccess.remove();
+//   }, 2000);
+// }
+
+// function failed() {
+//   const alertFailed = document.createElement("div");
+//   alertFailed.id = "createFailed";
+//   alertFailed.textContent = "Failed :(";
+
+//   document.body.appendChild(alertFailed);
+
+//   // Remove after 5 seconds
+//   setTimeout(() => {
+//     alertFailed.remove();
+//   }, 3000);
+// }
+
 
 export { ageCalculator, ageToGroup, checkDiscipline, checkMembership, checkCompetitorOrExerciser, addCoach, changeCreateCheckboxes,changeUpdateCheckboxes };

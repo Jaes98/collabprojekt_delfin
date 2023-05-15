@@ -289,6 +289,30 @@ section.active#trainer {
   background-color: red;
 }
 
+/* #createSuccess {
+  font-size: xx-large;
+  background: green;
+  color: white;
+  padding: 20px;
+  border: solid white 2px;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#createFailed {
+  font-size: xx-large;
+  background: red;
+  color: white;
+  padding: 20px;
+  border: solid white 2px;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+} */
+
 /* ************* create member form*********** */
 
 #form-create-member {
