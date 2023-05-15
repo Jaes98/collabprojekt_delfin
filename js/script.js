@@ -29,7 +29,6 @@ function start() {
   document.querySelector("#competetive").addEventListener("change", changeCreateCheckboxes);
 
   getUpdatedFirebase();
-  
 }
 
 function showMembersAll() {
@@ -39,7 +38,6 @@ function showMembersAll() {
   const filteredList = filterList(searchedList);
 
   showMembers(filteredList);
-  
 }
 
 function showMembers(array) {
@@ -48,7 +46,6 @@ function showMembers(array) {
 
   for (const member of array) {
     showMember(member);
-    
   }
 }
 
@@ -68,7 +65,6 @@ function showMember(member) {
   `;
   document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
   document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
- 
 }
 
 function showMemberModal(member) {
@@ -132,15 +128,15 @@ function memberOverview() {
   // const list = prepareData(arrayFromFirebaseObject);
   // const count = member.active;
   console.log(listOfMembers);
-  const countActive = listOfMembers.filter(member => member.active === "Aktivt medlem")
-const countPassiv = listOfMembers.filter(member => member.active === "Passivt medlem")
+  const countActive = listOfMembers.filter((member) => member.active === "Aktivt medlem");
+  const countPassiv = listOfMembers.filter((member) => member.active === "Passivt medlem");
 
   document.querySelector("#overview").insertAdjacentHTML(
     "beforeend",
     /*HTML */ `
-  <p>Antal medlemmer: ${listOfMembers.length}</p>
-  <p>Antal aktive medlemmer: ${countActive.length}</p>
-  <p>Antal Passive medlemmer: ${countPassiv.length}</p>
+  <p><B>Antal medlemmer:</B> ${listOfMembers.length}</p>
+  <p>Aktive medlemmer: ${countActive.length}</p>
+  <p>Passive medlemmer: ${countPassiv.length}</p>
   `
   );
 }
@@ -257,8 +253,6 @@ async function deleteMemberYes(event) {
   }
 }
 
-
-
 let valueToSortBy = "";
 function setSort() {
   valueToSortBy = document.querySelector("#sort").value;
@@ -327,10 +321,10 @@ function searchBarChanged() {
 
 function searchList(sortedList) {
   console.log("searchlist, valuetosortby:", valueToSearchBy);
-  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
-  const searchedList = sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  console.log(sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy)));
+  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   showMembers(searchedList);
-  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  return sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
 }
 
 let valueToFilterBy = "";
