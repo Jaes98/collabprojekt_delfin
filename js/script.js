@@ -2,7 +2,7 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership} from "./Helper-functions.js";
+import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach} from "./Helper-functions.js";
 
 
 window.addEventListener("load", start);
@@ -49,8 +49,8 @@ function showMembers(array) {
 }
 
 function showMember(member) {
-    checkCompetitorOrExerciser(member);
-    checkMembership(member);
+    console.log(member.trid);
+    
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -254,13 +254,24 @@ function sortList(listToSort) {
 
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
-
-  result.forEach(ageCalculator);
-
-  result.forEach(ageToGroup);
-
-  posts = result;
+  result.forEach(refinedData);
   showMembers(result);
+}
+
+function refinedData(result) {
+     ageCalculator(result);
+
+     ageToGroup(result);
+
+     addCoach(result);
+
+     checkCompetitorOrExerciser(result);
+
+     checkMembership(result);
+
+     posts = result;
+
+     return result
 }
 
 let valueToSearchBy = "";
