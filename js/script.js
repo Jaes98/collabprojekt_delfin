@@ -130,8 +130,9 @@ function memberOverview() {
   console.log(listOfMembers);
   const countActive = listOfMembers.filter((member) => member.active === "Aktivt medlem");
   const countPassiv = listOfMembers.filter((member) => member.active === "Passivt medlem");
-
-  document.querySelector("#overview").insertAdjacentHTML(
+  const overview = document.querySelector("#overview")
+  overview.innerHTML = ""
+  overview.insertAdjacentHTML(
     "beforeend",
     /*HTML */ `
   <p><B>Antal medlemmer:</B> ${listOfMembers.length}</p>
@@ -170,16 +171,11 @@ function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");
   document.querySelector("#show-member-modal").close();
 
-  console.log("active:", member.active);
-  console.log("comp:", member.competetive);
-  console.log("comp:", member.gender);
   if (member.competetive === "Konkurrent") member.competetive = "true";
   else member.competetive = "false";
 
   if (member.active === "Aktiv") member.active = "true";
   else member.active = "false";
-  console.log("active:", member.active);
-  console.log("comp:", member.competetive);
 
   updateForm.name.value = member.name;
   updateForm.bday.value = member.bday;
@@ -193,22 +189,15 @@ function updateMemberClicked(member) {
   updateForm.butterfly.checked = member.butterfly;
   updateForm.backCrawl.checked = member.backCrawl;
   updateForm.breaststroke.checked = member.breaststroke;
-  console.log(member.id);
+
   updateForm.setAttribute("data-id", member.id);
   document.querySelector("#dialog-update-member2").showModal();
 }
 
 async function updateMember(event) {
   event.preventDefault();
-  console.log(event);
 
-  // const form = event.target
   let form = event.target;
-  console.log(form.name.value);
-  const name1 = form.name.value;
-  console.log("competeteive:", form.competetive.value);
-  console.log("crawl:", form.crawl.value);
-  console.log("butterfly:", form.butterfly.value);
 
   const updatedMember = {
     name: form.name.value,
@@ -253,40 +242,17 @@ async function deleteMemberYes(event) {
   }
 }
 
-let valueToSortBy = "";
+let valueToSortBy = "name";
 function setSort() {
   valueToSortBy = document.querySelector("#sort").value;
-
   showMembersAll();
 }
 
 function sortList(listToSort) {
-  console.log(listToSort);
-  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
-    return listToSort.sort(compareNumber);
-  } else if (valueToSortBy === "default") {
-    return listToSort.sort(compareName);
+    return listToSort.sort((first, second) => first - second);
   } else {
-    return listToSort.sort(compareString);
-  }
-
-  function compareString(member1, member2) {
-    return member1[valueToSortBy].localeCompare(member2[valueToSortBy]);
-  }
-
-  function compareNumber(member1, member2) {
-    let first = member1.age;
-    let second = member2.age;
-    if (first === "Unknown") {
-      first = 99999999;
-    } else if (second === "Unknown") {
-      second = 99999999;
-    }
-    return first - second;
-  }
-  function compareName(member1, member2) {
-    return member1["name"].localeCompare(member2["name"]);
+    return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
   }
 }
 
@@ -330,12 +296,10 @@ function searchList(sortedList) {
 let valueToFilterBy = "";
 function chosenFilter() {
   valueToFilterBy = document.querySelector("#nav-filter").value;
-
-  filterList(posts);
+  showMembersAll();
 }
 
 function filterList(searchedList) {
-  console.log("serachedlist:", searchedList);
-  const filteredList = searchedList;
-  searchedList.filter();
+  if (valueToFilterBy === "") return searchedList;
+  return searchedList.filter((member) => Object.values(member).includes(valueToFilterBy));
 }
