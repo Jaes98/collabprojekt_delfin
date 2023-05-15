@@ -107,13 +107,23 @@
           <option value="active">Medlemsskab</option>
           <option value="competetive">Motionist/Konkurrence</option>
         </select>
-        <label for="filter "><b>Filtrer</b></label>
-        <select name="filter" id="filter"></select>
-          <option></option>
-          <optgroup label="Motionist">
-            <option value="competetive">  
-            </option label=""
-            <option lab
+        <br>
+        <br>
+        <label for="filter "><b>Filtrér svømmer efter:</b></label>
+        <select id="filter" autocomplete="off">
+          <option value="default"></option>
+          <optgroup label="Aldersgruppe:">
+            <option value="junior">Junior</option>
+            <option value="senior">Senior</option>
+            <option value="senior+">Senior+</option>
+          </optgroup>
+          <optgroup label="Medlemskab:">
+            <option value="active">Aktiv</option>
+            <option value="passive">Passiv</option>
+          </optgroup>
+          <optgroup label="Type:">
+            <option value="freetime">Motionist</option>
+            <option value="competition">konkurrence</option>
           </optgroup>
 
       </div>
