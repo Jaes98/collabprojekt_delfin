@@ -236,7 +236,7 @@ async function deleteMemberYes(event) {
   }
 }
 
-let valueToSortBy = "";
+let valueToSortBy = "name";
 function setSort() {
   valueToSortBy = document.querySelector("#sort").value;
 
@@ -248,8 +248,6 @@ function sortList(listToSort) {
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
   if (valueToSortBy === "age") {
     return listToSort.sort(compareNumber);
-  } else if (valueToSortBy === "default") {
-    return listToSort.sort(compareName);
   } else {
     return listToSort.sort(compareString);
   }
@@ -259,25 +257,15 @@ function sortList(listToSort) {
   }
 
   function compareNumber(member1, member2) {
-    let first = member1.age;
-    let second = member2.age;
-    if (first === "Unknown") {
-      first = 99999999;
-    } else if (second === "Unknown") {
-      second = 99999999;
-    }
-    return first - second;
-  }
-  function compareName(member1, member2) {
-    return member1["name"].localeCompare(member2["name"]);
+    return member1.age - member2.age;
   }
 }
 
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
   result.forEach(refinedData);
-  showMembers(result);
   listOfMembers = result;
+  showMembersAll(result);
 }
 
 function refinedData(result) {
