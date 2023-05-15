@@ -2,7 +2,8 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership } from "./Helper-functions.js";
+import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership} from "./Helper-functions.js";
+
 
 window.addEventListener("load", start);
 
@@ -48,6 +49,8 @@ function showMembers(array) {
 }
 
 function showMember(member) {
+    checkCompetitorOrExerciser(member);
+    checkMembership(member);
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
