@@ -2,12 +2,11 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach} from "./Helper-functions.js";
-
+import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach, changeCreateCheckboxes, changeUpdateCheckboxes } from "./Helper-functions.js";
 
 window.addEventListener("load", start);
 
-let posts;
+let listOfMembers;
 
 function start() {
   console.log("start:");
@@ -32,7 +31,7 @@ function start() {
 }
 
 function showMembersAll() {
-  const listOfAll = posts;
+  const listOfAll = listOfMembers;
   const sortedList = sortList(listOfAll);
   const searchedList = searchList(sortedList);
   const filteredList = filterList(searchedList);
@@ -50,8 +49,8 @@ function showMembers(array) {
 }
 
 function showMember(member) {
-    console.log(member.trid);
-    
+  console.log(member.trid);
+
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -69,6 +68,9 @@ function showMember(member) {
 
 function showMemberModal(member) {
   // console.log(member.crawl);
+  if (member.gender === "male") member.gender = "Mand";
+  else if (member.gender === "female") member.gender = "Kvinde";
+
   const disciplines = checkDiscipline(member);
   const html = /*HTML*/ `
   <article class="modal-item">
@@ -147,6 +149,17 @@ function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");
   document.querySelector("#show-member-modal").close();
 
+  console.log("active:", member.active);
+  console.log("comp:", member.competetive);
+  console.log("comp:", member.gender);
+  if (member.competetive === "Konkurrent") member.competetive = "true";
+  else member.competetive = "false";
+
+  if (member.active === "Aktiv") member.active = "true";
+  else member.active = "false";
+  console.log("active:", member.active);
+  console.log("comp:", member.competetive);
+
   updateForm.name.value = member.name;
   updateForm.bday.value = member.bday;
   updateForm.phonenumber.value = member.phonenumber;
@@ -223,6 +236,7 @@ function setSort() {
 
   showMembersAll();
 }
+
 function sortList(listToSort) {
   console.log(listToSort);
   // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showMembers
@@ -260,48 +274,32 @@ async function getUpdatedFirebase(params) {
 }
 
 function refinedData(result) {
-     ageCalculator(result);
+  ageCalculator(result);
 
-     ageToGroup(result);
+  ageToGroup(result);
 
-     addCoach(result);
+  addCoach(result);
 
-     checkCompetitorOrExerciser(result);
+  checkCompetitorOrExerciser(result);
 
-     checkMembership(result);
+  checkMembership(result);
 
-     posts = result;
+  listOfMembers = result;
 
-     return result
+  return result;
 }
 
 let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
 
-  searchList(posts);
+  searchList(listOfMembers);
 }
 
 function searchList(sortedList) {
   console.log("searchlist, valuetosortby:", valueToSearchBy);
   console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
-  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
+  const searchedList = sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
   showMembers(searchedList);
   return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
-}
-
-function changeCreateCheckboxes() {
-  const createBoxes = document.querySelectorAll(".create-discipline");
-  createBoxes.forEach((box) => {
-    box.checked = false;
-    box.disabled = !box.disabled;
-  });
-}
-
-function changeUpdateCheckboxes() {
-  const updateValue = document.querySelector("#formand-update-competetive").value === "true";
-  const updateBoxes = document.querySelectorAll(".update-discipline");
-  updateBoxes.forEach((box) => {
-    box.disabled = !updateValue;
-  });
 }

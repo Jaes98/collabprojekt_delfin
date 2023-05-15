@@ -3,7 +3,6 @@
 window.addEventListener("load", viewControl);
 
 function viewControl() {
-  console.log("HEJJJ");
   window.addEventListener("hashchange", changeHash);
   changeHash();
 }
