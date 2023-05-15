@@ -34,10 +34,10 @@ function start() {
 function showMembersAll() {
   const listOfAll = posts;
   const sortedList = sortList(listOfAll);
-  const searchedList = searchList(posts);
+  const searchedList = searchList(sortedList);
   const filteredList = filterList(searchedList);
 
-  showMembers(sortedList);
+  showMembers(filteredList);
 }
 
 function showMembers(array) {
