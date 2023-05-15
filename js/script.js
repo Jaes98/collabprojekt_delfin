@@ -68,8 +68,9 @@ function showMember(member) {
 
 function showMemberModal(member) {
   // console.log(member.crawl);
-  if (member.gender === "male") member.gender = "Mand";
-  else if (member.gender === "female") member.gender = "Kvinde";
+  let gender = "";
+  if (member.gender === "male") gender = "Mand";
+  else if (member.gender === "female") gender = "Kvinde";
 
   const disciplines = checkDiscipline(member);
   const html = /*HTML*/ `
@@ -82,7 +83,7 @@ function showMemberModal(member) {
   <p>Tlf: ${member.phonenumber}</p>
   <p>Email: ${member.email}</p>
   <p>Adresse: ${member.adress}</p>
-  <p>Køn: ${member.gender}</p>
+  <p>Køn: ${gender}</p>
   <hr>
   <h4>Medlemskabsoplysninger:</h4>
   <p>Aldersgruppe: ${member.ageGroup}</p>
@@ -143,6 +144,7 @@ function createNewMember(event) {
   };
   console.log(newMember);
   createdMember(newMember);
+  getUpdatedFirebase();
 }
 
 function updateMemberClicked(member) {
