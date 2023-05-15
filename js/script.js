@@ -20,6 +20,7 @@ function start() {
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-member").close());
   document.querySelector("#btn-formand-no-update").addEventListener("click", () => document.querySelector("#dialog-update-member2").close());
   document.querySelector("#sort").addEventListener("change", setSort);
+  document.querySelector("#nav-filter").addEventListener("change", chosenFilter);
 
   document.querySelector("#member-search").addEventListener("keyup", searchBarChanged);
   document.querySelector("#member-search").addEventListener("search", searchBarChanged);
@@ -89,7 +90,6 @@ function showMemberModal(member) {
   <p>Aldersgruppe: ${member.ageGroup}</p>
   <p>Aktivitetsstatus: ${member.active}</p>
   <p>Aktivitetsgruppe: ${member.competetive}</p>
-  <p>Træner: ${member.trid}</p>
   </section>
   
   
@@ -102,10 +102,12 @@ function showMemberModal(member) {
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
 
-  if (member.competetive) {
+  console.log("comp:", member.competetive);
+  if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
       "beforeend",
       `
+      <p>Træner: ${member.trid}</p>
        <h4>Disciplin(er):</h4>
        <p>${disciplines.join(", ")}</p>
        `
@@ -215,20 +217,18 @@ async function updateMember(event) {
 }
 
 function deleteClickedOpenModal(member) {
-   
   document.querySelector("#dialog-delete-member-name").textContent = member.name;
   document.querySelector("#form-delete-member").setAttribute("data-id", member.id);
-  
+
   document.querySelector("#dialog-delete-member").showModal();
 }
 
 async function deleteMemberYes(event) {
-    document.querySelector("#show-member-modal").close();
-    
-    const id = event.target.getAttribute("data-id");
-    const response = await deleteMember(id);
-    console.log("!Deletion!");
+  document.querySelector("#show-member-modal").close();
 
+  const id = event.target.getAttribute("data-id");
+  const response = await deleteMember(id);
+  console.log("!Deletion!");
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
     document.querySelector("#dialog-delete-member");
@@ -294,5 +294,34 @@ function searchList(sortedList) {
   console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
   const searchedList = sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
   showMembers(searchedList);
-  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  return sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
+}
+
+function changeCreateCheckboxes() {
+  const createBoxes = document.querySelectorAll(".create-discipline");
+  createBoxes.forEach((box) => {
+    box.checked = false;
+    box.disabled = !box.disabled;
+  });
+}
+
+function changeUpdateCheckboxes() {
+  const updateValue = document.querySelector("#formand-update-competetive").value === "true";
+  const updateBoxes = document.querySelectorAll(".update-discipline");
+  updateBoxes.forEach((box) => {
+    box.disabled = !updateValue;
+  });
+}
+
+let valueToFilterBy = "";
+function chosenFilter() {
+  valueToFilterBy = document.querySelector("#nav-filter").value;
+
+  filterList(posts);
+}
+
+function filterList(searchedList) {
+  console.log("serachedlist:", searchedList);
+  const filteredList = searchedList;
+  searchedList.filter();
 }
