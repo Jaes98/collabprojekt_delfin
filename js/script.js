@@ -2,7 +2,8 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline } from "./Helper-functions.js";
+import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach} from "./Helper-functions.js";
+
 
 window.addEventListener("load", start);
 
@@ -33,10 +34,10 @@ function start() {
 function showMembersAll() {
   const listOfAll = posts;
   const sortedList = sortList(listOfAll);
-  const searchedList = searchList(posts);
+  const searchedList = searchList(sortedList);
   const filteredList = filterList(searchedList);
 
-  showMembers(sortedList);
+  showMembers(filteredList);
 }
 
 function showMembers(array) {
@@ -49,6 +50,8 @@ function showMembers(array) {
 }
 
 function showMember(member) {
+    console.log(member.trid);
+    
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -252,13 +255,24 @@ function sortList(listToSort) {
 
 async function getUpdatedFirebase(params) {
   const result = await getMembers();
-
-  result.forEach(ageCalculator);
-
-  result.forEach(ageToGroup);
-
-  posts = result;
+  result.forEach(refinedData);
   showMembers(result);
+}
+
+function refinedData(result) {
+     ageCalculator(result);
+
+     ageToGroup(result);
+
+     addCoach(result);
+
+     checkCompetitorOrExerciser(result);
+
+     checkMembership(result);
+
+     posts = result;
+
+     return result
 }
 
 let valueToSearchBy = "";
@@ -270,10 +284,10 @@ function searchBarChanged() {
 
 function searchList(sortedList) {
   console.log("searchlist, valuetosortby:", valueToSearchBy);
+  console.log(sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy)));
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
-  console.log(searchedList);
   showMembers(searchedList);
-  // return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
+  return sortedList.filter(member => member.name.toLowerCase().includes(valueToSearchBy));
 }
 
 function changeCreateCheckboxes() {

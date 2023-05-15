@@ -33,5 +33,26 @@ function checkDiscipline(member) {
 
   return listOfDisciplines;
 }
+function checkCompetitorOrExerciser(member) {
+  if (member.competetive) {
+    member.competetive = "Konkurrent";
+  } else {
+    member.competetive = "Motionist";
+  }
+}
 
-export { ageCalculator, ageToGroup, checkDiscipline };
+function checkMembership(member) {
+  if (member.active) {
+    member.active = "Aktivt medlem";
+  } else {
+    member.active = "Passivt medlem";
+  }
+}
+function addCoach(member) {
+if (member.competetive && member.age < 18) {
+  member.trid = "Holger Jacobsen"  
+} else if (member.competetive && member.age > 18) {
+  member.trid = "Line Frederiksen"
+}  
+}
+export { ageCalculator, ageToGroup, checkDiscipline, checkMembership, checkCompetitorOrExerciser, addCoach };

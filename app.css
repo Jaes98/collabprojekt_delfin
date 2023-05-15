@@ -1,9 +1,6 @@
 /* ********** formand page ********** */
 
-
-
 @media (min-width: 400px) {
-
   .formand-nav,
   #btn-formand-create,
   #member-search,
@@ -16,15 +13,14 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     position: relative;
-    width: 100%
+    width: 100%;
   }
-
 }
 
 @media (min-width: 850px) {
   .formand-container {
     display: grid;
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: auto;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
     width: 100%;
@@ -32,18 +28,18 @@
     justify-items: center;
   }
 
+  #btn-formand-create,
   #member-search,
   #sort,
   #nav-align {
     position: fixed;
   }
-
 }
 
 @media (min-width: 1000px) {
   .formand-container {
     display: grid;
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: auto;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
     width: 100%;
@@ -51,14 +47,13 @@
     justify-items: center;
   }
 
+  #btn-formand-create,
   #member-search,
   #sort,
   #nav-align {
     position: fixed;
   }
-
 }
-
 
 .formand-header {
   grid-row: 1 / 2;
@@ -73,20 +68,19 @@
   background-color: #67a0d8;
   align-items: center;
   justify-content: space-between;
-
 }
 
 .formand-nav {
-
-  grid-row: 2 / 9;
+  grid-row: auto;
   grid-column: 1 / 2;
   background-color: #eee;
-  padding: 10px;
+  padding: 25px;
   width: 100%;
+  padding-top: 0;
 }
 
 .formand-table {
-  grid-row: 2 / 9;
+  grid-row: auto;
   grid-column: 2 / 7;
   background-color: #fff;
   /* padding: 10px; */
@@ -235,7 +229,6 @@ hr {
   border-width: 1px;
   border-style: solid;
   border-color: rgb(118, 118, 118);
-
 }
 
 .nav label {
@@ -363,16 +356,17 @@ tr {
 
 tr:nth-child(even) {
   background-color: #a3bfdc;
-
 }
 
 tr:nth-child(odd) {
   background-color: #1d568e;
+  color: white;
 }
 
 th {
   background-color: #67a0d8;
   padding: 2mm;
+  color: black;
 }
 
 td {
@@ -383,7 +377,6 @@ td {
 #member-search,
 #sort,
 #nav-align {
-
   /* position: fixed; */
   width: 12em;
   margin-left: 20px;
@@ -400,7 +393,6 @@ td {
 
 .buttonAni:hover {
   background-color: #b8d5f4;
-  ;
   border-width: 2px;
   border-style: outset;
   border-color: rgb(97, 132, 184);
@@ -408,18 +400,13 @@ td {
 }
 
 tr:nth-child(even):hover {
-  box-shadow: 2px 2px 6px #798b9d;
-  border: 6px solid #a6c1db74;
   transform: scale(1.02);
   background-color: #9ac3ef;
 }
 
 tr:nth-child(odd):hover {
-  box-shadow: 2px 2px 6px #1d568e4f;
-  border: 6px solid #17426c34;
   transform: scale(1.02);
   background-color: #3a7bbc;
-
 }
 
 #thh:hover {
