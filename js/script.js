@@ -199,16 +199,20 @@ async function updateMember(event) {
 }
 
 function deleteClickedOpenModal(member) {
+   
   document.querySelector("#dialog-delete-member-name").textContent = member.name;
   document.querySelector("#form-delete-member").setAttribute("data-id", member.id);
-  // Måske skal vi bruge en close ? document.querySelector("#show-xxx-xxx").close();
+  
   document.querySelector("#dialog-delete-member").showModal();
 }
 
 async function deleteMemberYes(event) {
-  const id = event.target.getAttribute("data-id");
-  const response = await deleteMember(id);
-  console.log("!Deletion!");
+    document.querySelector("#show-member-modal").close();
+    
+    const id = event.target.getAttribute("data-id");
+    const response = await deleteMember(id);
+    console.log("!Deletion!");
+
   if (response.ok) {
     console.log(`svømmer ${id} slettet`);
     document.querySelector("#dialog-delete-member");
