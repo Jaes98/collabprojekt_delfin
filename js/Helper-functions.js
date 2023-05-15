@@ -48,5 +48,11 @@ function checkMembership(member) {
     member.active = "Passivt medlem";
   }
 }
-
-export { ageCalculator, ageToGroup, checkDiscipline, checkMembership, checkCompetitorOrExerciser };
+function addCoach(member) {
+if (member.competetive && member.age < 18) {
+  member.trid = "Holger Jacobsen"  
+} else if (member.competetive && member.age > 18) {
+  member.trid = "Line Frederiksen"
+}  
+}
+export { ageCalculator, ageToGroup, checkDiscipline, checkMembership, checkCompetitorOrExerciser, addCoach };
