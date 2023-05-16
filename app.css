@@ -328,7 +328,6 @@ hr {
 
 #fp-contact {
   grid-area: contact;
-  /* margin-left: 10px; */
 }
 
 #fp-nextUp {
@@ -337,12 +336,10 @@ hr {
 
 #fp-lastTime {
   grid-area: lastTime;
-  /* margin-right: 10px; */
 }
 
 .front-page footer {
   grid-area: footer;
-  position: absolute;
   bottom: 0;
   width: 100%;
   text-align: center;
