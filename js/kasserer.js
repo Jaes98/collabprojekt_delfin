@@ -1,16 +1,18 @@
+// import { getUpdatedFirebase } from "./script";
+
 let listOfMembers;
 
 function startKasserer(array) {
  // Kald alt mulight
  listOfMembers = array
- console.log(listOfMembers)
+ 
  showMembersKasserer(array)
  kassererOverview()
 }
 
   function showMembersKasserer(array) {
     console.log("showmembers array:", array);
-    document.querySelector("#formand-table-body").innerHTML = "";
+    document.querySelector("#kasserer-table-body").innerHTML = "";
   
     for (const member of array) {
       showMemberKasserer(member);
@@ -41,7 +43,7 @@ function showMemberKasserer(member) {
     document.querySelector("#kasserer-table-body tr:last-child").addEventListener("click", () => showMemberModalKasserer(member));
   }
   
-  function kassererOverview(params) {
+function kassererOverview(params) {
     console.log("list of members:",listOfMembers);
   
     const juniorMembers = listOfMembers.filter((member) => member.ageGroup === "Junior");
@@ -62,10 +64,10 @@ function showMemberKasserer(member) {
       const seniorPlusDiscount = 0.75
   
       for (const member of listOfMembersToCalculate) {
-        if (member.active === "Passivt medlem") {expectedIncome += passiveRate; console.log("passive member:",expectedIncome)}
-        else if(member.ageGroup === "Senior") {expectedIncome += seniorRate; console.log("senior memeber:", expectedIncome)}
-        else if(member.ageGroup === "Junior") {expectedIncome += juniorRate, console.log("junior memeber:", expectedIncome)}
-        else {expectedIncome += seniorRate*seniorPlusDiscount; console.log("senior+ member:", expectedIncome);}
+        if (member.active === "Passivt medlem") {expectedIncome += passiveRate;}
+        else if(member.ageGroup === "Senior") {expectedIncome += seniorRate; }
+        else if(member.ageGroup === "Junior") {expectedIncome += juniorRate}
+        else {expectedIncome += seniorRate*seniorPlusDiscount}
       }
       return expectedIncome
     }
@@ -122,5 +124,38 @@ function showMemberKasserer(member) {
   
     document.querySelector("#btn-close-modal-kasserer").addEventListener("click", () => document.querySelector("#show-member-modal-kasserer").close());
   }
+
+  function sortList(listToSort) {
+    if (valueToSortBy === "age") {
+      return listToSort.sort((first, second) => first.age - second.age);
+    } else {
+      return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
+    }
+  }
+  
+  let valueToSortBy = "name";
+  function setSort() {
+  valueToSortBy = document.querySelector("#sort").value;
+    showMembersAll();
+  }
+  
+  let valueToSearchBy = "";
+  function searchBarChanged() {
+    valueToSearchBy = document.querySelector("#member-search").value;
+  
+    showMembersAll()
+  }
+  
+  let valueToFilterBy = "";
+  function chosenFilter() {
+    valueToFilterBy = document.querySelector("#nav-filter").value;
+    showMembersAll();
+  }
+  
+  function filterList(searchedList) {
+    if (valueToFilterBy === "") return searchedList;
+    return searchedList.filter((member) => Object.values(member).includes(valueToFilterBy));
+  }
+  
 
   export {startKasserer}

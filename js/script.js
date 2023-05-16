@@ -44,13 +44,13 @@ function showMembersAll() {
     `<p>No results found.</p>`;
     document.querySelector("#formand-table-body").innerHTML = noResultsHtml;
 } else showMembers(filteredList);
+
 }
 
 function showMembers(array) {
   console.log("showmembers array:", array);
   document.querySelector("#formand-table-body").innerHTML = "";
-  // document.querySelector("#kasserer-table-body").innerHTML = "";
-
+  
   for (const member of array) {
     showMember(member);
   }
@@ -70,6 +70,7 @@ function showMember(member) {
       </td>
     </tr>
   `;
+
   document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
   document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
 }
@@ -132,9 +133,6 @@ function showMemberModal(member) {
 }
 
 function memberOverview() {
-  // const list = prepareData(arrayFromFirebaseObject);
-  // const count = member.active;
-  console.log(listOfMembers);
   const countActive = listOfMembers.filter((member) => member.active === "Aktivt medlem");
   const countPassiv = listOfMembers.filter((member) => member.active === "Passivt medlem");
   const overview = document.querySelector("#overview");
@@ -254,7 +252,8 @@ async function getUpdatedFirebase(params) {
 
   result.forEach(refinedData);
   listOfMembers = result;
-  showMembersAll(result);
+  showMembersAll();
+  memberOverview()
 
   startKasserer(result);
   startTrainer(result);
@@ -293,3 +292,4 @@ function filterList(searchedList) {
 }
 
 
+export {getUpdatedFirebase}
