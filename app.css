@@ -65,7 +65,7 @@
   }
 }
 
-.formand-header {
+.formand-header, .kasserer-header {
   grid-row: 1 / 2;
   grid-column: 1 / 7;
   background-color: #ccc;
