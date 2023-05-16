@@ -2,7 +2,7 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { ageCalculator, ageToGroup, checkDiscipline, checkCompetitorOrExerciser, checkMembership, addCoach, changeCreateCheckboxes, changeUpdateCheckboxes } from "./Helper-functions.js";
+import { refinedData, checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes } from "./Helper-functions.js";
 
 window.addEventListener("load", start);
 
@@ -35,7 +35,7 @@ function start() {
 function showMembersAll() {
   const listOfAll = listOfMembers;
   const sortedList = sortList(listOfAll);
-  const searchedList = searchList(sortedList);
+  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   const filteredList = filterList(searchedList);
 
   showMembers(filteredList);
@@ -51,7 +51,7 @@ function showMembers(array) {
 }
 
 function showMember(member) {
-  console.log(member.trid);
+  
 
   const html = /* HTML */ `
     <tr class="member-item">
@@ -69,7 +69,7 @@ function showMember(member) {
 }
 
 function showMemberModal(member) {
-  // console.log(member.crawl);
+  
   let gender = "";
   if (member.gender === "male") gender = "Mand";
   else if (member.gender === "female") gender = "Kvinde";
@@ -103,7 +103,7 @@ function showMemberModal(member) {
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
 
-  console.log("comp:", member.competetive);
+  
   if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
       "beforeend",
@@ -243,57 +243,38 @@ async function deleteMemberYes(event) {
   }
 }
 
-let valueToSortBy = "name";
-function setSort() {
-  valueToSortBy = document.querySelector("#sort").value;
-  showMembersAll();
+async function getUpdatedFirebase(params) {
+  const result = await getMembers();
+
+  result.forEach(refinedData);
+  listOfMembers = result;
+  showMembersAll(result);
+  memberOverview();
 }
 
 function sortList(listToSort) {
   if (valueToSortBy === "age") {
-    return listToSort.sort((first, second) => first - second);
+    return listToSort.sort((first, second) => first.age - second.age);
   } else {
     return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
   }
 }
 
-async function getUpdatedFirebase(params) {
-  const result = await getMembers();
-
-  result.forEach(refinedData);
-  showMembers(result);
-  listOfMembers = result;
-  memberOverview();
-}
-
-function refinedData(result) {
-  ageCalculator(result);
-
-  ageToGroup(result);
-
-  addCoach(result);
-
-  checkCompetitorOrExerciser(result);
-
-  checkMembership(result);
-
-  return result;
+let valueToSortBy = "name";
+function setSort() {
+  valueToSortBy = document.querySelector("#sort").value;
+  const test = document.querySelector("#test").value
+  console.log(test)
+  showMembersAll();
 }
 
 let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
 
-  searchList(listOfMembers);
+  showMembersAll()
 }
 
-function searchList(sortedList) {
-  console.log("searchlist, valuetosortby:", valueToSearchBy);
-  console.log(sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy)));
-  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
-  showMembers(searchedList);
-  return sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
-}
 
 let valueToFilterBy = "";
 function chosenFilter() {
