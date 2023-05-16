@@ -38,21 +38,22 @@ function showMembersAll() {
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   const filteredList = filterList(searchedList);
 
-  showMembers(filteredList);
+    showMembersFormand(filteredList);
 }
 
-function showMembers(array) {
+function showMembersFormand(array) {
   console.log("showmembers array:", array);
   document.querySelector("#formand-table-body").innerHTML = "";
 
   for (const member of array) {
-    showMember(member);
+    showMemberFormand(member);
   }
 }
 
-function showMember(member) {
-  
 
+
+function showMemberFormand(member) {
+  
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -67,6 +68,7 @@ function showMember(member) {
   document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
   document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
 }
+
 
 function showMemberModal(member) {
   
@@ -263,15 +265,13 @@ function sortList(listToSort) {
 
 let valueToSortBy = "name";
 function setSort() {
-  valueToSortBy = document.querySelector("#sort").value;
-
+valueToSortBy = document.querySelector("#sort").value;
   showMembersAll();
 }
 
 let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
-
   showMembersAll()
 }
 
@@ -288,7 +288,6 @@ function filterList(searchedList) {
 }
 
 function kassererOverview(params) {
-  console.log("test!!!");
   console.log("list of members:",listOfMembers);
 
   const juniorMembers = listOfMembers.filter((member) => member.ageGroup === "Junior");
@@ -298,7 +297,6 @@ function kassererOverview(params) {
   const countPassive = listOfMembers.filter((member) => member.active === "Passivt medlem");
 
   const membersInRestance = listOfMembers.filter((member) => member.restance === true);
-  const membersInTheClear = listOfMembers.filter((member) => member.restance === false);  
   const totalYearlyIncome = moneyCalculator(listOfMembers)
   const moneyInRestance = moneyCalculator(membersInRestance)
 
@@ -333,7 +331,7 @@ function kassererOverview(params) {
 
   income.insertAdjacentHTML("beforeend",`
   <p>Forventet årlig indkomst: ${totalYearlyIncome}</p>
-  <p>Beløb endnu ikke indbetalt: ${moneyInRestance}</p>
+  <p>Restancebeløb: ${moneyInRestance}</p>
   `)
 
 
