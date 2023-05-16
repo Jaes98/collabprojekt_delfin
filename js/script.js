@@ -37,9 +37,13 @@ function showMembersAll() {
   const sortedList = sortList(listOfAll);
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   const filteredList = filterList(searchedList);
-  console.log("sortedlist:", sortedList);
+  if (filteredList.length === 0) {
+    const noResultsHtml = /* html */ 
+    `<p>No results found.</p>`;
+    document.querySelector("#formand-table-body").innerHTML = "";
+    document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", noResultsHtml);
+  } else showMembers(filteredList);
 
-  showMembers(filteredList);
 }
 
 function showMembers(array) {
