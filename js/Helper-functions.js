@@ -73,7 +73,6 @@ function changeUpdateCheckboxes() {
   });
 }
 
-
 function refinedData(result) {
   ageCalculator(result);
 

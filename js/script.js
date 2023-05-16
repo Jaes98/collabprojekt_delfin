@@ -3,6 +3,8 @@
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
 import { refinedData, checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes } from "./Helper-functions.js";
+import { startKasserer } from "./kasserer.js";
+import { startTrainer } from "./trainer.js";
 
 window.addEventListener("load", start);
 
@@ -37,18 +39,23 @@ function showMembersAll() {
   const sortedList = sortList(listOfAll);
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   const filteredList = filterList(searchedList);
-
-  showMembers(filteredList);
+  if (filteredList.length === 0) {
+    const noResultsHtml = /* html */ 
+    `<p>No results found.</p>`;
+    document.querySelector("#formand-table-body").innerHTML = noResultsHtml;
+} else showMembers(filteredList);
 }
 
 function showMembers(array) {
   console.log("showmembers array:", array);
   document.querySelector("#formand-table-body").innerHTML = "";
+  // document.querySelector("#kasserer-table-body").innerHTML = "";
 
   for (const member of array) {
     showMember(member);
   }
 }
+
 
 function showMember(member) {
   const html = /* HTML */ `
@@ -65,6 +72,7 @@ function showMember(member) {
   document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
   document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
 }
+
 
 function showMemberModal(member) {
   let gender = "";
@@ -99,6 +107,7 @@ function showMemberModal(member) {
   </article>
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
+
 
   if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
@@ -256,7 +265,9 @@ async function getUpdatedFirebase(params) {
   result.forEach(refinedData);
   listOfMembers = result;
   showMembersAll(result);
-  memberOverview();
+
+  startKasserer(result);
+  startTrainer(result);
 }
 
 function sortList(listToSort) {
@@ -269,9 +280,7 @@ function sortList(listToSort) {
 
 let valueToSortBy = "name";
 function setSort() {
-  valueToSortBy = document.querySelector("#sort").value;
-  const test = document.querySelector("#test").value;
-  console.log(test);
+valueToSortBy = document.querySelector("#sort").value;
   showMembersAll();
 }
 
@@ -292,3 +301,5 @@ function filterList(searchedList) {
   if (valueToFilterBy === "") return searchedList;
   return searchedList.filter((member) => Object.values(member).includes(valueToFilterBy));
 }
+
+

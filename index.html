@@ -250,42 +250,85 @@
     </section>
 
     <section class="page-view" id="kasserer">
-      <table>
-        <thead>
-          <th>Navn</th>
-          <th>Betalingsgruppe</th>
-          <th>Restance</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Henry</td>
-            <td>Aktiv</td>
-            <td>Nej</td>
-          </tr>
-        </tbody>
-      </table>
-      <article id="kasserer-income"></article>
-      <article id="kasserer-member-overview"></article>
-
-      <br />
-      <button id="kasserer-update-button">Opdater medlem her</button>
-      <dialog id="kasserer-update-dialog">
-        <form>
-          <select name="aktiv" id="aktiv">
-            <option value="true">Aktiv</option>
-            <option value="false">Passiv</option>
-          </select>
-          <label for="aktiv">Aktivitet</label>
+      <div class="kasserer-container">
+        <div class="kasserer-header">
+          <img id="logo" src="images/dolphin logo.png" alt="logo" />
+          <h2>Velkommen Kasserer</h2>
+        </div>
+        <div class="kasserer-nav">
           <br />
-          <select name="restance" id="restance">
+          <br />
+          <label for="member-search-kasserer" id="nav-align">Søg (Navn):</label>
+          <br />
+          <input type="search" id="member-search-kasserer" placeholder="Søg efter navn" autocomplete="off" />
+          <br />
+          <br />
+          <label for="sort-kasserer" id="nav-align">Sortér efter:</label>
+          <br />
+          <select id="sort-kasserer" autocomplete="off">
+            <option value="name">Navn</option>
+            <option value="ageGroup">Betalingsgruppe</option>
+            <option value="true">I restance</option>
+          </select>
+          <br />
+          <br />
+          <label for="filter-kasserer" id="nav-align">Filtrér svømmer efter:</label>
+          <br />
+          <select id="nav-filter-kasserer" autocomplete="off">
+            <option value="" selected>Intet filter</option>
+            <optgroup label="Betalingsgruppe:">
+              <option value="Junior">Junior</option>
+              <option value="Senior">Senior</option>
+              <option value="Senior+">Senior+</option>
+              <option value="Passivt medlem">Passiv</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="kasserer-table">
+          <table>
+            <h2>Medlemmer</h2>
+          <table>
+            <thead>
+              <tr id="thh">
+                <th>Navn</th>
+                <th>Betalingsgruppe</th>
+                <th>Restance</th>
+                <th>Se detaljer</th>
+              </tr>
+            </thead>
+            <tbody id="kasserer-table-body">
+              <tr></tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div class="kasserer-overview">
+          <article id="kasserer-income"></article>
+          <article id="kasserer-member-overview"></article>
+        </div>
+      </div>
+      <dialog id="show-member-modal-kasserer"></dialog>
+      <dialog id="kasserer-update-dialog">
+        <form id="update-member-kasserer">
+          <select name="aktiv" id="isActive">
+            <option value="Aktivt medlem">Aktiv</option>
+            <option value="Passivt medlem">Passiv</option>
+          </select>
+          <label for="isActive">Aktivitet</label>
+          <br />
+          <select name="restance" id="isInRestance">
             <option value="false">Gældfri</option>
             <option value="true">Restance</option>
           </select>
-          <label for="restance">Restance</label>
+          <label for="isInRestance">Er medlem i restance</label>
           <input type="submit" id="kasserer-update-submit" value="Opdater betalingsstatus" />
         </form>
       </dialog>
-      <input type="text" value="abc" id="test">
+
+      <br />
+      <button id="kasserer-update-button">Opdater medlem her</button>
+     
+      <!-- <input type="text" value="abc" id="test" /> -->
     </section>
     <section class="page-view" id="trainer">4</section>
   </body>
