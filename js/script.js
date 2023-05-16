@@ -37,6 +37,7 @@ function showMembersAll() {
   const sortedList = sortList(listOfAll);
   const searchedList = searchList(sortedList);
   const filteredList = filterList(searchedList);
+  console.log("sortedlist:", sortedList);
 
   showMembers(filteredList);
 }
@@ -251,7 +252,7 @@ function setSort() {
 
 function sortList(listToSort) {
   if (valueToSortBy === "age") {
-    return listToSort.sort((first, second) => first - second);
+    return listToSort.sort((first, second) => first.age - second.age);
   } else {
     return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
   }
