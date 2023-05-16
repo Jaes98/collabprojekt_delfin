@@ -100,4 +100,18 @@ function changeUpdateCheckboxes() {
 // }
 
 
-export { ageCalculator, ageToGroup, checkDiscipline, checkMembership, checkCompetitorOrExerciser, addCoach, changeCreateCheckboxes,changeUpdateCheckboxes };
+function refinedData(result) {
+  ageCalculator(result);
+
+  ageToGroup(result);
+
+  addCoach(result);
+
+  checkCompetitorOrExerciser(result);
+
+  checkMembership(result);
+
+  return result;
+}
+
+export { checkDiscipline, changeCreateCheckboxes,changeUpdateCheckboxes, refinedData };
