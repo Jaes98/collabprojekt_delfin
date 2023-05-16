@@ -1,5 +1,7 @@
 
-
+function startTrainer(params) {
+    // Starter alt med trainer
+}
 
 function showMembersTrainer(array) {
     console.log("showmembers array:", array);
@@ -9,3 +11,5 @@ function showMembersTrainer(array) {
       showMemberFormand(member);
     }
   }
+
+  export {startTrainer}

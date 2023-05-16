@@ -1,6 +1,11 @@
+let listOfMembers;
 
-function startKasserer(params) {
- // Kald alt mulight   
+function startKasserer(array) {
+ // Kald alt mulight
+ listOfMembers = array
+ console.log(listOfMembers)
+ showMembersKasserer(array)
+ kassererOverview()
 }
 
   function showMembersKasserer(array) {
@@ -8,7 +13,7 @@ function startKasserer(params) {
     document.querySelector("#formand-table-body").innerHTML = "";
   
     for (const member of array) {
-      showMemberFormand(member);
+      showMemberKasserer(member);
     }
   }
 
@@ -117,3 +122,5 @@ function showMemberKasserer(member) {
   
     document.querySelector("#btn-close-modal-kasserer").addEventListener("click", () => document.querySelector("#show-member-modal-kasserer").close());
   }
+
+  export {startKasserer}
