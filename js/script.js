@@ -43,11 +43,12 @@ function showMembersAll() {
 
 function showMembers(array) {
   console.log("showmembers array:", array);
-  document.querySelector("#kasserer-table-body").innerHTML = "";
+  document.querySelector("#formand-table-body").innerHTML = "";
+  // document.querySelector("#kasserer-table-body").innerHTML = "";
 
   for (const member of array) {
-    // showMember(member);
-    showMemberKasserer(member);
+    showMember(member);
+    // showMemberKasserer(member);
   }
 }
 
