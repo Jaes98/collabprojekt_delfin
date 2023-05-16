@@ -47,7 +47,7 @@ hr {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    /* gap: 10px; */
     width: 100%;
     justify-content: center;
     justify-items: center;
@@ -103,7 +103,7 @@ hr {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
+    /* gap: 10px; */
     width: 100%;
     justify-content: center;
     justify-items: center;
@@ -151,7 +151,8 @@ hr {
   max-height: 120px;
   text-align: center;
   position: relative;
-  background-color: #67a0d8;
+  background-color: #569bde;
+  /* #67a0d8; */
   align-items: center;
   justify-content: space-between;
 }
@@ -192,8 +193,8 @@ hr {
   border-color: rgb(118, 118, 118);
 }
 
-#overview h3,
-#kasserer-overview h3 {
+h3#overview,
+h3#kasserer-overview {
   margin: 0;
   color: red;
 }
@@ -210,10 +211,19 @@ hr {
   max-height: 120px;
   text-align: center;
   position: relative;
-  background-color: #67a0d8;
+  background-color: #569bde;
+  /* #67a0d8; */
   align-items: center;
   justify-content: space-between;
 }
+
+/* br#header-gap { */
+/* height: 13px; */
+/* margin: 10px 0; */
+/* line-height: 13px; */
+/* content: ""; */
+/* source: https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br */
+/* } */
 
 .kasserer-nav {
   grid-row: auto;
@@ -241,10 +251,18 @@ hr {
 
 .kasserer-overview {
   grid-row: auto;
-  grid-column: 6 / 9;
+  grid-column: 6/ 9;
   background-color: #eee;
   padding: 25px;
+  margin-left: 20px;
   width: 100%;
+}
+
+.page-footer {
+  grid-column: 1 / 9;
+  width: 100%;
+  padding: 30px;
+  background-color: #fff;
 }
 
 /*********** front-page ************/
