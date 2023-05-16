@@ -432,3 +432,7 @@ tr:nth-child(odd):hover {
 #overview h3 {
   margin: 0;
 }
+
+.red {
+  background-color: red;
+}

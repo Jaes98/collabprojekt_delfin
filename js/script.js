@@ -127,11 +127,16 @@ function showMemberKasserer(member) {
   let ageGroup = "";
   if (member.active === "Passivt medlem") ageGroup = "";
   else if (member.active === "Aktivt medlem") ageGroup = " : " + member.ageGroup;
+
+  let restance = "";
+  if (member.restance) restance = "Ja";
+  else if (member.restance === false) restance = "Nej";
+
   const html = /* HTML */ `
     <tr class="member-item-kasserer">
       <td>${member.name}</td>
       <td>${member.active} ${ageGroup}</td>
-      <td>${member.restance}</td>
+      <td>${restance}</td>
       <td>
         <button class="buttonAni" id="memberShowMore-kasserer">Se mere</button>
       </td>
@@ -141,10 +146,14 @@ function showMemberKasserer(member) {
   document.querySelector("#kasserer-table-body tr:last-child").addEventListener("click", () => showMemberModalKasserer(member));
 }
 
-function showMemberModalKasserer() {
+function showMemberModalKasserer(member) {
   let gender = "";
   if (member.gender === "male") gender = "Mand";
   else if (member.gender === "female") gender = "Kvinde";
+
+  let restance = "";
+  if (member.restance) restance = "Ja";
+  else if (member.restance === false) restance = "Nej";
 
   const html = /*HTML*/ `
   <article class="modal-item">
@@ -161,11 +170,12 @@ function showMemberModalKasserer() {
       <h4>Medlemskabsoplysninger:</h4>
       <p>Aldersgruppe: ${member.ageGroup}</p>
       <p>Aktivitetsstatus: ${member.active}</p>
-      <p>Er medlem i restance: ${member.restance}</p>
+      <p>Er medlem i restance: ${restance}</p>
     </section>
   </article>
   `;
   document.querySelector("#show-member-modal-kasserer").innerHTML = html;
+  document.querySelector("#show-member-modal-kasserer").showModal();
 
   document.querySelector("#btn-close-modal-kasserer").addEventListener("click", () => document.querySelector("#show-member-modal-kasserer").close());
 }
