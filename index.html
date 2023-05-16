@@ -286,25 +286,28 @@
         </div>
         <div class="kasserer-table">
           <table>
+            <h2>Medlemmer</h2>
+          <table>
             <thead>
-              <th>Navn</th>
-              <th>Betalingsgruppe</th>
-              <th>Restance</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Henry</td>
-                <td>Aktiv</td>
-                <td>Nej</td>
+              <tr id="thh">
+                <th>Navn</th>
+                <th>Betalingsgruppe</th>
+                <th>Restance</th>
+                <th>Se detaljer</th>
               </tr>
+            </thead>
+            <tbody id="kasserer-table-body">
+              <tr></tr>
             </tbody>
           </table>
+
         </div>
         <div class="kasserer-overview">
           <article id="kasserer-income"></article>
           <article id="kasserer-member-overview"></article>
         </div>
       </div>
+      <dialog id="show-member-modal-kasserer"></dialog>
 
       <br />
       <button id="kasserer-update-button">Opdater medlem her</button>
