@@ -209,12 +209,12 @@
       "trid": ""
     },
     "-ghdsk-sdljdsj7": {
-      "name": "Anders Pedersen",
+      "name": "Anders Johansen",
       "bday": "2011-11-30",
       "phonenumber": "+4567891234",
       "adress": "Skovvej 8, 4321 Odense",
       "gender": "male",
-      "email": "andersp@example.com",
+      "email": "andersj@example.com",
       "active": true,
       "competetive": true,
       "crawl": false,
