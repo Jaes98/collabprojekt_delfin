@@ -40,10 +40,8 @@ function showMembersAll() {
   if (filteredList.length === 0) {
     const noResultsHtml = /* html */ 
     `<p>No results found.</p>`;
-    document.querySelector("#formand-table-body").innerHTML = "";
-    document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", noResultsHtml);
-  } else showMembers(filteredList);
-
+    document.querySelector("#formand-table-body").innerHTML = noResultsHtml;
+} else showMembers(filteredList);
 }
 
 function showMembers(array) {
