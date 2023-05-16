@@ -1,3 +1,4 @@
+// import { getUpdatedFirebase } from "./script";
 
 function startTrainer(params) {
     // Starter alt med trainer
