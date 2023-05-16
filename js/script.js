@@ -37,16 +37,20 @@ function showMembersAll() {
   const sortedList = sortList(listOfAll);
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   const filteredList = filterList(searchedList);
-
-    showMembersFormand(filteredList);
+  if (filteredList.length === 0) {
+    const noResultsHtml = /* html */ 
+    `<p>No results found.</p>`;
+    document.querySelector("#formand-table-body").innerHTML = noResultsHtml;
+} else showMembers(filteredList);
 }
 
 function showMembersFormand(array) {
   console.log("showmembers array:", array);
   document.querySelector("#formand-table-body").innerHTML = "";
+  // document.querySelector("#kasserer-table-body").innerHTML = "";
 
   for (const member of array) {
-    showMemberFormand(member);
+    showMember(member);
   }
 }
 
@@ -71,7 +75,6 @@ function showMemberFormand(member) {
 
 
 function showMemberModal(member) {
-  
   let gender = "";
   if (member.gender === "male") gender = "Mand";
   else if (member.gender === "female") gender = "Kvinde";
@@ -105,7 +108,7 @@ function showMemberModal(member) {
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
 
-  
+
   if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
       "beforeend",
@@ -125,6 +128,64 @@ function showMemberModal(member) {
     changeUpdateCheckboxes();
   });
   document.querySelector("#btn-delete-member").addEventListener("click", () => deleteClickedOpenModal(member));
+}
+
+function showMemberKasserer(member) {
+  //  let active = "";
+  let ageGroup = "";
+  if (member.active === "Passivt medlem") ageGroup = "";
+  else if (member.active === "Aktivt medlem") ageGroup = " : " + member.ageGroup;
+
+  let restance = "";
+  if (member.restance) restance = "Ja";
+  else if (member.restance === false) restance = "Nej";
+
+  const html = /* HTML */ `
+    <tr class="member-item-kasserer">
+      <td>${member.name}</td>
+      <td>${member.active} ${ageGroup}</td>
+      <td>${restance}</td>
+      <td>
+        <button class="buttonAni" id="memberShowMore-kasserer">Se mere</button>
+      </td>
+    </tr>
+  `;
+  document.querySelector("#kasserer-table-body").insertAdjacentHTML("beforeend", html);
+  document.querySelector("#kasserer-table-body tr:last-child").addEventListener("click", () => showMemberModalKasserer(member));
+}
+
+function showMemberModalKasserer(member) {
+  let gender = "";
+  if (member.gender === "male") gender = "Mand";
+  else if (member.gender === "female") gender = "Kvinde";
+
+  let restance = "";
+  if (member.restance) restance = "Ja";
+  else if (member.restance === false) restance = "Nej";
+
+  const html = /*HTML*/ `
+  <article class="modal-item">
+    <h3>${member.name} 
+      <button id="btn-close-modal-kasserer" class="buttonAni">Tilbage</button>
+    </h3>
+    <section id="member-modal-section-kasserer">
+      <p>Alder: ${member.age} år</p>
+      <p>Tlf: ${member.phonenumber}</p>
+      <p>Email: ${member.email}</p>
+      <p>Adresse: ${member.adress}</p>
+      <p>Køn: ${gender}</p>
+      <hr>
+      <h4>Medlemskabsoplysninger:</h4>
+      <p>Aldersgruppe: ${member.ageGroup}</p>
+      <p>Aktivitetsstatus: ${member.active}</p>
+      <p>Er medlem i restance: ${restance}</p>
+    </section>
+  </article>
+  `;
+  document.querySelector("#show-member-modal-kasserer").innerHTML = html;
+  document.querySelector("#show-member-modal-kasserer").showModal();
+
+  document.querySelector("#btn-close-modal-kasserer").addEventListener("click", () => document.querySelector("#show-member-modal-kasserer").close());
 }
 
 function memberOverview() {
@@ -272,9 +333,9 @@ valueToSortBy = document.querySelector("#sort").value;
 let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
+
   showMembersAll()
 }
-
 
 let valueToFilterBy = "";
 function chosenFilter() {
