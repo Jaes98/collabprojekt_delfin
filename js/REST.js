@@ -38,7 +38,6 @@ function prepareData(listOfObjects) {
   return arrayFromFirebaseObject;
 }
 
-
 async function createdMember(newMember) {
   console.log("createdMember");
   const json = JSON.stringify(newMember);

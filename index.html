@@ -248,7 +248,41 @@
         </form>
       </dialog>
     </section>
-    <section class="page-view" id="kasserer">3</section>
+
+    <section class="page-view" id="kasserer">
+      <table>
+        <thead>
+          <th>Navn</th>
+          <th>Betalingsgruppe</th>
+          <th>Restance</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Henry</td>
+            <td>Aktiv</td>
+            <td>Nej</td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <button id="kasserer-update-button">Opdater medlem her</button>
+      <dialog id="kasserer-update-dialog">
+        <form>
+          <select name="aktiv" id="aktiv">
+            <option value="true">Aktiv</option>
+            <option value="false">Passiv</option>
+          </select>
+          <label for="aktiv">Aktivitet</label>
+          <br />
+          <select name="restance" id="restance">
+            <option value="false">Gældfri</option>
+            <option value="true">Restance</option>
+          </select>
+          <label for="restance">Restance</label>
+          <input type="submit" id="kasserer-update-submit" value="Opdater betalingsstatus" />
+        </form>
+      </dialog>
+    </section>
     <section class="page-view" id="trainer">4</section>
   </body>
 
