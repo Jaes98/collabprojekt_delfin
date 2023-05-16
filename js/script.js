@@ -291,6 +291,10 @@ function kassererOverview(params) {
   console.log("test!!!");
   console.log("list of members:",listOfMembers);
 
+  
+  const juniorMembers = listOfMembers.filter((member) => member.ageGroup === "Junior");
+  const seniorMembers = listOfMembers.filter((member) => member.ageGroup === "Senior");
+  const seniorPlusMembers = listOfMembers.filter((member) => member.ageGroup=== "Senior+");
   const membersInRestance = listOfMembers.filter((member) => member.restance === true);
   const membersInTheClear = listOfMembers.filter((member) => member.restance === false);  
   const totalYearlyIncome = moneyCalculator(listOfMembers)
@@ -317,8 +321,20 @@ function kassererOverview(params) {
     }
     return expectedIncome
   }
+  const income = document.querySelector("#kasserer-income")
+  const memberInfo = document.querySelector("#kasserer-member-overview")
 
+  memberInfo.insertAdjacentHTML("beforeend",`
+  <p>Antal medlemmer: ${listOfMembers.length} </p>
+  <p>Antal Junior-medlemmer: ${juniorMembers.length} </p>
+  <p>Antal Senior-medlemmer: ${seniorMembers.length} </p>
+  <p>Antal Senior+-medlemmer: ${seniorPlusMembers.length} </p>
+  <p>Antal medlemmer i restance: ${membersInRestance.length} </p>
+  `)
 
-
+  income.insertAdjacentHTML("beforeend",`
+  <p>Forventet årlig indkomst: ${totalYearlyIncome}</p>
+  <p>Beløb endnu ikke indbetalt: ${moneyInRestance}</p>
+  `)
 }
 
