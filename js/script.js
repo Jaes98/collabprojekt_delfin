@@ -51,8 +51,6 @@ function showMembers(array) {
 }
 
 function showMember(member) {
-  
-
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -69,7 +67,6 @@ function showMember(member) {
 }
 
 function showMemberModal(member) {
-  
   let gender = "";
   if (member.gender === "male") gender = "Mand";
   else if (member.gender === "female") gender = "Kvinde";
@@ -103,7 +100,6 @@ function showMemberModal(member) {
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
 
-  
   if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
       "beforeend",
@@ -142,6 +138,17 @@ function memberOverview() {
   `
   );
 }
+
+const countActive = listOfMembers.filter((member) => member.active === "Aktivt medlem");
+const countPassiv = listOfMembers.filter((member) => member.active === "Passivt medlem");
+document.querySelector("#kasserer-member-overview").insertAdjacentHTML(
+  "beforeend",
+  /*HTML */ `
+   
+   <p>Aktive medlemmer: ${countActive.length}</p>
+   <p>Passive medlemmer: ${countPassiv.length}</p>
+   `
+);
 
 function createNewMember(event) {
   console.log("createNewMember");
@@ -263,8 +270,8 @@ function sortList(listToSort) {
 let valueToSortBy = "name";
 function setSort() {
   valueToSortBy = document.querySelector("#sort").value;
-  const test = document.querySelector("#test").value
-  console.log(test)
+  const test = document.querySelector("#test").value;
+  console.log(test);
   showMembersAll();
 }
 
@@ -272,9 +279,8 @@ let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
 
-  showMembersAll()
+  showMembersAll();
 }
-
 
 let valueToFilterBy = "";
 function chosenFilter() {
