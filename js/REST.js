@@ -49,11 +49,11 @@ async function createdMember(newMember) {
 
   if (response.status === 200) {
     console.log("member was send to the database");
-    restSuccess();
+    successPrompt();
     document.querySelector("#dialog-create-member").close();
   } else {
     console.error("member was NOT send to the database");
-    restFail();
+    failedPrompt();
   }
 
   return response;
@@ -66,6 +66,13 @@ async function updateMemberPUT(memberToUpdate, id) {
     method: "PUT",
     body: objectToJSON,
   });
+  if (response.status === 200) {
+    console.log("****************200***************");
+    successPrompt();
+  } else {
+    console.log("################shit#############");
+    failedPrompt();
+  }
 
   return response;
 }
@@ -79,18 +86,41 @@ async function deleteMember(id) {
   console.log(`${dolphinDatabase}/members/${id}.json`);
   // Hvis response er ok, udskriv log og opdater grid
 
-//  if (response.status === 200) {
-//    console.log("****************200***************");
-//    success();
-//  } else {
-//    console.log("################shit#############");
-//    failed();
-//  }
+ if (response.status === 200) {
+   console.log("****************200***************");
+   successPrompt();
+ } else {
+   console.log("################shit#############");
+   failedPrompt();
+ }
   return response;
 }
 
-function restSuccess() {}
+function successPrompt() {
+  const alertSuccess = document.createElement("div");
+  alertSuccess.id = "successNotifikation";
+  alertSuccess.textContent = "Dine ændringer blev gemt";
 
-function restFail() {}
+  document.body.appendChild(alertSuccess);
+
+  // Remove after a few seconds
+  setTimeout(() => {
+    alertSuccess.remove();
+  }, 2000);
+}
+
+function failedPrompt() {
+  const alertFailed = document.createElement("div");
+  alertFailed.id = "failedNotifikation";
+  alertFailed.textContent =
+    "Vi kunne ikke gennemføre din anmodning grundet en fejl";
+
+  document.body.appendChild(alertFailed);
+
+  // Remove after a few seconds
+  setTimeout(() => {
+    alertFailed.remove();
+  }, 3000);
+}
 
 export { updateMemberPUT, createdMember, deleteMember, getMembers };

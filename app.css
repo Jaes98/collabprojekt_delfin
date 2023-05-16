@@ -289,29 +289,29 @@ section.active#trainer {
   background-color: red;
 }
 
-/* #createSuccess {
-  font-size: xx-large;
-  background: green;
-  color: white;
-  padding: 20px;
-  border: solid white 2px;
+#failedNotifikation {
   position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #e74c3c;
+  color: #fff;
+  border-radius: 5px;
+  opacity: 1;
+  transition: opacity 0.5s, visibility 0s 0.5s;
 }
 
-#createFailed {
-  font-size: xx-large;
-  background: red;
-  color: white;
-  padding: 20px;
-  border: solid white 2px;
+#successNotifikation {
   position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-} */
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border-radius: 5px;
+  opacity: 1;
+  transition: opacity 0.5s, visibility 0s 0.5s;
+}
 
 /* ************* create member form*********** */
 
