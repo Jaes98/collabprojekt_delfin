@@ -250,6 +250,7 @@ async function getUpdatedFirebase(params) {
   listOfMembers = result;
   showMembersAll(result);
   memberOverview();
+  kassererOverview()
 }
 
 function sortList(listToSort) {
@@ -263,8 +264,7 @@ function sortList(listToSort) {
 let valueToSortBy = "name";
 function setSort() {
   valueToSortBy = document.querySelector("#sort").value;
-  const test = document.querySelector("#test").value
-  console.log(test)
+
   showMembersAll();
 }
 
@@ -286,3 +286,39 @@ function filterList(searchedList) {
   if (valueToFilterBy === "") return searchedList;
   return searchedList.filter((member) => Object.values(member).includes(valueToFilterBy));
 }
+
+function kassererOverview(params) {
+  console.log("test!!!");
+  console.log("list of members:",listOfMembers);
+
+  const membersInRestance = listOfMembers.filter((member) => member.restance === true);
+  const membersInTheClear = listOfMembers.filter((member) => member.restance === false);  
+  const totalYearlyIncome = moneyCalculator(listOfMembers)
+  const moneyInRestance = moneyCalculator(membersInRestance)
+
+  console.log("expected yearly income:", totalYearlyIncome)
+  console.log("money in restance:", moneyInRestance)
+
+  console.log("membersinrestance.length:", membersInRestance.length)
+  console.log("membersintheclear.length:", membersInTheClear.length)
+
+  function moneyCalculator(listOfMembersToCalculate) {
+    let expectedIncome = 0
+    const passiveRate = 500
+    const juniorRate = 1000
+    const seniorRate = 1600
+    const seniorPlusDiscount = 0.75
+  
+    for (const member of listOfMembersToCalculate) {
+      if (member.active === "Passivt medlem") {expectedIncome += passiveRate; console.log("passive member:",expectedIncome)}
+      else if(member.ageGroup === "Senior") {expectedIncome += seniorRate; console.log("senior memeber:", expectedIncome)}
+      else if(member.ageGroup === "Junior") {expectedIncome += juniorRate, console.log("junior memeber:", expectedIncome)}
+      else {expectedIncome += seniorRate*seniorPlusDiscount; console.log("senior+ member:", expectedIncome);}
+    }
+    return expectedIncome
+  }
+
+
+
+}
+
