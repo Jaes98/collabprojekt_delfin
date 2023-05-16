@@ -291,9 +291,10 @@ section.active#trainer {
 
 #failedNotifikation {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px;
+  font-size: large;
+  top: 85%;
+  right: 40%;
+  padding: 25px;
   background-color: #e74c3c;
   color: #fff;
   border-radius: 5px;
@@ -303,9 +304,10 @@ section.active#trainer {
 
 #successNotifikation {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px;
+  font-size: large;
+  top: 85%;
+  right: 40%;
+  padding: 25px;
   background-color: #4CAF50;
   color: #fff;
   border-radius: 5px;
