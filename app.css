@@ -254,6 +254,7 @@ h3#kasserer-overview {
   grid-column: 6/ 9;
   background-color: #eee;
   padding: 25px;
+  margin-right: 10px;
   margin-left: 20px;
   width: 100%;
 }
