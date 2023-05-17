@@ -3,79 +3,106 @@
 let listOfMembers;
 
 function startKasserer(array) {
- // Kald alt mulight
- listOfMembers = array
- 
- showMembersKasserer(array)
- kassererOverview()
+  // Kald alt mulight
+  listOfMembers = array;
+
+  document.querySelector("#kasserer-update-button").addEventListener("click", () => document.querySelector("#kasserer-update-dialog").showModal());
+
+  document.querySelector("#sort-kasserer").addEventListener("change", setSort);
+  document.querySelector("#nav-filter-kasserer").addEventListener("change", chosenFilter);
+
+  document.querySelector("#member-search-kasserer").addEventListener("keyup", searchBarChanged);
+  document.querySelector("#member-search-kasserer").addEventListener("search", searchBarChanged);
+
+  showMembersKasserer(array);
+  kassererOverview();
 }
 
-  function showMembersKasserer(array) {
-    console.log("showmembers array:", array);
-    document.querySelector("#kasserer-table-body").innerHTML = "";
-  
-    for (const member of array) {
-      showMemberKasserer(member);
+function showMembersAll() {
+  const listOfAll = listOfMembers;
+  const sortedList = sortList(listOfAll);
+  const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
+  const filteredList = filterList(searchedList);
+  if (filteredList.length === 0) {
+    const noResultsHtml = /* html */ `<p>No results found.</p>`;
+    document.querySelector("#kasserer-table-body").innerHTML = noResultsHtml;
+  } else showMembersKasserer(filteredList);
+}
+
+function showMembersKasserer(array) {
+  console.log("showmembers array:", array);
+  document.querySelector("#kasserer-table-body").innerHTML = "";
+
+  for (const member of array) {
+    showMemberKasserer(member);
+  }
+}
+
+function showMemberKasserer(member) {
+  let ageGroup = "";
+
+  if (member.active === "Passivt medlem") member.paymentGroup = `Passiv ${member.ageGroup}`;
+  else if (member.active === "Aktivt medlem") member.paymentGroup = `Aktiv ${member.ageGroup}`;
+
+  let restance = "";
+  if (member.restance) restance = "Ja";
+  else if (member.restance === false) restance = "Nej";
+  // <td>${member.active} ${ageGroup}</td>
+
+  const html = /* HTML */ `
+    <tr class="member-item-kasserer">
+      <td>${member.name}</td>
+      <td>${member.paymentGroup}</td>
+      <td>${restance}</td>
+      <td>
+        <button class="buttonAni" id="memberShowMore-kasserer">Se mere</button>
+      </td>
+    </tr>
+  `;
+  document.querySelector("#kasserer-table-body").insertAdjacentHTML("beforeend", html);
+  document.querySelector("#kasserer-table-body tr:last-child").addEventListener("click", () => showMemberModalKasserer(member));
+}
+
+function kassererOverview(params) {
+  console.log("list of members:", listOfMembers);
+
+  const juniorMembers = listOfMembers.filter((member) => member.ageGroup === "Junior");
+  const seniorMembers = listOfMembers.filter((member) => member.ageGroup === "Senior");
+  const seniorPlusMembers = listOfMembers.filter((member) => member.ageGroup === "Senior+");
+  const countActive = listOfMembers.filter((member) => member.active === "Aktivt medlem");
+  const countPassive = listOfMembers.filter((member) => member.active === "Passivt medlem");
+
+  const membersInRestance = listOfMembers.filter((member) => member.restance === true);
+  const totalYearlyIncome = moneyCalculator(listOfMembers);
+  const moneyInRestance = moneyCalculator(membersInRestance);
+
+  function moneyCalculator(listOfMembersToCalculate) {
+    let expectedIncome = 0;
+    const passiveRate = 500;
+    const juniorRate = 1000;
+    const seniorRate = 1600;
+    const seniorPlusDiscount = 0.75;
+
+    for (const member of listOfMembersToCalculate) {
+      if (member.active === "Passivt medlem") {
+        expectedIncome += passiveRate;
+      } else if (member.ageGroup === "Senior") {
+        expectedIncome += seniorRate;
+      } else if (member.ageGroup === "Junior") {
+        expectedIncome += juniorRate;
+      } else {
+        expectedIncome += seniorRate * seniorPlusDiscount;
+      }
     }
+    return expectedIncome;
   }
 
-  
-function showMemberKasserer(member) {
-    let ageGroup = "";
-    if (member.active === "Passivt medlem") ageGroup = "";
-    else if (member.active === "Aktivt medlem") ageGroup = " : " + member.ageGroup;
-  
-    let restance = "";
-    if (member.restance) restance = "Ja";
-    else if (member.restance === false) restance = "Nej";
-  
-    const html = /* HTML */ `
-      <tr class="member-item-kasserer">
-        <td>${member.name}</td>
-        <td>${member.active} ${ageGroup}</td>
-        <td>${restance}</td>
-        <td>
-          <button class="buttonAni" id="memberShowMore-kasserer">Se mere</button>
-        </td>
-      </tr>
-    `;
-    document.querySelector("#kasserer-table-body").insertAdjacentHTML("beforeend", html);
-    document.querySelector("#kasserer-table-body tr:last-child").addEventListener("click", () => showMemberModalKasserer(member));
-  }
-  
-function kassererOverview(params) {
-    console.log("list of members:",listOfMembers);
-  
-    const juniorMembers = listOfMembers.filter((member) => member.ageGroup === "Junior");
-    const seniorMembers = listOfMembers.filter((member) => member.ageGroup === "Senior");
-    const seniorPlusMembers = listOfMembers.filter((member) => member.ageGroup=== "Senior+");
-    const countActive = listOfMembers.filter((member) => member.active === "Aktivt medlem");
-    const countPassive = listOfMembers.filter((member) => member.active === "Passivt medlem");
-  
-    const membersInRestance = listOfMembers.filter((member) => member.restance === true);
-    const totalYearlyIncome = moneyCalculator(listOfMembers)
-    const moneyInRestance = moneyCalculator(membersInRestance)
-  
-    function moneyCalculator(listOfMembersToCalculate) {
-      let expectedIncome = 0
-      const passiveRate = 500
-      const juniorRate = 1000
-      const seniorRate = 1600
-      const seniorPlusDiscount = 0.75
-  
-      for (const member of listOfMembersToCalculate) {
-        if (member.active === "Passivt medlem") {expectedIncome += passiveRate;}
-        else if(member.ageGroup === "Senior") {expectedIncome += seniorRate; }
-        else if(member.ageGroup === "Junior") {expectedIncome += juniorRate}
-        else {expectedIncome += seniorRate*seniorPlusDiscount}
-      }
-      return expectedIncome
-    }
-  
-    const income = document.querySelector("#kasserer-income")
-    const memberInfo = document.querySelector("#kasserer-member-overview")
-  
-    memberInfo.insertAdjacentHTML("beforeend",`
+  const income = document.querySelector("#kasserer-income");
+  const memberInfo = document.querySelector("#kasserer-member-overview");
+
+  memberInfo.insertAdjacentHTML(
+    "beforeend",
+    `
     <p>Antal medlemmer: ${listOfMembers.length} </p>
     <p>Antal Junior-medlemmer: ${juniorMembers.length} </p>
     <p>Antal Senior-medlemmer: ${seniorMembers.length} </p>
@@ -83,24 +110,28 @@ function kassererOverview(params) {
     <p>Antal medlemmer i restance: ${membersInRestance.length} </p>
     <p>Aktive medlemmer: ${countActive.length}</p>
     <p>Passive medlemmer: ${countPassive.length}</p>
-    `)
-  
-    income.insertAdjacentHTML("beforeend",`
-    <p>Forventet årlig indkomst: ${totalYearlyIncome}</p>
-    <p>Restancebeløb: ${moneyInRestance}</p>
-    `)
-  }
-  
-  function showMemberModalKasserer(member) {
-    let gender = "";
-    if (member.gender === "male") gender = "Mand";
-    else if (member.gender === "female") gender = "Kvinde";
-  
-    let restance = "";
-    if (member.restance) restance = "Ja";
-    else if (member.restance === false) restance = "Nej";
-  
-    const html = /*HTML*/ `
+    `
+  );
+
+  income.insertAdjacentHTML(
+    "beforeend",
+    `
+    <p>Forventet årlig indkomst: ${totalYearlyIncome}kr.</p>
+    <p>Restancebeløb: ${moneyInRestance}kr.</p>
+    `
+  );
+}
+
+function showMemberModalKasserer(member) {
+  let gender = "";
+  if (member.gender === "male") gender = "Mand";
+  else if (member.gender === "female") gender = "Kvinde";
+
+  let restance = "";
+  if (member.restance) restance = "Ja";
+  else if (member.restance === false) restance = "Nej";
+
+  const html = /*HTML*/ `
     <article class="modal-item">
       <h3>${member.name}
         <button id="btn-close-modal-kasserer" class="buttonAni">Tilbage</button>
@@ -119,43 +150,47 @@ function kassererOverview(params) {
       </section>
     </article>
     `;
-    document.querySelector("#show-member-modal-kasserer").innerHTML = html;
-    document.querySelector("#show-member-modal-kasserer").showModal();
-  
-    document.querySelector("#btn-close-modal-kasserer").addEventListener("click", () => document.querySelector("#show-member-modal-kasserer").close());
-  }
+  document.querySelector("#show-member-modal-kasserer").innerHTML = html;
+  document.querySelector("#show-member-modal-kasserer").showModal();
 
-  function sortList(listToSort) {
-    if (valueToSortBy === "age") {
-      return listToSort.sort((first, second) => first.age - second.age);
-    } else {
-      return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
-    }
-  }
-  
-  let valueToSortBy = "name";
-  function setSort() {
-  valueToSortBy = document.querySelector("#sort").value;
-    showMembersAll();
-  }
-  
-  let valueToSearchBy = "";
-  function searchBarChanged() {
-    valueToSearchBy = document.querySelector("#member-search").value;
-  
-    showMembersAll()
-  }
-  
-  let valueToFilterBy = "";
-  function chosenFilter() {
-    valueToFilterBy = document.querySelector("#nav-filter").value;
-    showMembersAll();
-  }
-  
-  function filterList(searchedList) {
-    if (valueToFilterBy === "") return searchedList;
-    return searchedList.filter((member) => Object.values(member).includes(valueToFilterBy));
-  }
-  
+  document.querySelector("#btn-close-modal-kasserer").addEventListener("click", () => document.querySelector("#show-member-modal-kasserer").close());
+}
 
-  export {startKasserer}
+function sortList(listToSort) {
+  if (valueToSortBy === "restance") {
+    return listToSort.sort((member1, member2) => {
+      if (member1.restance === undefined) member1.restance = false;
+      if (member2.restance === undefined) member2.restance = false;
+      return member1.restance - member2.restance;
+    });
+  } else {
+    return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
+  }
+}
+
+let valueToSortBy = "name";
+function setSort() {
+  valueToSortBy = document.querySelector("#sort-kasserer").value;
+  showMembersAll();
+}
+
+let valueToSearchBy = "";
+function searchBarChanged() {
+  valueToSearchBy = document.querySelector("#member-search-kasserer").value;
+
+  showMembersAll();
+}
+
+let valueToFilterBy = "";
+function chosenFilter() {
+  valueToFilterBy = document.querySelector("#nav-filter-kasserer").value;
+  showMembersAll();
+}
+
+function filterList(searchedList) {
+  if (valueToFilterBy === "") return searchedList;
+  if (valueToFilterBy === "Passiv") return searchedList.filter((member) => member.active.includes(valueToFilterBy));
+  else return searchedList.filter((member) => member.paymentGroup === valueToFilterBy);
+}
+
+export { startKasserer };

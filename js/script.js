@@ -15,7 +15,6 @@ function start() {
   viewControl();
 
   document.querySelector("#btn-formand-create").addEventListener("click", () => document.querySelector("#dialog-create-member").showModal());
-  // document.querySelector("#kasserer-update-button").addEventListener("click", () => document.querySelector("#kasserer-update-dialog").showModal());
   document.querySelector("#form-create-member").addEventListener("submit", createNewMember);
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-member").close());
   document.querySelector("#formand-form-update-member2").addEventListener("submit", updateMember);
