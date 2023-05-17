@@ -167,15 +167,18 @@ function showMemberModalKasserer(member) {
 }
 
 function updateMemberKassererClicked(member) {
+  document.querySelector("#show-member-modal-kasserer").close();
   const updateForm = document.querySelector("#update-member-kasserer");
 
   if (member.active === "Aktivt medlem") member.active = true;
-  else member.active = false;
+  else if ((member.active = "Passivt medlem")) member.active = false;
 
   updateForm.active.value = member.active;
   updateForm.restance.value = member.restance;
 
   updateForm.setAttribute("data-id", member.id);
+
+  console.log("updateClicked", updateForm.restance.value);
 
   document.querySelector("#kasserer-update-dialog").showModal();
 }
@@ -184,16 +187,17 @@ async function updateMemberKasserer(event) {
   event.preventDefault();
 
   const updatedMember = {
-    active: event.target.active.value,
-    restance: event.target.restance.value
+    active: event.target.active.value === "true",
+    restance: event.target.restance.value === "true"
   };
 
+  console.log("updated", event.target.restance.value);
   const id = event.target.getAttribute("data-id");
   const response = await updateMemberPatch(updatedMember, id);
   if (response.ok) {
     getUpdatedFirebase();
-    document.querySelector("#kasserer-update-dialog").close();
   }
+  document.querySelector("#kasserer-update-dialog").close();
 }
 
 function sortList(listToSort) {
