@@ -40,25 +40,21 @@ function showMembersAll() {
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   const filteredList = filterList(searchedList);
   if (filteredList.length === 0) {
-    const noResultsHtml = /* html */ 
-    `<p>No results found.</p>`;
+    const noResultsHtml = /* html */ `<p>No results found.</p>`;
     document.querySelector("#formand-table-body").innerHTML = noResultsHtml;
-} else showMembers(filteredList);
-
+  } else showMembers(filteredList);
 }
 
 function showMembers(array) {
   console.log("showmembers array:", array);
   document.querySelector("#formand-table-body").innerHTML = "";
-  
+
   for (const member of array) {
     showMember(member);
   }
 }
 
-
 function showMember(member) {
-  
   const html = /* HTML */ `
     <tr class="member-item">
       <td>${member.name}</td>
@@ -74,7 +70,6 @@ function showMember(member) {
   document.querySelector("#formand-table-body").insertAdjacentHTML("beforeend", html);
   document.querySelector("#formand-table-body tr:last-child").addEventListener("click", () => showMemberModal(member));
 }
-
 
 function showMemberModal(member) {
   let gender = "";
@@ -109,7 +104,6 @@ function showMemberModal(member) {
   </article>
   `;
   document.querySelector("#show-member-modal").innerHTML = html;
-
 
   if (member.competetive === "Konkurrent") {
     document.querySelector("#member-modal-section").insertAdjacentHTML(
@@ -164,7 +158,7 @@ function createNewMember(event) {
     crawl: form.crawl.checked,
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
-    breastStroke: form.breaststroke.checked,
+    breastStroke: form.breaststroke.checked
     // coach: form.trid.value,
   };
   console.log(newMember);
@@ -179,7 +173,7 @@ function updateMemberClicked(member) {
   if (member.competetive === "Konkurrent") member.competetive = true;
   else member.competetive = false;
 
-  if (member.active === "Aktiv") member.active = true;
+  if (member.active === "Aktivt medlem") member.active = true;
   else member.active = false;
 
   updateForm.name.value = member.name;
@@ -216,7 +210,7 @@ async function updateMember(event) {
     crawl: form.crawl.checked,
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
-    breaststroke: form.breaststroke.checked,
+    breaststroke: form.breaststroke.checked
   };
 
   const id = form.getAttribute("data-id");
@@ -253,7 +247,7 @@ async function getUpdatedFirebase(params) {
   result.forEach(refinedData);
   listOfMembers = result;
   showMembersAll();
-  memberOverview()
+  memberOverview();
 
   startKasserer(result);
   startTrainer(result);
@@ -269,7 +263,7 @@ function sortList(listToSort) {
 
 let valueToSortBy = "name";
 function setSort() {
-valueToSortBy = document.querySelector("#sort").value;
+  valueToSortBy = document.querySelector("#sort").value;
   showMembersAll();
 }
 
@@ -277,7 +271,7 @@ let valueToSearchBy = "";
 function searchBarChanged() {
   valueToSearchBy = document.querySelector("#member-search").value;
 
-  showMembersAll()
+  showMembersAll();
 }
 
 let valueToFilterBy = "";
@@ -291,5 +285,4 @@ function filterList(searchedList) {
   return searchedList.filter((member) => Object.values(member).includes(valueToFilterBy));
 }
 
-
-export {getUpdatedFirebase}
+export { getUpdatedFirebase };
