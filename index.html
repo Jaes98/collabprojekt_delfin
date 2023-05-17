@@ -311,18 +311,20 @@
       <dialog id="show-member-modal-kasserer"></dialog>
       <dialog id="kasserer-update-dialog">
         <form id="update-member-kasserer">
-          <select name="aktiv" id="isActive">
+          <select name="aktiv" id="active">
             <option value="Aktivt medlem">Aktiv</option>
             <option value="Passivt medlem">Passiv</option>
           </select>
-          <label for="isActive">Aktivitet</label>
+          <label for="isActive">Aktivitetsstatus</label>
           <br />
-          <select name="restance" id="isInRestance">
+          <select name="restance" id="restance">
             <option value="false">Gældfri</option>
             <option value="true">Restance</option>
           </select>
           <label for="isInRestance">Er medlem i restance</label>
-          <input type="submit" id="kasserer-update-submit" value="Opdater betalingsstatus" />
+          <input type="submit" id="kasserer-update-submit" class="buttonAni" value="Opdater betalingsstatus" />
+          <br />
+          <button id="kasserer-update-cancel" class="buttonAni">Annullér</button>
         </form>
       </dialog>
 

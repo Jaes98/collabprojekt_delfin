@@ -1,4 +1,8 @@
+import { getUpdatedFirebase } from "./script.js";
+
 // import { getUpdatedFirebase } from "./script";
+
+import { updateMemberPatch } from "./REST.js";
 
 let listOfMembers;
 
@@ -6,13 +10,16 @@ function startKasserer(array) {
   // Kald alt mulight
   listOfMembers = array;
 
-  document.querySelector("#kasserer-update-button").addEventListener("click", () => document.querySelector("#kasserer-update-dialog").showModal());
+  // document.querySelector("#kasserer-update-button").addEventListener("click", () => document.querySelector("#kasserer-update-dialog").showModal());
 
   document.querySelector("#sort-kasserer").addEventListener("change", setSort);
   document.querySelector("#nav-filter-kasserer").addEventListener("change", chosenFilter);
 
   document.querySelector("#member-search-kasserer").addEventListener("keyup", searchBarChanged);
   document.querySelector("#member-search-kasserer").addEventListener("search", searchBarChanged);
+
+  document.querySelector("#kasserer-update-cancel").addEventListener("click", () => document.querySelector("#kasserer-update-dialog").close());
+  document.querySelector("#update-member-kasserer").addEventListener("submit", updateMemberKasserer);
 
   showMembersKasserer(array);
   kassererOverview();
@@ -148,12 +155,45 @@ function showMemberModalKasserer(member) {
         <p>Aktivitetsstatus: ${member.active}</p>
         <p>Er medlem i restance: ${restance}</p>
       </section>
+      <button id="kasserer-update-button" class="buttonAni">Opdater medlem her</button> 
     </article>
     `;
   document.querySelector("#show-member-modal-kasserer").innerHTML = html;
   document.querySelector("#show-member-modal-kasserer").showModal();
 
+  document.querySelector("#kasserer-update-button").addEventListener("click", () => updateMemberKassererClicked(member));
+
   document.querySelector("#btn-close-modal-kasserer").addEventListener("click", () => document.querySelector("#show-member-modal-kasserer").close());
+}
+
+function updateMemberKassererClicked(member) {
+  const updateForm = document.querySelector("#update-member-kasserer");
+
+  if (member.active === "Aktivt medlem") member.active = true;
+  else member.active = false;
+
+  updateForm.active.value = member.active;
+  updateForm.restance.value = member.restance;
+
+  updateForm.setAttribute("data-id", member.id);
+
+  document.querySelector("#kasserer-update-dialog").showModal();
+}
+
+async function updateMemberKasserer(event) {
+  event.preventDefault();
+
+  const updatedMember = {
+    active: event.target.active.value,
+    restance: event.target.restance.value
+  };
+
+  const id = event.target.getAttribute("data-id");
+  const response = await updateMemberPatch(updatedMember, id);
+  if (response.ok) {
+    getUpdatedFirebase();
+    document.querySelector("#kasserer-update-dialog").close();
+  }
 }
 
 function sortList(listToSort) {

@@ -77,6 +77,24 @@ async function updateMemberPUT(memberToUpdate, id) {
   return response;
 }
 
+async function updateMemberPatch(updatedMember, id) {
+  const objectToJSON = JSON.stringify(updatedMember);
+
+  const response = await fetch(`${dolphinDatabase}/members/${id}.json`, {
+    method: "PATCH",
+    body: objectToJSON
+  });
+  if (response.status === 200) {
+    console.log("****************200***************");
+    successPrompt();
+  } else {
+    console.log("################shit#############");
+    failedPrompt();
+  }
+
+  return response;
+}
+
 // HTTP Method: DELETE
 async function deleteMember(id) {
   // Fetch link med præcis ID af det post der skal slettes
@@ -123,4 +141,4 @@ function failedPrompt() {
   }, 3000);
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers };
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch };
