@@ -266,6 +266,53 @@ h3#kasserer-overview {
   background-color: #fff;
 }
 
+/************ trainer-page **************/
+
+.trainer-header  {
+  grid-row: 1 / 2;
+  grid-column: 1 / 6;
+  background-color: #ccc;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  max-height: 120px;
+  text-align: center;
+  position: relative;
+  background-color: #569bde;
+  /* #67a0d8; */
+  align-items: center;
+  justify-content: space-between;
+  }
+
+  .trainer-table-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto;
+    position: relative;
+    width: 100%;
+  }
+
+    .trainer-table-junior {
+      grid-row: auto;
+      grid-column: 1 / 4;
+      background-color: #fff;
+      /* width: 100%; */
+      display: grid;
+      position: relative;
+      text-align: left;
+      border-right: 2px solid rgb(59, 115, 171);
+    }
+    .trainer-table-senior {
+      grid-row: auto;
+      grid-column: 4 / 8;
+      background-color: #fff;
+      /* width: 100%; */
+      display: grid;
+      position: relative;
+      text-align: left;
+    }
+
+
 /*********** front-page ************/
 
 .front-page {

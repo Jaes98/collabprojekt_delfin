@@ -1,6 +1,7 @@
 "use strict";
 
 const dolphinDatabase = "https://delfin-projekt-default-rtdb.europe-west1.firebasedatabase.app";
+// const dolphinDatabase = "https://delfin-test-123-default-rtdb.firebaseio.com";
 
 async function getMembers() {
   // henter data og omdanner til objekter
@@ -18,14 +19,22 @@ async function getMembers() {
 async function getResults() {
   // henter data og omdanner til objekter
   const resultsFromDatabase = await fetch(`${dolphinDatabase}/results.json`);
-  const fetchedResults = await membersFromDatabase.json();
+  const fetchedResults = await resultsFromDatabase.json();
 
   // sætter members objekter ind i et array
   // const membersToArray = prepareData(fetchedMembers);
   // return membersToArray;
 
   // Busters note: Vi kan vel bare returne med det samme, vi bruger vist ikke memeberstoarray til andet?:
-  return prepareData(fetchedResults);
+  // return prepareData(fetchedResults);
+  return prepareData2(fetchedResults);
+}
+
+async function getMemberId(id) {
+  const memberIdList = await fetch(`${dolphinDatabase}/members/${id}.json`);
+  const memberId = await memberIdList.json();
+
+  return memberId;
 }
 
 function prepareData(listOfObjects) {
@@ -36,6 +45,16 @@ function prepareData(listOfObjects) {
     arrayFromFirebaseObject.push(member);
   }
   return arrayFromFirebaseObject;
+}
+
+function prepareData2(fetchedResults) {
+  const arrayObject = [];
+  for (const object in fetchedResults) {
+    const result = fetchedResults[object];
+    result.id = object;
+    arrayObject.push(result);
+  }
+  return arrayObject;
 }
 
 async function createdMember(newMember) {
@@ -82,7 +101,7 @@ async function updateMemberPatch(updatedMember, id) {
 
   const response = await fetch(`${dolphinDatabase}/members/${id}.json`, {
     method: "PATCH",
-    body: objectToJSON
+    body: objectToJSON,
   });
   if (response.status === 200) {
     console.log("****************200***************");
@@ -104,13 +123,13 @@ async function deleteMember(id) {
   console.log(`${dolphinDatabase}/members/${id}.json`);
   // Hvis response er ok, udskriv log og opdater grid
 
- if (response.status === 200) {
-   console.log("****************200***************");
-   successPrompt();
- } else {
-   console.log("################shit#############");
-   failedPrompt();
- }
+  if (response.status === 200) {
+    console.log("****************200***************");
+    successPrompt();
+  } else {
+    console.log("################shit#############");
+    failedPrompt();
+  }
   return response;
 }
 
@@ -130,8 +149,7 @@ function successPrompt() {
 function failedPrompt() {
   const alertFailed = document.createElement("div");
   alertFailed.id = "failedNotifikation";
-  alertFailed.textContent =
-    "Vi kunne ikke gennemføre din anmodning grundet en fejl";
+  alertFailed.textContent = "Vi kunne ikke gennemføre din anmodning grundet en fejl";
 
   document.body.appendChild(alertFailed);
 
@@ -141,4 +159,4 @@ function failedPrompt() {
   }, 3000);
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch };
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, getMemberId };

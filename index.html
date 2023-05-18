@@ -1,339 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Svømmeklub Delfin</title>
-    <link rel="stylesheet" href="app.css" />
-  </head>
 
-  <body>
-    <nav>
-      <a class="nav-link highlighted" href="#front-page">frontpage</a>
-      <a class="nav-link" href="#log-in">login</a>
-      <a class="nav-link" href="#formand">formand</a>
-      <a class="nav-link" href="#kasserer">kasserer</a>
-      <a class="nav-link" href="#trainer">træner</a>
-    </nav>
-    <section class="page-view front-page" id="front-page">
-      <header>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Svømmeklub Delfin</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+
+<body>
+  <nav>
+    <a class="nav-link highlighted" href="#front-page">frontpage</a>
+    <a class="nav-link" href="#log-in">login</a>
+    <a class="nav-link" href="#formand">formand</a>
+    <a class="nav-link" href="#kasserer">kasserer</a>
+    <a class="nav-link" href="#trainer">træner</a>
+  </nav>
+  <section class="page-view front-page" id="front-page">
+    <header>
+      <img id="logo" src="images/dolphin logo.png" alt="logo" />
+      <h1>Svømmeklub Delfinen</h1>
+      <button id="btn-logIn" class="nav-link"><a href="#log-in">Log Ind</a></button>
+    </header>
+
+    <article id="fp-contact">
+      <h2>Vil <ins>du</ins> være en del af flokken?</h2>
+      <hr />
+      <h4>Kontakt vores formand i dag:</h4>
+      <p><b>Mail:</b> formand@delfinklubben.dk</p>
+      <p><b>Telefon:</b> 23232323</p>
+      <hr />
+      <h3>Vi glæder os til at høre fra dig!</h3>
+    </article>
+    <article id="fp-nextUp">
+      <h2>Næste stævne</h2>
+      <hr />
+      <p><b>Dato:</b> 12 Maj 2023</p>
+      <h4>Aarhus Open 2023</h4>
+      <p><b>Sted:</b> Aarhus Svømmestadion</p>
+      <p><b>Deltagere fra klubben:</b> Peter, Rasmus, Oskar</p>
+      <!-- https://www.svoem.org/Aktuelt/Kalender/?vis=&type=Svoemning&fritekst=S%C3%B8getekst&postnr=Postnr.+fra&postnrtil=Postnr.+til&dagfra=9&maanedfra=5&aarfra=2023&dagtil=1&maanedtil=5&aartil=2024#result -->
+    </article>
+    <article id="fp-lastTime">
+      <h2>Sidste stævne</h2>
+      <hr />
+      <p><b>Dato:</b> 6 Maj 2023</p>
+      <h4>SunSwim 2023</h4>
+      <p><b>Sted:</b> Solrød Idrætscenter</p>
+      <p><b>Deltagere fra klubben:</b> Peter, Rasmus, Oskar</p>
+      <!-- https://www.svoem.org/Aktuelt/Kalender/?vis=&type=Svoemning&fritekst=S%C3%B8getekst&postnr=Postnr.+fra&postnrtil=Postnr.+til&dagfra=9&maanedfra=5&aarfra=2023&dagtil=1&maanedtil=5&aartil=2024#result -->
+    </article>
+
+    <footer>
+      <h4>Made by: CodeQuest</h4>
+    </footer>
+  </section>
+  <section class="page-view" id="log-in">
+    <h1>Login</h1>
+    <label for="kodeord"><b>Brugernavn:</b></label>
+    <input id="brugernavn" name="brugernavn" type="text" placeholder="Brugernavn" required />
+    <label for="kodeord"><b>Kodeord:</b></label>
+    <input id="kodeord" name="kodeord" type="text" placeholder="Kodeord" required />
+  </section>
+  <section class="page-view active" id="formand">
+    <div class="formand-container">
+      <div class="formand-header">
         <img id="logo" src="images/dolphin logo.png" alt="logo" />
-        <h1>Svømmeklub Delfinen</h1>
-        <button id="btn-logIn" class="nav-link"><a href="#log-in">Log Ind</a></button>
-      </header>
+        <h2>Velkommen Formand</h2>
+      </div>
 
-      <article id="fp-contact">
-        <h2>Vil <ins>du</ins> være en del af flokken?</h2>
-        <hr />
-        <h4>Kontakt vores formand i dag:</h4>
-        <p><b>Mail:</b> formand@delfinklubben.dk</p>
-        <p><b>Telefon:</b> 23232323</p>
-        <hr />
-        <h3>Vi glæder os til at høre fra dig!</h3>
-      </article>
-      <article id="fp-nextUp">
-        <h2>Næste stævne</h2>
-        <hr />
-        <p><b>Dato:</b> 12 Maj 2023</p>
-        <h4>Aarhus Open 2023</h4>
-        <p><b>Sted:</b> Aarhus Svømmestadion</p>
-        <p><b>Deltagere fra klubben:</b> Peter, Rasmus, Oskar</p>
-        <!-- https://www.svoem.org/Aktuelt/Kalender/?vis=&type=Svoemning&fritekst=S%C3%B8getekst&postnr=Postnr.+fra&postnrtil=Postnr.+til&dagfra=9&maanedfra=5&aarfra=2023&dagtil=1&maanedtil=5&aartil=2024#result -->
-      </article>
-      <article id="fp-lastTime">
-        <h2>Sidste stævne</h2>
-        <hr />
-        <p><b>Dato:</b> 6 Maj 2023</p>
-        <h4>SunSwim 2023</h4>
-        <p><b>Sted:</b> Solrød Idrætscenter</p>
-        <p><b>Deltagere fra klubben:</b> Peter, Rasmus, Oskar</p>
-        <!-- https://www.svoem.org/Aktuelt/Kalender/?vis=&type=Svoemning&fritekst=S%C3%B8getekst&postnr=Postnr.+fra&postnrtil=Postnr.+til&dagfra=9&maanedfra=5&aarfra=2023&dagtil=1&maanedtil=5&aartil=2024#result -->
-      </article>
-
-      <footer>
-        <h4>Made by: CodeQuest</h4>
-      </footer>
-    </section>
-    <section class="page-view" id="log-in">
-      <h1>Login</h1>
-      <label for="kodeord"><b>Brugernavn:</b></label>
-      <input id="brugernavn" name="brugernavn" type="text" placeholder="Brugernavn" required />
-      <label for="kodeord"><b>Kodeord:</b></label>
-      <input id="kodeord" name="kodeord" type="text" placeholder="Kodeord" required />
-    </section>
-    <section class="page-view active" id="formand">
-      <div class="formand-container">
-        <div class="formand-header">
-          <img id="logo" src="images/dolphin logo.png" alt="logo" />
-          <h2>Velkommen Formand</h2>
+      <div class="formand-nav">
+        <br />
+        <div id="overview">
+          <h3>Overblik over medlemmer:</h3>
         </div>
+        <button id="btn-formand-create" class="buttonAni">Tilføj nyt medlem</button>
+        <br />
+        <br />
+        <label for="member-search" id="nav-align">Søg (Navn):</label>
+        <br />
+        <input type="search" id="member-search" placeholder="Søg efter navn" autocomplete="off" />
+        <br />
+        <br />
+        <label for="sort" id="nav-align">Sortér efter:</label>
+        <br />
+        <select id="sort" autocomplete="off">
+          <option value="name">Navn</option>
+          <option value="age">Aldersgruppe</option>
+          <option value="gender">Køn</option>
+          <option value="active">Medlemsskab</option>
+          <option value="competetive">Motionist/Konkurrence</option>
+        </select>
+        <br />
+        <br />
+        <label for="filter" id="nav-align">Filtrér efter:</label>
+        <br />
+        <select id="nav-filter" autocomplete="off">
+          <option value="" selected>Intet filter</option>
+          <optgroup label="Aldersgruppe:">
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+            <option value="Senior+">Senior+</option>
+          </optgroup>
+          <optgroup label="Medlemskab:">
+            <option value="Aktivt medlem">Aktiv</option>
+            <option value="Passivt medlem">Passiv</option>
+          </optgroup>
+          <optgroup label="Type:">
+            <option value="Motionist">Motionist</option>
+            <option value="Konkurrent">Konkurrence</option>
+          </optgroup>
+        </select>
+      </div>
 
-        <div class="formand-nav">
-          <br />
-          <div id="overview">
-            <h3>Overblik over medlemmer:</h3>
-          </div>
-          <button id="btn-formand-create" class="buttonAni">Tilføj nyt medlem</button>
-          <br />
-          <br />
-          <label for="member-search" id="nav-align">Søg (Navn):</label>
-          <br />
-          <input type="search" id="member-search" placeholder="Søg efter navn" autocomplete="off" />
-          <br />
-          <br />
-          <label for="sort" id="nav-align">Sortér efter:</label>
-          <br />
-          <select id="sort" autocomplete="off">
-            <option value="name">Navn</option>
-            <option value="age">Aldersgruppe</option>
-            <option value="gender">Køn</option>
-            <option value="active">Medlemsskab</option>
-            <option value="competetive">Motionist/Konkurrence</option>
-          </select>
-          <br />
-          <br />
-          <label for="filter" id="nav-align">Filtrér efter:</label>
-          <br />
-          <select id="nav-filter" autocomplete="off">
-            <option value="" selected>Intet filter</option>
-            <optgroup label="Aldersgruppe:">
-              <option value="Junior">Junior</option>
-              <option value="Senior">Senior</option>
-              <option value="Senior+">Senior+</option>
-            </optgroup>
-            <optgroup label="Medlemskab:">
-              <option value="Aktivt medlem">Aktiv</option>
-              <option value="Passivt medlem">Passiv</option>
-            </optgroup>
-            <optgroup label="Type:">
-              <option value="Motionist">Motionist</option>
-              <option value="Konkurrent">Konkurrence</option>
-            </optgroup>
-          </select>
-        </div>
+      <div class="formand-table">
+        <h2>Medlemmer</h2>
+        <table>
+          <thead>
+            <tr id="thh">
+              <th>Navn</th>
+              <th>Aldersgruppe</th>
+              <th>Medlemsskab</th>
+              <th>Type</th>
+              <th>Se detaljer</th>
+            </tr>
+          </thead>
+          <tbody id="formand-table-body">
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="page-footer"></div>
+    </div>
 
-        <div class="formand-table">
-          <h2>Medlemmer</h2>
+    <dialog id="show-member-modal"></dialog>
+
+    <dialog id="dialog-create-member">
+      <h2>Tilføj nyt medlem</h2>
+      <form id="form-create-member">
+        <label for="name">Navn:</label>
+        <input id="name" type="text" name="name" placeholder="Skriv det fulde navn" required />
+        <label for="bday">Fødselsdag:</label>
+        <input id="bday" type="text" name="bday" placeholder="åååå-mm-dd" required />
+        <label for="phonenumber">Tlf. Nummer:</label>
+        <input id="phonenumber" type="text" name="phonenumber" placeholder="+45xxxxxxxx" required />
+        <label for="adress">Adresse:</label>
+        <input id="adress" type="text" name="adress" placeholder="Adresse" required />
+        <label for="email">Email:</label>
+        <input id="email" type="email" name="email" placeholder="noget@domæne.dk" required />
+        <label for="gender">Vælg køn:</label>
+        <select name="gender" id="gender" autocomplete="off">
+          <option value="male">Mand</option>
+          <option value="female">Kvinde</option>
+          <option value="other">Andet</option>
+        </select>
+        <label for="active">Vælg medlemskab:</label>
+        <select name="active" id="active" autocomplete="off" required>
+          <option value="true">Aktiv</option>
+          <option value="false">Passiv</option>
+        </select>
+        <label for="competetive">Vælg aktivitetsform</label>
+        <select name="competetive" id="competetive" class="competetive" autocomplete="off" required>
+          <option value="true">Konkurrence</option>
+          <option value="false">Fritid</option>
+        </select>
+        <label>Vælg disciplin(er):</label>
+        <br />
+        <label>
+          <input type="checkbox" name="crawl" class="create-discipline" autocomplete="off" />
+          Crawl
+        </label>
+        <label>
+          <input type="checkbox" name="backCrawl" class="create-discipline" autocomplete="off" />
+          Rygcrawl
+        </label>
+        <label>
+          <input type="checkbox" name="butterfly" class="create-discipline" autocomplete="off" />
+          Butterfly
+        </label>
+        <label>
+          <input type="checkbox" name="breaststroke" class="create-discipline" autocomplete="off" />
+          Brystsvømning
+        </label>
+        <input type="submit" class="float buttonAni" id="btn-submit-create" value="Tilføj medlem" />
+        <input type="button" class="float buttonAni" id="btn-no-create" value="Annullér" />
+      </form>
+    </dialog>
+
+    <dialog id="dialog-update-member2">
+      <h2>Opdatér medlem</h2>
+      <form id="formand-form-update-member2">
+        <label for="formand-update-name">Navn:</label>
+        <input id="formand-update-name" type="text" name="name" placeholder="Fulde navn" required />
+        <label for="formand-update-bday">Fødselsdag:</label>
+        <input id="formand-update-bday" type="text" name="bday" placeholder="åååå-mm-dd" required />
+        <label for="formand-update-phone">Tlf. Nummer:</label>
+        <input id="formand-update-phone" type="text" name="phonenumber" placeholder="+45xxxxxxxx" required />
+        <label for="formand-update-adress">Adresse:</label>
+        <input id="formand-update-adress" type="text" name="adress" placeholder="Adresse" required />
+        <label for="formand-update-email">Email:</label>
+        <input id="formand-update-email" type="email" name="email" placeholder="noget@domæne.dk" required />
+        <label for="formand-update-gender">Vælg køn:</label>
+        <select name="gender" id="formand-update-gender" autocomplete="off">
+          <option value="male">Mand</option>
+          <option value="female">Kvinde</option>
+          <option value="other">Andet</option>
+        </select>
+
+        <label for="formand-update-active">Opdatér medlemskab:</label>
+        <select name="active" id="formand-update-active" autocomplete="off" required>
+          <option value="true">Aktiv</option>
+          <option value="false">Passiv</option>
+        </select>
+        <label for="formand-update-competetive">Opdatér aktivitetsform</label>
+        <select name="competetive" id="formand-update-competetive" autocomplete="off" required>
+          <option value="true">Konkurrence</option>
+          <option value="false">Fritid</option>
+        </select>
+        <label>Opdatér disciplin(er):</label>
+        <br />
+        <label>
+          <input type="checkbox" class="update-discipline" name="crawl" value="crawl" />
+          Crawl
+        </label>
+        <label>
+          <input type="checkbox" class="update-discipline" name="backCrawl" value="backCrawl" />
+          Rygcrawl
+        </label>
+        <label>
+          <input type="checkbox" class="update-discipline" name="butterfly" value="butterfly" />
+          Butterfly
+        </label>
+        <label>
+          <input type="checkbox" class="update-discipline" name="breaststroke" value="breaststroke" />
+          Brystsvømning
+        </label>
+        <input type="submit" class="float buttonAni" id="btn-formand-update-submit2" value="Opdatér medlem" />
+        <input type="button" class="float buttonAni" id="btn-formand-no-update" value="Annullér" />
+      </form>
+    </dialog>
+
+    <dialog id="dialog-delete-member">
+      <h2>Vil du slette dette medlem?</h2>
+      <p id="dialog-delete-member-name">navn på medlem</p>
+      <form method="dialog" id="form-delete-member">
+        <input type="button" value="Fortryd" class="btn-cancel buttonAni" id="btn-no-delete" />
+        <input type="submit" class="buttonAni" value="Bekræft" id="btn-yes-delete" />
+      </form>
+    </dialog>
+  </section>
+
+  <section class="page-view" id="kasserer">
+    <div class="kasserer-container">
+      <div class="kasserer-header">
+        <img id="logo" src="images/dolphin logo.png" alt="logo" />
+        <h2>Velkommen Kasserer</h2>
+      </div>
+      <!-- <br id="header-gap"> -->
+      <div class="kasserer-nav">
+        <br />
+        <br />
+        <label for="member-search-kasserer" id="nav-align">Søg (Navn):</label>
+        <br />
+        <input type="search" id="member-search-kasserer" placeholder="Søg efter navn" autocomplete="off" />
+        <br />
+        <br />
+        <label for="sort-kasserer" id="nav-align">Sortér efter:</label>
+        <br />
+        <select id="sort-kasserer" autocomplete="off">
+          <option value="name">Navn</option>
+          <option value="paymentGroup">Betalingsgruppe</option>
+          <option value="restance">I restance</option>
+        </select>
+        <br />
+        <br />
+        <label for="filter-kasserer" id="nav-align">Filtrér efter:</label>
+        <br />
+        <select id="nav-filter-kasserer" autocomplete="off">
+          <option value="" selected>Intet filter</option>
+          <optgroup label="Betalingsgruppe:">
+            <option value="Aktiv Junior">Junior</option>
+            <option value="Aktiv Senior">Senior</option>
+            <option value="Aktiv Senior+">Senior+</option>
+            <option value="Passiv">Passiv</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="kasserer-table">
+        <h2>Medlemmer</h2>
+        <table>
+          <thead>
+            <tr id="thh">
+              <th>Navn</th>
+              <th>Betalingsgruppe</th>
+              <th>Restance</th>
+              <th>Se detaljer</th>
+            </tr>
+          </thead>
+          <tbody id="kasserer-table-body">
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kasserer-overview">
+        <article id="kasserer-income"></article>
+        <article id="kasserer-member-overview"></article>
+      </div>
+      <div class="page-footer"></div>
+    </div>
+    <dialog id="show-member-modal-kasserer"></dialog>
+    <dialog id="kasserer-update-dialog">
+      <form id="update-member-kasserer">
+        <select name="aktiv" id="active" autocomplete="off">
+          <option value="true">Aktiv</option>
+          <option value="false">Passiv</option>
+        </select>
+        <label for="isActive">Aktivitetsstatus</label>
+        <br />
+        <select name="restance" id="restance" autocomplete="off">
+          <option value="false">Nej</option>
+          <option value="true">Ja</option>
+        </select>
+        <label for="isInRestance">Er medlem i restance</label>
+        <input type="submit" id="kasserer-update-submit" class="buttonAni" value="Opdater betalingsstatus" />
+        <br />
+        <button id="kasserer-update-cancel" class="buttonAni">Annullér</button>
+      </form>
+    </dialog>
+
+    <!-- <button id="kasserer-update-button">Opdater medlem her</button> -->
+
+    <!-- <input type="text" value="abc" id="test" /> -->
+  </section>
+  <section class="page-view" id="trainer">
+    <div class="trainer-container">
+      <div class="trainer-header">
+        <img id="logo" src="images/dolphin logo.png" alt="logo" />
+        <h2>Velkommen Træner</h2>
+      </div>
+      <div class="trainer-table-container">
+        <div class="trainer-table-junior">
+          <h2>Junior medlemmer</h2>
           <table>
             <thead>
               <tr id="thh">
-                <th>Navn</th>
-                <th>Aldersgruppe</th>
-                <th>Medlemsskab</th>
+                <th>Svømmers navn</th>
                 <th>Type</th>
-                <th>Se detaljer</th>
+                <th>Stævne</th>
+                <th>Lokation</th>
+                <th>Dato</th>
+                <th>Disciplin</th>
+                <th>Resultat (sek.)</th>
+                <th>Placering</th>
               </tr>
             </thead>
-            <tbody id="formand-table-body">
-              <tr></tr>
+            <tbody id="trainer-table-body-junior">
+              <!-- <td>Anna Andersen</td>
+              <td>Stævne</td>
+              <td>SunSwim 2023</td>
+              <td>Ballerup</td>
+              <td>17-05-2023</td>
+              <td>Crawl</td>
+              <td>200</td>
+              <td>4</td> -->
             </tbody>
           </table>
         </div>
-        <div class="page-footer"></div>
-      </div>
-
-      <dialog id="show-member-modal"></dialog>
-
-      <dialog id="dialog-create-member">
-        <h2>Tilføj nyt medlem</h2>
-        <form id="form-create-member">
-          <label for="name">Navn:</label>
-          <input id="name" type="text" name="name" placeholder="Skriv det fulde navn" required />
-          <label for="bday">Fødselsdag:</label>
-          <input id="bday" type="text" name="bday" placeholder="åååå-mm-dd" required />
-          <label for="phonenumber">Tlf. Nummer:</label>
-          <input id="phonenumber" type="text" name="phonenumber" placeholder="+45xxxxxxxx" required />
-          <label for="adress">Adresse:</label>
-          <input id="adress" type="text" name="adress" placeholder="Adresse" required />
-          <label for="email">Email:</label>
-          <input id="email" type="email" name="email" placeholder="noget@domæne.dk" required />
-          <label for="gender">Vælg køn:</label>
-          <select name="gender" id="gender" autocomplete="off">
-            <option value="male">Mand</option>
-            <option value="female">Kvinde</option>
-            <option value="other">Andet</option>
-          </select>
-          <label for="active">Vælg medlemskab:</label>
-          <select name="active" id="active" autocomplete="off" required>
-            <option value="true">Aktiv</option>
-            <option value="false">Passiv</option>
-          </select>
-          <label for="competetive">Vælg aktivitetsform</label>
-          <select name="competetive" id="competetive" class="competetive" autocomplete="off" required>
-            <option value="true">Konkurrence</option>
-            <option value="false">Fritid</option>
-          </select>
-          <label>Vælg disciplin(er):</label>
-          <br />
-          <label>
-            <input type="checkbox" name="crawl" class="create-discipline" autocomplete="off" />
-            Crawl
-          </label>
-          <label>
-            <input type="checkbox" name="backCrawl" class="create-discipline" autocomplete="off" />
-            Rygcrawl
-          </label>
-          <label>
-            <input type="checkbox" name="butterfly" class="create-discipline" autocomplete="off" />
-            Butterfly
-          </label>
-          <label>
-            <input type="checkbox" name="breaststroke" class="create-discipline" autocomplete="off" />
-            Brystsvømning
-          </label>
-          <input type="submit" class="float buttonAni" id="btn-submit-create" value="Tilføj medlem" />
-          <input type="button" class="float buttonAni" id="btn-no-create" value="Annullér" />
-        </form>
-      </dialog>
-
-      <dialog id="dialog-update-member2">
-        <h2>Opdatér medlem</h2>
-        <form id="formand-form-update-member2">
-          <label for="formand-update-name">Navn:</label>
-          <input id="formand-update-name" type="text" name="name" placeholder="Fulde navn" required />
-          <label for="formand-update-bday">Fødselsdag:</label>
-          <input id="formand-update-bday" type="text" name="bday" placeholder="åååå-mm-dd" required />
-          <label for="formand-update-phone">Tlf. Nummer:</label>
-          <input id="formand-update-phone" type="text" name="phonenumber" placeholder="+45xxxxxxxx" required />
-          <label for="formand-update-adress">Adresse:</label>
-          <input id="formand-update-adress" type="text" name="adress" placeholder="Adresse" required />
-          <label for="formand-update-email">Email:</label>
-          <input id="formand-update-email" type="email" name="email" placeholder="noget@domæne.dk" required />
-          <label for="formand-update-gender">Vælg køn:</label>
-          <select name="gender" id="formand-update-gender" autocomplete="off">
-            <option value="male">Mand</option>
-            <option value="female">Kvinde</option>
-            <option value="other">Andet</option>
-          </select>
-
-          <label for="formand-update-active">Opdatér medlemskab:</label>
-          <select name="active" id="formand-update-active" autocomplete="off" required>
-            <option value="true">Aktiv</option>
-            <option value="false">Passiv</option>
-          </select>
-          <label for="formand-update-competetive">Opdatér aktivitetsform</label>
-          <select name="competetive" id="formand-update-competetive" autocomplete="off" required>
-            <option value="true">Konkurrence</option>
-            <option value="false">Fritid</option>
-          </select>
-          <label>Opdatér disciplin(er):</label>
-          <br />
-          <label>
-            <input type="checkbox" class="update-discipline" name="crawl" value="crawl" />
-            Crawl
-          </label>
-          <label>
-            <input type="checkbox" class="update-discipline" name="backCrawl" value="backCrawl" />
-            Rygcrawl
-          </label>
-          <label>
-            <input type="checkbox" class="update-discipline" name="butterfly" value="butterfly" />
-            Butterfly
-          </label>
-          <label>
-            <input type="checkbox" class="update-discipline" name="breaststroke" value="breaststroke" />
-            Brystsvømning
-          </label>
-          <input type="submit" class="float buttonAni" id="btn-formand-update-submit2" value="Opdatér medlem" />
-          <input type="button" class="float buttonAni" id="btn-formand-no-update" value="Annullér" />
-        </form>
-      </dialog>
-
-      <dialog id="dialog-delete-member">
-        <h2>Vil du slette dette medlem?</h2>
-        <p id="dialog-delete-member-name">navn på medlem</p>
-        <form method="dialog" id="form-delete-member">
-          <input type="button" value="Fortryd" class="btn-cancel buttonAni" id="btn-no-delete" />
-          <input type="submit" class="buttonAni" value="Bekræft" id="btn-yes-delete" />
-        </form>
-      </dialog>
-    </section>
-
-    <section class="page-view" id="kasserer">
-      <div class="kasserer-container">
-        <div class="kasserer-header">
-          <img id="logo" src="images/dolphin logo.png" alt="logo" />
-          <h2>Velkommen Kasserer</h2>
-        </div>
-        <!-- <br id="header-gap"> -->
-        <div class="kasserer-nav">
-          <br />
-          <br />
-          <label for="member-search-kasserer" id="nav-align">Søg (Navn):</label>
-          <br />
-          <input type="search" id="member-search-kasserer" placeholder="Søg efter navn" autocomplete="off" />
-          <br />
-          <br />
-          <label for="sort-kasserer" id="nav-align">Sortér efter:</label>
-          <br />
-          <select id="sort-kasserer" autocomplete="off">
-            <option value="name">Navn</option>
-            <option value="paymentGroup">Betalingsgruppe</option>
-            <option value="restance">I restance</option>
-          </select>
-          <br />
-          <br />
-          <label for="filter-kasserer" id="nav-align">Filtrér efter:</label>
-          <br />
-          <select id="nav-filter-kasserer" autocomplete="off">
-            <option value="" selected>Intet filter</option>
-            <optgroup label="Betalingsgruppe:">
-              <option value="Aktiv Junior">Junior</option>
-              <option value="Aktiv Senior">Senior</option>
-              <option value="Aktiv Senior+">Senior+</option>
-              <option value="Passiv">Passiv</option>
-            </optgroup>
-          </select>
-        </div>
-        <div class="kasserer-table">
-          <h2>Medlemmer</h2>
+        <div class="trainer-table-senior">
+          <h2>Senior medlemmer</h2>
           <table>
             <thead>
               <tr id="thh">
-                <th>Navn</th>
-                <th>Betalingsgruppe</th>
-                <th>Restance</th>
-                <th>Se detaljer</th>
+                <th>Svømmers navn</th>
+                <th>Type</th>
+                <th>Stævne</th>
+                <th>Lokation</th>
+                <th>Dato</th>
+                <th>Disciplin</th>
+                <th>Resultat (sek.)</th>
+                <th>Placering</th>
               </tr>
             </thead>
-            <tbody id="kasserer-table-body">
-              <tr></tr>
+            <tbody id="trainer-table-body-senior">
+              <!-- <td>Peter Pedersen</td>
+              <td>Stævne</td>
+              <td>SunSwim 2023</td>
+              <td>Ballerup</td>
+              <td>17-05-2023</td>
+              <td>Crawl</td>
+              <td>200</td>
+              <td>4</td> -->
             </tbody>
           </table>
         </div>
-        <div class="kasserer-overview">
-          <article id="kasserer-income"></article>
-          <article id="kasserer-member-overview"></article>
-        </div>
-        <div class="page-footer"></div>
       </div>
-      <dialog id="show-member-modal-kasserer"></dialog>
-      <dialog id="kasserer-update-dialog">
-        <form id="update-member-kasserer">
-          <select name="aktiv" id="active" autocomplete="off">
-            <option value="true">Aktiv</option>
-            <option value="false">Passiv</option>
-          </select>
-          <label for="isActive">Aktivitetsstatus</label>
-          <br />
-          <select name="restance" id="restance" autocomplete="off">
-            <option value="false">Nej</option>
-            <option value="true">Ja</option>
-          </select>
-          <label for="isInRestance">Er medlem i restance</label>
-          <input type="submit" id="kasserer-update-submit" class="buttonAni" value="Opdater betalingsstatus" />
-          <br />
-          <button id="kasserer-update-cancel" class="buttonAni">Annullér</button>
-        </form>
-      </dialog>
+      <div class="page-footer"></div>
+    </div>
 
-      <!-- <button id="kasserer-update-button">Opdater medlem her</button> -->
+  </section>
+</body>
 
-      <!-- <input type="text" value="abc" id="test" /> -->
-    </section>
-    <section class="page-view" id="trainer">4</section>
-  </body>
+<script src="./js/script.js" type="module"></script>
 
-  <script src="./js/script.js" type="module"></script>
 </html>
