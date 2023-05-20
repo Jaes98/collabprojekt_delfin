@@ -1,25 +1,42 @@
-// import { getUpdatedFirebase } from "./script.js";
+import { getUpdatedFirebase } from "./script.js";
 import { getResults, getMemberId } from "./REST.js";
 import { ageCalculator } from "./Helper-functions.js";
 
-let results;
+let resultater;
+let listOfMembers;
 
-function startTrainer() {
+function startTrainer(array) {
+  listOfMembers = array;
+
+  // loopMembers(array);
   updateResults();
 }
 
 async function updateResults() {
-  results = await getResults();
-  showResultTrainer(results);
+  resultater = await getResults();
+  showResultTrainer(resultater);
 }
 
-function showResultTrainer(results) {
-  console.log("showResults array:", results);
+// function loopMembers(array) {
+//   console.log("showmembers array:", array);
+//   // document.querySelector("#kasserer-table-body").innerHTML = "";
+//   document.querySelector("#trainer-table-body-senior").innerHTML = "";
+//   document.querySelector("#trainer-table-body-junior").innerHTML = "";
+
+//   for (const member of array) {
+//     if (member.competetive) {
+//     showMemberTrainer(member);
+//     }
+//   }
+// }
+
+function showResultTrainer(resultater) {
+  console.log("showResults array:", resultater);
 
   document.querySelector("#trainer-table-body-senior").innerHTML = "";
   document.querySelector("#trainer-table-body-junior").innerHTML = "";
 
-  for (const result of results) {
+  for (const result of resultater) {
     showMemberTrainer(result);
     // console.log(result);
   }
@@ -27,12 +44,15 @@ function showResultTrainer(results) {
 
 async function showMemberTrainer(result) {
   const member = await getMemberId(result.uid);
-  console.log("member is: ", member);
+  // const resultat = await getResults(result.uid);
+  // console.log("member is: ", member);
+  // console.log(members);
   ageCalculator(member);
 
   // console.log("xxxx", result);
 
   let competition = "";
+
   if (result.competition) competition = "Konkurrence";
   else if (result.competition === false) competition = "Træning";
 
@@ -67,7 +87,7 @@ async function showMemberTrainer(result) {
 
     document.querySelector("#trainer-table-body-junior").insertAdjacentHTML("beforeend", html);
   } else {
-    console.error("for showMemberTrainer: something is wrong with the age");
+    console.error("for showMemberTrainer: something is wrong");
   }
 }
 

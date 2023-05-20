@@ -20,6 +20,7 @@ async function getResults() {
   // henter data og omdanner til objekter
   const resultsFromDatabase = await fetch(`${dolphinDatabase}/results.json`);
   const fetchedResults = await resultsFromDatabase.json();
+  console.log(fetchedResults);
 
   // sætter members objekter ind i et array
   // const membersToArray = prepareData(fetchedMembers);
@@ -27,6 +28,7 @@ async function getResults() {
 
   // Busters note: Vi kan vel bare returne med det samme, vi bruger vist ikke memeberstoarray til andet?:
   // return prepareData(fetchedResults);
+  // return fetchedResults;
   return prepareData2(fetchedResults);
 }
 
