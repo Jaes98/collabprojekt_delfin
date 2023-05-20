@@ -39,7 +39,7 @@ function showMembersAll() {
   const searchedList = sortedList.filter((member) => member.name.toLowerCase().includes(valueToSearchBy));
   const filteredList = filterList(searchedList);
   if (filteredList.length === 0) {
-    const noResultsHtml = /* html */ `<p>No results found.</p>`;
+    const noResultsHtml = /* html */ `<p>Ingen resultater fundet.</p>`;
     document.querySelector("#formand-table-body").innerHTML = noResultsHtml;
   } else showMembers(filteredList);
 }
