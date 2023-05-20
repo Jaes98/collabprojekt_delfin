@@ -1,22 +1,16 @@
 // import { getUpdatedFirebase } from "./script.js";
-import {  getResults, getMemberId } from "./REST.js";
-// getMembers
+import { getResults, getMemberId } from "./REST.js";
+import { ageCalculator } from "./Helper-functions.js";
 
-
-let members;
 let results;
 
-function startTrainer(array) {
-
+function startTrainer() {
   updateResults();
-  // members = array;
-
 }
 
 async function updateResults() {
   results = await getResults();
-  // members = await getMembers();
-  showResultTrainer(results, members);
+  showResultTrainer(results);
 }
 
 function showResultTrainer(results) {
@@ -32,23 +26,21 @@ function showResultTrainer(results) {
 }
 
 async function showMemberTrainer(result) {
-  const memberUid = await getMemberId(result.uid);
+  const member = await getMemberId(result.uid);
+  console.log("member is: ", member);
+  ageCalculator(member);
 
-  
-    const birthday = new Date(memberUid.bday);
-    const today = new Date();
-    const ageInMilis = today - birthday;
-    const miliSecondsInAYear = 1000 * 60 * 60 * 24 * 365;
-    memberUid.age = Math.floor(ageInMilis / miliSecondsInAYear);
-  
+  // console.log("xxxx", result);
 
-  
+  let competition = "";
+  if (result.competition) competition = "Konkurrence";
+  else if (result.competition === false) competition = "Træning";
 
-  if (memberUid.age >= 18) {
+  if (member.age >= 18) {
     const html = /*html*/ `
       <tr class="member-item-kasserer">
-      <td>${memberUid.name}</td>
-      <td>${result.competition}</td>
+      <td>${member.name}</td>
+      <td>${competition}</td>
       <td>${result.compName}</td>
       <td>${result.location}</td>
       <td>${result.date}</td>
@@ -59,11 +51,11 @@ async function showMemberTrainer(result) {
       `;
 
     document.querySelector("#trainer-table-body-senior").insertAdjacentHTML("beforeend", html);
-  } else if (memberUid.age < 18) {
- const html = /*html*/ `
+  } else if (member.age < 18) {
+    const html = /*html*/ `
       <tr class="member-item-kasserer">
-      <td>${memberUid.name}</td>
-      <td>${result.competition}</td>
+      <td>${member.name}</td>
+      <td>${competition}</td>
       <td>${result.compName}</td>
       <td>${result.location}</td>
       <td>${result.date}</td>
@@ -73,8 +65,10 @@ async function showMemberTrainer(result) {
     </tr>
       `;
 
- document.querySelector("#trainer-table-body-junior").insertAdjacentHTML("beforeend", html);
-  } else {console.error("for showMemberTrainer: something is wrong with the age");}
+    document.querySelector("#trainer-table-body-junior").insertAdjacentHTML("beforeend", html);
+  } else {
+    console.error("for showMemberTrainer: something is wrong with the age");
+  }
 }
 
 export { startTrainer };

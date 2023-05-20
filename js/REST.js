@@ -48,13 +48,13 @@ function prepareData(listOfObjects) {
 }
 
 function prepareData2(fetchedResults) {
-  const arrayObject = [];
+  const arrayFromObjectList = [];
   for (const object in fetchedResults) {
     const result = fetchedResults[object];
     result.id = object;
-    arrayObject.push(result);
+    arrayFromObjectList.push(result);
   }
-  return arrayObject;
+  return arrayFromObjectList;
 }
 
 async function createdMember(newMember) {
