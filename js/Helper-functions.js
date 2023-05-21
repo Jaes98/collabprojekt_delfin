@@ -86,4 +86,5 @@ function refinedData(result) {
   return result;
 }
 
-export { checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes, refinedData, ageCalculator };
+
+export { checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes, refinedData };
