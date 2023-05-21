@@ -8,7 +8,10 @@ let listOfMembers;
 function startTrainer(array) {
   listOfMembers = array;
 
-  document.querySelector("#trainer-create-result-button").addEventListener("click", createResultClicked);
+  document.querySelector("#btn-trainer-create").addEventListener("click", createResultClicked);
+  document.querySelector("#btn-trainer-competition").addEventListener("click", editCompetitionClicked);
+  document.querySelector("#create-result-form-trainer").addEventListener("submit", submitResult);
+  document.querySelector("#btn-trainer-close").addEventListener("click", () => document.querySelector("#create-result-modal-trainer").close());
 
   updateResults();
 }
@@ -40,7 +43,7 @@ async function showMemberTrainer(result) {
   else if (result.competition === false) competition = "Træning";
 
   // if (member.age >= 18) {
-    const html = /*html*/ `
+  const html = /*html*/ `
       <tr class="member-item-kasserer">
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
@@ -52,7 +55,7 @@ async function showMemberTrainer(result) {
     </tr>
       `;
 
-    document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
+  document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
   // } else if (member.age < 18) {
   //   const html = /*html*/ `
   //     <tr class="member-item-kasserer">
@@ -72,11 +75,17 @@ async function showMemberTrainer(result) {
 }
 
 function createResultClicked(event) {
+  let testArray = resultater;
+  testArray.push({ competition: true, compName: "Vinterstævne" });
+  // let testObject = { competition: true, compName: "Vinterstævne" };
+  // testArray.push(testObject);
+  console.log("test:", testArray);
   console.log(resultater);
   document.querySelector("#create-result-modal-trainer").showModal();
-  document.querySelector("#create-result-type-trainer").addEventListener("change", changeTrainerForm);
+  document.querySelector("#create-result-type-trainer").addEventListener("change", changeFormBasedOnResultType);
+  document.querySelector("#create-result-competition-trainer").addEventListener("change", changeFormBasedOnCompetition);
 
-  document.querySelector("#create-result-stævne-trainer").innerHTML = "";
+  document.querySelector("#create-result-competition-trainer").innerHTML = "";
   document.querySelector("#create-result-name-trainer").innerHTML = "";
 
   const form = document.querySelector("#create-result-form-trainer");
@@ -85,28 +94,74 @@ function createResultClicked(event) {
     document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
 
-  for (const result of resultater) {
-    if (result.competition === true) {
-      document.querySelector("#create-result-stævne-trainer").insertAdjacentHTML("beforeend", `<option value="${result.competition}">${result.compName}</option>`);
+  const compList = document.querySelector("#create-result-competition-trainer");
+
+  for (let i = 0; i < resultater.length; i++) {
+    const currentResult = resultater[i];
+    // console.log(compList.children.value.includes === "Vinterstævne");
+    // if (result.competition === true && compList.includes(result.competition) === false) {
+
+    let repeatCompetitionCheck = true;
+    if (i >= 1) {
+      for (const test of compList.children) {
+        repeatCompetitionCheck = test.value !== currentResult.compName;
+        if (repeatCompetitionCheck === false) break;
+      }
+    }
+
+    if (currentResult.competition === true && repeatCompetitionCheck) {
+      compList.insertAdjacentHTML("beforeend", `<option value="${currentResult.compName}">${currentResult.compName}</option>`);
     }
   }
+  console.log(compList.children);
 
-  function changeTrainerForm(event) {
-    console.log("asfasdf");
+  changeFormBasedOnCompetition();
+
+  function changeFormBasedOnCompetition(event) {
+    const selectedCompetition = resultater.find((result) => result.compName === form.competition.value);
+    form.location.value = selectedCompetition.location;
+    form.date.value = selectedCompetition.date;
+  }
+
+  function changeFormBasedOnResultType(event) {
     const target = event.target.value;
     if (target === "træning") {
-      form.place.disabled = false;
+      form.location.disabled = false;
       form.date.disabled = false;
-      form.stævne.value = "";
-      form.stævne.disabled = true;
-      form.placement.value = "";
+      form.competition.disabled = true;
       form.placement.disabled = true;
+
+      form.date.value = "";
+      form.location.value = "";
+      form.competition.value = "";
+      form.placement.value = "";
     } else {
+      form.location.disabled = true;
       form.date.disabled = true;
-      form.stævne.disabled = false;
+      form.competition.disabled = false;
       form.placement.disabled = false;
     }
   }
+}
+
+function submitResult(event) {
+  event.preventDefault();
+  const form = event.target;
+  const newResult = {
+    uid: form.name.value,
+    competition: form.type.value === true,
+    compName: form.competition.value,
+    discipline: form.discipline.value,
+    location: form.location.value,
+    date: form.date.value,
+    time: Number(form.result.value),
+    placement: form.placement.value,
+  };
+  console.log(newResult);
+}
+
+function editCompetitionClicked(params) {
+  document.querySelector("#show-competition-modal-trainer").showModal();
 }
 
 export { startTrainer };

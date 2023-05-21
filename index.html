@@ -358,6 +358,9 @@
         <button id="btn-trainer-create" class="buttonAni">Tilføj nyt resultat</button>
         <br />
         <br />
+        <button id="btn-trainer-competition" class="buttonAni">Opdater stævner</button>
+        <br />
+        <br />
         <label for="member-search-trainer" id="nav-align">Søg (Navn):</label>
         <br />
         <input type="search" id="member-search-trainer" placeholder="Søg efter navn" autocomplete="off" />
@@ -408,14 +411,7 @@
             </tr>
           </thead>
           <tbody id="trainer-table-body">
-            <!-- <td>Anna Andersen</td>
-              <td>Stævne</td>
-              <td>SunSwim 2023</td>
-              <td>Ballerup</td>
-              <td>17-05-2023</td>
-              <td>Crawl</td>
-              <td>200</td>
-              <td>4</td> -->
+
               </tbody>
             </table>
           </div>
@@ -435,19 +431,13 @@
                 </tr>
               </thead>
               <tbody id="trainer-table-body-senior">
-                <!-- <td>Peter Pedersen</td>
-              <td>Stævne</td>
-              <td>SunSwim 2023</td>
-              <td>Ballerup</td>
-              <td>17-05-2023</td>
-              <td>Crawl</td>
-              <td>200</td>
-              <td>4</td> -->
+
               </tbody>
             </table>
           </div>
         </div>
         <dialog id="show-result-modal-trainer"></dialog>
+        <dialog id="show-competition-modal-trainer">Indsæt stævner her</dialog>
         <dialog id="create-result-modal-trainer">
           <form id="create-result-form-trainer">
             <label for="name">Konkurrentens navn</label>
@@ -455,14 +445,14 @@
 
             <label for="type">Resultattype</label>
             <select name="type" id="create-result-type-trainer" autocomplete="off">
-              <option value="konkurrence">Konkurrence</option>
-              <option value="træning">Træning</option>
+              <option value=true>Konkurrence</option>
+              <option value=false>Træning</option>
             </select>
 
-            <label for="stævne">Vælg stævne</label>
+            <label for="competition">Vælg stævne</label>
 
-            <select name="stævne" id="create-result-stævne-trainer">
-              <option value="test-stævne">test-stævne</option>
+            <select name="competition" id="create-result-competition-trainer">
+              
             </select>
 
             <label for="discipline">Vælg disciplin</label>
@@ -473,18 +463,18 @@
               <option value="breaststroke">Brystsvømning</option>
             </select>
 
-            <label for="place">Sted</label>
-            <input type="text" name="place" disabled />
+            <label for="location">Sted</label>
+            <input type="text" name="location" disabled autocomplete="off"/>
             <label for="date">Dato</label>
-            <input type="text" name="date" disabled />
+            <input type="text" name="date" required disabled autocomplete="off"/>
             <label for="result">Resultat i sek.</label>
-            <input type="number" name="result" />
+            <input type="text" name="result" autocomplete="off"/>
             <label for="placement">Placering</label>
-            <input type="number" name="placement" />
+            <input type="number" name="placement" autocomplete="off"/>
 
-            <input type="submit" value="Opret resultat" />
+            <input type="submit" value="Opret resultat" id="btn-trainer-submit"/>
 
-            <input type="reset" value="Luk vindue" />
+            <input type="reset" value="Luk vindue" id="btn-trainer-close"/>
           </form>
         </dialog>
         <div class="page-footer"></div>
