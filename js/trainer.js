@@ -4,11 +4,24 @@ import { ageCalculator } from "./Helper-functions.js";
 
 let resultater;
 let listOfMembers;
+const competetiveJuniorMembers = {
+  crawl: [],
+  backcrawl: [],
+  breaststroke: [],
+  butterfly: [],
+};
+const competetiveSeniorMembers = {
+  crawl: [],
+  backcrawl: [],
+  breaststroke: [],
+  butterfly: [],
+};
 
 function startTrainer(array) {
   listOfMembers = array;
 
   updateResults();
+  topFiveMembers();
 }
 
 async function updateResults() {
@@ -17,82 +30,131 @@ async function updateResults() {
 }
 
 
-function showTopFiveMembers(array) {
-  const competetiveJuniorMembers = {
-    crawl: [],
-    backCrawl: [],
-    breaststroke: [],
-    butterfly: [],
-  };
-  const competetiveSeniorMembers = {
-    crawl: [],
-    backCrawl: [],
-    breaststroke: [],
-    butterfly: [],
-  };
-
+function topFiveMembers() {
   for (const memberID of listOfMembers) {
-    const member = listOfMembers[memberID];
 
-    if (member.ageGroup === "Junior") {
+    if (memberID.ageGroup === "Junior") {
       if (memberID.crawl) {
-        competetiveJuniorMembers.crawl.push(member);
-      }
-
-      if (memberID.backCrawl) {
-        competetiveJuniorMembers.backCrawl.push(member);
-      }
-
-      if (memberID.breaststroke) {
-        competetiveJuniorMembers.breaststroke.push(member);
-      }
-
-      if (memberID.butterfly) {
-        competetiveJuniorMembers.butterfly.push(member);
-      }
+        competetiveJuniorMembers.crawl.push(memberID);
+      } else if (memberID.backcrawl) {
+        competetiveJuniorMembers.backcrawl.push(memberID);
+      } else if (memberID.breaststroke) {
+        competetiveJuniorMembers.breaststroke.push(memberID);
+      } else if (memberID.butterfly) {
+        competetiveJuniorMembers.butterfly.push(memberID);
+      };
     }
-    if (member.ageGroup === "Senior") {
+  
+    if (memberID.ageGroup === "Senior") {
       if (memberID.crawl) {
-        competetiveSeniorMembers.crawl.push(member);
-      }
-
-      if (memberID.backCrawl) {
-        competetiveSeniorMembers.backCrawl.push(member);
-      }
-
-      if (memberID.breaststroke) {
-        competetiveSeniorMembers.breaststroke.push(member);
-      }
-
-      if (memberID.butterfly) {
-        competetiveSeniorMembers.butterfly.push(member);
+        competetiveSeniorMembers.crawl.push(memberID);
+      } else if (memberID.backcrawl) {
+        competetiveSeniorMembers.backcrawl.push(memberID);
+      } else if (memberID.breaststroke) {
+        competetiveSeniorMembers.breaststroke.push(memberID);
+      } else if (memberID.butterfly) {
+        competetiveSeniorMembers.butterfly.push(memberID);
       }
     }
 
-    // Sorterer members i det nye array efter deres tid
-    for (const disciplines in competetiveMembers) {
-      competetiveMembers[disciplines].sort((a, b) => {
+  console.log("Nye lister, henholdsvis junior og så senior:", competetiveJuniorMembers, competetiveSeniorMembers);
+
+ 
+ for (const discipline in competetiveJuniorMembers.crawl) {
+  console.log("loopet af members crawl", discipline);
+   discipline.sort((a, b) => {
+     return a.time - b.time;
+   });
+ }
+ for (const discipline in competetiveJuniorMembers.backcrawl) {
+   competetiveJuniorMembers[discipline].sort((a, b) => {
+     return a.time - b.time;
+   });
+ }
+ for (const discipline in competetiveJuniorMembers.breaststroke) {
+   competetiveJuniorMembers[discipline].sort((a, b) => {
+     return a.time - b.time;
+   });
+ }
+ for (const discipline in competetiveJuniorMembers.butterfly) {
+   competetiveJuniorMembers[discipline].sort((a, b) => {
+     return a.time - b.time;
+   });
+ }
+ for (const discipline in competetiveSeniorMembers.crawl) {
+   competetiveSeniorMembers[discipline].sort((a, b) => {
+     return a.time - b.time;
+   });
+ }
+for (const discipline in competetiveSeniorMembers.backcrawl) {
+    competetiveSeniorMembers[discipline].sort((a, b) => {
+      return a.time - b.time;
+    });
+  }
+for (const discipline in competetiveSeniorMembers.breaststroke) {
+     competetiveSeniorMembers[discipline].sort((a, b) => {
+       return a.time - b.time;
+     });
+   }
+for (const discipline in competetiveSeniorMembers.butterfly) {
+      competetiveSeniorMembers[discipline].sort((a, b) => {
         return a.time - b.time;
       });
     }
+}
+showTopFiveTables(competetiveJuniorMembers, competetiveSeniorMembers);
+}
+function showTopFiveTables(juniorMembers, seniorMembers) {
 
-    // Tager members fra det nye array og viser dem
-    for (const discipline in disciplineMembers) {
-      const members = disciplineMembers[discipline];
-
-      // Display top 5 members for each discipline
-      for (let i = 0; i < Math.min(members.length, 5); i++) {
-        const member = members[i];
-
-        // Display member's information and result in the HTML table
-        const row = document.createElement("tr");
-        row.innerHTML = `<td>${discipline}</td><td>${member.name}</td><td>${member.email}</td><td>${member.time}</td>`;
-        table.appendChild(row);
-      }
+  for (const discipline in juniorMembers) {
+    const members = juniorMembers[discipline];
+    for (const member of members.slice(0, 5)) {
+      showTopFiveTable(member);
     }
-}
+  }
+
+  for (const discipline in seniorMembers) {
+    const members = seniorMembers[discipline];
+    for (const member of members.slice(0, 5)) {
+      showTopFiveTable(member);
+    }
+  }
 }
 
+function showTopFiveTable() {
+  let table;
+
+  if (member.ageGroup === "Junior") {
+    if (member.crawl) {
+      table = "topfive-crawl-junior-table-body";
+    } else if (member.backcrawl) {
+      table = "topfive-backcrawl-junior-table-body"
+    }else if (member.breaststroke) {
+      table = "topfive-breaststroke-junior-table-body";
+    }else if (member.butterfly) {
+      table = "topfive-butterfly-junior-table-body";
+    }
+  } else if (member.ageGroup === "Senior") {
+    if (member.crawl) {
+      table = "#topfive-crawl-senior-table-body"
+    } else if (member.backcrawl) {
+      table = "topfive-backcrawl-senior-table-body";
+    }else if (member.breaststroke) {
+      table = "topfive-breaststroke-senior-table-body";
+    }else if (member.butterfly) {
+      table = "topfive-butterfly-senior-table-body";
+    }
+  }
+const topFiveHTML = /* html */ `
+    <tr>
+      <td>${member.name}</td>
+      <td>${member.ageGroup}</td>
+      <td>${member.time}</td>
+      <td>${member.placement}</td>
+    </tr>
+  `;
+  document.querySelector(`${table}`).insertAdjacentHTML("beforeend", topFiveHTML);
+}
 
 function showResultTrainer(resultater) {
   console.log("showResults array:", resultater);
