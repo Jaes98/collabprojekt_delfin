@@ -49,17 +49,16 @@ function checkMembership(member) {
   }
 }
 function addCoach(member) {
-if (member.competetive && member.age < 18) {
-  member.trid = "Holger Jacobsen"  
-} else if (member.competetive && member.age > 18) {
-  member.trid = "Line Frederiksen"
-}  
+  if (member.competetive && member.age < 18) {
+    member.trid = "Holger Jacobsen";
+  } else if (member.competetive && member.age > 18) {
+    member.trid = "Line Frederiksen";
+  }
 }
-
 
 function changeCreateCheckboxes() {
   const createBoxes = document.querySelectorAll(".create-discipline");
-  createBoxes.forEach(box => {
+  createBoxes.forEach((box) => {
     box.checked = false;
     box.disabled = !box.disabled;
   });
@@ -68,7 +67,7 @@ function changeCreateCheckboxes() {
 function changeUpdateCheckboxes() {
   const updateValue = document.querySelector("#formand-update-competetive").value === "true";
   const updateBoxes = document.querySelectorAll(".update-discipline");
-  updateBoxes.forEach(box => {
+  updateBoxes.forEach((box) => {
     box.disabled = !updateValue;
   });
 }
@@ -87,4 +86,4 @@ function refinedData(result) {
   return result;
 }
 
-export { checkDiscipline, changeCreateCheckboxes,changeUpdateCheckboxes, refinedData };
+export { checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes, refinedData, ageCalculator };
