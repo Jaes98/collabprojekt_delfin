@@ -74,6 +74,7 @@ function showMemberModal(member) {
   let gender = "";
   if (member.gender === "male") gender = "Mand";
   else if (member.gender === "female") gender = "Kvinde";
+  else if (member.gender === "other") gender = " Andet";
 
   const disciplines = checkDiscipline(member);
   const html = /*HTML*/ `
@@ -157,7 +158,7 @@ function createNewMember(event) {
     crawl: form.crawl.checked,
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
-    breastStroke: form.breaststroke.checked
+    breaststroke: form.breaststroke.checked,
     // coach: form.trid.value,
   };
   console.log(newMember);
@@ -209,7 +210,7 @@ async function updateMember(event) {
     crawl: form.crawl.checked,
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
-    breaststroke: form.breaststroke.checked
+    breaststroke: form.breaststroke.checked,
   };
 
   const id = form.getAttribute("data-id");
