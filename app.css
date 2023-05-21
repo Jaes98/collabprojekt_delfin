@@ -13,52 +13,7 @@ hr {
   border: 1px solid black;
 }
 
-/************ trainer-page **************/
 
-.trainer-header {
-  grid-row: 1 / 2;
-  grid-column: 1 / 6;
-  background-color: #ccc;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 100%;
-  max-height: 120px;
-  text-align: center;
-  position: relative;
-  background-color: #569bde;
-  /* #67a0d8; */
-  align-items: center;
-  justify-content: space-between;
-}
-
-.trainer-table-container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: auto;
-  position: relative;
-  width: 100%;
-}
-
-.trainer-table-junior {
-  grid-row: auto;
-  grid-column: 1 / 4;
-  background-color: #fff;
-  width: 100%;
-  display: grid;
-  position: relative;
-  text-align: left;
-  border-right: 2px solid rgb(59, 115, 171);
-}
-
-.trainer-table-senior {
-  grid-row: auto;
-  grid-column: 4 / 8;
-  background-color: #fff;
-  width: 100%;
-  display: grid;
-  position: relative;
-  text-align: left;
-}
 
 /* ********** formand page ********** */
 
@@ -72,14 +27,20 @@ hr {
   .kasserer-nav,
   #nav-filter-kasserer,
   #sort-kasserer,
-  #member-search-kasserer {
+  #member-search-kasserer, 
+  .tainer-nav, 
+  #nav-filter-trainer, 
+  #sort-trainer, 
+  #member-search-trainer, 
+  #btn-trainer-create {
     position: relative;
     width: 30vw;
     left: 0;
   }
 
   .formand-container,
-  .kasserer-container, .trainer-table-junior, .trainer-table-senior {
+  .kasserer-container, 
+  .trainer-container {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     position: relative;
@@ -91,7 +52,8 @@ hr {
 
 @media (min-width: 800px) {
   .formand-container,
-  .kasserer-container {
+  .kasserer-container, 
+  .trainer-container {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: repeat(6, 1fr);
@@ -109,17 +71,26 @@ hr {
   #nav-align,
   #nav-filter-kasserer,
   #sort-kasserer,
-  #member-search-kasserer {
+  #member-search-kasserer,
+  #nav-filter-trainer,
+  #sort-trainer,
+  #member-search-trainer,
+  #btn-trainer-create {
     position: fixed;
   }
-  #overview {
+  #overview,
+  #overview-trainer {
     margin-left: 20px;
   }
   #btn-formand-create,
   #member-search,
   #sort,
   #nav-filter,
-  #nav-align {
+  #nav-align,
+  #nav-filter-trainer,
+  #sort-trainer,
+  #member-search-trainer,
+  #btn-trainer-create {
     width: 18vw;
     margin-left: 20px;
     left: 0;
@@ -147,7 +118,8 @@ hr {
 
 @media (min-width: 1000px) {
   .formand-container,
-  .kasserer-container {
+  .kasserer-container,
+  .trainer-container {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: repeat(6, 1fr);
@@ -165,17 +137,26 @@ hr {
   #nav-align,
   #nav-filter-kasserer,
   #sort-kasserer,
-  #member-search-kasserer {
+  #member-search-kasserer,
+  #nav-filter-trainer,
+  #sort-trainer,
+  #member-search-trainer,
+  #btn-trainer-create {
     position: fixed;
   }
-  #overview {
+  #overview,
+  #overview-trainer {
     margin-left: 20px;
   }
   #btn-formand-create,
   #member-search,
   #sort,
   #nav-filter,
-  #nav-align {
+  #nav-align,
+  #nav-filter-trainer,
+  #sort-trainer,
+  #member-search-trainer,
+  #btn-trainer-create {
     width: 14vw;
     margin-left: 20px;
     left: 0;
@@ -234,7 +215,11 @@ hr {
 #member-search,
 #nav-filter-kasserer,
 #sort-kasserer,
-#member-search-kasserer {
+#member-search-kasserer,
+#nav-filter-trainer,
+#sort-trainer,
+#member-search-trainer,
+#btn-trainer-create {
   background-color: #a3bfdc;
   border-width: 1px;
   border-style: solid;
@@ -314,7 +299,47 @@ h3#kasserer-overview {
   background-color: #fff;
 }
 
+/************ trainer-page **************/
 
+.trainer-header {
+  grid-row: 1 / 2;
+  grid-column: 1 / 7;
+  background-color: #ccc;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  max-height: 120px;
+  text-align: center;
+  position: relative;
+  background-color: #569bde;
+  /* #67a0d8; */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trainer-nav {
+  grid-row: auto;
+  grid-column: 1 / 2;
+  background-color: #eee;
+  padding: 25px;
+  margin-right: 20px;
+  width: 100%;
+  padding-top: 0;
+}
+
+.trainer-table {
+  grid-row: auto;
+  grid-column: 2 / 7;
+  background-color: #fff;
+  width: 100%;
+  display: grid;
+  position: relative;
+  text-align: left;
+}
+
+.trainer-table h2 {
+  text-align: center;
+}
 
 
 /*********** front-page ************/

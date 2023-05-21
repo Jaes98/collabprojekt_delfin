@@ -114,6 +114,8 @@
         </select>
       </div>
 
+
+
       <div class="formand-table">
         <h2>Medlemmer</h2>
         <table>
@@ -131,8 +133,14 @@
           </tbody>
         </table>
       </div>
+
+
+
       <div class="page-footer"></div>
     </div>
+
+
+
 
     <dialog id="show-member-modal"></dialog>
 
@@ -304,6 +312,9 @@
         </table>
       </div>
       <div class="kasserer-overview">
+        <div id="overview">
+          <h3>Overblik over medlemmer:</h3>
+        </div>
         <article id="kasserer-income"></article>
         <article id="kasserer-member-overview"></article>
       </div>
@@ -339,51 +350,66 @@
         <img id="logo" src="images/dolphin logo.png" alt="logo" />
         <h2>Velkommen Træner</h2>
       </div>
-      <div class="trainer-table-container">
-        <div class="trainer-table-junior">
-          <h2>Junior medlemmer</h2>
-          <table>
-            <thead>
-              <tr id="thh">
-                <th>Svømmers navn</th>
-                <th>Type</th>
-                <th>Stævne</th>
-                <th>Lokation</th>
-                <th>Dato</th>
-                <th>Disciplin</th>
-                <th>Resultat (sek.)</th>
-                <th>Placering</th>
-              </tr>
-            </thead>
-            <tbody id="trainer-table-body-junior">
-              <!-- <td>Anna Andersen</td>
-              <td>Stævne</td>
-              <td>SunSwim 2023</td>
-              <td>Ballerup</td>
-              <td>17-05-2023</td>
-              <td>Crawl</td>
-              <td>200</td>
-              <td>4</td> -->
-            </tbody>
-          </table>
+
+      <div class="trainer-nav">
+        <br />
+        <div id="overview-trainer">
+          <h3>Overblik over medlemmer:</h3>
         </div>
-        <div class="trainer-table-senior">
-          <h2>Senior medlemmer</h2>
-          <table>
-            <thead>
-              <tr id="thh">
-                <th>Svømmers navn</th>
-                <th>Type</th>
-                <th>Stævne</th>
-                <th>Lokation</th>
-                <th>Dato</th>
-                <th>Disciplin</th>
-                <th>Resultat (sek.)</th>
-                <th>Placering</th>
-              </tr>
-            </thead>
-            <tbody id="trainer-table-body-senior">
-              <!-- <td>Peter Pedersen</td>
+        <button id="btn-trainer-create" class="buttonAni">Tilføj nyt resultat</button>
+        <br />
+        <br />
+        <label for="member-search-trainer" id="nav-align">Søg (Navn):</label>
+        <br />
+        <input type="search" id="member-search-trainer" placeholder="Søg efter navn" autocomplete="off" />
+        <br />
+        <br />
+        <label for="sort-trainer" id="nav-align">Sortér efter:</label>
+        <br />
+        <select id="sort-trainer" autocomplete="off">
+          <option value="name">Navn</option>
+          <option value="age">Aldersgruppe</option>
+        </select>
+        <br />
+        <br />
+        <label for="filter-trainer" id="nav-align">Filtrér efter:</label>
+        <br />
+        <select id="nav-filter-trainer" autocomplete="off">
+          <option value="" selected>Intet filter</option>
+          <optgroup label="Aldersgruppe:">
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+          </optgroup>
+          <optgroup label="Type:">
+            <option value="true">konkurrence</option>
+            <option value="false">Træning</option>
+          </optgroup>
+          <optgroup label="Desciplin:">
+            <option value="crawl">Crawl</option>
+            <option value="breaststroke">Brystsvømning</option>
+            <option value="backCrawl">Rygcrawl</option>
+            <option value="butterfly">Butterfly</option>
+          </optgroup>
+        </select>
+      </div>
+
+
+      <div class="trainer-table">
+
+        <h2>Medlemmer</h2>
+        <table>
+          <thead>
+            <tr id="thh">
+              <th>Svømmers navn</th>
+              <th>Aldersgruppe</th>
+              <th>Type</th>
+              <th>Dato</th>
+              <th>Disciplin</th>
+              <th>Resultat (sek.)</th>
+            </tr>
+          </thead>
+          <tbody id="trainer-table-body">
+            <!-- <td>Anna Andersen</td>
               <td>Stævne</td>
               <td>SunSwim 2023</td>
               <td>Ballerup</td>
