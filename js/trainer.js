@@ -8,7 +8,6 @@ let listOfMembers;
 function startTrainer(array) {
   listOfMembers = array;
 
-  // loopMembers(array);
   updateResults();
 }
 
@@ -17,18 +16,6 @@ async function updateResults() {
   showResultTrainer(resultater);
 }
 
-// function loopMembers(array) {
-//   console.log("showmembers array:", array);
-//   // document.querySelector("#kasserer-table-body").innerHTML = "";
-//   document.querySelector("#trainer-table-body-senior").innerHTML = "";
-//   document.querySelector("#trainer-table-body-junior").innerHTML = "";
-
-//   for (const member of array) {
-//     if (member.competetive) {
-//     showMemberTrainer(member);
-//     }
-//   }
-// }
 
 function showResultTrainer(resultater) {
   console.log("showResults array:", resultater);
@@ -43,11 +30,7 @@ function showResultTrainer(resultater) {
 }
 
 async function showMemberTrainer(result) {
-  const member = await getMemberId(result.uid);
-  // const resultat = await getResults(result.uid);
-  // console.log("member is: ", member);
-  // console.log(members);
-  ageCalculator(member);
+   const member = listOfMembers.find((member) => member.id === result.uid);
 
   // console.log("xxxx", result);
 
