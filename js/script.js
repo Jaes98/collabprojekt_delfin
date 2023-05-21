@@ -157,7 +157,7 @@ function createNewMember(event) {
     crawl: form.crawl.checked,
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
-    breastStroke: form.breaststroke.checked
+    breaststroke: form.breaststroke.checked,
     // coach: form.trid.value,
   };
   console.log(newMember);
@@ -209,7 +209,7 @@ async function updateMember(event) {
     crawl: form.crawl.checked,
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
-    breaststroke: form.breaststroke.checked
+    breaststroke: form.breaststroke.checked,
   };
 
   const id = form.getAttribute("data-id");
