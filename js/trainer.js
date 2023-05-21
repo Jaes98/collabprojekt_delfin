@@ -75,12 +75,8 @@ async function showMemberTrainer(result) {
 }
 
 function createResultClicked(event) {
-  let testArray = resultater;
-  testArray.push({ competition: true, compName: "Vinterstævne" });
-  // let testObject = { competition: true, compName: "Vinterstævne" };
-  // testArray.push(testObject);
-  console.log("test:", testArray);
-  console.log(resultater);
+  resultater.push({ competition: true, compName: "Vinterstævne" });
+
   document.querySelector("#create-result-modal-trainer").showModal();
   document.querySelector("#create-result-type-trainer").addEventListener("change", changeFormBasedOnResultType);
   document.querySelector("#create-result-competition-trainer").addEventListener("change", changeFormBasedOnCompetition);
@@ -91,11 +87,12 @@ function createResultClicked(event) {
   const form = document.querySelector("#create-result-form-trainer");
 
   for (const member of listOfMembers) {
-    document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
+    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem")
+      document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
+  console.log(document.querySelector("#create-result-name-trainer").children);
 
   const compList = document.querySelector("#create-result-competition-trainer");
-
   for (let i = 0; i < resultater.length; i++) {
     const currentResult = resultater[i];
     // console.log(compList.children.value.includes === "Vinterstævne");
