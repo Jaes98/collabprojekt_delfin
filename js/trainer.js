@@ -8,6 +8,7 @@ let listOfMembers;
 function startTrainer(array) {
   listOfMembers = array;
 
+  document.querySelector("#trainer-create-result-button").addEventListener("click", createResultClicked);
   updateResults();
 }
 
@@ -15,7 +16,6 @@ async function updateResults() {
   resultater = await getResults();
   showResultTrainer(resultater);
 }
-
 
 function showResultTrainer(resultater) {
   console.log("showResults array:", resultater);
@@ -30,7 +30,7 @@ function showResultTrainer(resultater) {
 }
 
 async function showMemberTrainer(result) {
-   const member = listOfMembers.find((member) => member.id === result.uid);
+  const member = listOfMembers.find((member) => member.id === result.uid);
 
   // console.log("xxxx", result);
 
@@ -72,6 +72,19 @@ async function showMemberTrainer(result) {
   } else {
     console.error("for showMemberTrainer: something is wrong");
   }
+}
+
+function createResultClicked(event) {
+  document.querySelector("#create-result-modal-trainer").showModal();
+
+  const form = document.querySelector("#create-result-form-trainer");
+  for (const member of listOfMembers) {
+    console.log(member.name);
+    document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.name}">${member.name}</option>`);
+  }
+  console.log(form.place.value);
+  form.place.value = "hej";
+  console.log(form.place.value);
 }
 
 export { startTrainer };

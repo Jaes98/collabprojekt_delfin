@@ -79,7 +79,9 @@ hr {
   }
 
   .formand-container,
-  .kasserer-container, .trainer-table-junior, .trainer-table-senior {
+  .kasserer-container,
+  .trainer-table-junior,
+  .trainer-table-senior {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     position: relative;
@@ -313,9 +315,6 @@ h3#kasserer-overview {
   padding: 30px;
   background-color: #fff;
 }
-
-
-
 
 /*********** front-page ************/
 
@@ -630,4 +629,8 @@ tr:nth-child(odd):hover {
 
 .red {
   background-color: red;
+}
+
+#create-result-form-trainer {
+  display: grid;
 }
