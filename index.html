@@ -403,15 +403,23 @@
             <select name="name" id="create-result-name-trainer"></select>
 
             <label for="type">Resultattype</label>
-            <select name="type" id="create-result-type-trainer">
+            <select name="type" id="create-result-type-trainer" autocomplete="off">
               <option value="konkurrence">Konkurrence</option>
               <option value="træning">Træning</option>
             </select>
 
             <label for="stævne">Vælg stævne</label>
 
-            <select name="stævne" id="stævne">
+            <select name="stævne" id="create-result-stævne-trainer">
               <option value="test-stævne">test-stævne</option>
+            </select>
+
+            <label for="discipline">Vælg disciplin</label>
+            <select name="discipline" id="">
+              <option value="crawl">Crawl</option>
+              <option value="butterfly">Butterfly</option>
+              <option value="backCrawl">Rygcrawl</option>
+              <option value="breaststroke">Brystsvømning</option>
             </select>
 
             <label for="place">Sted</label>
@@ -420,13 +428,6 @@
             <input type="text" name="date" disabled />
             <label for="result">Resultat i sek.</label>
             <input type="number" name="result" />
-            <label for="discipline">Vælg disciplin</label>
-            <select name="discipline" id="">
-              <option value="crawl">Crawl</option>
-              <option value="butterfly">Butterfly</option>
-              <option value="backCrawl">Rygcrawl</option>
-              <option value="breaststroke">Brystsvømning</option>
-            </select>
             <label for="placement">Placering</label>
             <input type="number" name="placement" />
 

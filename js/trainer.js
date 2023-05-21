@@ -9,6 +9,7 @@ function startTrainer(array) {
   listOfMembers = array;
 
   document.querySelector("#trainer-create-result-button").addEventListener("click", createResultClicked);
+
   updateResults();
 }
 
@@ -75,16 +76,41 @@ async function showMemberTrainer(result) {
 }
 
 function createResultClicked(event) {
+  console.log(resultater);
   document.querySelector("#create-result-modal-trainer").showModal();
+  document.querySelector("#create-result-type-trainer").addEventListener("change", changeTrainerForm);
+
+  document.querySelector("#create-result-stævne-trainer").innerHTML = "";
+  document.querySelector("#create-result-name-trainer").innerHTML = "";
 
   const form = document.querySelector("#create-result-form-trainer");
+
   for (const member of listOfMembers) {
-    console.log(member.name);
-    document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.name}">${member.name}</option>`);
+    document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
-  console.log(form.place.value);
-  form.place.value = "hej";
-  console.log(form.place.value);
+
+  for (const result of resultater) {
+    if (result.competition === true) {
+      document.querySelector("#create-result-stævne-trainer").insertAdjacentHTML("beforeend", `<option value="${result.competition}">${result.compName}</option>`);
+    }
+  }
+
+  function changeTrainerForm(event) {
+    console.log("asfasdf");
+    const target = event.target.value;
+    if (target === "træning") {
+      form.place.disabled = false;
+      form.date.disabled = false;
+      form.stævne.value = "";
+      form.stævne.disabled = true;
+      form.placement.value = "";
+      form.placement.disabled = true;
+    } else {
+      form.date.disabled = true;
+      form.stævne.disabled = false;
+      form.placement.disabled = false;
+    }
+  }
 }
 
 export { startTrainer };
