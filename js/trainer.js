@@ -18,81 +18,79 @@ async function updateResults() {
 
 
 function showTopFiveMembers(array) {
-  const competitiveMembers = {
+  const competetiveJuniorMembers = {
+    crawl: [],
+    backCrawl: [],
+    breaststroke: [],
+    butterfly: [],
+  };
+  const competetiveSeniorMembers = {
     crawl: [],
     backCrawl: [],
     breaststroke: [],
     butterfly: [],
   };
 
-  for (const disciplines of listOfMembers) {
-  }
-  // Retrieve the members data from the database
-  const membersRef = firebase.database().ref("members");
-  membersRef
-    .once("value")
-    .then((snapshot) => {
-      const membersData = snapshot.val();
+  for (const memberID of listOfMembers) {
+    const member = listOfMembers[memberID];
 
-      // Create an object to store members for each discipline
-      const disciplineMembers = {
-        crawl: [],
-        backCrawl: [],
-        breaststroke: [],
-        butterfly: [],
-      };
-
-      // Iterate over the members directly
-      for (const memberID in membersData) {
-        const member = membersData[memberID];
-
-        // Check if the member participates in each discipline and add them to the corresponding array
-        if (member.crawl) {
-          disciplineMembers.crawl.push(member);
-        }
-
-        if (member.backCrawl) {
-          disciplineMembers.backCrawl.push(member);
-        }
-
-        if (member.breaststroke) {
-          disciplineMembers.breaststroke.push(member);
-        }
-
-        if (member.butterfly) {
-          disciplineMembers.butterfly.push(member);
-        }
+    if (member.ageGroup === "Junior") {
+      if (memberID.crawl) {
+        competetiveJuniorMembers.crawl.push(member);
       }
 
-      // Sort members in each discipline by their time
-      for (const discipline in disciplineMembers) {
-        disciplineMembers[discipline].sort((a, b) => {
-          // Assuming the time property exists in your member object
-          return a.time - b.time;
-        });
+      if (memberID.backCrawl) {
+        competetiveJuniorMembers.backCrawl.push(member);
       }
 
-      // Iterate over the sorted members in each discipline and display them in the HTML table
-      for (const discipline in disciplineMembers) {
-        const members = disciplineMembers[discipline];
-
-        // Display top 5 members for each discipline
-        for (let i = 0; i < Math.min(members.length, 5); i++) {
-          const member = members[i];
-
-          // Display member's information and result in the HTML table
-          const row = document.createElement("tr");
-          row.innerHTML = `<td>${discipline}</td><td>${member.name}</td><td>${member.email}</td><td>${member.time}</td>`;
-          table.appendChild(row);
-        }
+      if (memberID.breaststroke) {
+        competetiveJuniorMembers.breaststroke.push(member);
       }
 
-      // Append the table to the document body or any other desired location
-      document.body.appendChild(table);
-    })
-    .catch((error) => {
-      console.error("Failed to retrieve members data:", error);
-    });
+      if (memberID.butterfly) {
+        competetiveJuniorMembers.butterfly.push(member);
+      }
+    }
+    if (member.ageGroup === "Senior") {
+      if (memberID.crawl) {
+        competetiveSeniorMembers.crawl.push(member);
+      }
+
+      if (memberID.backCrawl) {
+        competetiveSeniorMembers.backCrawl.push(member);
+      }
+
+      if (memberID.breaststroke) {
+        competetiveSeniorMembers.breaststroke.push(member);
+      }
+
+      if (memberID.butterfly) {
+        competetiveSeniorMembers.butterfly.push(member);
+      }
+    }
+
+    // Sorterer members i det nye array efter deres tid
+    for (const disciplines in competetiveMembers) {
+      competetiveMembers[disciplines].sort((a, b) => {
+        return a.time - b.time;
+      });
+    }
+
+    // Tager members fra det nye array og viser dem
+    for (const discipline in disciplineMembers) {
+      const members = disciplineMembers[discipline];
+
+      // Display top 5 members for each discipline
+      for (let i = 0; i < Math.min(members.length, 5); i++) {
+        const member = members[i];
+
+        // Display member's information and result in the HTML table
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${discipline}</td><td>${member.name}</td><td>${member.email}</td><td>${member.time}</td>`;
+        table.appendChild(row);
+      }
+    }
+}
 }
 
 
