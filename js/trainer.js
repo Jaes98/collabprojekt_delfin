@@ -20,8 +20,7 @@ async function updateResults() {
 function showResultTrainer(resultater) {
   console.log("showResults array:", resultater);
 
-  document.querySelector("#trainer-table-body-senior").innerHTML = "";
-  document.querySelector("#trainer-table-body-junior").innerHTML = "";
+  document.querySelector("#trainer-table-body").innerHTML = "";
 
   for (const result of resultater) {
     showMemberTrainer(result);
@@ -39,39 +38,36 @@ async function showMemberTrainer(result) {
   if (result.competition) competition = "Konkurrence";
   else if (result.competition === false) competition = "Træning";
 
-  if (member.age >= 18) {
+  // if (member.age >= 18) {
     const html = /*html*/ `
       <tr class="member-item-kasserer">
       <td>${member.name}</td>
+      <td>${member.ageGroup}</td>
       <td>${competition}</td>
-      <td>${result.compName}</td>
-      <td>${result.location}</td>
       <td>${result.date}</td>
       <td>${result.discipline}</td>
       <td>${result.time}</td>
-      <td>${result.placement}</td>
+      
     </tr>
       `;
 
-    document.querySelector("#trainer-table-body-senior").insertAdjacentHTML("beforeend", html);
-  } else if (member.age < 18) {
-    const html = /*html*/ `
-      <tr class="member-item-kasserer">
-      <td>${member.name}</td>
-      <td>${competition}</td>
-      <td>${result.compName}</td>
-      <td>${result.location}</td>
-      <td>${result.date}</td>
-      <td>${result.discipline}</td>
-      <td>${result.time}</td>
-      <td>${result.placement}</td>
-    </tr>
-      `;
+    document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
+  // } else if (member.age < 18) {
+  //   const html = /*html*/ `
+  //     <tr class="member-item-kasserer">
+  //     <td>${member.name}</td>
+  //     <td>${member.ageGroup}</td>
+  //     <td>${competition}</td>
+  //     <td>${result.date}</td>
+  //     <td>${result.discipline}</td>
+  //     <td>${result.time}</td>
+  //   </tr>
+  //     `;
 
-    document.querySelector("#trainer-table-body-junior").insertAdjacentHTML("beforeend", html);
-  } else {
-    console.error("for showMemberTrainer: something is wrong");
-  }
+  //   document.querySelector("#trainer-table-body-junior").insertAdjacentHTML("beforeend", html);
+  // } else {
+  //   console.error("for showMemberTrainer: something is wrong");
+  // }
 }
 
 export { startTrainer };
