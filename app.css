@@ -78,7 +78,8 @@ hr {
   #btn-trainer-create {
     position: fixed;
   }
-  #overview {
+  #overview,
+  #overview-trainer {
     margin-left: 20px;
   }
   #btn-formand-create,
@@ -143,7 +144,8 @@ hr {
   #btn-trainer-create {
     position: fixed;
   }
-  #overview {
+  #overview,
+  #overview-trainer {
     margin-left: 20px;
   }
   #btn-formand-create,
