@@ -113,27 +113,35 @@
           </select>
         </div>
 
-        <div class="formand-table">
-          <h2>Medlemmer</h2>
-          <table>
-            <thead>
-              <tr id="thh">
-                <th>Navn</th>
-                <th>Aldersgruppe</th>
-                <th>Medlemsskab</th>
-                <th>Type</th>
-                <th>Se detaljer</th>
-              </tr>
-            </thead>
-            <tbody id="formand-table-body">
-              <tr></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="page-footer"></div>
+
+
+      <div class="formand-table">
+        <h2>Medlemmer</h2>
+        <table>
+          <thead>
+            <tr id="thh">
+              <th>Navn</th>
+              <th>Aldersgruppe</th>
+              <th>Medlemsskab</th>
+              <th>Type</th>
+              <th>Se detaljer</th>
+            </tr>
+          </thead>
+          <tbody id="formand-table-body">
+            <tr></tr>
+          </tbody>
+        </table>
       </div>
 
-      <dialog id="show-member-modal"></dialog>
+
+
+      <div class="page-footer"></div>
+    </div>
+
+
+
+
+    <dialog id="show-member-modal"></dialog>
 
       <dialog id="dialog-create-member">
         <h2>Tilføj nyt medlem</h2>
@@ -250,114 +258,157 @@
       </dialog>
     </section>
 
-    <section class="page-view" id="kasserer">
-      <div class="kasserer-container">
-        <div class="kasserer-header">
-          <img id="logo" src="images/dolphin logo.png" alt="logo" />
-          <h2>Velkommen Kasserer</h2>
-        </div>
-        <!-- <br id="header-gap"> -->
-        <div class="kasserer-nav">
-          <br />
-          <br />
-          <label for="member-search-kasserer" id="nav-align">Søg (Navn):</label>
-          <br />
-          <input type="search" id="member-search-kasserer" placeholder="Søg efter navn" autocomplete="off" />
-          <br />
-          <br />
-          <label for="sort-kasserer" id="nav-align">Sortér efter:</label>
-          <br />
-          <select id="sort-kasserer" autocomplete="off">
-            <option value="name">Navn</option>
-            <option value="paymentGroup">Betalingsgruppe</option>
-            <option value="restance">I restance</option>
-          </select>
-          <br />
-          <br />
-          <label for="filter-kasserer" id="nav-align">Filtrér efter:</label>
-          <br />
-          <select id="nav-filter-kasserer" autocomplete="off">
-            <option value="" selected>Intet filter</option>
-            <optgroup label="Betalingsgruppe:">
-              <option value="Aktiv Junior">Junior</option>
-              <option value="Aktiv Senior">Senior</option>
-              <option value="Aktiv Senior+">Senior+</option>
-              <option value="Passiv">Passiv</option>
-            </optgroup>
-          </select>
-        </div>
-        <div class="kasserer-table">
-          <h2>Medlemmer</h2>
-          <table>
-            <thead>
-              <tr id="thh">
-                <th>Navn</th>
-                <th>Betalingsgruppe</th>
-                <th>Restance</th>
-                <th>Se detaljer</th>
-              </tr>
-            </thead>
-            <tbody id="kasserer-table-body">
-              <tr></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="kasserer-overview">
-          <article id="kasserer-income"></article>
-          <article id="kasserer-member-overview"></article>
-        </div>
-        <div class="page-footer"></div>
+  <section class="page-view" id="kasserer">
+    <div class="kasserer-container">
+      <div class="kasserer-header">
+        <img id="logo" src="images/dolphin logo.png" alt="logo" />
+        <h2>Velkommen Kasserer</h2>
       </div>
-      <dialog id="show-member-modal-kasserer"></dialog>
-      <dialog id="kasserer-update-dialog">
-        <form id="update-member-kasserer">
-          <select name="aktiv" id="active" autocomplete="off">
-            <option value="true">Aktiv</option>
-            <option value="false">Passiv</option>
-          </select>
-          <label for="isActive">Aktivitetsstatus</label>
-          <br />
-          <select name="restance" id="restance" autocomplete="off">
-            <option value="false">Nej</option>
-            <option value="true">Ja</option>
-          </select>
-          <label for="isInRestance">Er medlem i restance</label>
-          <input type="submit" id="kasserer-update-submit" class="buttonAni" value="Opdater betalingsstatus" />
-          <br />
-          <button id="kasserer-update-cancel" class="buttonAni">Annullér</button>
-        </form>
-      </dialog>
+      <!-- <br id="header-gap"> -->
+      <div class="kasserer-nav">
+        <br />
+        <br />
+        <label for="member-search-kasserer" id="nav-align">Søg (Navn):</label>
+        <br />
+        <input type="search" id="member-search-kasserer" placeholder="Søg efter navn" autocomplete="off" />
+        <br />
+        <br />
+        <label for="sort-kasserer" id="nav-align">Sortér efter:</label>
+        <br />
+        <select id="sort-kasserer" autocomplete="off">
+          <option value="name">Navn</option>
+          <option value="paymentGroup">Betalingsgruppe</option>
+          <option value="restance">I restance</option>
+        </select>
+        <br />
+        <br />
+        <label for="filter-kasserer" id="nav-align">Filtrér efter:</label>
+        <br />
+        <select id="nav-filter-kasserer" autocomplete="off">
+          <option value="" selected>Intet filter</option>
+          <optgroup label="Betalingsgruppe:">
+            <option value="Aktiv Junior">Junior</option>
+            <option value="Aktiv Senior">Senior</option>
+            <option value="Aktiv Senior+">Senior+</option>
+            <option value="Passiv">Passiv</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="kasserer-table">
+        <h2>Medlemmer</h2>
+        <table>
+          <thead>
+            <tr id="thh">
+              <th>Navn</th>
+              <th>Betalingsgruppe</th>
+              <th>Restance</th>
+              <th>Se detaljer</th>
+            </tr>
+          </thead>
+          <tbody id="kasserer-table-body">
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kasserer-overview">
+        <div id="overview">
+          <h3>Overblik over medlemmer:</h3>
+        </div>
+        <article id="kasserer-income"></article>
+        <article id="kasserer-member-overview"></article>
+      </div>
+      <div class="page-footer"></div>
+    </div>
+    <dialog id="show-member-modal-kasserer"></dialog>
+    <dialog id="kasserer-update-dialog">
+      <form id="update-member-kasserer">
+        <select name="aktiv" id="active" autocomplete="off">
+          <option value="true">Aktiv</option>
+          <option value="false">Passiv</option>
+        </select>
+        <label for="isActive">Aktivitetsstatus</label>
+        <br />
+        <select name="restance" id="restance" autocomplete="off">
+          <option value="false">Nej</option>
+          <option value="true">Ja</option>
+        </select>
+        <label for="isInRestance">Er medlem i restance</label>
+        <input type="submit" id="kasserer-update-submit" class="buttonAni" value="Opdater betalingsstatus" />
+        <br />
+        <button id="kasserer-update-cancel" class="buttonAni">Annullér</button>
+      </form>
+    </dialog>
 
       <!-- <button id="kasserer-update-button">Opdater medlem her</button> -->
 
-      <!-- <input type="text" value="abc" id="test" /> -->
-    </section>
+    <!-- <input type="text" value="abc" id="test" /> -->
+  </section>
+  <section class="page-view" id="trainer">
+    <div class="trainer-container">
+      <div class="trainer-header">
+        <img id="logo" src="images/dolphin logo.png" alt="logo" />
+        <h2>Velkommen Træner</h2>
+      </div>
 
-    <section class="page-view" id="trainer">
-      <div class="trainer-container">
-        <div class="trainer-header">
-          <img id="logo" src="images/dolphin logo.png" alt="logo" />
-          <h2>Velkommen Træner</h2>
+      <div class="trainer-nav">
+        <br />
+        <div id="overview-trainer">
+          <h3>Overblik over medlemmer:</h3>
         </div>
-        <div class="trainer-table-container">
-          <button id="trainer-create-result-button">Tilføj nyt resultat</button>
-          <div class="trainer-table-junior">
-            <h2>Junior medlemmer</h2>
-            <table>
-              <thead>
-                <tr id="thh">
-                  <th>Svømmers navn</th>
-                  <th>Type</th>
-                  <th>Stævne</th>
-                  <th>Lokation</th>
-                  <th>Dato</th>
-                  <th>Disciplin</th>
-                  <th>Resultat (sek.)</th>
-                  <th>Placering</th>
-                </tr>
-              </thead>
-              <tbody id="trainer-table-body-junior">
-                <!-- <td>Anna Andersen</td>
+        <button id="btn-trainer-create" class="buttonAni">Tilføj nyt resultat</button>
+        <br />
+        <br />
+        <label for="member-search-trainer" id="nav-align">Søg (Navn):</label>
+        <br />
+        <input type="search" id="member-search-trainer" placeholder="Søg efter navn" autocomplete="off" />
+        <br />
+        <br />
+        <label for="sort-trainer" id="nav-align">Sortér efter:</label>
+        <br />
+        <select id="sort-trainer" autocomplete="off">
+          <option value="name">Navn</option>
+          <option value="age">Aldersgruppe</option>
+        </select>
+        <br />
+        <br />
+        <label for="filter-trainer" id="nav-align">Filtrér efter:</label>
+        <br />
+        <select id="nav-filter-trainer" autocomplete="off">
+          <option value="" selected>Intet filter</option>
+          <optgroup label="Aldersgruppe:">
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+          </optgroup>
+          <optgroup label="Type:">
+            <option value="true">konkurrence</option>
+            <option value="false">Træning</option>
+          </optgroup>
+          <optgroup label="Desciplin:">
+            <option value="crawl">Crawl</option>
+            <option value="breaststroke">Brystsvømning</option>
+            <option value="backCrawl">Rygcrawl</option>
+            <option value="butterfly">Butterfly</option>
+          </optgroup>
+        </select>
+      </div>
+
+
+      <div class="trainer-table">
+
+        <h2>Medlemmer</h2>
+        <table>
+          <thead>
+            <tr id="thh">
+              <th>Svømmers navn</th>
+              <th>Aldersgruppe</th>
+              <th>Type</th>
+              <th>Dato</th>
+              <th>Disciplin</th>
+              <th>Resultat (sek.)</th>
+            </tr>
+          </thead>
+          <tbody id="trainer-table-body">
+            <!-- <td>Anna Andersen</td>
               <td>Stævne</td>
               <td>SunSwim 2023</td>
               <td>Ballerup</td>
