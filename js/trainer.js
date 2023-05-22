@@ -4,7 +4,7 @@ import { getResults, creatingResult } from "./REST.js";
 let listOfResults;
 let listOfMembers;
 
-const topFiveByDiscipline = [];
+let topFiveByDiscipline = [];
 
 function startTrainer(array) {
   listOfMembers = array;
@@ -23,6 +23,7 @@ async function updateResults() {
   listOfResults = await getResults();
   showResultTrainer(listOfResults);
   memberOverviewTrainer(listOfResults);
+  topFiveMembers(listOfResults);
   // console.log("###########", listOfResults);
 }
 
@@ -32,116 +33,107 @@ function setValueToTopFiveBy(params) {
   topFiveMembers();
 }
 function topFiveMembers() {
-  let juniorOrSeniorList = [...listOfMembers];
-  for (const member of juniorOrSeniorList) {
-    if (valueToTopFiveBy.includes("junior") && member.ageGroup === "Junior") {
-      if (member.crawl) {
-        member.crawl = "junior-crawl";
-      }
-      if (member.backcrawl) {
-        member.backCrawl = "junior-backcrawl";
-      }
-      if (member.breaststroke) {
-        member.breaststroke = "junior-breaststroke";
-      }
-      if (member.butterfly) {
-        member.butterfly = "junior-butterfly";
-      }
-    } else {
-      if (member.crawl) {
-        member.crawl = "senior-crawl";
-      } if (member.backcrawl) {
-        member.backCrawl = "senior-backcrawl";
-      } if (member.breaststroke) {
-        member.breaststroke = "senior-breaststroke";
-      } if (member.butterfly) {
-        member.butterfly = "senior-butterfly";
-      }
-    }
-  }
+  const checkCompetitive = listOfMembers.filter((member) =>member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
+
+  // if (valueToTopFiveBy.includes("junior")) {
+  //   if (valueToTopFiveBy === "junior-crawl") {
+  //   } if (valueToTopFiveBy === "junior-backcrawl") {
+  //     const checkBackCrawl = listOfResults.filter((result) =>result.discipline === "backCrawl" &&checkCompetitive.some((member) => member.id === result.uid));
+  //   } if (valueToTopFiveBy === "junior-breaststroke") {
+  //     const checkBreaststroke = listOfResults.filter((result) =>result.discipline === "breaststroke" &&checkCompetitive.some((member) => member.id === result.uid));
+  //   } if (valueToTopFiveBy === "junior-butterfly") {
+  //     const checkButterfly = listOfResults.filter((result) =>result.discipline === "butterfly" &&checkCompetitive.some((member) => member.id === result.uid));
+  //   }
+  // } else if (valueToTopFiveBy.includes("senior")) {
+
+  // }
+ const checkCrawl = listOfResults.filter((result) =>result.discipline === "crawl" &&checkCompetitive.some((member) => member.id === result.uid));
+console.log("inden sort", checkCrawl);
+
+checkCrawl.sort((a, b) => a.time - b.time);
+
+console.log("finder den det?", checkCrawl);
+
+showTopFiveTables(checkCrawl);
   
-  for (const member of juniorOrSeniorList) {
-    if (valueToTopFiveBy.includes("junior")) {
-      if (valueToTopFiveBy.includes("crawl")) {
-      topFiveByDiscipline.push(member)
-      } else if (valueToTopFiveBy.includes("backcrawl")) {
-      topFiveByDiscipline.push(member);
-      } else if(valueToTopFiveBy.includes("breaststroke")) {
-      topFiveByDiscipline.push(member);
-      } else if (valueToTopFiveBy.includes("butterfly")) {
-      topFiveByDiscipline.push(member);
-      }
+  // let juniorOrSeniorList = [...listOfMembers];
+  // for (const member of juniorOrSeniorList) {
+  //   if (valueToTopFiveBy.includes("junior") && member.ageGroup === "Junior") {
+  //     if (member.crawl) {
+  //       member.crawl = "junior-crawl";
+  //     }
+  //     if (member.backcrawl) {
+  //       member.backCrawl = "junior-backcrawl";
+  //     }
+  //     if (member.breaststroke) {
+  //       member.breaststroke = "junior-breaststroke";
+  //     }
+  //     if (member.butterfly) {
+  //       member.butterfly = "junior-butterfly";
+  //     }
+  //   } else {
+  //     if (member.crawl) {
+  //       member.crawl = "senior-crawl";
+  //     } if (member.backcrawl) {
+  //       member.backCrawl = "senior-backcrawl";
+  //     } if (member.breaststroke) {
+  //       member.breaststroke = "senior-breaststroke";
+  //     } if (member.butterfly) {
+  //       member.butterfly = "senior-butterfly";
+  //     }
+  //   }
+  // }
+
+  // for (const member of juniorOrSeniorList) {
+  //   if (valueToTopFiveBy.includes("junior")) {
+  //     if (valueToTopFiveBy.includes("crawl")) {
+  //     topFiveByDiscipline.push(member)
+  //     } else if (valueToTopFiveBy.includes("backcrawl")) {
+  //     topFiveByDiscipline.push(member);
+  //     } else if(valueToTopFiveBy.includes("breaststroke")) {
+  //     topFiveByDiscipline.push(member);
+  //     } else if (valueToTopFiveBy.includes("butterfly")) {
+  //     topFiveByDiscipline.push(member);
+  //     }
       
-    } else if (valueToTopFiveBy.includes("senior")) {
-      if (valueToTopFiveBy.includes("crawl")) {
-        topFiveByDiscipline.push(member);
-      }
-      else if (valueToTopFiveBy.includes("backcrawl")) {
-        topFiveByDiscipline.push(member);
-      }
-      else if (valueToTopFiveBy.includes("breaststroke")) {
-        topFiveByDiscipline.push(member);
-      }
-      else if (valueToTopFiveBy.includes("butterfly")) {
-        topFiveByDiscipline.push(member);
-      }
-    }
-  }
-  console.log("", topFiveByDiscipline);
-// console.log("virker skidtet?", topFiveByDiscipline);
-// a.time/b.time virker ikke da member ikke har time, mangler et resultat at kigge på
-
-// der skal somehow sættes resultater på her nedenunder
-
-topFiveByDiscipline.sort((a, b) => {
-a.time - b.time;
-});
-showTopFiveTables(topFiveByDiscipline);
-
+  //   } else if (valueToTopFiveBy.includes("senior")) {
+  //     if (valueToTopFiveBy.includes("crawl")) {
+  //       topFiveByDiscipline.push(member);
+  //     }
+  //     else if (valueToTopFiveBy.includes("backcrawl")) {
+  //       topFiveByDiscipline.push(member);
+  //     }
+  //     else if (valueToTopFiveBy.includes("breaststroke")) {
+  //       topFiveByDiscipline.push(member);
+  //     }
+  //     else if (valueToTopFiveBy.includes("butterfly")) {
+  //       topFiveByDiscipline.push(member);
+  //     }
+  //   }
+  // }
 }
-function showTopFiveTables(topFiveList) {
-const slicedTopFive = topFiveByDiscipline.slice(0, 5);
-for (const member of slicedTopFive) {
+function showTopFiveTables(checkCrawl) {
+
+  document.querySelector("#topfive-table-body").innerHTML = "";
+
+  const slicedTopFive = checkCrawl.slice(0, 5);
+  for (const member of slicedTopFive) {
   showTopFiveTable(member);
 }
 }
 
-function showTopFiveTable(member) {
-  let table;
-
-  // lav ting til at beslutte om senior eller junior
-
-  // if (member.ageGroup === "Junior") {
-  //   if (member.crawl) {
-  //     table = "topfive-crawl-junior-table-body";
-  //   } else if (member.backcrawl) {
-  //     table = "topfive-backcrawl-junior-table-body"
-  //   }else if (member.breaststroke) {
-  //     table = "topfive-breaststroke-junior-table-body";
-  //   }else if (member.butterfly) {
-  //     table = "topfive-butterfly-junior-table-body";
-  //   }
-  // } else if (member.ageGroup === "Senior") {
-  //   if (member.crawl) {
-  //     table = "#topfive-crawl-senior-table-body"
-  //   } else if (member.backcrawl) {
-  //     table = "topfive-backcrawl-senior-table-body";
-  //   }else if (member.breaststroke) {
-  //     table = "topfive-breaststroke-senior-table-body";
-  //   }else if (member.butterfly) {
-  //     table = "topfive-butterfly-senior-table-body";
-  //   }
-  // }
+function showTopFiveTable(result) {
+  const member = listOfMembers.find((member) => member.id === result.uid);
 
 const topFiveHTML = /* html */ `
     <tr>
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
-      <!--<td>${member.resultater?.time}</td> <!-- <td>  -->
-      <!--<td>${member.resultater?.placement}</td> <!-- <td>  -->
+      <td>${result.location}</td>
+      <td>${result.time}</td>
     </tr>
   `;
-  document.querySelector(`#${table}`).insertAdjacentHTML("beforeend", topFiveHTML);
+  document.querySelector(`#topfive-table-body`).insertAdjacentHTML("beforeend", topFiveHTML);
 }
 
 function showResultTrainer(results) {
