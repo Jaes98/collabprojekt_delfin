@@ -30,7 +30,8 @@ hr {
   #nav-filter-trainer,
   #sort-trainer,
   #member-search-trainer,
-  #btn-trainer-create {
+  #btn-trainer-create,
+  #nav-filter-trainer {
     position: relative;
     width: 30vw;
     left: 0;
@@ -58,7 +59,7 @@ hr {
     /* gap: 10px; */
     width: 100%;
     justify-content: center;
-    justify-items: center;
+    /* justify-items: center; */
     overflow: hidden;
   }
 
@@ -95,7 +96,11 @@ hr {
   }
   #nav-filter-kasserer,
   #sort-kasserer,
-  #member-search-kasserer {
+  #member-search-kasserer,
+  #nav-filter-trainer,
+  #sort-trainer,
+  #member-search-trainer,
+  #btn-trainer-creat {
     width: 10vw;
     margin-left: 20px;
     left: 0;
@@ -107,7 +112,11 @@ hr {
   #member-search,
   #sort,
   #nav-filter,
-  #nav-align {
+  #nav-align,
+  #nav-filter-trainer,
+  #sort-trainer,
+  #member-search-trainer,
+  #btn-trainer-create {
     width: 16vw;
     margin-left: 20px;
     left: 0;
@@ -216,8 +225,7 @@ hr {
 #member-search-kasserer,
 #nav-filter-trainer,
 #sort-trainer,
-#member-search-trainer,
-#btn-trainer-create {
+#member-search-trainer {
   background-color: #a3bfdc;
   border-width: 1px;
   border-style: solid;
@@ -295,6 +303,59 @@ h3#kasserer-overview {
   width: 100%;
   padding: 30px;
   background-color: #fff;
+}
+
+/************ trainer-page **************/
+
+.trainer-header {
+  grid-row: 1 / 2;
+  grid-column: 1 / 9;
+  background-color: #ccc;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  max-height: 120px;
+  text-align: center;
+  position: relative;
+  background-color: #569bde;
+  /* #67a0d8; */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trainer-nav {
+  grid-row: auto;
+  grid-column: 1 / 2;
+  background-color: #eee;
+  padding: 25px;
+  margin-right: 20px;
+  width: 100%;
+  padding-top: 0;
+}
+
+.trainer-table {
+  grid-row: auto;
+  grid-column: 2 / 6;
+  background-color: #fff;
+  width: 100%;
+  display: grid;
+  position: relative;
+  text-align: left;
+  align-content: start;
+}
+
+.trainer-table h2 {
+  text-align: center;
+}
+
+.trainer-overview {
+  grid-row: auto;
+  grid-column: 6/ 9;
+  background-color: #eee;
+  padding: 25px;
+  margin-right: 10px;
+  margin-left: 20px;
+  width: 100%;
 }
 
 /*********** front-page ************/

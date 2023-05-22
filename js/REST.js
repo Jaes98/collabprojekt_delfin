@@ -29,14 +29,7 @@ async function getResults() {
   // Busters note: Vi kan vel bare returne med det samme, vi bruger vist ikke memeberstoarray til andet?:
   // return prepareData(fetchedResults);
   // return fetchedResults;
-  return prepareData2(fetchedResults);
-}
-
-async function getMemberId(id) {
-  const memberIdList = await fetch(`${dolphinDatabase}/members/${id}.json`);
-  const memberId = await memberIdList.json();
-
-  return memberId;
+  return prepareDataResults(fetchedResults);
 }
 
 function prepareData(listOfObjects) {
@@ -49,7 +42,7 @@ function prepareData(listOfObjects) {
   return arrayFromFirebaseObject;
 }
 
-function prepareData2(fetchedResults) {
+function prepareDataResults(fetchedResults) {
   const arrayFromObjectList = [];
   for (const object in fetchedResults) {
     const result = fetchedResults[object];
@@ -182,4 +175,4 @@ async function creatingResult(newResult) {
   return response; 
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, getMemberId, creatingResult };
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult };

@@ -1,7 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
 
-// import { getUpdatedFirebase } from "./script";
-
 import { updateMemberPatch } from "./REST.js";
 
 let listOfMembers;

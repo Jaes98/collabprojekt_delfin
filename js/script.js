@@ -74,6 +74,7 @@ function showMemberModal(member) {
   let gender = "";
   if (member.gender === "male") gender = "Mand";
   else if (member.gender === "female") gender = "Kvinde";
+  else if (member.gender === "other") gender = " Andet";
 
   const disciplines = checkDiscipline(member);
   const html = /*HTML*/ `
