@@ -13,6 +13,7 @@ function startTrainer(array) {
   document.querySelector("#btn-trainer-close").addEventListener("click", () => document.querySelector("#create-result-modal-trainer").close());
 
   updateResults();
+  // showMemberModalTrainer();
 }
 
 async function updateResults() {
@@ -55,12 +56,39 @@ async function showMemberTrainer(result) {
       document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
     }
   }
+  document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result));
+}
+
+function showMemberModalTrainer(result) {
+  const member = listOfMembers.find((member) => member.id === result.uid);
+
+  const html = /*HTML*/ `
+    <article class="modal-item">
+      <h3>${member.name}
+        <button id="btn-close-modal-trainer" class="buttonAni">Tilbage</button>
+      </h3>
+      <section id="member-modal-section-trainer">
+      <p>Aldersgruppe: ${member.ageGroup}</p>
+      <p>Type: ${competitionBooleanToString(result)}</p>
+      <p>Stævne: ${result.compName}</p>
+      <p>Lokation: ${result.location}</p>
+      <p>Dato: ${dateToDato(result)}</p>
+      <p>Disciplin: ${disciplinesEngToDa(result)}</p>
+      <p>Resultat(sek.): ${result.time}</p>
+      <p>Placering: ${result.placement}</p>
+      </section>
+    </article>
+    `;
+  document.querySelector("#show-member-modal-trainer").innerHTML = html;
+  document.querySelector("#show-member-modal-trainer").showModal();
+
+  document.querySelector("#btn-close-modal-trainer").addEventListener("click", () => document.querySelector("#show-member-modal-trainer").close());
 }
 
 function memberOverviewTrainer() {
   // checks active competition members
   const countCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
-console.log(listOfResults);
+  console.log(listOfResults);
   // checks crawl members
   const countCrawl = listOfResults.filter((result) => result.discipline === "crawl" && countCompetitive.some((member) => member.id === result.uid));
   const countCrawlJunior = countCrawl.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
@@ -131,7 +159,6 @@ function dateToDato(result) {
 }
 
 function createResultClicked(event) {
-  
   listOfResults.push({ competition: true, compName: "Vinterstævne" });
 
   document.querySelector("#create-result-modal-trainer").showModal();
@@ -144,16 +171,15 @@ function createResultClicked(event) {
   const form = document.querySelector("#create-result-form-trainer");
 
   for (const member of listOfMembers) {
-    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem")
-      document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
+    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem") document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
   console.log(document.querySelector("#create-result-name-trainer").children);
 
   const compList = document.querySelector("#create-result-competition-trainer");
-  
+
   for (let i = 0; i < listOfResults.length; i++) {
     const currentResult = listOfResults[i];
-  
+
     let repeatCompetitionCheck = true;
     if (i >= 1) {
       for (const test of compList.children) {
@@ -185,7 +211,7 @@ function createResultClicked(event) {
       form.date.disabled = false;
       form.competition.disabled = true;
       form.placement.disabled = true;
-      
+
       form.date.value = "";
       form.location.value = "";
       form.competition.value = "";
@@ -202,10 +228,12 @@ function createResultClicked(event) {
 function submitResult(event) {
   event.preventDefault();
   const form = event.target;
-  const time = form.result.value
-  console.log(time)
-  if (time.includes(",")){time.replace(",",".")}
-  console.log(time)
+  const time = form.result.value;
+  console.log(time);
+  if (time.includes(",")) {
+    time.replace(",", ".");
+  }
+  console.log(time);
   const newResult = {
     uid: form.name.value,
     competition: form.type.value === true,
@@ -214,7 +242,7 @@ function submitResult(event) {
     location: form.location.value,
     date: form.date.value,
     time: form.result.value,
-    placement: form.placement.value,
+    placement: form.placement.value
   };
   console.log(newResult);
   // creatingResult(newResult)
