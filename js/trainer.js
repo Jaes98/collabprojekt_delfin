@@ -32,28 +32,63 @@ function setValueToTopFiveBy(params) {
   topFiveMembers();
 }
 function topFiveMembers() {
-  let newArray = [...listOfMembers];
-  console.log("virker det nye array?", newArray);
-  for (const member of newArray) {
-    if (valueToTopFiveBy.includes("junior")) {
-      member.crawl === true;member.crawl = "junior-crawl";
-      member.backcrawl === true;member.backcrawl = "junior-backcrawl";
-      member.breaststroke === true;member.breaststroke = "junior-breaststroke";
-      member.butterfly === true;member.butterfly = "junior-butterfly";
-    } else if (valueToTopFiveBy.includes("senior")) {
-      member.crawl === true;member.crawl = "senior-crawl";
-      member.backcrawl === true;member.backcrawl = "senior-backcrawl";
-      member.breaststroke === true;member.breaststroke = "senior-breaststroke";
-      member.butterfly === true;member.butterfly = "senior-butterfly";
+  let juniorOrSeniorList = [...listOfMembers];
+  console.log("virker det nye array?", juniorOrSeniorList);
+  for (const member of juniorOrSeniorList) {
+    if (valueToTopFiveBy.includes("junior") && member.ageGroup === "Junior") {
+      if (member.crawl) {
+        member.crawl = "junior-crawl";
+      }
+      if (member.backcrawl) {
+        member.backCrawl = "junior-backcrawl";
+      }
+      if (member.breaststroke) {
+        member.breaststroke = "junior-breaststroke";
+      }
+      if (member.butterfly) {
+        member.butterfly = "junior-butterfly";
+      }
+    } else {
+      if (member.crawl) {
+        member.crawl = "senior-crawl";
+      } if (member.backcrawl) {
+        member.backCrawl = "senior-backcrawl";
+      } if (member.breaststroke) {
+        member.breaststroke = "senior-breaststroke";
+      } if (member.butterfly) {
+        member.butterfly = "senior-butterfly";
+      }
     }
   }
   
-  console.log("er de ændret?", newArray);
-  // for (const member of listOfMembers) {
-  //   if (member.crawl) {
-  //     topFiveByDiscipline.push(member)
-  //   }
-  // }
+  console.log("er de ændret?", juniorOrSeniorList);
+  for (const member of juniorOrSeniorList) {
+    if (valueToTopFiveBy.includes("junior")) {
+      if (valueToTopFiveBy.includes("crawl")) {
+      const crawlFilter = juniorOrSeniorList.filter("")
+      topFiveByDiscipline.push(member)
+      } if (valueToTopFiveBy.includes("backcrawl")) {
+
+      } if(valueToTopFiveBy.includes("breaststroke")) {
+
+      } if (valueToTopFiveBy.includes("butterfly")) {
+
+      }
+      
+    } else if (valueToTopFiveBy.includes("senior")) {
+      if (valueToTopFiveBy.includes("crawl")) {
+        const crawlFilter = juniorOrSeniorList.filter("");
+        topFiveByDiscipline.push(member);
+      }
+      if (valueToTopFiveBy.includes("backcrawl")) {
+      }
+      if (valueToTopFiveBy.includes("breaststroke")) {
+      }
+      if (valueToTopFiveBy.includes("butterfly")) {
+      }
+    }
+  }
+  console.log("nu skal lortet fandme virke", topFiveByDiscipline);
 // console.log("virker skidtet?", topFiveByDiscipline);
 // a.time/b.time virker ikke da member ikke har time, mangler et resultat at kigge på
 
