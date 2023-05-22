@@ -4,24 +4,14 @@ import { getResults } from "./REST.js";
 let listOfResults;
 let listOfMembers;
 
-const competetiveJuniorMembers = {
-  crawl: [],
-  backcrawl: [],
-  breaststroke: [],
-  butterfly: [],
-};
-const competetiveSeniorMembers = {
-  crawl: [],
-  backcrawl: [],
-  breaststroke: [],
-  butterfly: [],
-};
+const topFiveByDiscipline = [];
 
 function startTrainer(array) {
   listOfMembers = array;
 
   updateResults();
-  topFiveMembers();
+  
+  document.querySelector("#topFive-select").addEventListener("change", setValueToTopFiveBy);
 }
 
 async function updateResults() {
@@ -31,96 +21,50 @@ async function updateResults() {
   // console.log("###########", listOfResults);
 }
 
-
-function topFiveMembers() {
-  const seniorList = competetiveSeniorMembers
-  const juniorList = competetiveJuniorMembers
-  for (const memberID of listOfMembers) {
-
-    if (memberID.ageGroup === "Junior") {
-      if (memberID.crawl) {
-        juniorList.crawl.push(memberID);
-      } if (memberID.backcrawl) {
-        juniorList.backcrawl.push(memberID);
-      } if (memberID.breaststroke) {
-        juniorList.breaststroke.push(memberID);
-      } if (memberID.butterfly) {
-        juniorList.butterfly.push(memberID);
-      };
-    } else if (memberID.ageGroup === "Senior") {
-      if (memberID.crawl) {
-        seniorList.crawl.push(memberID);
-      } if (memberID.backcrawl) {
-        seniorList.backcrawl.push(memberID);
-      } if (memberID.breaststroke) {
-        seniorList.breaststroke.push(memberID);
-      } if (memberID.butterfly) {
-        seniorList.butterfly.push(memberID);
-      }
-    }
-
+let valueToTopFiveBy = "crawl";
+function setValueToTopFiveBy(params) {
+  valueToTopFiveBy = document.querySelector("#topFive-select").value;
+  topFiveMembers();
 }
+function topFiveMembers() {
+  for (const member of listOfMembers) {
+    if (member.valueToTopFiveBy) {
+      topFiveByDiscipline.push(member)
+    }
+    
+}
+console.log("virker skidtet?", topFiveByDiscipline);
 
-const time = competetiveJuniorMembers.butterfly.time
-console.log("timetingeling", time);
 
 // a.time/b.time virker ikke da member ikke har time, mangler et resultat at kigge på
 
-const juniorCrawl = juniorList.crawl.sort((a, b) => {
-a.time - b.time;
-});
-console.log("juniorcrawl", juniorCrawl);
+// der skal somehow sættes resultater på her nedenunder
 
-juniorList.backcrawl.sort((a, b) => {
+topFiveByDiscipline.sort((a, b) => {
 a.time - b.time;
 });
 
-juniorList.breaststroke.sort((a, b) => {
-a.time - b.time;
-});
-
-juniorList.butterfly.sort((a, b) => {
-a.time - b.time;
-  });
-
-seniorList.crawl.sort((a, b) => {
-a.time - b.time;
-  });
-
-seniorList.backcrawl.sort((a, b) => {
-a.time - b.time;
-  });
-
-seniorList.breaststroke.sort((a, b) => {
-a.time - b.time;
-  });
-
-seniorList.butterfly.sort((a, b) => {
-a.time - b.time;
-});
-
-showTopFiveTables(competetiveJuniorMembers, competetiveSeniorMembers);
+showTopFiveTables(topFiveByDiscipline);
 
 }
-function showTopFiveTables(juniorMembers, seniorMembers) {
+function showTopFiveTables(topFiveList) {
 
-  for (const discipline in juniorMembers) {
-    const members = juniorMembers[discipline];
-    for (const member of members.slice(0, 5)) {
-      showTopFiveTable(member);
-    }
-  }
+  // somehow lav en slice her så det kun er top 5 members der kommer videre
+  showTopFiveTable(topFiveList.slice(0,5))
+  // måske sådan
 
-  for (const discipline in seniorMembers) {
-    const members = seniorMembers[discipline];
-    for (const member of members.slice(0, 5)) {
-      showTopFiveTable(member);
-    }
-  }
+  // for (const discipline in seniorMembers) {
+  //   const members = seniorMembers[discipline];
+  //   for (const member of members.slice(0, 5)) {
+  //     showTopFiveTable(member);
+  //   }
+  // }
 }
 
 function showTopFiveTable(member) {
   let table;
+
+  // lav ting til at beslutte om senior eller junior
 
   // if (member.ageGroup === "Junior") {
   //   if (member.crawl) {
