@@ -33,7 +33,6 @@ function setValueToTopFiveBy(params) {
 }
 function topFiveMembers() {
   let juniorOrSeniorList = [...listOfMembers];
-  console.log("virker det nye array?", juniorOrSeniorList);
   for (const member of juniorOrSeniorList) {
     if (valueToTopFiveBy.includes("junior") && member.ageGroup === "Junior") {
       if (member.crawl) {
@@ -61,7 +60,6 @@ function topFiveMembers() {
     }
   }
   
-  console.log("er de ændret?", juniorOrSeniorList);
   for (const member of juniorOrSeniorList) {
     if (valueToTopFiveBy.includes("junior")) {
       if (valueToTopFiveBy.includes("crawl")) {
@@ -89,7 +87,7 @@ function topFiveMembers() {
       }
     }
   }
-  console.log("nu skal lortet fandme virke", topFiveByDiscipline);
+  console.log("", topFiveByDiscipline);
 // console.log("virker skidtet?", topFiveByDiscipline);
 // a.time/b.time virker ikke da member ikke har time, mangler et resultat at kigge på
 
