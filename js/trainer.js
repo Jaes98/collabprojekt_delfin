@@ -131,7 +131,8 @@ function dateToDato(result) {
 }
 
 function createResultClicked(event) {
-  resultater.push({ competition: true, compName: "Vinterstævne" });
+  
+  listOfResults.push({ competition: true, compName: "Vinterstævne" });
 
   document.querySelector("#create-result-modal-trainer").showModal();
   document.querySelector("#create-result-type-trainer").addEventListener("change", changeFormBasedOnResultType);
@@ -150,8 +151,8 @@ function createResultClicked(event) {
 
   const compList = document.querySelector("#create-result-competition-trainer");
   
-  for (let i = 0; i < resultater.length; i++) {
-    const currentResult = resultater[i];
+  for (let i = 0; i < listOfResults.length; i++) {
+    const currentResult = listOfResults[i];
   
     let repeatCompetitionCheck = true;
     if (i >= 1) {
@@ -170,7 +171,7 @@ function createResultClicked(event) {
   changeFormBasedOnCompetition();
 
   function changeFormBasedOnCompetition(event) {
-    const selectedCompetition = resultater.find((result) => result.compName === form.competition.value);
+    const selectedCompetition = listOfResults.find((result) => result.compName === form.competition.value);
     form.location.value = selectedCompetition.location;
     form.date.value = selectedCompetition.date;
   }
@@ -201,6 +202,10 @@ function createResultClicked(event) {
 function submitResult(event) {
   event.preventDefault();
   const form = event.target;
+  const time = form.result.value
+  console.log(time)
+  if (time.includes(",")){time.replace(",",".")}
+  console.log(time)
   const newResult = {
     uid: form.name.value,
     competition: form.type.value === true,
@@ -208,12 +213,12 @@ function submitResult(event) {
     discipline: form.discipline.value,
     location: form.location.value,
     date: form.date.value,
-    time: Number(form.result.value),
+    time: form.result.value,
     placement: form.placement.value,
   };
   console.log(newResult);
-  creatingResult(newResult)
-  getUpdatedFirebase()
+  // creatingResult(newResult)
+  // getUpdatedFirebase()
 }
 
 function editCompetitionClicked(params) {
