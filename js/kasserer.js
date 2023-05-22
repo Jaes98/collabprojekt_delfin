@@ -105,6 +105,9 @@ function kassererOverview(params) {
   const income = document.querySelector("#kasserer-income");
   const memberInfo = document.querySelector("#kasserer-member-overview");
 
+  income.innerHTML = ""
+  memberInfo.innerHTML =""
+  
   memberInfo.insertAdjacentHTML(
     "beforeend",
     `

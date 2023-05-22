@@ -348,6 +348,9 @@
           <button id="btn-trainer-create" class="buttonAni">Tilføj nyt resultat</button>
           <br />
           <br />
+          <button id="btn-trainer-competition" class="buttonAni">Rediger stævner</button>
+          <br />
+          <br />
           <label for="member-search-trainer" id="nav-align">Søg (Navn):</label>
           <br />
           <input type="search" id="member-search-trainer" placeholder="Søg efter navn" autocomplete="off" />
@@ -440,6 +443,47 @@
         </div>
 
         <div class="page-footer"></div>
+        <dialog id="show-result-modal-trainer"></dialog>
+        <dialog id="show-competition-modal-trainer">Indsæt stævner her</dialog>
+        <dialog id="create-result-modal-trainer">
+          <form id="create-result-form-trainer">
+            <label for="name">Konkurrentens navn</label>
+            <select name="name" id="create-result-name-trainer"></select>
+
+            <label for="type">Resultattype</label>
+            <select name="type" id="create-result-type-trainer" autocomplete="off">
+              <option value=true>Konkurrence</option>
+              <option value=false>Træning</option>
+            </select>
+
+            <label for="competition">Vælg stævne</label>
+
+            <select name="competition" id="create-result-competition-trainer">
+              
+            </select>
+
+            <label for="discipline">Vælg disciplin</label>
+            <select name="discipline" id="">
+              <option value="crawl">Crawl</option>
+              <option value="butterfly">Butterfly</option>
+              <option value="backCrawl">Rygcrawl</option>
+              <option value="breaststroke">Brystsvømning</option>
+            </select>
+
+            <label for="location">Sted</label>
+            <input type="text" name="location" disabled autocomplete="off"/>
+            <label for="date">Dato</label>
+            <input type="text" name="date" required disabled autocomplete="off"/>
+            <label for="result">Resultat i sek.</label>
+            <input type="text" name="result" autocomplete="off"/>
+            <label for="placement">Placering</label>
+            <input type="number" name="placement" autocomplete="off"/>
+
+            <input type="submit" value="Opret resultat" id="btn-trainer-submit"/>
+
+            <input type="reset" value="Luk vindue" id="btn-trainer-close"/>
+          </form>
+        </dialog>
       </div>
     </section>
   </body>

@@ -151,7 +151,28 @@ function failedPrompt() {
   // Remove after a few seconds
   setTimeout(() => {
     alertFailed.remove();
-  }, 3000);
+  }, 3001);
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData };
+async function creatingResult(newResult) {
+  console.log("creatingResult");
+  const json = JSON.stringify(newResult);
+
+  const response = await fetch(`${dolphinDatabase}/results.json`, {
+    method: "POST",
+    body: json,
+  });
+
+  if (response.status === 200) {
+    console.log("result was send to the database");
+    successPrompt();
+    document.querySelector("#create-result-modal-trainer").close();
+  } else {
+    console.error("result was NOT send to the database");
+    failedPrompt();
+  }
+
+  return response; 
+}
+
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult };

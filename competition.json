@@ -1,0 +1,58 @@
+{
+  "id0": {
+    "compName": "Vinterstævne",
+    "date": "2023-11-07",
+    "location": "Esbjerg Svømmestadion"
+  },
+  "id1": {
+    "compName": "DM i svømning 2023",
+    "date": "2023-03-09",
+    "location": "Køge svømmehal"
+  },
+  "id2": {
+    "compName": "Høststævne 2023",
+    "date": "2023-06-11",
+    "location": "Frederiksberg svømmehal"
+  },
+  "id3": {
+    "compName": "Julestævne 2023",
+    "date": "2023-12-10",
+    "location": "Aarhus Svømmestadion"
+  },
+  "id4": {
+    "compName": "Vandpolo Cup 2023",
+    "date": "2023-05-07",
+    "location": "Helsingør svømmehal"
+  },
+  "id5": {
+    "compName": "Påske Stævne 2023",
+    "date": "2023-03-08",
+    "location": "Aalborg Svømmecenter"
+  },
+
+  "id6": {
+    "compName": "Forårsstævne 2023",
+    "date": "2023-04-08",
+    "location": "Roskilde Svømmecenter"
+  },
+  "id7": {
+    "compName": "Sommerstævne 2023",
+    "date": "2023-08-10",
+    "location": "Odense Idrætspark"
+  },
+  "id8": {
+    "compName": "SunSwim 2023",
+    "date": "2023-05-06",
+    "location": "Ballerup Svømmehal"
+  },
+  "id9": {
+    "compName": "Amager Games 2023",
+    "date": "2023-07-10",
+    "location": "Frankrigsgade Svømmehal"
+  },
+  "id10": {
+    "compName": "Amager Games 2022",
+    "date": "2023-07-08",
+    "location": "Aalborg Svømmecenter"
+  }
+}

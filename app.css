@@ -672,3 +672,7 @@ tr:nth-child(odd):hover {
 .red {
   background-color: red;
 }
+
+#create-result-form-trainer {
+  display: grid;
+}
