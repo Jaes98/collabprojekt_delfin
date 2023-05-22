@@ -153,7 +153,7 @@ const topFiveHTML = /* html */ `
       <td>${member.placement}</td>
     </tr>
   `;
-  document.querySelector(`${table}`).insertAdjacentHTML("beforeend", topFiveHTML);
+  document.querySelector(`#${table}`).insertAdjacentHTML("beforeend", topFiveHTML);
 }
 
 function showResultTrainer(resultater) {
