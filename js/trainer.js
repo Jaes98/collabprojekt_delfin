@@ -3,6 +3,7 @@ import { getResults } from "./REST.js";
 
 let resultater;
 let listOfMembers;
+
 const competetiveJuniorMembers = {
   crawl: [],
   backcrawl: [],
@@ -31,77 +32,83 @@ async function updateResults() {
 
 function topFiveMembers() {
   for (const memberID of listOfMembers) {
+    console.log("memberID tingen", memberID);
 
     if (memberID.ageGroup === "Junior") {
       if (memberID.crawl) {
         competetiveJuniorMembers.crawl.push(memberID);
-      } else if (memberID.backcrawl) {
+      } if (memberID.backcrawl) {
         competetiveJuniorMembers.backcrawl.push(memberID);
-      } else if (memberID.breaststroke) {
+      } if (memberID.breaststroke) {
         competetiveJuniorMembers.breaststroke.push(memberID);
-      } else if (memberID.butterfly) {
+      } if (memberID.butterfly) {
         competetiveJuniorMembers.butterfly.push(memberID);
       };
-    }
-  
-    if (memberID.ageGroup === "Senior") {
+    } else if (memberID.ageGroup === "Senior") {
       if (memberID.crawl) {
         competetiveSeniorMembers.crawl.push(memberID);
-      } else if (memberID.backcrawl) {
+      } if (memberID.backcrawl) {
         competetiveSeniorMembers.backcrawl.push(memberID);
-      } else if (memberID.breaststroke) {
+      } if (memberID.breaststroke) {
         competetiveSeniorMembers.breaststroke.push(memberID);
-      } else if (memberID.butterfly) {
+      } if (memberID.butterfly) {
         competetiveSeniorMembers.butterfly.push(memberID);
       }
     }
 
-  console.log("Nye lister, henholdsvis junior og så senior:", competetiveJuniorMembers, competetiveSeniorMembers);
-
- 
- for (const discipline in competetiveJuniorMembers.crawl) {
-  console.log("loopet af members crawl", discipline);
-   discipline.sort((a, b) => {
-     return a.time - b.time;
-   });
- }
- for (const discipline in competetiveJuniorMembers.backcrawl) {
-   competetiveJuniorMembers[discipline].sort((a, b) => {
-     return a.time - b.time;
-   });
- }
- for (const discipline in competetiveJuniorMembers.breaststroke) {
-   competetiveJuniorMembers[discipline].sort((a, b) => {
-     return a.time - b.time;
-   });
- }
- for (const discipline in competetiveJuniorMembers.butterfly) {
-   competetiveJuniorMembers[discipline].sort((a, b) => {
-     return a.time - b.time;
-   });
- }
- for (const discipline in competetiveSeniorMembers.crawl) {
-   competetiveSeniorMembers[discipline].sort((a, b) => {
-     return a.time - b.time;
-   });
- }
-for (const discipline in competetiveSeniorMembers.backcrawl) {
-    competetiveSeniorMembers[discipline].sort((a, b) => {
-      return a.time - b.time;
-    });
-  }
-for (const discipline in competetiveSeniorMembers.breaststroke) {
-     competetiveSeniorMembers[discipline].sort((a, b) => {
-       return a.time - b.time;
-     });
-   }
-for (const discipline in competetiveSeniorMembers.butterfly) {
-      competetiveSeniorMembers[discipline].sort((a, b) => {
-        return a.time - b.time;
-      });
-    }
 }
+const sorta = competetiveJuniorMembers.butterfly.sort((a, b) => {
+  a.time - b.time;
+});
+console.log("sort a", sorta);
+
+const time = competetiveJuniorMembers.butterfly.time
+console.log("timetingeling", time);
+
+// for (const discipline of competetiveJuniorMembers.crawl) {
+//  console.log("loopet af members crawl", discipline);
+//   discipline.sort((a, b) => {
+//     return a.time - b.time;
+//   });
+// }
+// for (const discipline of competetiveJuniorMembers.backcrawl) {
+//   competetiveJuniorMembers[discipline].sort((a, b) => {
+//     return a.time - b.time;
+//   });
+// }
+// for (const discipline of competetiveJuniorMembers.breaststroke) {
+//   competetiveJuniorMembers[discipline].sort((a, b) => {
+//     return a.time - b.time;
+//   });
+// }
+// for (const discipline of competetiveJuniorMembers.butterfly) {
+//   competetiveJuniorMembers[discipline].sort((a, b) => {
+//     return a.time - b.time;
+//   });
+// }
+// for (const discipline of competetiveSeniorMembers.crawl) {
+//   competetiveSeniorMembers[discipline].sort((a, b) => {
+//     return a.time - b.time;
+//   });
+// }
+// for (const discipline of competetiveSeniorMembers.backcrawl) {
+//    competetiveSeniorMembers[discipline].sort((a, b) => {
+//      return a.time - b.time;
+//    });
+//  }
+// for (const discipline of competetiveSeniorMembers.breaststroke) {
+//     competetiveSeniorMembers[discipline].sort((a, b) => {
+//       return a.time - b.time;
+//     });
+//   }
+// for (const discipline of competetiveSeniorMembers.butterfly) {
+//      competetiveSeniorMembers[discipline].sort((a, b) => {
+//        return a.time - b.time;
+//      });
+//    }
+
 showTopFiveTables(competetiveJuniorMembers, competetiveSeniorMembers);
+
 }
 function showTopFiveTables(juniorMembers, seniorMembers) {
 
@@ -123,27 +130,28 @@ function showTopFiveTables(juniorMembers, seniorMembers) {
 function showTopFiveTable() {
   let table;
 
-  if (member.ageGroup === "Junior") {
-    if (member.crawl) {
-      table = "topfive-crawl-junior-table-body";
-    } else if (member.backcrawl) {
-      table = "topfive-backcrawl-junior-table-body"
-    }else if (member.breaststroke) {
-      table = "topfive-breaststroke-junior-table-body";
-    }else if (member.butterfly) {
-      table = "topfive-butterfly-junior-table-body";
-    }
-  } else if (member.ageGroup === "Senior") {
-    if (member.crawl) {
-      table = "#topfive-crawl-senior-table-body"
-    } else if (member.backcrawl) {
-      table = "topfive-backcrawl-senior-table-body";
-    }else if (member.breaststroke) {
-      table = "topfive-breaststroke-senior-table-body";
-    }else if (member.butterfly) {
-      table = "topfive-butterfly-senior-table-body";
-    }
-  }
+  // if (member.ageGroup === "Junior") {
+  //   if (member.crawl) {
+  //     table = "topfive-crawl-junior-table-body";
+  //   } else if (member.backcrawl) {
+  //     table = "topfive-backcrawl-junior-table-body"
+  //   }else if (member.breaststroke) {
+  //     table = "topfive-breaststroke-junior-table-body";
+  //   }else if (member.butterfly) {
+  //     table = "topfive-butterfly-junior-table-body";
+  //   }
+  // } else if (member.ageGroup === "Senior") {
+  //   if (member.crawl) {
+  //     table = "#topfive-crawl-senior-table-body"
+  //   } else if (member.backcrawl) {
+  //     table = "topfive-backcrawl-senior-table-body";
+  //   }else if (member.breaststroke) {
+  //     table = "topfive-breaststroke-senior-table-body";
+  //   }else if (member.butterfly) {
+  //     table = "topfive-butterfly-senior-table-body";
+  //   }
+  // }
+
 const topFiveHTML = /* html */ `
     <tr>
       <td>${member.name}</td>
@@ -178,10 +186,10 @@ async function showMemberTrainer(result) {
       <tr class="member-item-kasserer">
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
-      <td>${competition}</td>
-      <td>${dato}</td>
-      <td>${disciplin}</td>
-      <td>${result.time}</td>
+      <td>${member.competition}</td>
+      <td>${member.dato}</td>
+      <td>${member.disciplin}</td>
+      <!--<td>${result.time}</td> <!-- <td>  -->
       
     </tr>
       `;
@@ -211,5 +219,4 @@ const dates = result.date.split("-");
 dato = dates[2] + "-" + dates[1] + "-" + dates[0];
 
 }
-
 export { startTrainer };
