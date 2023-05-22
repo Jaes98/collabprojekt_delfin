@@ -1,5 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults,getCompetitions, creatingResult, createCompetition } from "./REST.js";
+import { getResults, getCompetitions, creatingResult, createCompetition, updateResult } from "./REST.js";
 
 let listOfResults;
 let listOfMembers;
@@ -9,7 +9,11 @@ function startTrainer(array) {
   listOfMembers = array;
 
   document.querySelector("#btn-trainer-create").addEventListener("click", createResultClicked);
-  document.querySelector("#btn-trainer-competition").addEventListener("click", ()=>document.querySelector("#show-competition-modal-trainer").showModal());
+  document.querySelector("#btn-trainer-competition").addEventListener("click", () => document.querySelector("#show-competition-modal-trainer").showModal());
+  document.querySelector("#member-search-trainer").addEventListener("keyup", searchBarChanged);
+  document.querySelector("#member-search-trainer").addEventListener("search", searchBarChanged);
+  document.querySelector("#sort-trainer").addEventListener("change", setSort);
+  document.querySelector("#nav-filter-trainer").addEventListener("change", chosenFilter);
   document.querySelector("#create-result-form-trainer").addEventListener("submit", submitResult);
   document.querySelector("#competition-form-trainer").addEventListener("submit", submitCompetition);
   document.querySelector("#btn-trainer-close").addEventListener("click", () => document.querySelector("#create-result-modal-trainer").close());
@@ -19,16 +23,24 @@ function startTrainer(array) {
 
 async function updateResultsAndCompetitions() {
   listOfResults = await getResults();
-  listOfCompetitions = await getCompetitions()
-  updateListOfCompetitions()
+  listOfCompetitions = await getCompetitions();
+  updateListOfCompetitions();
   showResultTrainer(listOfResults);
   memberOverviewTrainer(listOfResults);
-  // console.log("###########", listOfResults);
+  addNamesToResults();
+}
+
+function setSortAndFilters() {
+  const sortedList = sortList(listOfResults);
+  const searchedList = sortedList.filter((result) => result.name.toLowerCase().includes(valueToSearchBy));
+  const filteredList = filterList(searchedList);
+  if (filteredList.length === 0) {
+    const noResultsHtml = /* html */ `<p>Ingen resultater fundet.</p>`;
+    document.querySelector("#trainer-table-body").innerHTML = noResultsHtml;
+  } else showResultTrainer(filteredList);
 }
 
 function showResultTrainer(results) {
-  console.log("showResults array:", results);
-
   document.querySelector("#trainer-table-body").innerHTML = "";
 
   for (const result of results) {
@@ -40,9 +52,7 @@ function showResultTrainer(results) {
 async function showMemberTrainer(result) {
   const member = listOfMembers.find((member) => member.id === result.uid);
 
-  // console.log("xxxx", result);
   if (member) {
-    console.log(member);
     if (member.active === "Aktivt medlem" && member.competetive === "Konkurrent") {
       const html = /*html*/ `
       <tr class="member-item-kasserer">
@@ -64,7 +74,7 @@ async function showMemberTrainer(result) {
 function memberOverviewTrainer() {
   // checks active competition members
   const countCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
-console.log(listOfResults);
+  console.log(listOfResults);
   // checks crawl members
   const countCrawl = listOfResults.filter((result) => result.discipline === "crawl" && countCompetitive.some((member) => member.id === result.uid));
   const countCrawlJunior = countCrawl.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
@@ -78,7 +88,9 @@ console.log(listOfResults);
   // checks breaststroke members
   const countBreaststroke = listOfResults.filter((result) => result.discipline === "breaststroke" && countCompetitive.some((member) => member.id === result.uid));
   const countBreaststrokeJunior = countBreaststroke.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
-  const countBreaststrokeSenior = countBreaststroke.filter((result) => listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)).length;
+  const countBreaststrokeSenior = countBreaststroke.filter((result) =>
+    listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)
+  ).length;
 
   // checks butterfly members
   const countButterfly = listOfResults.filter((result) => result.discipline === "butterfly" && countCompetitive.some((member) => member.id === result.uid));
@@ -118,7 +130,6 @@ function competitionBooleanToString(result) {
 
 function disciplinesEngToDa(result) {
   let disciplin = "";
-  console.log(result);
   if (result.discipline === "crawl") disciplin = "Crawl";
   else if (result.discipline === "butterfly") disciplin = "Butterfly";
   else if (result.discipline === "backCrawl") disciplin = "Rygcrawl";
@@ -135,8 +146,8 @@ function dateToDato(result) {
 }
 
 function createResultClicked(event) {
-  console.log("list of competitions:",listOfCompetitions)
-  
+  console.log("list of competitions:", listOfCompetitions);
+
   listOfResults.push({ competition: true, compName: "Vinterstævne" });
 
   document.querySelector("#create-result-modal-trainer").showModal();
@@ -156,12 +167,12 @@ function createResultClicked(event) {
 
   const compList = document.querySelector("#create-result-competition-trainer");
   for (const competition of listOfCompetitions) {
-    compList.insertAdjacentHTML("beforeend",`<option value="${competition.compName}">${competition.compName}</option>`)
+    compList.insertAdjacentHTML("beforeend", `<option value="${competition.compName}">${competition.compName}</option>`);
   }
-  
+
   // for (let i = 0; i < listOfResults.length; i++) {
   //   const currentResult = listOfResults[i];
-  
+
   //   let repeatCompetitionCheck = true;
   //   if (i >= 1) {
   //     for (const test of compList.children) {
@@ -174,7 +185,6 @@ function createResultClicked(event) {
   //     compList.insertAdjacentHTML("beforeend", `<option value="${currentResult.compName}">${currentResult.compName}</option>`);
   //   }
   // }
-  
 
   changeFormBasedOnCompetition();
 
@@ -185,15 +195,14 @@ function createResultClicked(event) {
   }
 
   function changeFormBasedOnResultType(event) {
-    
     const target = event.target.value;
-    
+
     if (target === "false") {
       form.location.disabled = false;
       form.date.disabled = false;
       form.competition.disabled = true;
       form.placement.disabled = true;
-      
+
       form.date.value = "";
       form.location.value = "";
       form.competition.value = "";
@@ -210,13 +219,15 @@ function createResultClicked(event) {
 function submitResult(event) {
   event.preventDefault();
   const form = event.target;
-  const time = form.result.value
-  let actualTime = time
-  
-  if (time.includes(",")){actualTime = time.replace(",",".")}
-  if(isNaN(Number(actualTime))){console.log("ERROR: Time is not a number");}
+  const time = form.result.value;
+  let actualTime = time;
 
-  else{
+  if (time.includes(",")) {
+    actualTime = time.replace(",", ".");
+  }
+  if (isNaN(Number(actualTime))) {
+    console.log("ERROR: Time is not a number");
+  } else {
     const newResult = {
       uid: form.name.value,
       competition: form.type.value === true,
@@ -228,36 +239,92 @@ function submitResult(event) {
       placement: form.placement.value,
     };
     console.log(newResult);
-    creatingResult(newResult)
-    getUpdatedFirebase()
+    creatingResult(newResult);
+    getUpdatedFirebase();
   }
-
-
 }
 
-function updateListOfCompetitions(){
-  const table =  document.querySelector("#competition-table-trainer")
-  table.innerHTML =""
+function updateListOfCompetitions() {
+  const table = document.querySelector("#competition-table-trainer");
+  table.innerHTML = "";
   for (const competition of listOfCompetitions) {
-    document.querySelector("#competition-table-trainer").insertAdjacentHTML("beforeend",`<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button>Slet stævne</button></td></tr>`)
+    document
+      .querySelector("#competition-table-trainer")
+      .insertAdjacentHTML("beforeend", `<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button>Slet stævne</button></td></tr>`);
   }
 }
 
 function submitCompetition(event) {
-  event.preventDefault()
-  const form = event.target
-  
-  const dateCheck = Date.parse(form.date.value)
-  
-  if (isNaN(dateCheck))console.error("ERROR: Date is incorrect! Use format: åååå-mm-dd");
-  else{
-  const competitionToSubmit = {
-    compName: form.compName.value,
-    location: form.location.value,
-    date: form.date.value
-  }
-  createCompetition(competitionToSubmit)
-  getUpdatedFirebase()
-}}
+  event.preventDefault();
+  const form = event.target;
 
-export { startTrainer }
+  const dateCheck = Date.parse(form.date.value);
+
+  if (isNaN(dateCheck)) console.error("ERROR: Date is incorrect! Use format: åååå-mm-dd");
+  else {
+    const competitionToSubmit = {
+      compName: form.compName.value,
+      location: form.location.value,
+      date: form.date.value,
+    };
+    createCompetition(competitionToSubmit);
+    getUpdatedFirebase();
+  }
+}
+
+function addNamesToResults() {
+  for (const result of listOfResults) {
+    const correctMember = listOfMembers.find((member) => member.id === result.uid);
+    result.name = correctMember.name;
+  }
+}
+
+function sortList(listToSort) {
+  if (valueToSortBy === "age") {
+    return listToSort.sort((first, second) => first.age - second.age);
+  } else {
+    return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
+  }
+}
+
+let valueToSortBy = "name";
+function setSort() {
+  valueToSortBy = document.querySelector("#sort-trainer").value;
+  setSortAndFilters();
+}
+
+let valueToSearchBy = "";
+function searchBarChanged() {
+  valueToSearchBy = document.querySelector("#member-search-trainer").value;
+  setSortAndFilters();
+}
+
+let valueToFilterBy = "";
+function chosenFilter() {
+  valueToFilterBy = document.querySelector("#nav-filter-trainer").value;
+  setSortAndFilters();
+}
+
+function filterList(searchedList) {
+  console.log(valueToFilterBy);
+  console.log(searchedList);
+  console.log(typeof valueToFilterBy);
+  if (valueToFilterBy === "true") valueToFilterBy = true;
+  else if (valueToFilterBy === "false") valueToFilterBy = false;
+  console.log(valueToFilterBy);
+  console.log(typeof valueToFilterBy);
+
+  if (valueToFilterBy === "") return searchedList;
+  return searchedList.filter((result) => Object.values(result).includes(valueToFilterBy));
+}
+
+async function resultUpdater(params) {
+  const resultToUpdate = {
+    uid: "-ghdsk-sdljdsj7",
+  };
+
+  const id = "id1415";
+  updateResult(resultToUpdate, id);
+}
+
+export { startTrainer };
