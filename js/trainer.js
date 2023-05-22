@@ -63,6 +63,8 @@ function topFiveMembers() {
 const time = competetiveJuniorMembers.butterfly.time
 console.log("timetingeling", time);
 
+// a.time/b.time virker ikke da member ikke har time, mangler et resultat at kigge på
+
 const juniorCrawl = juniorList.crawl.sort((a, b) => {
 a.time - b.time;
 });
@@ -145,8 +147,8 @@ const topFiveHTML = /* html */ `
     <tr>
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
-      <td>${member.resultater?.time}</td>
-      <td>${member.resultater?.placement}</td>
+      <!--<td>${member.resultater?.time}</td> <!-- <td>  -->
+      <!--<td>${member.resultater?.placement}</td> <!-- <td>  -->
     </tr>
   `;
   document.querySelector(`#${table}`).insertAdjacentHTML("beforeend", topFiveHTML);
