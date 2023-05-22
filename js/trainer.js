@@ -1,6 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, getMemberId } from "./REST.js";
-import { ageCalculator } from "./Helper-functions.js";
+import { getResults } from "./REST.js";
 
 let resultater;
 let listOfMembers;
@@ -168,45 +167,49 @@ function showResultTrainer(resultater) {
 }
 
 async function showMemberTrainer(result) {
-   const member = listOfMembers.find((member) => member.id === result.uid);
+  const member = listOfMembers.find((member) => member.id === result.uid);
+  disciplinesEngToDa(result);
+  competitionBooleanToString(result);
+  dateToDato(result);
 
   // console.log("xxxx", result);
 
-  let competition = "";
-
-  if (result.competition) competition = "Konkurrence";
-  else if (result.competition === false) competition = "Træning";
-
-  // if (member.age >= 18) {
-    const html = /*html*/ `
+  const html = /*html*/ `
       <tr class="member-item-kasserer">
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
       <td>${competition}</td>
-      <td>${result.date}</td>
-      <td>${result.discipline}</td>
+      <td>${dato}</td>
+      <td>${disciplin}</td>
       <td>${result.time}</td>
       
     </tr>
       `;
 
-    document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
-  // } else if (member.age < 18) {
-  //   const html = /*html*/ `
-  //     <tr class="member-item-kasserer">
-  //     <td>${member.name}</td>
-  //     <td>${member.ageGroup}</td>
-  //     <td>${competition}</td>
-  //     <td>${result.date}</td>
-  //     <td>${result.discipline}</td>
-  //     <td>${result.time}</td>
-  //   </tr>
-  //     `;
+  document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
+}
 
-  //   document.querySelector("#trainer-table-body-junior").insertAdjacentHTML("beforeend", html);
-  // } else {
-  //   console.error("for showMemberTrainer: something is wrong");
-  // }
+let competition = "";
+function competitionBooleanToString(result) {
+  if (result.competition) competition = "Konkurrence";
+  else if (result.competition === false) competition = "Træning";
+}
+
+let disciplin = "";
+function disciplinesEngToDa(result) {
+  console.log(result);
+  if (result.discipline === "crawl") disciplin = "Crawl";
+  else if (result.discipline === "butterfly") disciplin = "Butterfly";
+  else if (result.discipline === "backCrawl") disciplin = "Rygcrawl";
+  else if (result.discipline === "breaststroke") disciplin = "Bryst svømning";
+}
+
+let dato = "";
+function dateToDato(result) {
+const dates = result.date.split("-");
+
+dato = dates[2] + "-" + dates[1] + "-" + dates[0];
+
 }
 
 export { startTrainer };
