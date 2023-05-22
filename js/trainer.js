@@ -31,81 +31,70 @@ async function updateResults() {
 
 
 function topFiveMembers() {
+  const seniorList = competetiveSeniorMembers
+  const juniorList = competetiveJuniorMembers
   for (const memberID of listOfMembers) {
     console.log("memberID tingen", memberID);
 
     if (memberID.ageGroup === "Junior") {
       if (memberID.crawl) {
-        competetiveJuniorMembers.crawl.push(memberID);
+        juniorList.crawl.push(memberID);
       } if (memberID.backcrawl) {
-        competetiveJuniorMembers.backcrawl.push(memberID);
+        juniorList.backcrawl.push(memberID);
       } if (memberID.breaststroke) {
-        competetiveJuniorMembers.breaststroke.push(memberID);
+        juniorList.breaststroke.push(memberID);
       } if (memberID.butterfly) {
-        competetiveJuniorMembers.butterfly.push(memberID);
+        juniorList.butterfly.push(memberID);
       };
     } else if (memberID.ageGroup === "Senior") {
       if (memberID.crawl) {
-        competetiveSeniorMembers.crawl.push(memberID);
+        seniorList.crawl.push(memberID);
       } if (memberID.backcrawl) {
-        competetiveSeniorMembers.backcrawl.push(memberID);
+        seniorList.backcrawl.push(memberID);
       } if (memberID.breaststroke) {
-        competetiveSeniorMembers.breaststroke.push(memberID);
+        seniorList.breaststroke.push(memberID);
       } if (memberID.butterfly) {
-        competetiveSeniorMembers.butterfly.push(memberID);
+        seniorList.butterfly.push(memberID);
       }
     }
 
 }
-const sorta = competetiveJuniorMembers.butterfly.sort((a, b) => {
-  a.time - b.time;
-});
-console.log("sort a", sorta);
 
 const time = competetiveJuniorMembers.butterfly.time
 console.log("timetingeling", time);
 
-// for (const discipline of competetiveJuniorMembers.crawl) {
-//  console.log("loopet af members crawl", discipline);
-//   discipline.sort((a, b) => {
-//     return a.time - b.time;
-//   });
-// }
-// for (const discipline of competetiveJuniorMembers.backcrawl) {
-//   competetiveJuniorMembers[discipline].sort((a, b) => {
-//     return a.time - b.time;
-//   });
-// }
-// for (const discipline of competetiveJuniorMembers.breaststroke) {
-//   competetiveJuniorMembers[discipline].sort((a, b) => {
-//     return a.time - b.time;
-//   });
-// }
-// for (const discipline of competetiveJuniorMembers.butterfly) {
-//   competetiveJuniorMembers[discipline].sort((a, b) => {
-//     return a.time - b.time;
-//   });
-// }
-// for (const discipline of competetiveSeniorMembers.crawl) {
-//   competetiveSeniorMembers[discipline].sort((a, b) => {
-//     return a.time - b.time;
-//   });
-// }
-// for (const discipline of competetiveSeniorMembers.backcrawl) {
-//    competetiveSeniorMembers[discipline].sort((a, b) => {
-//      return a.time - b.time;
-//    });
-//  }
-// for (const discipline of competetiveSeniorMembers.breaststroke) {
-//     competetiveSeniorMembers[discipline].sort((a, b) => {
-//       return a.time - b.time;
-//     });
-//   }
-// for (const discipline of competetiveSeniorMembers.butterfly) {
-//      competetiveSeniorMembers[discipline].sort((a, b) => {
-//        return a.time - b.time;
-//      });
-//    }
+const juniorCrawl = juniorList.crawl.sort((a, b) => {
+a.time - b.time;
+});
+console.log("juniorcrawl", juniorCrawl);
+
+juniorList.backcrawl.sort((a, b) => {
+a.time - b.time;
+});
+
+juniorList.breaststroke.sort((a, b) => {
+a.time - b.time;
+});
+
+juniorList.butterfly.sort((a, b) => {
+a.time - b.time;
+  });
+
+seniorList.crawl.sort((a, b) => {
+a.time - b.time;
+  });
+
+seniorList.backcrawl.sort((a, b) => {
+a.time - b.time;
+  });
+
+seniorList.breaststroke.sort((a, b) => {
+a.time - b.time;
+  });
+
+seniorList.butterfly.sort((a, b) => {
+a.time - b.time;
+});
 
 showTopFiveTables(competetiveJuniorMembers, competetiveSeniorMembers);
 
@@ -127,7 +116,7 @@ function showTopFiveTables(juniorMembers, seniorMembers) {
   }
 }
 
-function showTopFiveTable() {
+function showTopFiveTable(member) {
   let table;
 
   // if (member.ageGroup === "Junior") {
@@ -156,8 +145,8 @@ const topFiveHTML = /* html */ `
     <tr>
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
-      <td>${member.time}</td>
-      <td>${member.placement}</td>
+      <td>${member.resultater?.time}</td>
+      <td>${member.resultater?.placement}</td>
     </tr>
   `;
   document.querySelector(`#${table}`).insertAdjacentHTML("beforeend", topFiveHTML);
@@ -186,10 +175,10 @@ async function showMemberTrainer(result) {
       <tr class="member-item-kasserer">
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
-      <td>${member.competition}</td>
-      <td>${member.dato}</td>
-      <td>${member.disciplin}</td>
-      <!--<td>${result.time}</td> <!-- <td>  -->
+      <td>${competition}</td>
+      <td>${dato}</td>
+      <td>${disciplin}</td>
+      <td>${result.time}</td>
       
     </tr>
       `;
