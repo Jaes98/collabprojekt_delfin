@@ -306,15 +306,9 @@ function chosenFilter() {
 }
 
 function filterList(searchedList) {
-  console.log(valueToFilterBy);
-  console.log(searchedList);
-  console.log(typeof valueToFilterBy);
-  if (valueToFilterBy === "true") valueToFilterBy = true;
-  else if (valueToFilterBy === "false") valueToFilterBy = false;
-  console.log(valueToFilterBy);
-  console.log(typeof valueToFilterBy);
-
   if (valueToFilterBy === "") return searchedList;
+  else if (valueToFilterBy === "true") valueToFilterBy = true;
+  else if (valueToFilterBy === "false") valueToFilterBy = false;
   return searchedList.filter((result) => Object.values(result).includes(valueToFilterBy));
 }
 

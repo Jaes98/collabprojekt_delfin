@@ -23,6 +23,8 @@ function start() {
   document.querySelector("#btn-formand-no-update").addEventListener("click", () => document.querySelector("#dialog-update-member2").close());
   document.querySelector("#sort").addEventListener("change", setSort);
   document.querySelector("#nav-filter").addEventListener("change", chosenFilter);
+  document.querySelector("#log-in-reset").addEventListener("click", () => viewControl("#front-page"));
+  document.querySelector("#log-in-form").addEventListener("submit", logInAttempt);
 
   document.querySelector("#member-search").addEventListener("keyup", searchBarChanged);
   document.querySelector("#member-search").addEventListener("search", searchBarChanged);
@@ -283,6 +285,14 @@ function chosenFilter() {
 function filterList(searchedList) {
   if (valueToFilterBy === "") return searchedList;
   return searchedList.filter((member) => Object.values(member).includes(valueToFilterBy));
+}
+
+function logInAttempt(event) {
+  event.preventDefault();
+  console.log("logging");
+  const form = event.target;
+  console.log(form.brugernavn.value);
+  if (form.brugernavn.value === "test") viewControl("#kasserer");
 }
 
 export { getUpdatedFirebase };
