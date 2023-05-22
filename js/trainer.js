@@ -1,5 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults,getCompetitions, creatingResult } from "./REST.js";
+import { getResults,getCompetitions, creatingResult, createCompetition } from "./REST.js";
 
 let listOfResults;
 let listOfMembers;
@@ -9,17 +9,18 @@ function startTrainer(array) {
   listOfMembers = array;
 
   document.querySelector("#btn-trainer-create").addEventListener("click", createResultClicked);
-  document.querySelector("#btn-trainer-competition").addEventListener("click", editCompetitionClicked);
+  document.querySelector("#btn-trainer-competition").addEventListener("click", ()=>document.querySelector("#show-competition-modal-trainer").showModal());
   document.querySelector("#create-result-form-trainer").addEventListener("submit", submitResult);
   document.querySelector("#competition-form-trainer").addEventListener("submit", submitCompetition);
   document.querySelector("#btn-trainer-close").addEventListener("click", () => document.querySelector("#create-result-modal-trainer").close());
 
-  updateResults();
+  updateResultsAndCompetitions();
 }
 
-async function updateResults() {
+async function updateResultsAndCompetitions() {
   listOfResults = await getResults();
   listOfCompetitions = await getCompetitions()
+  updateListOfCompetitions()
   showResultTrainer(listOfResults);
   memberOverviewTrainer(listOfResults);
   // console.log("###########", listOfResults);
@@ -234,22 +235,29 @@ function submitResult(event) {
 
 }
 
-function editCompetitionClicked(params) {
-  const modal = document.querySelector("#show-competition-modal-trainer")
-  const overview = document.querySelector("#competition-overview-trainer")
-  const table = document.querySelector("#competition-table-trainer")
-  // overview.innerHTML = ""
-  modal.showModal();
+function updateListOfCompetitions(){
+  const table =  document.querySelector("#competition-table-trainer")
+  table.innerHTML =""
   for (const competition of listOfCompetitions) {
-    console.log(table)
-    table.insertAdjacentHTML("beforeend",`<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button>Slet stævne</button></td></tr>`)
+    document.querySelector("#competition-table-trainer").insertAdjacentHTML("beforeend",`<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button>Slet stævne</button></td></tr>`)
   }
-
 }
 
 function submitCompetition(event) {
   event.preventDefault()
-  console.log("submitting comp!!!")
-}
+  const form = event.target
+  
+  const dateCheck = Date.parse(form.date.value)
+  
+  if (isNaN(dateCheck))console.error("ERROR: Date is incorrect! Use format: åååå-mm-dd");
+  else{
+  const competitionToSubmit = {
+    compName: form.compName.value,
+    location: form.location.value,
+    date: form.date.value
+  }
+  createCompetition(competitionToSubmit)
+  getUpdatedFirebase()
+}}
 
-export { startTrainer };
+export { startTrainer }

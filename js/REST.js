@@ -39,6 +39,26 @@ async function getCompetitions() {
   return prepareData(fetchedCompetitions)
 }
 
+async function createCompetition(newCompetition) {
+  console.log("creatingResult");
+  const json = JSON.stringify(newCompetition);
+
+  const response = await fetch(`${dolphinDatabase}/competition.json`, {
+    method: "POST",
+    body: json,
+  });
+
+  if (response.status === 200) {
+    console.log("competition was send to the database");
+    successPrompt();
+  } else {
+    console.error("competition was NOT send to the database");
+    failedPrompt();
+  }
+
+  return response; 
+}
+
 function prepareData(listOfObjects) {
   const arrayFromFirebaseObject = [];
   for (const object in listOfObjects) {
@@ -182,4 +202,4 @@ async function creatingResult(newResult) {
   return response; 
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions };
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition };
