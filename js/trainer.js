@@ -26,21 +26,35 @@ async function updateResults() {
   // console.log("###########", listOfResults);
 }
 
-let valueToTopFiveBy = "crawl";
+let valueToTopFiveBy = "junior-crawl";
 function setValueToTopFiveBy(params) {
   valueToTopFiveBy = document.querySelector("#topFive-select").value;
   topFiveMembers();
 }
 function topFiveMembers() {
-  for (const member of listOfMembers) {
-    if (member.valueToTopFiveBy) {
-      topFiveByDiscipline.push(member)
+  let newArray = [...listOfMembers];
+  console.log("virker det nye array?", newArray);
+  for (const member of newArray) {
+    if (valueToTopFiveBy.includes("junior")) {
+      member.crawl === true;member.crawl = "junior-crawl";
+      member.backcrawl === true;member.backcrawl = "junior-backcrawl";
+      member.breaststroke === true;member.breaststroke = "junior-breaststroke";
+      member.butterfly === true;member.butterfly = "junior-butterfly";
+    } else if (valueToTopFiveBy.includes("senior")) {
+      member.crawl === true;member.crawl = "senior-crawl";
+      member.backcrawl === true;member.backcrawl = "senior-backcrawl";
+      member.breaststroke === true;member.breaststroke = "senior-breaststroke";
+      member.butterfly === true;member.butterfly = "senior-butterfly";
     }
-    
-}
-console.log("virker skidtet?", topFiveByDiscipline);
-
-
+  }
+  
+  console.log("er de ændret?", newArray);
+  // for (const member of listOfMembers) {
+  //   if (member.crawl) {
+  //     topFiveByDiscipline.push(member)
+  //   }
+  // }
+// console.log("virker skidtet?", topFiveByDiscipline);
 // a.time/b.time virker ikke da member ikke har time, mangler et resultat at kigge på
 
 // der skal somehow sættes resultater på her nedenunder
@@ -48,7 +62,6 @@ console.log("virker skidtet?", topFiveByDiscipline);
 topFiveByDiscipline.sort((a, b) => {
 a.time - b.time;
 });
-
 showTopFiveTables(topFiveByDiscipline);
 
 }
