@@ -292,9 +292,9 @@ function logInAttempt(event) {
   console.log("logging");
   const form = event.target;
   console.log(form.brugernavn.value);
-  if (form.brugernavn.value === "test1") viewControl("#formand");
-  else if (form.brugernavn.value === "test2") viewControl("#kasserer");
-  else if (form.brugernavn.value === "test3") viewControl("#trainer");
+  if (form.brugernavn.value === "formand") viewControl("#formand");
+  else if (form.brugernavn.value === "kasserer") viewControl("#kasserer");
+  else if (form.brugernavn.value === "træner") viewControl("#trainer");
 }
 
 export { getUpdatedFirebase };
