@@ -411,7 +411,37 @@
 
         <div class="page-footer"></div>
         <dialog id="show-result-modal-trainer"></dialog>
-        <dialog id="show-competition-modal-trainer">Indsæt stævner her</dialog>
+        <dialog id="show-competition-modal-trainer">
+          <form id="competition-form-trainer">
+            <label for="name">Navn på stævne</label>
+            <input type="text" name="compName" placeholder="Fulde navn på stævnet">
+            <label for="location">Sted</label>
+            <input type="text" name="location" placeholder="Navn på svømmehal">
+            <label for="date">Dato</label>
+            <input type="text" name="date" placeholder="åååå-mm-dd">
+            <input type="submit" name="submit" value="Opret stævne">
+          </form>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div>
+          <table id="competition-overview-trainer">
+            <thead>
+              <tr>
+                <th>Navn på stævne</th>
+                <th>Lokation</th>
+                <th>Dato</th>
+                <th>Slet stævne fra listen</th>
+              </tr>
+            </thead>
+            <tbody id="competition-table-trainer">
+      
+            </tbody>
+          </table>
+        </div>
+        </dialog>
         <dialog id="create-result-modal-trainer">
           <form id="create-result-form-trainer">
             <label for="name">Konkurrentens navn</label>
