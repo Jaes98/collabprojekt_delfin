@@ -3,8 +3,7 @@
 window.addEventListener("load", viewControl);
 
 function viewControl(newHash) {
-  console.log(newHash);
-  if (newHash === "#front-page" || newHash === "#kasserer") location.hash = newHash;
+  if (typeof newHash == "string") location.hash = newHash;
   window.addEventListener("hashchange", changeHash);
   changeHash();
 }
