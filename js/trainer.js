@@ -15,7 +15,7 @@ function startTrainer(array) {
   document.querySelector("#btn-trainer-close").addEventListener("click", () => document.querySelector("#create-result-modal-trainer").close());
 
   updateResults();
-  
+
   document.querySelector("#topFive-select").addEventListener("change", setValueToTopFiveBy);
 }
 
@@ -27,13 +27,30 @@ async function updateResults() {
   // console.log("###########", listOfResults);
 }
 
-let valueToTopFiveBy = "junior-crawl";
+let valueToTopFiveBy = "Junior-crawl";
 function setValueToTopFiveBy(params) {
   valueToTopFiveBy = document.querySelector("#topFive-select").value;
   topFiveMembers();
 }
+
+function name(params) {}
+
 function topFiveMembers() {
-  const checkCompetitive = listOfMembers.filter((member) =>member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
+  console.log(listOfResults);
+  let listOfDesiredResults = [];
+  const htmlToDiscipline = valueToTopFiveBy.substring(7);
+  const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
+
+  for (const result of listOfResults) {
+    console.log(result.ageGroup);
+    console.log(htmlToAgeGroup);
+    if (result.discipline.includes(htmlToDiscipline) && result.ageGroup === htmlToAgeGroup) listOfDesiredResults.push(result);
+  }
+
+  console.log("list of desired results:", listOfDesiredResults);
+  console.log("sorted top 5 senior+junior:", listOfDesiredResults.sort((a, b) => a.time - b.time).splice(0, 5));
+
+  const checkCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
 
   // if (valueToTopFiveBy.includes("junior")) {
   //   if (valueToTopFiveBy === "junior-crawl") {
@@ -47,15 +64,15 @@ function topFiveMembers() {
   // } else if (valueToTopFiveBy.includes("senior")) {
 
   // }
- const checkCrawl = listOfResults.filter((result) =>result.discipline === "crawl" &&checkCompetitive.some((member) => member.id === result.uid));
-console.log("inden sort", checkCrawl);
+  const checkCrawl = listOfResults.filter((result) => result.discipline === "crawl" && checkCompetitive.some((member) => member.id === result.uid));
+  console.log("inden sort", checkCrawl);
 
-checkCrawl.sort((a, b) => a.time - b.time);
+  checkCrawl.sort((a, b) => a.time - b.time);
 
-console.log("finder den det?", checkCrawl);
+  console.log("finder den det?", checkCrawl);
 
-showTopFiveTables(checkCrawl);
-  
+  showTopFiveTables(checkCrawl);
+
   // let juniorOrSeniorList = [...listOfMembers];
   // for (const member of juniorOrSeniorList) {
   //   if (valueToTopFiveBy.includes("junior") && member.ageGroup === "Junior") {
@@ -95,7 +112,7 @@ showTopFiveTables(checkCrawl);
   //     } else if (valueToTopFiveBy.includes("butterfly")) {
   //     topFiveByDiscipline.push(member);
   //     }
-      
+
   //   } else if (valueToTopFiveBy.includes("senior")) {
   //     if (valueToTopFiveBy.includes("crawl")) {
   //       topFiveByDiscipline.push(member);
@@ -113,19 +130,18 @@ showTopFiveTables(checkCrawl);
   // }
 }
 function showTopFiveTables(checkCrawl) {
-
   document.querySelector("#topfive-table-body").innerHTML = "";
 
   const slicedTopFive = checkCrawl.slice(0, 5);
   for (const member of slicedTopFive) {
-  showTopFiveTable(member);
-}
+    showTopFiveTable(member);
+  }
 }
 
 function showTopFiveTable(result) {
   const member = listOfMembers.find((member) => member.id === result.uid);
 
-const topFiveHTML = /* html */ `
+  const topFiveHTML = /* html */ `
     <tr>
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
@@ -136,11 +152,19 @@ const topFiveHTML = /* html */ `
   document.querySelector(`#topfive-table-body`).insertAdjacentHTML("beforeend", topFiveHTML);
 }
 
+function addAgeToResults(params) {
+  for (const result of listOfResults) {
+    const member = listOfMembers.find((member) => member.id === result.uid);
+    if (member !== undefined) result.ageGroup = member.ageGroup;
+  }
+  console.log(listOfResults);
+}
+
 function showResultTrainer(results) {
   console.log("showResults array:", results);
 
   document.querySelector("#trainer-table-body").innerHTML = "";
-
+  addAgeToResults();
   for (const result of results) {
     showMemberTrainer(result);
     // console.log(result);
@@ -174,7 +198,7 @@ async function showMemberTrainer(result) {
 function memberOverviewTrainer() {
   // checks active competition members
   const countCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
-console.log(listOfResults);
+  console.log(listOfResults);
   // checks crawl members
   const countCrawl = listOfResults.filter((result) => result.discipline === "crawl" && countCompetitive.some((member) => member.id === result.uid));
   const countCrawlJunior = countCrawl.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
@@ -188,7 +212,9 @@ console.log(listOfResults);
   // checks breaststroke members
   const countBreaststroke = listOfResults.filter((result) => result.discipline === "breaststroke" && countCompetitive.some((member) => member.id === result.uid));
   const countBreaststrokeJunior = countBreaststroke.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
-  const countBreaststrokeSenior = countBreaststroke.filter((result) => listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)).length;
+  const countBreaststrokeSenior = countBreaststroke.filter((result) =>
+    listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)
+  ).length;
 
   // checks butterfly members
   const countButterfly = listOfResults.filter((result) => result.discipline === "butterfly" && countCompetitive.some((member) => member.id === result.uid));
@@ -245,7 +271,6 @@ function dateToDato(result) {
 }
 
 function createResultClicked(event) {
-  
   listOfResults.push({ competition: true, compName: "Vinterstævne" });
 
   document.querySelector("#create-result-modal-trainer").showModal();
@@ -264,10 +289,10 @@ function createResultClicked(event) {
   console.log(document.querySelector("#create-result-name-trainer").children);
 
   const compList = document.querySelector("#create-result-competition-trainer");
-  
+
   for (let i = 0; i < listOfResults.length; i++) {
     const currentResult = listOfResults[i];
-  
+
     let repeatCompetitionCheck = true;
     if (i >= 1) {
       for (const test of compList.children) {
@@ -299,7 +324,7 @@ function createResultClicked(event) {
       form.date.disabled = false;
       form.competition.disabled = true;
       form.placement.disabled = true;
-      
+
       form.date.value = "";
       form.location.value = "";
       form.competition.value = "";
@@ -316,10 +341,12 @@ function createResultClicked(event) {
 function submitResult(event) {
   event.preventDefault();
   const form = event.target;
-  const time = form.result.value
-  console.log(time)
-  if (time.includes(",")){time.replace(",",".")}
-  console.log(time)
+  const time = form.result.value;
+  console.log(time);
+  if (time.includes(",")) {
+    time.replace(",", ".");
+  }
+  console.log(time);
   const newResult = {
     uid: form.name.value,
     competition: form.type.value === true,
