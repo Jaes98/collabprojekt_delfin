@@ -65,26 +65,27 @@ function topFiveMembers() {
   for (const member of juniorOrSeniorList) {
     if (valueToTopFiveBy.includes("junior")) {
       if (valueToTopFiveBy.includes("crawl")) {
-      const crawlFilter = juniorOrSeniorList.filter("")
       topFiveByDiscipline.push(member)
-      } if (valueToTopFiveBy.includes("backcrawl")) {
-
-      } if(valueToTopFiveBy.includes("breaststroke")) {
-
-      } if (valueToTopFiveBy.includes("butterfly")) {
-
+      } else if (valueToTopFiveBy.includes("backcrawl")) {
+      topFiveByDiscipline.push(member);
+      } else if(valueToTopFiveBy.includes("breaststroke")) {
+      topFiveByDiscipline.push(member);
+      } else if (valueToTopFiveBy.includes("butterfly")) {
+      topFiveByDiscipline.push(member);
       }
       
     } else if (valueToTopFiveBy.includes("senior")) {
       if (valueToTopFiveBy.includes("crawl")) {
-        const crawlFilter = juniorOrSeniorList.filter("");
         topFiveByDiscipline.push(member);
       }
-      if (valueToTopFiveBy.includes("backcrawl")) {
+      else if (valueToTopFiveBy.includes("backcrawl")) {
+        topFiveByDiscipline.push(member);
       }
-      if (valueToTopFiveBy.includes("breaststroke")) {
+      else if (valueToTopFiveBy.includes("breaststroke")) {
+        topFiveByDiscipline.push(member);
       }
-      if (valueToTopFiveBy.includes("butterfly")) {
+      else if (valueToTopFiveBy.includes("butterfly")) {
+        topFiveByDiscipline.push(member);
       }
     }
   }
@@ -101,17 +102,10 @@ showTopFiveTables(topFiveByDiscipline);
 
 }
 function showTopFiveTables(topFiveList) {
-
-  // somehow lav en slice her så det kun er top 5 members der kommer videre
-  showTopFiveTable(topFiveList.slice(0,5))
-  // måske sådan
-
-  // for (const discipline in seniorMembers) {
-  //   const members = seniorMembers[discipline];
-  //   for (const member of members.slice(0, 5)) {
-  //     showTopFiveTable(member);
-  //   }
-  // }
+const slicedTopFive = topFiveByDiscipline.slice(0, 5);
+for (const member of slicedTopFive) {
+  showTopFiveTable(member);
+}
 }
 
 function showTopFiveTable(member) {
