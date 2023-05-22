@@ -406,7 +406,8 @@ h3 {
 }
 
 @media (max-width: 1000px) {
-  .kasserer-overview {
+  .kasserer-overview,
+  .trainer-overview {
     margin-left: 0px;
   }
 }
