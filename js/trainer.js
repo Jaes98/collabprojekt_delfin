@@ -33,22 +33,28 @@ function setValueToTopFiveBy(params) {
   topFiveMembers();
 }
 
-function name(params) {}
-
 function topFiveMembers() {
-  console.log(listOfResults);
+  // HER BEGYNDER DET BUSTER BIKSEDE FREM: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  addAgeToResults();
+  function addAgeToResults(params) {
+    for (const result of listOfResults) {
+      const member = listOfMembers.find((member) => member.id === result.uid);
+      if (member !== undefined) {
+        if (member.ageGroup === "Senior+") member.ageGroup = "Senior";
+        result.ageGroup = member.ageGroup;
+      }
+    }
+  }
   let listOfDesiredResults = [];
   const htmlToDiscipline = valueToTopFiveBy.substring(7);
   const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
 
   for (const result of listOfResults) {
-    console.log(result.ageGroup);
-    console.log(htmlToAgeGroup);
-    if (result.discipline.includes(htmlToDiscipline) && result.ageGroup === htmlToAgeGroup) listOfDesiredResults.push(result);
+    if (result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup) listOfDesiredResults.push(result);
   }
 
-  console.log("list of desired results:", listOfDesiredResults);
-  console.log("sorted top 5 senior+junior:", listOfDesiredResults.sort((a, b) => a.time - b.time).splice(0, 5));
+  console.log("sorted top 5", listOfDesiredResults.sort((a, b) => a.time - b.time).splice(0, 5));
+  // HER SLUTTER DET BUSTER SKREV @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   const checkCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
 
@@ -152,19 +158,11 @@ function showTopFiveTable(result) {
   document.querySelector(`#topfive-table-body`).insertAdjacentHTML("beforeend", topFiveHTML);
 }
 
-function addAgeToResults(params) {
-  for (const result of listOfResults) {
-    const member = listOfMembers.find((member) => member.id === result.uid);
-    if (member !== undefined) result.ageGroup = member.ageGroup;
-  }
-  console.log(listOfResults);
-}
-
 function showResultTrainer(results) {
   console.log("showResults array:", results);
 
   document.querySelector("#trainer-table-body").innerHTML = "";
-  addAgeToResults();
+
   for (const result of results) {
     showMemberTrainer(result);
     // console.log(result);
