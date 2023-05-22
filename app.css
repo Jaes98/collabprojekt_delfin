@@ -308,57 +308,6 @@ h3 {
 
 /************ trainer-page **************/
 
-/* .trainer-header {
-  grid-row: 1 / 2;
-  grid-column: 1 / 9;
-  background-color: #ccc;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 100%;
-  max-height: 120px;
-  text-align: center;
-  position: relative;
-  background-color: #569bde;
-  /* #67a0d8; 
-  align-items: center;
-  justify-content: space-between;
-} */
-
-/* .trainer-nav {
-  grid-row: auto;
-  grid-column: 1 / 2;
-  background-color: #eee;
-  padding: 25px;
-  margin-right: 20px;
-  width: 100%;
-  padding-top: 0;
-} */
-
-/* .trainer-table {
-  grid-row: auto;
-  grid-column: 2 / 6;
-  background-color: #fff;
-  width: 100%;
-  display: grid;
-  position: relative;
-  text-align: left;
-  align-content: start;
-} */
-
-/* .trainer-table h2 {
-  text-align: center;
-}
-
-.trainer-overview {
-  grid-row: auto;
-  grid-column: 6/ 9;
-  background-color: #eee;
-  padding: 25px;
-  margin-right: 10px;
-  margin-left: 20px;
-  width: 100%;
-} */
-
 .trainer-header {
   grid-row: 1 / 2;
   grid-column: 1 / 9;
@@ -651,12 +600,6 @@ section.active#kasserer {
 section.active#trainer {
   background-color: grey;
   display: grid;
-
-  /* display: grid;
-  font-size: 300px;
-  padding: 2em;
-  margin: 2em; 
-  */
 }
 
 .highlighted {
@@ -820,8 +763,18 @@ tr:nth-child(odd):hover {
   box-shadow: 2px 2px 6px #6e88a3;
 }
 
-.red {
-  background-color: red;
+.btn-red {
+  background-color: rgb(221, 15, 15);
+}
+.btn-red:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+.btn-green {
+  background-color: rgb(51, 194, 51);
+}
+.btn-green:hover {
+  background-color: rgb(0, 255, 0);
 }
 
 #create-result-form-trainer {
