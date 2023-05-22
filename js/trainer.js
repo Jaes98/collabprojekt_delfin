@@ -1,5 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, getMemberId } from "./REST.js";
+import { getResults, getMemberId, creatingResult } from "./REST.js";
 import { ageCalculator } from "./Helper-functions.js";
 
 let resultater;
@@ -93,11 +93,10 @@ function createResultClicked(event) {
   console.log(document.querySelector("#create-result-name-trainer").children);
 
   const compList = document.querySelector("#create-result-competition-trainer");
+  
   for (let i = 0; i < resultater.length; i++) {
     const currentResult = resultater[i];
-    // console.log(compList.children.value.includes === "Vinterstævne");
-    // if (result.competition === true && compList.includes(result.competition) === false) {
-
+  
     let repeatCompetitionCheck = true;
     if (i >= 1) {
       for (const test of compList.children) {
@@ -121,13 +120,15 @@ function createResultClicked(event) {
   }
 
   function changeFormBasedOnResultType(event) {
+    console.log("asejnfdasdf");
     const target = event.target.value;
-    if (target === "træning") {
+    console.log(target);
+    if (target === "false") {
       form.location.disabled = false;
       form.date.disabled = false;
       form.competition.disabled = true;
       form.placement.disabled = true;
-
+      
       form.date.value = "";
       form.location.value = "";
       form.competition.value = "";
@@ -155,6 +156,8 @@ function submitResult(event) {
     placement: form.placement.value,
   };
   console.log(newResult);
+  creatingResult(newResult)
+  getUpdatedFirebase()
 }
 
 function editCompetitionClicked(params) {
