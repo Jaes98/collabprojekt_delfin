@@ -32,6 +32,13 @@ async function getResults() {
   return prepareDataResults(fetchedResults);
 }
 
+async function getCompetitions() {
+  const resultsFromDatabase = await fetch(`${dolphinDatabase}/competition.json`);
+  const fetchedCompetitions = await resultsFromDatabase.json();
+  console.log(fetchedCompetitions);
+  return prepareData(fetchedCompetitions)
+}
+
 function prepareData(listOfObjects) {
   const arrayFromFirebaseObject = [];
   for (const object in listOfObjects) {
@@ -175,4 +182,4 @@ async function creatingResult(newResult) {
   return response; 
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult };
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions };

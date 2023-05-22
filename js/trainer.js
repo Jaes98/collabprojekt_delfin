@@ -1,8 +1,9 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, creatingResult } from "./REST.js";
+import { getResults,getCompetitions, creatingResult } from "./REST.js";
 
 let listOfResults;
 let listOfMembers;
+let listOfCompetitions;
 
 function startTrainer(array) {
   listOfMembers = array;
@@ -10,6 +11,7 @@ function startTrainer(array) {
   document.querySelector("#btn-trainer-create").addEventListener("click", createResultClicked);
   document.querySelector("#btn-trainer-competition").addEventListener("click", editCompetitionClicked);
   document.querySelector("#create-result-form-trainer").addEventListener("submit", submitResult);
+  document.querySelector("#competition-form-trainer").addEventListener("submit", submitCompetition);
   document.querySelector("#btn-trainer-close").addEventListener("click", () => document.querySelector("#create-result-modal-trainer").close());
 
   updateResults();
@@ -17,6 +19,7 @@ function startTrainer(array) {
 
 async function updateResults() {
   listOfResults = await getResults();
+  listOfCompetitions = await getCompetitions()
   showResultTrainer(listOfResults);
   memberOverviewTrainer(listOfResults);
   // console.log("###########", listOfResults);
@@ -131,6 +134,7 @@ function dateToDato(result) {
 }
 
 function createResultClicked(event) {
+  console.log("list of competitions:",listOfCompetitions)
   
   listOfResults.push({ competition: true, compName: "Vinterstævne" });
 
@@ -150,36 +154,39 @@ function createResultClicked(event) {
   console.log(document.querySelector("#create-result-name-trainer").children);
 
   const compList = document.querySelector("#create-result-competition-trainer");
-  
-  for (let i = 0; i < listOfResults.length; i++) {
-    const currentResult = listOfResults[i];
-  
-    let repeatCompetitionCheck = true;
-    if (i >= 1) {
-      for (const test of compList.children) {
-        repeatCompetitionCheck = test.value !== currentResult.compName;
-        if (repeatCompetitionCheck === false) break;
-      }
-    }
-
-    if (currentResult.competition === true && repeatCompetitionCheck) {
-      compList.insertAdjacentHTML("beforeend", `<option value="${currentResult.compName}">${currentResult.compName}</option>`);
-    }
+  for (const competition of listOfCompetitions) {
+    compList.insertAdjacentHTML("beforeend",`<option value="${competition.compName}">${competition.compName}</option>`)
   }
-  console.log(compList.children);
+  
+  // for (let i = 0; i < listOfResults.length; i++) {
+  //   const currentResult = listOfResults[i];
+  
+  //   let repeatCompetitionCheck = true;
+  //   if (i >= 1) {
+  //     for (const test of compList.children) {
+  //       repeatCompetitionCheck = test.value !== currentResult.compName;
+  //       if (repeatCompetitionCheck === false) break;
+  //     }
+  //   }
+
+  //   if (currentResult.competition === true && repeatCompetitionCheck) {
+  //     compList.insertAdjacentHTML("beforeend", `<option value="${currentResult.compName}">${currentResult.compName}</option>`);
+  //   }
+  // }
+  
 
   changeFormBasedOnCompetition();
 
   function changeFormBasedOnCompetition(event) {
-    const selectedCompetition = listOfResults.find((result) => result.compName === form.competition.value);
+    const selectedCompetition = listOfCompetitions.find((competition) => competition.compName === form.competition.value);
     form.location.value = selectedCompetition.location;
     form.date.value = selectedCompetition.date;
   }
 
   function changeFormBasedOnResultType(event) {
-    console.log("asejnfdasdf");
+    
     const target = event.target.value;
-    console.log(target);
+    
     if (target === "false") {
       form.location.disabled = false;
       form.date.disabled = false;
@@ -203,26 +210,46 @@ function submitResult(event) {
   event.preventDefault();
   const form = event.target;
   const time = form.result.value
-  console.log(time)
-  if (time.includes(",")){time.replace(",",".")}
-  console.log(time)
-  const newResult = {
-    uid: form.name.value,
-    competition: form.type.value === true,
-    compName: form.competition.value,
-    discipline: form.discipline.value,
-    location: form.location.value,
-    date: form.date.value,
-    time: form.result.value,
-    placement: form.placement.value,
-  };
-  console.log(newResult);
-  // creatingResult(newResult)
-  // getUpdatedFirebase()
+  let actualTime = time
+  
+  if (time.includes(",")){actualTime = time.replace(",",".")}
+  if(isNaN(Number(actualTime))){console.log("ERROR: Time is not a number");}
+
+  else{
+    const newResult = {
+      uid: form.name.value,
+      competition: form.type.value === true,
+      compName: form.competition.value,
+      discipline: form.discipline.value,
+      location: form.location.value,
+      date: form.date.value,
+      time: form.result.value,
+      placement: form.placement.value,
+    };
+    console.log(newResult);
+    creatingResult(newResult)
+    getUpdatedFirebase()
+  }
+
+
 }
 
 function editCompetitionClicked(params) {
-  document.querySelector("#show-competition-modal-trainer").showModal();
+  const modal = document.querySelector("#show-competition-modal-trainer")
+  const overview = document.querySelector("#competition-overview-trainer")
+  const table = document.querySelector("#competition-table-trainer")
+  // overview.innerHTML = ""
+  modal.showModal();
+  for (const competition of listOfCompetitions) {
+    console.log(table)
+    table.insertAdjacentHTML("beforeend",`<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button>Slet stævne</button></td></tr>`)
+  }
+
+}
+
+function submitCompetition(event) {
+  event.preventDefault()
+  console.log("submitting comp!!!")
 }
 
 export { startTrainer };
