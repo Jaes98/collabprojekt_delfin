@@ -365,96 +365,6 @@ h3 {
   }
 }
 
-/* Adjustments for screens less than 930px wide
-@media (max-width: 930px) {
-  .formand-container,
-  .kasserer-container,
-  .trainer-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    justify-items: center;
-  }
-
-  .formand-nav,
-  .kasserer-nav,
-  .trainer-nav {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  #btn-formand-create,
-  #member-search,
-  #sort,
-  #nav-filter,
-  #nav-align,
-  #nav-filter-kasserer,
-  #sort-kasserer,
-  #member-search-kasserer,
-  #nav-filter-trainer,
-  #sort-trainer,
-  #member-search-trainer,
-  #btn-trainer-create,
-  #btn-trainer-competition {
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .kasserer-table,
-  .trainer-table,
-  .formand-table {
-    grid-column: 1 / 2;
-  }
-
-  .trainer-overview,
-  .kasserer-overview {
-    grid-column: 1 / 2;
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
-/* Additional adjustments for screens less than 800px wide */
-/*@media (max-width: 800px) {
-  .formand-container,
-  .kasserer-container,
-  .trainer-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    justify-items: center;
-  }
-
-  #btn-formand-create,
-  #member-search,
-  #sort,
-  #nav-filter,
-  #nav-align,
-  #nav-filter-kasserer,
-  #sort-kasserer,
-  #member-search-kasserer,
-  #nav-filter-trainer,
-  #sort-trainer,
-  #member-search-trainer,
-  #btn-trainer-create,
-  #btn-trainer-competition {
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .kasserer-table,
-  .trainer-table,
-  .formand-table {
-    grid-column: 1 / 2;
-  }
-
-  .trainer-overview,
-  .kasserer-overview {
-    grid-column: 1 / 2;
-    margin-left: 0;
-    margin-right: 0;
-  }
-} */
-
 /*********** front-page ************/
 
 .front-page {
@@ -738,12 +648,6 @@ tr:nth-child(odd):hover {
   background-color: #3a7bbc;
 }
 
-#thh:hover {
-  border: none;
-  box-shadow: none;
-  transform: none;
-}
-
 .buttonAni {
   background-color: #a6c1db;
   border-width: 2px;
@@ -776,4 +680,18 @@ tr:nth-child(odd):hover {
 
 #create-result-form-trainer {
   display: grid;
+}
+
+tr.thh:hover {
+  border: none;
+  box-shadow: none;
+  transform: none;
+}
+
+#restance {
+  color: red;
+}
+
+#income {
+  color: green;
 }

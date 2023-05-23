@@ -105,27 +105,30 @@ function kassererOverview(params) {
   const income = document.querySelector("#kasserer-income");
   const memberInfo = document.querySelector("#kasserer-member-overview");
 
-  income.innerHTML = ""
-  memberInfo.innerHTML =""
-  
+  income.innerHTML = "";
+  memberInfo.innerHTML = "";
+
   memberInfo.insertAdjacentHTML(
     "beforeend",
-    `
-    <p>Antal medlemmer: ${listOfMembers.length} </p>
-    <p>Antal Junior-medlemmer: ${juniorMembers.length} </p>
-    <p>Antal Senior-medlemmer: ${seniorMembers.length} </p>
-    <p>Antal Senior+-medlemmer: ${seniorPlusMembers.length} </p>
-    <p>Antal medlemmer i restance: ${membersInRestance.length} </p>
+    /*html*/ `
+    <p><b>Medlemmer i restance:</b> ${membersInRestance.length} </p>
+    <hr>
+    <p><b>Antal medlemmer:</b> ${listOfMembers.length} </p>
     <p>Aktive medlemmer: ${countActive.length}</p>
     <p>Passive medlemmer: ${countPassive.length}</p>
+    <p>Junior: ${juniorMembers.length} </p>
+    <p>Senior: ${seniorMembers.length} </p>
+    <p>Senior+: ${seniorPlusMembers.length} </p>
     `
   );
 
   income.insertAdjacentHTML(
     "beforeend",
-    `
-    <p>Forventet årlig indkomst: ${totalYearlyIncome}kr.</p>
-    <p>Restancebeløb: ${moneyInRestance}kr.</p>
+    /*html*/ `
+    <p><b>Forventet årlig indkomst:</b></p>
+    <p id="income">${totalYearlyIncome}kr.</p>
+    <p><b>Restancebeløb:</b></p>
+    <p id="restance">${moneyInRestance}kr.</p>
     `
   );
 }
