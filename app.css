@@ -112,6 +112,7 @@ hr {
     /* gap: 2px; */
     /* padding-bottom: 2px; */
     margin-bottom: 100px;
+    max-height: 34px;
   }
 }
 
@@ -495,8 +496,14 @@ section.active#formand {
 
 section.active#log-in {
   display: grid;
+  position: relative;
+  left: 18vw;
+  width: 50vw;
   padding: 2em;
   margin: 2em;
+
+  background-color: rgb(29, 108, 183);
+  justify-items: center;
 }
 
 section.active#kasserer {
