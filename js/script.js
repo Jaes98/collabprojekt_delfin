@@ -180,10 +180,10 @@ async function createNewMember(event) {
   console.log(newMember);
 
   if(disciplineCheck && bdayCheck){
-  // const response = await createdMember(newMember);
+  const response = await createdMember(newMember);
   errorMessage.innerHTML = ""
   errorMessage.classList.remove("create-error")
-  // if (response.ok) getUpdatedFirebase();
+  if (response.ok) getUpdatedFirebase();
   }
   else {
   errorMessage.classList.add("create-error");
