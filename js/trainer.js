@@ -86,6 +86,13 @@ function topFiveMembers() {
 }
 function showTopFiveTables(topFive) {
   document.querySelector("#trainer-table-body").innerHTML = "";
+  // let lowerCaseString = valueToTopFiveBy.toLowerCase();
+  // let hyphenIndex = lowerCaseString.indexOf("-");
+  // let indexAfterHyphen = lowerCaseString.substring(hyphenIndex + 1);
+  // let titleCaseString = indexAfterHyphen.charAt(0).toUpperCase() + indexAfterHyphen.slice(1);
+  // let hyphenToSpaceString = valueToTopFiveBy.replace("-", " ");
+  // let finalString = hyphenToSpaceString.replace(indexAfterHyphen, titleCaseString);
+  document.querySelector("#trainer-h2").textContent = `Top 5` 
 
   const slicedTopFive = topFive.slice(0, 5);
   for (let index = 0; index < slicedTopFive.length; index++) {
@@ -111,6 +118,7 @@ function showTopFiveTable(result, index) {
 
 function showResultTrainer(results) {
   document.querySelector("#trainer-table-body").innerHTML = "";
+  document.querySelector("#trainer-h2").textContent = `Medlemmer`;
 
   for (const result of results) {
     showMemberTrainer(result);
