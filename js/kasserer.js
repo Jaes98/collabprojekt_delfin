@@ -126,9 +126,9 @@ function kassererOverview(params) {
     "beforeend",
     /*html*/ `
     <p><b>Forventet årlig indkomst:</b></p>
-    <p id="income">${totalYearlyIncome}kr.</p>
+    <p id="income"><b>${totalYearlyIncome}</b> kr.</p>
     <p><b>Restancebeløb:</b></p>
-    <p id="restance">${moneyInRestance}kr.</p>
+    <p id="restance"><b>${moneyInRestance}</b> kr.</p>
     `
   );
 }
