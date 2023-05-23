@@ -203,9 +203,9 @@ async function showMemberTrainer(result) {
       `;
 
       document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
+      document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result));
     }
   }
-  document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result));
 }
 
 function showMemberModalTrainer(result) {

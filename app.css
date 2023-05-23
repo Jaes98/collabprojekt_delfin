@@ -686,6 +686,11 @@ tr:nth-child(odd):hover {
   background-color: rgb(255, 0, 0);
 }
 
+#back-red {
+  color: rgb(218, 64, 64);
+  font-weight: bold;
+}
+
 .btn-green {
   background-color: rgb(51, 194, 51);
 }
