@@ -203,6 +203,22 @@ async function updateResult(updatedResult, id) {
   return response;
 }
 
+async function deletingResultFromDB(id) {
+    // Fetch link med præcis ID af det post der skal slettes
+    const response = await fetch(`${dolphinDatabase}/results/${id}.json`, {
+      method: "DELETE",
+    });
+  
+    if (response.status === 200) {
+      console.log("****************200***************");
+      successPrompt();
+    } else {
+      console.log("################shit#############");
+      failedPrompt();
+    }
+    return response;
+}
+
 async function sentenceCompetitionToDeletion(id) {
     // Fetch link med præcis ID af det post der skal slettes
     const response = await fetch(`${dolphinDatabase}/competition/${id}.json`, {
@@ -219,4 +235,4 @@ async function sentenceCompetitionToDeletion(id) {
     return response;
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition, updateResult, sentenceCompetitionToDeletion };
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition, updateResult, sentenceCompetitionToDeletion, deletingResultFromDB };

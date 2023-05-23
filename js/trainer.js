@@ -1,5 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion } from "./REST.js";
+import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion,deletingResultFromDB } from "./REST.js";
 import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString } from "./Helper-functions.js";
 
 let listOfResults;
@@ -35,6 +35,7 @@ async function updateResultsAndCompetitions() {
   addAgeToResults();
   addNamesToResults();
   topFiveMembers(listOfResults);
+  setSortAndFilters()
 }
 
 function setSortAndFilters() {
@@ -211,17 +212,36 @@ function showMemberTrainer(result) {
     </tr>
       `;
 
-      document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
-      if(fixedStats.competition === "Konkurrence"){
-        document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result,fixedStats,member));}
-    }
+    document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
+    document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result,fixedStats,member));}
+    
   }
 }
 
 function showMemberModalTrainer(result,fixedStats,member) {
   console.log(result);
-
-  const html = /*HTML*/ `
+let html;
+if(result.competition === false){
+  html = /*HTML*/ `
+  <article class="modal-item">
+    <h3>${member.name}
+      <button id="btn-close-modal-trainer" class="buttonAni">Tilbage</button>
+    </h3>
+    <section id="member-modal-section-trainer">
+    <p>Aldersgruppe: ${member.ageGroup}</p>
+    <p>Type: ${fixedStats.competition}</p>
+    <p>Lokation: ${result.location}</p>
+    <p>Dato: ${fixedStats.dato}</p>
+    <p>Disciplin: ${fixedStats.disciplines}</p>
+    <p>Resultat(sek.): ${result.time}</p>
+    </section>
+    <button id="btn-delete-result-trainer" class="buttonAni">Slet resultat</button>
+    
+  </article>
+  `;
+}
+else{
+   html = /*HTML*/ `
     <article class="modal-item">
       <h3>${member.name}
         <button id="btn-close-modal-trainer" class="buttonAni">Tilbage</button>
@@ -236,12 +256,15 @@ function showMemberModalTrainer(result,fixedStats,member) {
       <p>Resultat(sek.): ${result.time}</p>
       <p>Placering: ${result.placement}</p>
       </section>
+      <button id="btn-delete-result-trainer" class="buttonAni">Slet resultat</button>
     </article>
     `;
+}
   document.querySelector("#show-member-modal-trainer").innerHTML = html;
   document.querySelector("#show-member-modal-trainer").showModal();
 
   document.querySelector("#btn-close-modal-trainer").addEventListener("click", () => document.querySelector("#show-member-modal-trainer").close());
+  document.querySelector("#btn-delete-result-trainer").addEventListener("click", () => deleteResult(result));
 }
 
 function memberOverviewTrainer() {
@@ -382,6 +405,31 @@ async function submitResult(event) {
   }
 }
 
+async function deleteResult(result) {
+  console.log(result);
+    const deleteModal = document.querySelector("#delete-result-modal-trainer")
+    deleteModal.innerHTML = /*html*/ `
+    Du er ved at slette ${result.name}s resultat fra ${result.date}. Er du sikker? <br>
+    <button id="btn-confirm-result-delete">Slet </button> <br>
+    <button id="btn-deny-result-delete"> Fortryd </button>
+    `
+    const id = result.id
+    
+    document.querySelector("#btn-confirm-result-delete").addEventListener("click", sendResultToDeletion)
+    document.querySelector("#btn-deny-result-delete").addEventListener("click", ()=> deleteModal.close())
+    deleteModal.showModal()
+  
+    async function sendResultToDeletion() {
+      const response = await deletingResultFromDB(id)
+      if (response.ok){
+        deleteModal.close()
+        document.querySelector("#show-member-modal-trainer").close();
+      getUpdatedFirebase();
+      }
+    }
+  
+}
+
 function updateListOfCompetitions() {
   const table = document.querySelector("#competition-table-trainer");
   table.innerHTML = "";
@@ -392,6 +440,7 @@ function updateListOfCompetitions() {
       document.querySelector("#competition-table-trainer tr:last-child").addEventListener("click", ()=>deleteCompetition(competition))
   }
 }
+
  function deleteCompetition(competition) {
   const deleteModal = document.querySelector("#delete-competiton-modal-trainer")
   deleteModal.innerHTML = /*html*/ `
