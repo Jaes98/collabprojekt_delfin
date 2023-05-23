@@ -191,6 +191,7 @@
           <input type="submit" class="float buttonAni btn-green" id="btn-submit-create" value="Tilføj medlem" />
           <input type="button" class="float buttonAni btn-red" id="btn-no-create" value="Annullér" />
         </form>
+        <p id="create-member-error"></p>
       </dialog>
 
       <dialog id="dialog-update-member2">
@@ -459,10 +460,11 @@
           <br />
           <br />
           <br />
+          <p id="competition-create-error"></p>
           <div>
             <table id="competition-overview-trainer">
               <thead>
-                <tr>
+                <tr class="thh">
                   <th>Navn på stævne</th>
                   <th>Lokation</th>
                   <th>Dato</th>
@@ -501,14 +503,15 @@
             <label for="date">Dato</label>
             <input type="text" name="date" required disabled autocomplete="off" placeholder="åååå-mm-dd" />
             <label for="result">Resultat i sek.</label>
-            <input type="text" name="result" autocomplete="off" required />
+            <input type="text" name="result" autocomplete="off" required placeholder="Fx 102 eller 97,3" />
             <label for="placement">Placering</label>
-            <input type="number" name="placement" autocomplete="off" />
+            <input type="number" name="placement" id="create-result-placement-trainer" required autocomplete="off" placeholder="Kommaløst tal" />
 
             <input type="submit" value="Opret resultat" class="buttonAni btn-green" id="btn-trainer-submit"/>
 
             <input type="reset" value="Luk vindue" class="buttonAni btn-red" id="btn-trainer-close"/>
           </form>
+          <p id="result-create-error"></p>
         </dialog> 
         <dialog id="show-member-modal-trainer"></dialog>
       </div>

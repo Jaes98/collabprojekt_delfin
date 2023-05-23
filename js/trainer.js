@@ -1,5 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion,deletingResultFromDB } from "./REST.js";
+import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion,deletingResultFromDB,failedPrompt} from "./REST.js";
 import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString } from "./Helper-functions.js";
 
 let listOfResults;
@@ -337,21 +337,6 @@ function createResultClicked(event) {
     compList.insertAdjacentHTML("beforeend", `<option value="${competition.compName}">${competition.compName}</option>`);
   }
 
-  // for (let i = 0; i < listOfResults.length; i++) {
-  //   const currentResult = listOfResults[i];
-
-  //   let repeatCompetitionCheck = true;
-  //   if (i >= 1) {
-  //     for (const test of compList.children) {
-  //       repeatCompetitionCheck = test.value !== currentResult.compName;
-  //       if (repeatCompetitionCheck === false) break;
-  //     }
-  //   }
-
-  //   if (currentResult.competition === true && repeatCompetitionCheck) {
-  //     compList.insertAdjacentHTML("beforeend", `<option value="${currentResult.compName}">${currentResult.compName}</option>`);
-  //   }
-  // }
 
   changeFormBasedOnCompetition();
 
@@ -363,12 +348,12 @@ function createResultClicked(event) {
 
   function changeFormBasedOnResultType(event) {
     const target = event.target.value;
-
     if (target === "false") {
       form.location.disabled = false;
       form.date.disabled = false;
       form.competition.disabled = true;
       form.placement.disabled = true;
+      form.placement.required = false
 
       form.date.value = "";
       form.location.value = "";
@@ -379,6 +364,7 @@ function createResultClicked(event) {
       form.date.disabled = true;
       form.competition.disabled = false;
       form.placement.disabled = false;
+      form.placement.required = true
     }
   }
 }
@@ -388,6 +374,7 @@ async function submitResult(event) {
   const form = event.target;
   const formTime = form.result.value;
   const formDate = form.date.value
+  const errorMessage = document.querySelector("#result-create-error")
 
     if(timeChecker(formTime) && dateChecker(formDate)){
     const newResult = {
@@ -401,7 +388,13 @@ async function submitResult(event) {
       placement: form.placement.value,
     };
     const response = await creatingResult(newResult);
+    errorMessage.innerHTML=""
+    errorMessage.classList.remove("create-error")
     if (response.ok) getUpdatedFirebase();
+  }
+  else{
+    errorMessage.innerHTML = "Forkert dato eller resultat. Tjek datoformat og at tiden er et korrekt tal"
+    errorMessage.classList.add("create-error")
   }
 }
 
@@ -466,6 +459,7 @@ function updateListOfCompetitions() {
 async function submitCompetition(event) {
   event.preventDefault();
   const form = event.target;
+  const errorMessage = document.querySelector("#competition-create-error")
 
   if (dateChecker(form.date.value)){
     const competitionToSubmit = {
@@ -473,9 +467,14 @@ async function submitCompetition(event) {
       location: form.location.value,
       date: form.date.value,
     };
-    
     await createCompetition(competitionToSubmit);
+    errorMessage.innerHTML = ""
+    errorMessage.classList.remove("create-error")
     getUpdatedFirebase();
+  }
+  else{
+    errorMessage.innerHTML = "Forkert dato. Brug formattet: 'åååå-mm-dd'"
+    errorMessage.classList.add("create-error")
   }
 }
 

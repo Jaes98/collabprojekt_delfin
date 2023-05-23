@@ -235,4 +235,4 @@ async function sentenceCompetitionToDeletion(id) {
     return response;
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition, updateResult, sentenceCompetitionToDeletion, deletingResultFromDB };
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition, updateResult, sentenceCompetitionToDeletion, deletingResultFromDB, failedPrompt };

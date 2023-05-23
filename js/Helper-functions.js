@@ -104,10 +104,6 @@ function dateChecker(dateValue) {
   else return true
 }
 
-function name(params) {
-  
-}
-
 function competitionBooleanToString(result) {
   let competition = "";
   if (result.competition) competition = "Konkurrence";
