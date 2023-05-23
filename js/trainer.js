@@ -1,5 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, getCompetitions, creatingResult, createCompetition, updateResult } from "./REST.js";
+import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion } from "./REST.js";
 
 let listOfResults;
 let listOfMembers;
@@ -203,9 +203,9 @@ async function showMemberTrainer(result) {
       `;
 
       document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
+      document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result));
     }
   }
-  document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result));
 }
 
 function showMemberModalTrainer(result) {
@@ -377,7 +377,7 @@ function createResultClicked(event) {
   }
 }
 
-function submitResult(event) {
+async function submitResult(event) {
   event.preventDefault();
   const form = event.target;
   const time = form.result.value;
@@ -399,9 +399,8 @@ function submitResult(event) {
       time: form.result.value,
       placement: form.placement.value,
     };
-    console.log(newResult);
-    creatingResult(newResult);
-    getUpdatedFirebase();
+    const response = creatingResult(newResult);
+    if (response.ok) getUpdatedFirebase();
   }
 }
 
@@ -411,7 +410,30 @@ function updateListOfCompetitions() {
   for (const competition of listOfCompetitions) {
     document
       .querySelector("#competition-table-trainer")
-      .insertAdjacentHTML("beforeend", `<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button>Slet stævne</button></td></tr>`);
+      .insertAdjacentHTML("beforeend", `<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button id="btn-competition-delete">Slet stævne</button></td></tr>`);
+      document.querySelector("#competition-table-trainer tr:last-child").addEventListener("click", ()=>deleteCompetition(competition))
+  }
+}
+
+ function deleteCompetition(competition) {
+  const deleteModal = document.querySelector("#delete-competiton-modal-trainer")
+  deleteModal.innerHTML = /*html*/ `
+  Du er ved at slette ${competition.compName}. Er du sikker? <br>
+  <button id="btn-confirm-result-delete">Slet </button> <br>
+  <button id="btn-deny-result-delete"> Fortryd </button>
+  `
+  const id = competition.id
+  
+  document.querySelector("#btn-confirm-result-delete").addEventListener("click", sendCompetitionToDeletion)
+  document.querySelector("#btn-deny-result-delete").addEventListener("click", ()=> deleteModal.close())
+  deleteModal.showModal()
+
+  async function sendCompetitionToDeletion() {
+    const response = await sentenceCompetitionToDeletion(id)
+    if (response.ok){
+      deleteModal.close()
+    getUpdatedFirebase();
+    }
   }
 }
 
@@ -441,8 +463,6 @@ function addNamesToResults() {
 }
 
 function sortList(listToSort) {
-  console.log(listToSort);
-  console.log("value to sort by:",valueToSortBy);
   if (valueToSortBy === "age") {
     return listToSort.sort((first, second) => first.age - second.age);
   } else {
@@ -475,7 +495,9 @@ function filterList(searchedList) {
   return searchedList.filter((result) => Object.values(result).includes(valueToFilterBy));
 }
 
-async function resultUpdater(params) {
+
+
+async function resultUpdater(event) {
   const resultToUpdate = {
     uid: "-ghdsk-sdljdsj7",
   };

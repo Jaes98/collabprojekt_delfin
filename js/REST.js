@@ -9,10 +9,6 @@ async function getMembers() {
   const fetchedMembers = await membersFromDatabase.json();
 
   // sætter members objekter ind i et array
-  // const membersToArray = prepareData(fetchedMembers);
-  // return membersToArray;
-
-  // Busters note: Vi kan vel bare returne med det samme, vi bruger vist ikke memeberstoarray til andet?:
   return prepareData(fetchedMembers);
 }
 
@@ -22,14 +18,8 @@ async function getResults() {
   const fetchedResults = await resultsFromDatabase.json();
   console.log(fetchedResults);
 
-  // sætter members objekter ind i et array
-  // const membersToArray = prepareData(fetchedMembers);
-  // return membersToArray;
-
-  // Busters note: Vi kan vel bare returne med det samme, vi bruger vist ikke memeberstoarray til andet?:
-  // return prepareData(fetchedResults);
-  // return fetchedResults;
-  return prepareDataResults(fetchedResults);
+  // sætter resultatsobjekter ind i et array
+  return prepareData(fetchedResults);
 }
 
 async function getCompetitions() {
@@ -69,15 +59,6 @@ function prepareData(listOfObjects) {
   return arrayFromFirebaseObject;
 }
 
-function prepareDataResults(fetchedResults) {
-  const arrayFromObjectList = [];
-  for (const object in fetchedResults) {
-    const result = fetchedResults[object];
-    result.id = object;
-    arrayFromObjectList.push(result);
-  }
-  return arrayFromObjectList;
-}
 
 async function createdMember(newMember) {
   console.log("createdMember");
@@ -222,4 +203,20 @@ async function updateResult(updatedResult, id) {
   return response;
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition, updateResult };
+async function sentenceCompetitionToDeletion(id) {
+    // Fetch link med præcis ID af det post der skal slettes
+    const response = await fetch(`${dolphinDatabase}/competition/${id}.json`, {
+      method: "DELETE",
+    });
+    // Hvis response er ok, udskriv log og opdater grid
+    if (response.status === 200) {
+      console.log("****************200***************");
+      successPrompt();
+    } else {
+      console.log("################shit#############");
+      failedPrompt();
+    }
+    return response;
+}
+
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition, updateResult, sentenceCompetitionToDeletion };
