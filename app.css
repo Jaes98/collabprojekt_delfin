@@ -183,7 +183,7 @@ hr {
   }
   .trainer-overview,
   .overview {
-    padding: 25%
+    padding: 25%;
   }
 }
 
@@ -362,7 +362,6 @@ h3 {
   .kasserer-overview,
   .trainer-overview {
     margin-left: 0px;
-    
   }
 }
 
@@ -455,8 +454,6 @@ h3 {
     margin-right: 0;
   }
 } */
-
-
 
 /*********** front-page ************/
 
@@ -732,12 +729,12 @@ td {
 }
 
 tr:nth-child(even):hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
   background-color: #9ac3ef;
 }
 
 tr:nth-child(odd):hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
   background-color: #3a7bbc;
 }
 
