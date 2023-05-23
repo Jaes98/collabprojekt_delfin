@@ -57,14 +57,15 @@
     </section>
     <section class="page-view" id="log-in">
       <h1>Login</h1>
+      <input type="reset" class="buttonAni" value="Tilbage til startsiden" id="log-in-reset" />
       <p id="log-in-error"></p>
       <form id="log-in-form">
         <label for="kodeord"><b>Brugernavn:</b></label>
-        <input id="brugernavn" name="brugernavn" type="text" placeholder="Brugernavn" required />
+        <input id="brugernavn" name="brugernavn" type="text" placeholder="fx. 'formand', 'kasserer', 'træner'" required />
         <label for="kodeord"><b>Kodeord:</b></label>
-        <input id="kodeord" name="kodeord" type="password" placeholder="Kodeord" required />
-        <input type="submit" value="Log ind" />
-        <input type="reset" value="Tilbage til startsiden" id="log-in-reset" />
+        <input id="kodeord" name="kodeord" type="password" placeholder="#enMegetSværAdgangskode1!" required />
+        <br>
+        <input type="submit"  class="buttonAni btn-green" value="Log ind" />
       </form>
     </section>
     <section class="page-view active" id="formand">
@@ -72,6 +73,7 @@
         <div class="formand-header">
           <img id="logo" src="images/dolphin logo.png" alt="logo" />
           <h2>Velkommen Formand</h2>
+          <button id="btn-log-out" class="nav-link1"><a href="#front-page">Log Ud</a></button>
         </div>
 
         <div class="formand-nav">
@@ -122,7 +124,7 @@
           <h2>Medlemmer</h2>
           <table>
             <thead>
-              <tr id="thh">
+              <tr class="thh">
                 <th>Navn</th>
                 <th>Aldersgruppe</th>
                 <th>Medlemsskab</th>
@@ -263,6 +265,7 @@
         <div class="kasserer-header">
           <img id="logo" src="images/dolphin logo.png" alt="logo" />
           <h2>Velkommen Kasserer</h2>
+          <button id="btn-log-out" class="nav-link1"><a href="#front-page">Log Ud</a></button>
         </div>
         <!-- <br id="header-gap"> -->
         <div class="kasserer-nav">
@@ -298,7 +301,7 @@
           <h2>Medlemmer</h2>
           <table>
             <thead>
-              <tr id="thh">
+              <tr class="thh">
                 <th>Navn</th>
                 <th>Betalingsgruppe</th>
                 <th>Restance</th>
@@ -348,6 +351,7 @@
         <div class="trainer-header">
           <img id="logo" src="images/dolphin logo.png" alt="logo" />
           <h2>Velkommen Træner</h2>
+          <button id="btn-log-out" class="nav-link1"><a href="#front-page"><b>Log Ud</b></a></button>
         </div>
 
         <div class="trainer-nav">
@@ -355,9 +359,30 @@
           <button id="btn-trainer-create" class="buttonAni">Tilføj nyt resultat</button>
           <br />
           <br />
+          <br>
           <button id="btn-trainer-competition" class="buttonAni">Rediger stævner</button>
           <br />
           <br />
+          <br>
+          <label for="topFive-select" id="nav-align">Vælg Top 5:</label>
+          <br>
+          <select id="topFive-select" autocomplete="off">
+            <option value="default"></option>
+            <optgroup label="Juniors">
+                <option value="Junior-crawl">Crawl</option>
+                <option value="Junior-backCrawl">Backcrawl</option>
+                <option value="Junior-breaststroke">Breaststroke</option>
+                <option value="Junior-butterfly">Butterfly</option>
+            </optgroup>
+            <optgroup label="Seniors">
+                <option value="Senior-crawl">Crawl</option>
+                <option value="Senior-backCrawl">Backcrawl</option>
+                <option value="Senior-breaststroke">Breaststroke</option>
+                <option value="Senior-butterfly">Butterfly</option>
+            </optgroup>
+          </select>
+          <br>
+          <br>
           <label for="member-search-trainer" id="nav-align">Søg (Navn):</label>
           <br />
           <input type="search" id="member-search-trainer" placeholder="Søg efter navn" autocomplete="off" />
@@ -393,10 +418,10 @@
         </div>
 
         <div class="trainer-table">
-          <h2>Medlemmer</h2>
+          <h2 id="trainer-h2">Medlemmer</h2>
           <table>
             <thead>
-              <tr id="thh">
+              <tr class="thh">
                 <th>Svømmers navn</th>
                 <th>Aldersgruppe</th>
                 <th>Type</th>
@@ -408,39 +433,24 @@
             <tbody id="trainer-table-body">
             
         </div>
-        <label for="topFive-select"></label>
-        <select id="topFive-select" autocomplete="off">
-            <optgroup label="Juniors">
-                <option value="Junior-crawl">Crawl</option>
-                <option value="Junior-backCrawl">Backcrawl</option>
-                <option value="Junior-breaststroke">Breaststroke</option>
-                <option value="Junior-butterfly">Butterfly</option>
-            </optgroup>
-            <optgroup label="Seniors">
-                <option value="Senior-crawl">Crawl</option>
-                <option value="Senior-backCrawl">Backcrawl</option>
-                <option value="Senior-breaststroke">Breaststroke</option>
-                <option value="Senior-butterfly">Butterfly</option>
-            </optgroup>
-        </select>
+      
         <div class="trainer-topfive-table">
-                <table>
-                    <thead>
-                            <tr>
-                                <th>Top 5 Junior Crawl eg</th>
-                            </tr>
-                        </thead>
-                        <tbody id="topfive-table-body">
-                            <tr></tr>
-                        </tbody>
-                </table>
+          <table>
+            <thead>
+              <tr class="thh">
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="topfive-table-body">
+              <tr></tr>
+            </tbody>
+          </table>
         </div>
         <div class="trainer-overview">
           <div id="overview-trainer">
             <h3>Overblik over medlemmer:</h3>
           </div>
         </div>
-
         <div class="page-footer"></div>
         <dialog id="show-result-modal-trainer"></dialog>
         <dialog id="delete-competiton-modal-trainer"></dialog>
