@@ -415,7 +415,8 @@ h3 {
   grid-area: header;
 }
 
-#btn-logIn {
+#btn-logIn,
+#btn-log-out {
   position: relative;
   justify-self: end;
   margin: 10px;
@@ -426,6 +427,13 @@ h3 {
   height: 7vw;
   background-color: rgb(29, 108, 183);
   right: 0px;
+}
+
+#btn-logIn a,
+#btn-log-out a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 #logo {
