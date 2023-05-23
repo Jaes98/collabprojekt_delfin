@@ -145,6 +145,10 @@ hr {
     justify-items: center;
     overflow: hidden;
   }
+  .trainer-table {
+    position: relative;
+    left: 19%;
+  }
 
   #btn-formand-create,
   #member-search,
@@ -344,9 +348,9 @@ h3 {
 
 .trainer-table {
   grid-row: auto;
-  grid-column: 2 / 6;
+  grid-column: 2 / 5;
   background-color: #fff;
-  width: 100%;
+  width: 134%;
   display: grid;
   position: relative;
   text-align: left;
