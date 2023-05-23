@@ -73,27 +73,27 @@ async function showMemberTrainer(result) {
 
 function memberOverviewTrainer() {
   // checks active competition members
-  const countCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
+  const countCompetetive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
   console.log(listOfResults);
   // checks crawl members
-  const countCrawl = listOfResults.filter((result) => result.discipline === "crawl" && countCompetitive.some((member) => member.id === result.uid));
+  const countCrawl = listOfResults.filter((result) => result.discipline === "crawl" && countCompetetive.some((member) => member.id === result.uid));
   const countCrawlJunior = countCrawl.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
   const countCrawlSenior = countCrawl.filter((result) => listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)).length;
 
   // checks backCrawl members
-  const countBackCrawl = listOfResults.filter((result) => result.discipline === "backCrawl" && countCompetitive.some((member) => member.id === result.uid));
+  const countBackCrawl = listOfResults.filter((result) => result.discipline === "backCrawl" && countCompetetive.some((member) => member.id === result.uid));
   const countBackCrawlJunior = countBackCrawl.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
   const countBackCrawlSenior = countBackCrawl.filter((result) => listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)).length;
 
   // checks breaststroke members
-  const countBreaststroke = listOfResults.filter((result) => result.discipline === "breaststroke" && countCompetitive.some((member) => member.id === result.uid));
+  const countBreaststroke = listOfResults.filter((result) => result.discipline === "breaststroke" && countCompetetive.some((member) => member.id === result.uid));
   const countBreaststrokeJunior = countBreaststroke.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
   const countBreaststrokeSenior = countBreaststroke.filter((result) =>
     listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)
   ).length;
 
   // checks butterfly members
-  const countButterfly = listOfResults.filter((result) => result.discipline === "butterfly" && countCompetitive.some((member) => member.id === result.uid));
+  const countButterfly = listOfResults.filter((result) => result.discipline === "butterfly" && countCompetetive.some((member) => member.id === result.uid));
   const countButterflyJunior = countButterfly.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
   const countButterflySenior = countButterfly.filter((result) => listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)).length;
 
@@ -103,7 +103,7 @@ function memberOverviewTrainer() {
     "beforeend",
     /*HTML */ `
     <p><B>Antal medlemmer:</B> ${listOfMembers.length}</p>
-    <p><b>Aktive konkurrenter:</b> ${countCompetitive.length}</p>
+    <p><b>Aktive konkurrenter:</b> ${countCompetetive.length}</p>
     <p><b>Crawl medlemmer:</b> ${countCrawl.length}</p>
     <p>Junior: ${countCrawlJunior}</p>
     <p>Senior: ${countCrawlSenior}</p>
@@ -280,6 +280,8 @@ function addNamesToResults() {
 }
 
 function sortList(listToSort) {
+  console.log(listToSort);
+  console.log("value to sort by:",valueToSortBy);
   if (valueToSortBy === "age") {
     return listToSort.sort((first, second) => first.age - second.age);
   } else {

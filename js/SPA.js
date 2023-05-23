@@ -10,8 +10,7 @@ function viewControl(newHash) {
 
 function changeHash() {
   let currentPage = "#front-page";
-  console.log("location.hash:", location.hash);
-  console.log("currentPage:", currentPage);
+  if (location.hash === "") location.hash = "#front-page"
   if (location.hash) {
     currentPage = location.hash;
   }

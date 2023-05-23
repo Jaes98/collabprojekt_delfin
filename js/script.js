@@ -143,7 +143,7 @@ function memberOverview() {
   );
 }
 
-function createNewMember(event) {
+async function createNewMember(event) {
   console.log("createNewMember");
   event.preventDefault();
   let form = event.target;
@@ -161,11 +161,11 @@ function createNewMember(event) {
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
     breaststroke: form.breaststroke.checked,
-    // coach: form.trid.value,
+    restance: false
   };
   console.log(newMember);
-  createdMember(newMember);
-  getUpdatedFirebase();
+  const response = await createdMember(newMember);
+  if (response.ok) getUpdatedFirebase();
 }
 
 function updateMemberClicked(member) {
@@ -190,6 +190,7 @@ function updateMemberClicked(member) {
   updateForm.butterfly.checked = member.butterfly;
   updateForm.backCrawl.checked = member.backCrawl;
   updateForm.breaststroke.checked = member.breaststroke;
+  updateForm.restance.value = member.restance;
 
   updateForm.setAttribute("data-id", member.id);
   document.querySelector("#dialog-update-member2").showModal();
@@ -199,7 +200,6 @@ async function updateMember(event) {
   event.preventDefault();
 
   let form = event.target;
-
   const updatedMember = {
     name: form.name.value,
     bday: form.bday.value,
@@ -213,9 +213,10 @@ async function updateMember(event) {
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
     breaststroke: form.breaststroke.checked,
+    restance: form.restance.value === "true"
   };
-
-  const id = form.getAttribute("data-id");
+  
+  const id = form.getAttribute("data-id")
   const response = await updateMemberPUT(updatedMember, id);
   if (response.ok) {
     getUpdatedFirebase();
