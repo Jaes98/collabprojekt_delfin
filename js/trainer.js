@@ -205,6 +205,33 @@ async function showMemberTrainer(result) {
       document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
     }
   }
+  document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result));
+}
+
+function showMemberModalTrainer(result) {
+  const member = listOfMembers.find((member) => member.id === result.uid);
+
+  const html = /*HTML*/ `
+    <article class="modal-item">
+      <h3>${member.name}
+        <button id="btn-close-modal-trainer" class="buttonAni">Tilbage</button>
+      </h3>
+      <section id="member-modal-section-trainer">
+      <p>Aldersgruppe: ${member.ageGroup}</p>
+      <p>Type: ${competitionBooleanToString(result)}</p>
+      <p>Stævne: ${result.compName}</p>
+      <p>Lokation: ${result.location}</p>
+      <p>Dato: ${dateToDato(result)}</p>
+      <p>Disciplin: ${disciplinesEngToDa(result)}</p>
+      <p>Resultat(sek.): ${result.time}</p>
+      <p>Placering: ${result.placement}</p>
+      </section>
+    </article>
+    `;
+  document.querySelector("#show-member-modal-trainer").innerHTML = html;
+  document.querySelector("#show-member-modal-trainer").showModal();
+
+  document.querySelector("#btn-close-modal-trainer").addEventListener("click", () => document.querySelector("#show-member-modal-trainer").close());
 }
 
 function memberOverviewTrainer() {
@@ -282,8 +309,7 @@ function dateToDato(result) {
 }
 
 function createResultClicked(event) {
-  console.log("list of competitions:", listOfCompetitions);
-
+  
   listOfResults.push({ competition: true, compName: "Vinterstævne" });
 
   document.querySelector("#create-result-modal-trainer").showModal();
@@ -296,8 +322,7 @@ function createResultClicked(event) {
   const form = document.querySelector("#create-result-form-trainer");
 
   for (const member of listOfMembers) {
-    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem")
-      document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
+    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem") document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
   console.log(document.querySelector("#create-result-name-trainer").children);
 

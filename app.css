@@ -6,7 +6,8 @@ body {
 
   /* background-color: rgb(29, 108, 183); */
   background-color: #f3f3f3;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  /* font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
+  font-family: Arial, sans-serif;
 }
 
 hr {
@@ -31,7 +32,8 @@ hr {
   #sort-trainer,
   #member-search-trainer,
   #btn-trainer-create,
-  #nav-filter-trainer {
+  #nav-filter-trainer,
+  #btn-trainer-competition {
     position: relative;
     width: 30vw;
     left: 0;
@@ -74,7 +76,8 @@ hr {
   #nav-filter-trainer,
   #sort-trainer,
   #member-search-trainer,
-  #btn-trainer-create {
+  #btn-trainer-create,
+  #btn-trainer-competition {
     position: fixed;
   }
   #overview,
@@ -89,7 +92,8 @@ hr {
   #nav-filter-trainer,
   #sort-trainer,
   #member-search-trainer,
-  #btn-trainer-create {
+  #btn-trainer-create,
+  #btn-trainer-competition {
     width: 18vw;
     margin-left: 20px;
     left: 0;
@@ -100,10 +104,14 @@ hr {
   #nav-filter-trainer,
   #sort-trainer,
   #member-search-trainer,
-  #btn-trainer-creat {
+  #btn-trainer-create,
+  #btn-trainer-competition {
     width: 10vw;
     margin-left: 20px;
     left: 0;
+    /* gap: 2px; */
+    /* padding-bottom: 2px; */
+    margin-bottom: 100px;
   }
 }
 
@@ -112,11 +120,7 @@ hr {
   #member-search,
   #sort,
   #nav-filter,
-  #nav-align,
-  #nav-filter-trainer,
-  #sort-trainer,
-  #member-search-trainer,
-  #btn-trainer-create {
+  #nav-align {
     width: 16vw;
     margin-left: 20px;
     left: 0;
@@ -148,7 +152,8 @@ hr {
   #nav-filter-trainer,
   #sort-trainer,
   #member-search-trainer,
-  #btn-trainer-create {
+  #btn-trainer-create,
+  #btn-trainer-competition {
     position: fixed;
   }
   #overview,
@@ -163,7 +168,8 @@ hr {
   #nav-filter-trainer,
   #sort-trainer,
   #member-search-trainer,
-  #btn-trainer-create {
+  #btn-trainer-create,
+  #btn-trainer-competition {
     width: 14vw;
     margin-left: 20px;
     left: 0;
@@ -174,6 +180,10 @@ hr {
     width: 13vw;
     margin-left: 20px;
     left: 0;
+  }
+  .trainer-overview,
+  .overview {
+    padding: 25%;
   }
 }
 
@@ -232,10 +242,9 @@ hr {
   border-color: rgb(118, 118, 118);
 }
 
-h3#overview,
-h3#kasserer-overview {
+h3 {
   margin: 0;
-  color: red;
+  /* color: red; */
 }
 
 /*********** kasserer-page ************/
@@ -255,14 +264,6 @@ h3#kasserer-overview {
   align-items: center;
   justify-content: space-between;
 }
-
-/* br#header-gap { */
-/* height: 13px; */
-/* margin: 10px 0; */
-/* line-height: 13px; */
-/* content: ""; */
-/* source: https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br */
-/* } */
 
 .kasserer-nav {
   grid-row: auto;
@@ -341,7 +342,6 @@ h3#kasserer-overview {
   display: grid;
   position: relative;
   text-align: left;
-  align-content: start;
 }
 
 .trainer-table h2 {
@@ -352,11 +352,108 @@ h3#kasserer-overview {
   grid-row: auto;
   grid-column: 6/ 9;
   background-color: #eee;
-  padding: 25px;
+  /* padding: 25px; */
   margin-right: 10px;
   margin-left: 20px;
   width: 100%;
 }
+
+@media (max-width: 1000px) {
+  .kasserer-overview,
+  .trainer-overview {
+    margin-left: 0px;
+  }
+}
+
+/* Adjustments for screens less than 930px wide
+@media (max-width: 930px) {
+  .formand-container,
+  .kasserer-container,
+  .trainer-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+  }
+
+  .formand-nav,
+  .kasserer-nav,
+  .trainer-nav {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  #btn-formand-create,
+  #member-search,
+  #sort,
+  #nav-filter,
+  #nav-align,
+  #nav-filter-kasserer,
+  #sort-kasserer,
+  #member-search-kasserer,
+  #nav-filter-trainer,
+  #sort-trainer,
+  #member-search-trainer,
+  #btn-trainer-create,
+  #btn-trainer-competition {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .kasserer-table,
+  .trainer-table,
+  .formand-table {
+    grid-column: 1 / 2;
+  }
+
+  .trainer-overview,
+  .kasserer-overview {
+    grid-column: 1 / 2;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* Additional adjustments for screens less than 800px wide */
+/*@media (max-width: 800px) {
+  .formand-container,
+  .kasserer-container,
+  .trainer-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+  }
+
+  #btn-formand-create,
+  #member-search,
+  #sort,
+  #nav-filter,
+  #nav-align,
+  #nav-filter-kasserer,
+  #sort-kasserer,
+  #member-search-kasserer,
+  #nav-filter-trainer,
+  #sort-trainer,
+  #member-search-trainer,
+  #btn-trainer-create,
+  #btn-trainer-competition {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .kasserer-table,
+  .trainer-table,
+  .formand-table {
+    grid-column: 1 / 2;
+  }
+
+  .trainer-overview,
+  .kasserer-overview {
+    grid-column: 1 / 2;
+    margin-left: 0;
+    margin-right: 0;
+  }
+} */
 
 /*********** front-page ************/
 
@@ -500,12 +597,6 @@ section.active#kasserer {
 section.active#trainer {
   background-color: grey;
   display: grid;
-
-  /* display: grid;
-  font-size: 300px;
-  padding: 2em;
-  margin: 2em; 
-  */
 }
 
 .highlighted {
@@ -638,12 +729,12 @@ td {
 }
 
 tr:nth-child(even):hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
   background-color: #9ac3ef;
 }
 
 tr:nth-child(odd):hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
   background-color: #3a7bbc;
 }
 
@@ -669,8 +760,18 @@ tr:nth-child(odd):hover {
   box-shadow: 2px 2px 6px #6e88a3;
 }
 
-.red {
-  background-color: red;
+.btn-red {
+  background-color: rgb(221, 15, 15);
+}
+.btn-red:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+.btn-green {
+  background-color: rgb(51, 194, 51);
+}
+.btn-green:hover {
+  background-color: rgb(0, 255, 0);
 }
 
 #create-result-form-trainer {

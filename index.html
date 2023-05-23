@@ -188,8 +188,8 @@
             <input type="checkbox" name="breaststroke" class="create-discipline" autocomplete="off" />
             Brystsvømning
           </label>
-          <input type="submit" class="float buttonAni" id="btn-submit-create" value="Tilføj medlem" />
-          <input type="button" class="float buttonAni" id="btn-no-create" value="Annullér" />
+          <input type="submit" class="float buttonAni btn-green" id="btn-submit-create" value="Tilføj medlem" />
+          <input type="button" class="float buttonAni btn-red" id="btn-no-create" value="Annullér" />
         </form>
       </dialog>
 
@@ -242,8 +242,8 @@
             Brystsvømning
           </label>
           <input type="text" name="restance" value="" hidden>
-          <input type="submit" class="float buttonAni" id="btn-formand-update-submit2" value="Opdatér medlem" />
-          <input type="button" class="float buttonAni" id="btn-formand-no-update" value="Annullér" />
+          <input type="submit" class="float buttonAni btn-green" id="btn-formand-update-submit2" value="Opdatér medlem" />
+          <input type="button" class="float buttonAni btn-red" id="btn-formand-no-update" value="Annullér" />
         </form>
       </dialog>
 
@@ -251,8 +251,8 @@
         <h2>Vil du slette dette medlem?</h2>
         <p id="dialog-delete-member-name">navn på medlem</p>
         <form method="dialog" id="form-delete-member">
-          <input type="button" value="Fortryd" class="btn-cancel buttonAni" id="btn-no-delete" />
-          <input type="submit" class="buttonAni" value="Bekræft" id="btn-yes-delete" />
+          <input type="button" value="Fortryd" class="btn-cancel buttonAni btn-red" id="btn-no-delete" />
+          <input type="submit" class="buttonAni btn-green" value="Bekræft" id="btn-yes-delete" />
         </form>
       </dialog>
     </section>
@@ -332,9 +332,9 @@
             <option value="true">Ja</option>
           </select>
           <label for="isInRestance">Er medlem i restance</label>
-          <input type="submit" id="kasserer-update-submit" class="buttonAni" value="Opdater betalingsstatus" />
+          <input type="submit" id="kasserer-update-submit" class="buttonAni btn-green" value="Opdater betalingsstatus" />
           <br />
-          <button id="kasserer-update-cancel" class="buttonAni">Annullér</button>
+          <button id="kasserer-update-cancel" class="buttonAni btn-red">Annullér</button>
         </form>
       </dialog>
 
@@ -366,7 +366,7 @@
           <br />
           <select id="sort-trainer" autocomplete="off">
             <option value="name">Navn</option>
-            <option value="age">Aldersgruppe</option>
+            <option value="ageGroup">Aldersgruppe</option>
           </select>
           <br />
           <br />
@@ -457,8 +457,8 @@
             <label for="location">Sted</label>
             <input type="text" name="location" placeholder="Navn på svømmehal" />
             <label for="date">Dato</label>
-            <input type="text" name="date" placeholder="åååå-mm-dd" />
-            <input type="submit" name="submit" value="Opret stævne" />
+            <input type="text" name="date" placeholder="åååå-mm-dd">
+            <input type="submit" name="submit" class="buttonAni btn-green" value="Opret stævne">
           </form>
           <br />
           <br />
@@ -511,11 +511,12 @@
             <label for="placement">Placering</label>
             <input type="number" name="placement" autocomplete="off" />
 
-            <input type="submit" value="Opret resultat" id="btn-trainer-submit" />
+            <input type="submit" value="Opret resultat" class="buttonAni btn-green" id="btn-trainer-submit"/>
 
-            <input type="reset" value="Luk vindue" id="btn-trainer-close" />
+            <input type="reset" value="Luk vindue" class="buttonAni btn-red" id="btn-trainer-close"/>
           </form>
-        </dialog>
+        </dialog> 
+        <dialog id="show-member-modal-trainer"></dialog>
       </div>
     </section>
   </body>
