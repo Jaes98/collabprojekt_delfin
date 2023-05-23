@@ -443,6 +443,7 @@
         <div class="page-footer"></div>
         <dialog id="show-result-modal-trainer"></dialog>
         <dialog id="delete-competiton-modal-trainer"></dialog>
+        <dialog id="delete-result-modal-trainer"></dialog>
         <dialog id="show-competition-modal-trainer">
           <form id="competition-form-trainer">
             <label for="name">Navn på stævne</label>
@@ -498,9 +499,9 @@
             <label for="location">Sted</label>
             <input type="text" name="location" disabled autocomplete="off" />
             <label for="date">Dato</label>
-            <input type="text" name="date" required disabled autocomplete="off" />
+            <input type="text" name="date" required disabled autocomplete="off" placeholder="åååå-mm-dd" />
             <label for="result">Resultat i sek.</label>
-            <input type="text" name="result" autocomplete="off" />
+            <input type="text" name="result" autocomplete="off" required />
             <label for="placement">Placering</label>
             <input type="number" name="placement" autocomplete="off" />
 

@@ -1,5 +1,6 @@
 import { getUpdatedFirebase } from "./script.js";
 import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion } from "./REST.js";
+import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString } from "./Helper-functions.js";
 
 let listOfResults;
 let listOfMembers;
@@ -31,8 +32,9 @@ async function updateResultsAndCompetitions() {
   updateListOfCompetitions();
   showResultTrainer(listOfResults);
   memberOverviewTrainer(listOfResults);
-  topFiveMembers(listOfResults);
+  addAgeToResults();
   addNamesToResults();
+  topFiveMembers(listOfResults);
 }
 
 function setSortAndFilters() {
@@ -51,18 +53,19 @@ function setValueToTopFiveBy(params) {
   topFiveMembers();
 }
 
-function topFiveMembers() {
-  // HER BEGYNDER DET BUSTER BIKSEDE FREM: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  addAgeToResults();
-  function addAgeToResults(params) {
-    for (const result of listOfResults) {
-      const member = listOfMembers.find((member) => member.id === result.uid);
-      if (member !== undefined) {
-        if (member.ageGroup === "Senior+") member.ageGroup = "Senior";
-        result.ageGroup = member.ageGroup;
-      }
+function addAgeToResults() {
+  for (const result of listOfResults) {
+    const member = listOfMembers.find((member) => member.id === result.uid);
+    if (member !== undefined) {
+      if (member.ageGroup === "Senior+") member.ageGroup = "Senior";
+      result.ageGroup = member.ageGroup;
     }
   }
+}
+
+function topFiveMembers() {
+  // HER BEGYNDER DET BUSTER BIKSEDE FREM: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  
   let listOfDesiredResults = [];
   const htmlToDiscipline = valueToTopFiveBy.substring(7);
   const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
@@ -153,6 +156,7 @@ function topFiveMembers() {
   //   }
   // }
 }
+
 function showTopFiveTables(checkCrawl) {
   document.querySelector("#topfive-table-body").innerHTML = "";
 
@@ -185,31 +189,37 @@ function showResultTrainer(results) {
   }
 }
 
-async function showMemberTrainer(result) {
+function showMemberTrainer(result) {
   const member = listOfMembers.find((member) => member.id === result.uid);
 
   if (member) {
     if (member.active === "Aktivt medlem" && member.competetive === "Konkurrent") {
+      const fixedStats = {
+      competition: competitionBooleanToString(result),
+      dato: dateToDato(result),
+      disciplines: disciplinesEngToDa(result)}
+
       const html = /*html*/ `
       <tr class="member-item-kasserer">
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
-      <td>${competitionBooleanToString(result)}</td>
-      <td>${dateToDato(result)}</td>
-      <td>${disciplinesEngToDa(result)}</td>
+      <td>${fixedStats.competition}</td>
+      <td>${fixedStats.dato}</td>
+      <td>${fixedStats.disciplines}</td>
       <td>${result.time}</td>
       
     </tr>
       `;
 
       document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
-      document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result));
+      if(fixedStats.competition === "Konkurrence"){
+        document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result,fixedStats,member));}
     }
   }
 }
 
-function showMemberModalTrainer(result) {
-  const member = listOfMembers.find((member) => member.id === result.uid);
+function showMemberModalTrainer(result,fixedStats,member) {
+  console.log(result);
 
   const html = /*HTML*/ `
     <article class="modal-item">
@@ -218,11 +228,11 @@ function showMemberModalTrainer(result) {
       </h3>
       <section id="member-modal-section-trainer">
       <p>Aldersgruppe: ${member.ageGroup}</p>
-      <p>Type: ${competitionBooleanToString(result)}</p>
+      <p>Type: ${fixedStats.competition}</p>
       <p>Stævne: ${result.compName}</p>
       <p>Lokation: ${result.location}</p>
-      <p>Dato: ${dateToDato(result)}</p>
-      <p>Disciplin: ${disciplinesEngToDa(result)}</p>
+      <p>Dato: ${fixedStats.dato}</p>
+      <p>Disciplin: ${fixedStats.disciplines}</p>
       <p>Resultat(sek.): ${result.time}</p>
       <p>Placering: ${result.placement}</p>
       </section>
@@ -284,33 +294,7 @@ function memberOverviewTrainer() {
   // console.log(member.competetive);
 }
 
-function competitionBooleanToString(result) {
-  let competition = "";
-  if (result.competition) competition = "Konkurrence";
-  else if (result.competition === false) competition = "Træning";
-  return competition;
-}
-
-function disciplinesEngToDa(result) {
-  let disciplin = "";
-  if (result.discipline === "crawl") disciplin = "Crawl";
-  else if (result.discipline === "butterfly") disciplin = "Butterfly";
-  else if (result.discipline === "backCrawl") disciplin = "Rygcrawl";
-  else if (result.discipline === "breaststroke") disciplin = "Bryst svømning";
-  return disciplin;
-}
-
-function dateToDato(result) {
-  let dato = "";
-  const dates = result.date.split("-");
-
-  dato = dates[2] + "-" + dates[1] + "-" + dates[0];
-  return dato;
-}
-
 function createResultClicked(event) {
-  
-  listOfResults.push({ competition: true, compName: "Vinterstævne" });
 
   document.querySelector("#create-result-modal-trainer").showModal();
   document.querySelector("#create-result-type-trainer").addEventListener("change", changeFormBasedOnResultType);
@@ -324,7 +308,6 @@ function createResultClicked(event) {
   for (const member of listOfMembers) {
     if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem") document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
-  console.log(document.querySelector("#create-result-name-trainer").children);
 
   const compList = document.querySelector("#create-result-competition-trainer");
   for (const competition of listOfCompetitions) {
@@ -380,26 +363,21 @@ function createResultClicked(event) {
 async function submitResult(event) {
   event.preventDefault();
   const form = event.target;
-  const time = form.result.value;
-  let actualTime = time;
+  const formTime = form.result.value;
+  const formDate = form.date.value
 
-  if (time.includes(",")) {
-    actualTime = time.replace(",", ".");
-  }
-  if (isNaN(Number(actualTime))) {
-    console.log("ERROR: Time is not a number");
-  } else {
+    if(timeChecker(formTime) && dateChecker(formDate)){
     const newResult = {
       uid: form.name.value,
-      competition: form.type.value === true,
+      competition: form.type.value === "true",
       compName: form.competition.value,
       discipline: form.discipline.value,
       location: form.location.value,
-      date: form.date.value,
-      time: form.result.value,
+      date: formDate,
+      time: formTime,
       placement: form.placement.value,
     };
-    const response = creatingResult(newResult);
+    const response = await creatingResult(newResult);
     if (response.ok) getUpdatedFirebase();
   }
 }
@@ -414,7 +392,6 @@ function updateListOfCompetitions() {
       document.querySelector("#competition-table-trainer tr:last-child").addEventListener("click", ()=>deleteCompetition(competition))
   }
 }
-
  function deleteCompetition(competition) {
   const deleteModal = document.querySelector("#delete-competiton-modal-trainer")
   deleteModal.innerHTML = /*html*/ `
@@ -437,20 +414,18 @@ function updateListOfCompetitions() {
   }
 }
 
-function submitCompetition(event) {
+async function submitCompetition(event) {
   event.preventDefault();
   const form = event.target;
 
-  const dateCheck = Date.parse(form.date.value);
-
-  if (isNaN(dateCheck)) console.error("ERROR: Date is incorrect! Use format: åååå-mm-dd");
-  else {
+  if (dateChecker(form.date.value)){
     const competitionToSubmit = {
       compName: form.compName.value,
       location: form.location.value,
       date: form.date.value,
     };
-    createCompetition(competitionToSubmit);
+    
+    await createCompetition(competitionToSubmit);
     getUpdatedFirebase();
   }
 }
