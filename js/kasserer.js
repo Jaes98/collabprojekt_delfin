@@ -49,13 +49,22 @@ function showMemberKasserer(member) {
   if (member.active === "Passivt medlem") member.paymentGroup = `Passiv ${member.ageGroup}`;
   else if (member.active === "Aktivt medlem") member.paymentGroup = `Aktiv ${member.ageGroup}`;
 
+  // let restance = "";
+  // if (member.restance) {
+  //   restance = "Ja";
+  //   document.querySelector("tr.member-item-kasserer").classList.add("btn-red")
+  // } 
+  // else if (member.restance === false) restance = "Nej";
   let restance = "";
-  if (member.restance) restance = "Ja";
-  else if (member.restance === false) restance = "Nej";
-  // <td>${member.active} ${ageGroup}</td>
+  let idRedness = ""; 
+
+  if (member.restance) {
+    restance = "Ja";
+    idRedness = "back-red"; 
+  } else if (member.restance === false) restance = "Nej";
 
   const html = /* html */ `
-    <tr class="member-item-kasserer">
+    <tr class="member-item-kasserer" id="${idRedness}">
       <td>${member.name}</td>
       <td>${member.paymentGroup}</td>
       <td>${restance}</td>
