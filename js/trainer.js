@@ -88,16 +88,17 @@ function showTopFiveTables(topFive) {
   document.querySelector("#trainer-table-body").innerHTML = "";
 
   const slicedTopFive = topFive.slice(0, 5);
-  for (const member of slicedTopFive) {
-    showTopFiveTable(member);
+  for (let index = 0; index < slicedTopFive.length; index++) {
+    const member = slicedTopFive[index];
+    showTopFiveTable(member, index+1);
   }
 }
 
-function showTopFiveTable(result) {
+function showTopFiveTable(result, index) {
   const member = listOfMembers.find((member) => member.id === result.uid);
   const topFiveHTML = /* html */ `
     <tr>
-      <td>${member.name}</td>
+      <td><b>${index}.</b>   ${member.name}</td>
       <td>${member.ageGroup}</td>
       <td>${competitionBooleanToString(result)}</td>
       <td>${dateToDato(result)}</td>
