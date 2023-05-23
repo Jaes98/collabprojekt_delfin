@@ -61,9 +61,9 @@
       <p id="log-in-error"></p>
       <form id="log-in-form">
         <label for="kodeord"><b>Brugernavn:</b></label>
-        <input id="brugernavn" name="brugernavn" type="text" placeholder="Brugernavn" required />
+        <input id="brugernavn" name="brugernavn" type="text" placeholder="fx. 'formand', 'kasserer', 'træner'" required />
         <label for="kodeord"><b>Kodeord:</b></label>
-        <input id="kodeord" name="kodeord" type="password" placeholder="Kodeord" required />
+        <input id="kodeord" name="kodeord" type="password" placeholder="#enMegetSværAdgangskode1!" required />
         <br>
         <input type="submit"  class="buttonAni btn-green" value="Log ind" />
       </form>
@@ -358,9 +358,30 @@
           <button id="btn-trainer-create" class="buttonAni">Tilføj nyt resultat</button>
           <br />
           <br />
+          <br>
           <button id="btn-trainer-competition" class="buttonAni">Rediger stævner</button>
           <br />
           <br />
+          <br>
+          <label for="topFive-select" id="nav-align">Vælg Top 5:</label>
+          <br>
+          <select id="topFive-select" autocomplete="off">
+            <option value="default"></option>
+            <optgroup label="Juniors">
+                <option value="Junior-crawl">Crawl</option>
+                <option value="Junior-backCrawl">Backcrawl</option>
+                <option value="Junior-breaststroke">Breaststroke</option>
+                <option value="Junior-butterfly">Butterfly</option>
+            </optgroup>
+            <optgroup label="Seniors">
+                <option value="Senior-crawl">Crawl</option>
+                <option value="Senior-backCrawl">Backcrawl</option>
+                <option value="Senior-breaststroke">Breaststroke</option>
+                <option value="Senior-butterfly">Butterfly</option>
+            </optgroup>
+          </select>
+          <br>
+          <br>
           <label for="member-search-trainer" id="nav-align">Søg (Navn):</label>
           <br />
           <input type="search" id="member-search-trainer" placeholder="Søg efter navn" autocomplete="off" />
@@ -419,22 +440,7 @@
               <!-- <td>  -->
             
         </div>
-        <label for="topFive-select">Vælg en disciplin og aldersgruppe, for top 5:</label>
-        <select id="topFive-select" autocomplete="off">
-            <option value="default"></option>
-            <optgroup label="Juniors">
-                <option value="Junior-crawl">Crawl</option>
-                <option value="Junior-backCrawl">Rygcrawl</option>
-                <option value="Junior-breaststroke">Brystsvømning</option>
-                <option value="Junior-butterfly">Butterfly</option>
-            </optgroup>
-            <optgroup label="Seniors">
-                <option value="Senior-crawl">Crawl</option>
-                <option value="Senior-backCrawl">Rygcrawl</option>
-                <option value="Senior-breaststroke">Brystsvømning</option>
-                <option value="Senior-butterfly">Butterfly</option>
-            </optgroup>
-        </select>
+      
         <div class="trainer-topfive-table">
           <table>
             <thead>
@@ -452,7 +458,6 @@
             <h3>Overblik over medlemmer:</h3>
           </div>
         </div>
-
         <div class="page-footer"></div>
         <dialog id="show-result-modal-trainer"></dialog>
         <dialog id="show-competition-modal-trainer">
