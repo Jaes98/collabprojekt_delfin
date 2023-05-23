@@ -36,7 +36,7 @@ async function getCompetitions() {
   const resultsFromDatabase = await fetch(`${dolphinDatabase}/competition.json`);
   const fetchedCompetitions = await resultsFromDatabase.json();
   console.log(fetchedCompetitions);
-  return prepareData(fetchedCompetitions)
+  return prepareData(fetchedCompetitions);
 }
 
 async function createCompetition(newCompetition) {
@@ -56,7 +56,7 @@ async function createCompetition(newCompetition) {
     failedPrompt();
   }
 
-  return response; 
+  return response;
 }
 
 function prepareData(listOfObjects) {
@@ -199,7 +199,27 @@ async function creatingResult(newResult) {
     failedPrompt();
   }
 
-  return response; 
+  return response;
 }
 
-export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition };
+async function updateResult(updatedResult, id) {
+  const objectToJSON = JSON.stringify(updatedResult);
+  console.log(objectToJSON);
+  console.log(id);
+
+  const response = await fetch(`${dolphinDatabase}/results/${id}.json`, {
+    method: "PATCH",
+    body: objectToJSON,
+  });
+  if (response.status === 200) {
+    console.log("****************200***************");
+    successPrompt();
+  } else {
+    console.log("################shit#############");
+    failedPrompt();
+  }
+
+  return response;
+}
+
+export { updateMemberPUT, createdMember, deleteMember, getMembers, updateMemberPatch, getResults, prepareData, creatingResult, getCompetitions, createCompetition, updateResult };

@@ -23,6 +23,8 @@ function start() {
   document.querySelector("#btn-formand-no-update").addEventListener("click", () => document.querySelector("#dialog-update-member2").close());
   document.querySelector("#sort").addEventListener("change", setSort);
   document.querySelector("#nav-filter").addEventListener("change", chosenFilter);
+  document.querySelector("#log-in-reset").addEventListener("click", () => viewControl("#front-page"));
+  document.querySelector("#log-in-form").addEventListener("submit", logInAttempt);
 
   document.querySelector("#member-search").addEventListener("keyup", searchBarChanged);
   document.querySelector("#member-search").addEventListener("search", searchBarChanged);
@@ -141,7 +143,7 @@ function memberOverview() {
   );
 }
 
-function createNewMember(event) {
+async function createNewMember(event) {
   console.log("createNewMember");
   event.preventDefault();
   let form = event.target;
@@ -159,11 +161,11 @@ function createNewMember(event) {
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
     breaststroke: form.breaststroke.checked,
-    // coach: form.trid.value,
+    restance: false
   };
   console.log(newMember);
-  createdMember(newMember);
-  getUpdatedFirebase();
+  const response = await createdMember(newMember);
+  if (response.ok) getUpdatedFirebase();
 }
 
 function updateMemberClicked(member) {
@@ -188,6 +190,7 @@ function updateMemberClicked(member) {
   updateForm.butterfly.checked = member.butterfly;
   updateForm.backCrawl.checked = member.backCrawl;
   updateForm.breaststroke.checked = member.breaststroke;
+  updateForm.restance.value = member.restance;
 
   updateForm.setAttribute("data-id", member.id);
   document.querySelector("#dialog-update-member2").showModal();
@@ -197,7 +200,6 @@ async function updateMember(event) {
   event.preventDefault();
 
   let form = event.target;
-
   const updatedMember = {
     name: form.name.value,
     bday: form.bday.value,
@@ -211,9 +213,10 @@ async function updateMember(event) {
     butterfly: form.butterfly.checked,
     backCrawl: form.backCrawl.checked,
     breaststroke: form.breaststroke.checked,
+    restance: form.restance.value === "true"
   };
-
-  const id = form.getAttribute("data-id");
+  
+  const id = form.getAttribute("data-id")
   const response = await updateMemberPUT(updatedMember, id);
   if (response.ok) {
     getUpdatedFirebase();
@@ -283,6 +286,16 @@ function chosenFilter() {
 function filterList(searchedList) {
   if (valueToFilterBy === "") return searchedList;
   return searchedList.filter((member) => Object.values(member).includes(valueToFilterBy));
+}
+
+function logInAttempt(event) {
+  event.preventDefault();
+  console.log("logging");
+  const form = event.target;
+  console.log(form.brugernavn.value);
+  if (form.brugernavn.value === "formand") viewControl("#formand");
+  else if (form.brugernavn.value === "kasserer") viewControl("#kasserer");
+  else if (form.brugernavn.value === "træner") viewControl("#trainer");
 }
 
 export { getUpdatedFirebase };

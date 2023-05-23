@@ -695,3 +695,7 @@ tr.thh:hover {
 #income {
   color: green;
 }
+
+.hidden {
+  display: none;
+}
