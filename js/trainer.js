@@ -3,6 +3,8 @@ import { getResults,getCompetitions, creatingResult, createCompetition } from ".
 
 let listOfResults;
 let listOfMembers;
+
+let topFiveByDiscipline = [];
 let listOfCompetitions;
 
 function startTrainer(array) {
@@ -15,6 +17,8 @@ function startTrainer(array) {
   document.querySelector("#btn-trainer-close").addEventListener("click", () => document.querySelector("#create-result-modal-trainer").close());
 
   updateResultsAndCompetitions();
+
+  document.querySelector("#topFive-select").addEventListener("change", setValueToTopFiveBy);
 }
 
 async function updateResultsAndCompetitions() {
@@ -23,7 +27,139 @@ async function updateResultsAndCompetitions() {
   updateListOfCompetitions()
   showResultTrainer(listOfResults);
   memberOverviewTrainer(listOfResults);
+  topFiveMembers(listOfResults);
   // console.log("###########", listOfResults);
+}
+
+let valueToTopFiveBy = "Junior-crawl";
+function setValueToTopFiveBy(params) {
+  valueToTopFiveBy = document.querySelector("#topFive-select").value;
+  topFiveMembers();
+}
+
+function topFiveMembers() {
+  // HER BEGYNDER DET BUSTER BIKSEDE FREM: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  addAgeToResults();
+  function addAgeToResults(params) {
+    for (const result of listOfResults) {
+      const member = listOfMembers.find((member) => member.id === result.uid);
+      if (member !== undefined) {
+        if (member.ageGroup === "Senior+") member.ageGroup = "Senior";
+        result.ageGroup = member.ageGroup;
+      }
+    }
+  }
+  let listOfDesiredResults = [];
+  const htmlToDiscipline = valueToTopFiveBy.substring(7);
+  const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
+
+  for (const result of listOfResults) {
+    if (result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup) listOfDesiredResults.push(result);
+  }
+
+  console.log("sorted top 5", listOfDesiredResults.sort((a, b) => a.time - b.time).splice(0, 5));
+  // HER SLUTTER DET BUSTER SKREV @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+  const checkCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
+
+  // if (valueToTopFiveBy.includes("junior")) {
+  //   if (valueToTopFiveBy === "junior-crawl") {
+  //   } if (valueToTopFiveBy === "junior-backcrawl") {
+  //     const checkBackCrawl = listOfResults.filter((result) =>result.discipline === "backCrawl" &&checkCompetitive.some((member) => member.id === result.uid));
+  //   } if (valueToTopFiveBy === "junior-breaststroke") {
+  //     const checkBreaststroke = listOfResults.filter((result) =>result.discipline === "breaststroke" &&checkCompetitive.some((member) => member.id === result.uid));
+  //   } if (valueToTopFiveBy === "junior-butterfly") {
+  //     const checkButterfly = listOfResults.filter((result) =>result.discipline === "butterfly" &&checkCompetitive.some((member) => member.id === result.uid));
+  //   }
+  // } else if (valueToTopFiveBy.includes("senior")) {
+
+  // }
+  const checkCrawl = listOfResults.filter((result) => result.discipline === "crawl" && checkCompetitive.some((member) => member.id === result.uid));
+  console.log("inden sort", checkCrawl);
+
+  checkCrawl.sort((a, b) => a.time - b.time);
+
+  console.log("finder den det?", checkCrawl);
+
+  showTopFiveTables(checkCrawl);
+
+  // let juniorOrSeniorList = [...listOfMembers];
+  // for (const member of juniorOrSeniorList) {
+  //   if (valueToTopFiveBy.includes("junior") && member.ageGroup === "Junior") {
+  //     if (member.crawl) {
+  //       member.crawl = "junior-crawl";
+  //     }
+  //     if (member.backcrawl) {
+  //       member.backCrawl = "junior-backcrawl";
+  //     }
+  //     if (member.breaststroke) {
+  //       member.breaststroke = "junior-breaststroke";
+  //     }
+  //     if (member.butterfly) {
+  //       member.butterfly = "junior-butterfly";
+  //     }
+  //   } else {
+  //     if (member.crawl) {
+  //       member.crawl = "senior-crawl";
+  //     } if (member.backcrawl) {
+  //       member.backCrawl = "senior-backcrawl";
+  //     } if (member.breaststroke) {
+  //       member.breaststroke = "senior-breaststroke";
+  //     } if (member.butterfly) {
+  //       member.butterfly = "senior-butterfly";
+  //     }
+  //   }
+  // }
+
+  // for (const member of juniorOrSeniorList) {
+  //   if (valueToTopFiveBy.includes("junior")) {
+  //     if (valueToTopFiveBy.includes("crawl")) {
+  //     topFiveByDiscipline.push(member)
+  //     } else if (valueToTopFiveBy.includes("backcrawl")) {
+  //     topFiveByDiscipline.push(member);
+  //     } else if(valueToTopFiveBy.includes("breaststroke")) {
+  //     topFiveByDiscipline.push(member);
+  //     } else if (valueToTopFiveBy.includes("butterfly")) {
+  //     topFiveByDiscipline.push(member);
+  //     }
+
+  //   } else if (valueToTopFiveBy.includes("senior")) {
+  //     if (valueToTopFiveBy.includes("crawl")) {
+  //       topFiveByDiscipline.push(member);
+  //     }
+  //     else if (valueToTopFiveBy.includes("backcrawl")) {
+  //       topFiveByDiscipline.push(member);
+  //     }
+  //     else if (valueToTopFiveBy.includes("breaststroke")) {
+  //       topFiveByDiscipline.push(member);
+  //     }
+  //     else if (valueToTopFiveBy.includes("butterfly")) {
+  //       topFiveByDiscipline.push(member);
+  //     }
+  //   }
+  // }
+}
+function showTopFiveTables(checkCrawl) {
+  document.querySelector("#topfive-table-body").innerHTML = "";
+
+  const slicedTopFive = checkCrawl.slice(0, 5);
+  for (const member of slicedTopFive) {
+    showTopFiveTable(member);
+  }
+}
+
+function showTopFiveTable(result) {
+  const member = listOfMembers.find((member) => member.id === result.uid);
+
+  const topFiveHTML = /* html */ `
+    <tr>
+      <td>${member.name}</td>
+      <td>${member.ageGroup}</td>
+      <td>${result.location}</td>
+      <td>${result.time}</td>
+    </tr>
+  `;
+  document.querySelector(`#topfive-table-body`).insertAdjacentHTML("beforeend", topFiveHTML);
 }
 
 function showResultTrainer(results) {
@@ -105,7 +241,9 @@ function memberOverviewTrainer() {
   // checks breaststroke members
   const countBreaststroke = listOfResults.filter((result) => result.discipline === "breaststroke" && countCompetitive.some((member) => member.id === result.uid));
   const countBreaststrokeJunior = countBreaststroke.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
-  const countBreaststrokeSenior = countBreaststroke.filter((result) => listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)).length;
+  const countBreaststrokeSenior = countBreaststroke.filter((result) =>
+    listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)
+  ).length;
 
   // checks butterfly members
   const countButterfly = listOfResults.filter((result) => result.discipline === "butterfly" && countCompetitive.some((member) => member.id === result.uid));
