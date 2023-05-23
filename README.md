@@ -1,3 +1,3 @@
 # Delfin Svømmeklub WebApp
 
-[GitHub Pages - Live Project](http://www.svoemmeklubdelfin.dk/ "Pages Link")
+[GitHub Pages - Live Project](https://jaes98.github.io/collabprojekt_delfin/ "Pages Link")
