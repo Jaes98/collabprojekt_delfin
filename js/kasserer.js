@@ -88,7 +88,9 @@ function kassererOverview(params) {
 
   const membersInRestance = listOfMembers.filter((member) => member.restance === true);
   const totalYearlyIncome = moneyCalculator(listOfMembers);
+  const totalYearlyIncomeCommaSeperated = Intl.NumberFormat('de-DE').format(totalYearlyIncome);
   const moneyInRestance = moneyCalculator(membersInRestance);
+  const moneyInRestanceCommaSeperated = Intl.NumberFormat('de-DE').format(moneyInRestance);
 
   function moneyCalculator(listOfMembersToCalculate) {
     let expectedIncome = 0;
@@ -135,9 +137,9 @@ function kassererOverview(params) {
     "beforeend",
     /*html*/ `
     <p><b>Forventet årlig indkomst:</b></p>
-    <p id="income"><b>${totalYearlyIncome}</b> kr.</p>
+    <p id="income"><b>${totalYearlyIncomeCommaSeperated}</b> kr.</p>
     <p><b>Restancebeløb:</b></p>
-    <p id="restanceRedText"><b>${moneyInRestance}</b> kr.</p>
+    <p id="restanceRedText"><b>${moneyInRestanceCommaSeperated}</b> kr.</p>
     `
   );
 }
