@@ -73,7 +73,6 @@ hr {
     /* left: 2.9%; */
     right: 3%;
     width: 135%;
-
   }
 
   #btn-formand-create,
@@ -202,10 +201,10 @@ hr {
     margin-left: 20px;
     left: 0;
   }
-  .trainer-overview,
+  /* .trainer-overview,
   .overview {
-    padding: 25%;
-  }
+    /* padding: 25%; */
+  /* }  */
 }
 
 .formand-header {
@@ -228,7 +227,7 @@ hr {
   grid-row: auto;
   grid-column: 1 / 2;
   background-color: #eee;
-  padding: 25px;
+  /* padding: 25px; */
   margin-right: 20px;
   width: 100%;
   padding-top: 0;
@@ -242,6 +241,7 @@ hr {
   display: grid;
   position: relative;
   text-align: left;
+  align-self: start;
 }
 
 .formand-table h2 {
@@ -305,6 +305,7 @@ h3 {
   display: grid;
   position: relative;
   text-align: left;
+  align-self: start;
 }
 
 .kasserer-table h2 {
@@ -315,7 +316,6 @@ h3 {
   grid-row: auto;
   grid-column: 6/ 9;
   background-color: #eee;
-  padding: 25px;
   margin-right: 10px;
   margin-left: 20px;
   width: 100%;
@@ -364,6 +364,7 @@ h3 {
   display: grid;
   position: relative;
   text-align: left;
+  align-self: start;
 }
 
 .trainer-table h2 {
@@ -609,7 +610,6 @@ form {
   padding: 1em;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-
   gap: 2px;
   font-size: 20px;
 }
