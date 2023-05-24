@@ -34,7 +34,6 @@ async function updateResultsAndCompetitions() {
   memberOverviewTrainer(listOfResults);
   addAgeToResults();
   addNamesToResults();
-  topFiveMembers(listOfResults);
   setSortAndFilters()
 }
 
@@ -54,17 +53,17 @@ function setValueToTopFiveBy(params) {
   topFiveMembers();
 }
 
-function topFiveMembers() {
-  addAgeToResults();
-  function addAgeToResults(params) {
-    for (const result of listOfResults) {
-      const member = listOfMembers.find((member) => member.id === result.uid);
-      if (member !== undefined) {
-        if (member.ageGroup === "Senior+") member.ageGroup = "Senior";
-        result.ageGroup = member.ageGroup;
-      }
+function addAgeToResults(params) {
+  for (const result of listOfResults) {
+    const member = listOfMembers.find((member) => member.id === result.uid);
+    if (member !== undefined) {
+      if (member.ageGroup === "Senior+") member.ageGroup = "Senior";
+      result.ageGroup = member.ageGroup;
     }
   }
+}
+function topFiveMembers() {
+  
   let listOfDesiredResults = [];
   const htmlToDiscipline = valueToTopFiveBy.substring(7);
   const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
@@ -154,7 +153,7 @@ function showMemberTrainer(result) {
       `;
 
       document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
-      document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result));
+      document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result,fixedStats,member));
     }
   }
 }
@@ -313,11 +312,11 @@ function createResultClicked(event) {
 async function submitResult(event) {
   event.preventDefault();
   const form = event.target;
-  const formTime = form.result.value;
-  const formDate = form.date.value
+  const formTime = timeChecker(form.result.value)
+  const formDate = dateChecker(form.date.value)
   const errorMessage = document.querySelector("#result-create-error")
 
-    if(timeChecker(formTime) && dateChecker(formDate)){
+    if(formTime && formDate){
     const newResult = {
       uid: form.name.value,
       competition: form.type.value === "true",
