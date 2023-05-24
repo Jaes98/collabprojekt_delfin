@@ -89,10 +89,19 @@ function topFiveMembers() {
 }
 function showTopFiveTables(topFive) {
   document.querySelector("#trainer-table-body").innerHTML = "";
+  if (valueToTopFiveBy === "Junior-backCrawl") {
+    valueToTopFiveBy = "Junior-Rygcrawl"
+  } else if (valueToTopFiveBy === "Junior-breaststroke") {
+    valueToTopFiveBy = "Junior-Brystsvømning"
+  } else if (valueToTopFiveBy === "Senior-backCrawl") {
+    valueToTopFiveBy = "Senior-Rygcrawl"
+  } else if (valueToTopFiveBy === "Senior-breaststroke") {
+    valueToTopFiveBy = "Senior-Brystsvømning"
+  } 
   let lowerCaseString = valueToTopFiveBy.toLowerCase();
   let hyphenIndex = lowerCaseString.indexOf("-");
   let indexAfterHyphen = lowerCaseString.substring(hyphenIndex + 1);
-  let titleCaseString =indexAfterHyphen.charAt(0).toUpperCase() + indexAfterHyphen.slice(1);
+  let titleCaseString = indexAfterHyphen.charAt(0).toUpperCase() + indexAfterHyphen.slice(1);
   let hyphenToSpaceString = valueToTopFiveBy.replace("-", " ");
   let ageThing = hyphenToSpaceString.substring(0, 6);
   let finalString = `${ageThing} ${titleCaseString}`;
@@ -279,6 +288,7 @@ function createResultClicked(event) {
 
 
   changeFormBasedOnCompetition();
+  changeFormBasedOnResultType();
 
   function changeFormBasedOnCompetition(event) {
     const selectedCompetition = listOfCompetitions.find((competition) => competition.compName === form.competition.value);
