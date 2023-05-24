@@ -4,8 +4,6 @@ import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBoole
 
 let listOfResults;
 let listOfMembers;
-
-let topFiveByDiscipline = [];
 let listOfCompetitions;
 
 function startTrainer(array) {
@@ -149,8 +147,9 @@ function showMemberTrainer(result) {
       <td>${fixedStats.disciplines}</td>
       <td>${result.time}</td>
       
-    </tr>
+      </tr>
       `;
+      // <td>${result.date}</td>
 
       document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
       document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result,fixedStats,member));

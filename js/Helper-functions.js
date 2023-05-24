@@ -103,7 +103,7 @@ function dateChecker(dateValue) {
   if (isNaN(Date.parse(dateValue))){
     console.error("ERROR: Date is incorrect! Use format: åååå-mm-dd");
     return false}
-  else return true
+  else return dateValue
 }
 
 function competitionBooleanToString(result) {
@@ -123,6 +123,7 @@ function disciplinesEngToDa(result) {
 }
 
 function dateToDato(result) {
+  console.log("datetodato:",result);
   let dato = "";
   const dates = result.date.split("-");
 
