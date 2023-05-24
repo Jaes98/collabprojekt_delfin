@@ -88,13 +88,15 @@ function refinedData(result) {
 
 function timeChecker(timeValue) {
   let actualTime = timeValue
+  console.log(actualTime);
   if (timeValue.includes(",")) {
     actualTime = timeValue.replace(",", ".");
   }
+  console.log(actualTime);
   if (isNaN(Number(actualTime))) {
     console.error("ERROR: Time is not a number");
     return false
-  } else return true
+  } else return actualTime
 }
 
 function dateChecker(dateValue) {
