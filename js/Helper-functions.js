@@ -123,7 +123,6 @@ function disciplinesEngToDa(result) {
 }
 
 function dateToDato(result) {
-  console.log("datetodato:",result);
   let dato = "";
   const dates = result.date.split("-");
 

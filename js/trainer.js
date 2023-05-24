@@ -37,7 +37,7 @@ async function updateResultsAndCompetitions() {
 
 function setSortAndFilters() {
   const sortedList = sortList(listOfResults);
-  const searchedList = sortedList.filter((result) => result.name.toLowerCase().includes(valueToSearchBy));
+  const searchedList = sortedList.filter((result) => result.name.toLowerCase().includes(valueToSearchBy.toLowerCase()));
   const filteredList = filterList(searchedList);
   if (filteredList.length === 0) {
     const noResultsHtml = /* html */ `<p>Ingen resultater fundet.</p>`;
@@ -159,7 +159,6 @@ function showMemberTrainer(result) {
       
       </tr>
       `;
-      // <td>${result.date}</td>
 
       document.querySelector("#trainer-table-body").insertAdjacentHTML("beforeend", html);
       document.querySelector("#trainer-table-body tr:last-child").addEventListener("click", () => showMemberModalTrainer(result,fixedStats,member));
@@ -296,8 +295,9 @@ function createResultClicked(event) {
     form.date.value = selectedCompetition.date;
   }
 
-  function changeFormBasedOnResultType(event) {
-    const target = event.target.value;
+  function changeFormBasedOnResultType() {
+    const target = document.querySelector("#create-result-type-trainer").value;
+    console.log("target:",target);
     if (target === "false") {
       form.location.disabled = false;
       form.date.disabled = false;
@@ -338,9 +338,12 @@ async function submitResult(event) {
       placement: form.placement.value,
     };
     const response = await creatingResult(newResult);
-    errorMessage.innerHTML=""
-    errorMessage.classList.remove("create-error")
-    if (response.ok) getUpdatedFirebase();
+    if (response.ok) {
+      form.result.value = ""
+      form.placement.value = ""
+      errorMessage.innerHTML=""
+      errorMessage.classList.remove("create-error")
+      getUpdatedFirebase();}
   }
   else{
     errorMessage.innerHTML = "Forkert dato eller resultat. Tjek datoformat og at tiden er et korrekt tal"
@@ -468,15 +471,13 @@ function filterList(searchedList) {
   return searchedList.filter((result) => Object.values(result).includes(valueToFilterBy));
 }
 
+// async function resultUpdater(event) {
+//   const resultToUpdate = {
+//     uid: "-ghdsk-sdljdsj7",
+//   };
 
-
-async function resultUpdater(event) {
-  const resultToUpdate = {
-    uid: "-ghdsk-sdljdsj7",
-  };
-
-  const id = "id1415";
-  updateResult(resultToUpdate, id);
-}
+//   const id = "id1415";
+//   updateResult(resultToUpdate, id);
+// }
 
 export { startTrainer };
