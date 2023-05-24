@@ -50,6 +50,9 @@ hr {
     overflow: hidden;
     /* background-color: #4caf50; */
   }
+  #trainer-table {
+    width: 99vw;
+  }
 }
 
 @media (min-width: 800px) {
@@ -64,6 +67,12 @@ hr {
     justify-content: center;
     /* justify-items: center; */
     overflow: hidden;
+  }
+  #trainer-table {
+    position: relative;
+    /* left: 2.9%; */
+    right: 3%;
+    width: 135%;
   }
 
   #btn-formand-create,
@@ -145,6 +154,10 @@ hr {
     justify-items: center;
     overflow: hidden;
   }
+  .trainer-table {
+    position: relative;
+    left: 19%;
+  }
 
   #btn-formand-create,
   #member-search,
@@ -188,10 +201,10 @@ hr {
     margin-left: 20px;
     left: 0;
   }
-  .trainer-overview,
+  /* .trainer-overview,
   .overview {
-    padding: 25%;
-  }
+    /* padding: 25%; */
+  /* }  */
 }
 
 .formand-header {
@@ -214,7 +227,7 @@ hr {
   grid-row: auto;
   grid-column: 1 / 2;
   background-color: #eee;
-  padding: 25px;
+  /* padding: 25px; */
   margin-right: 20px;
   width: 100%;
   padding-top: 0;
@@ -228,6 +241,7 @@ hr {
   display: grid;
   position: relative;
   text-align: left;
+  align-self: start;
 }
 
 .formand-table h2 {
@@ -291,6 +305,7 @@ h3 {
   display: grid;
   position: relative;
   text-align: left;
+  align-self: start;
 }
 
 .kasserer-table h2 {
@@ -301,7 +316,6 @@ h3 {
   grid-row: auto;
   grid-column: 6/ 9;
   background-color: #eee;
-  padding: 25px;
   margin-right: 10px;
   margin-left: 20px;
   width: 100%;
@@ -344,12 +358,13 @@ h3 {
 
 .trainer-table {
   grid-row: auto;
-  grid-column: 2 / 6;
+  grid-column: 2 / 5;
   background-color: #fff;
-  width: 100%;
+  width: 134%;
   display: grid;
   position: relative;
   text-align: left;
+  align-self: start;
 }
 
 .trainer-table h2 {
@@ -505,7 +520,7 @@ section.active#front-page {
 }
 
 section.active#formand {
-  background-color: grey;
+  /* background-color: grey; */
   display: grid;
 }
 
@@ -522,12 +537,12 @@ section.active#log-in {
 }
 
 section.active#kasserer {
-  background-color: grey;
+  /* background-color: grey; */
   display: grid;
 }
 
 section.active#trainer {
-  background-color: grey;
+  /* background-color: grey; */
   display: grid;
 }
 
@@ -605,7 +620,6 @@ form {
   padding: 1em;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-
   gap: 2px;
   font-size: 20px;
 }
@@ -662,12 +676,12 @@ tr:nth-child(odd) {
 
 th {
   background-color: #67a0d8;
-  padding: 2mm;
+  padding: 1vw;
   color: black;
 }
 
 td {
-  padding: 5mm;
+  padding: 1vw;
 }
 
 tr:nth-child(even):hover {

@@ -22,7 +22,6 @@
         <h1>Svømmeklub Delfinen</h1>
         <button id="btn-logIn" class="nav-link1"><a href="#log-in">Log Ind</a></button>
       </header>
-
       <article id="fp-contact">
         <h2>Vil <ins>du</ins> være en del af flokken?</h2>
         <hr />
@@ -50,7 +49,6 @@
         <p><b>Deltagere fra klubben:</b> Peter, Rasmus, Oskar</p>
         <!-- https://www.svoem.org/Aktuelt/Kalender/?vis=&type=Svoemning&fritekst=S%C3%B8getekst&postnr=Postnr.+fra&postnrtil=Postnr.+til&dagfra=9&maanedfra=5&aarfra=2023&dagtil=1&maanedtil=5&aartil=2024#result -->
       </article>
-
       <footer>
         <h4>Made by: CodeQuest</h4>
       </footer>
@@ -64,8 +62,8 @@
         <input id="brugernavn" name="brugernavn" type="text" placeholder="fx. 'formand', 'kasserer', 'træner'" required />
         <label for="kodeord"><b>Kodeord:</b></label>
         <input id="kodeord" name="kodeord" type="password" placeholder="#enMegetSværAdgangskode1!" required />
-        <br>
-        <input type="submit"  class="buttonAni btn-green" value="Log ind" />
+        <br />
+        <input type="submit" class="buttonAni btn-green" value="Log ind" />
       </form>
     </section>
     <section class="page-view active" id="formand">
@@ -75,7 +73,6 @@
           <h2>Velkommen Formand</h2>
           <button id="btn-log-out" class="nav-link1"><a href="#front-page">Log Ud</a></button>
         </div>
-
         <div class="formand-nav">
           <br />
           <div id="overview">
@@ -119,7 +116,6 @@
             </optgroup>
           </select>
         </div>
-
         <div class="formand-table">
           <h2>Medlemmer</h2>
           <table>
@@ -137,12 +133,9 @@
             </tbody>
           </table>
         </div>
-
         <div class="page-footer"></div>
       </div>
-
       <dialog id="show-member-modal"></dialog>
-
       <dialog id="dialog-create-member">
         <h2>Tilføj nyt medlem</h2>
         <form id="form-create-member">
@@ -195,7 +188,6 @@
         </form>
         <p id="create-member-error"></p>
       </dialog>
-
       <dialog id="dialog-update-member2">
         <h2>Opdatér medlem</h2>
         <form id="formand-form-update-member2">
@@ -215,7 +207,6 @@
             <option value="female">Kvinde</option>
             <option value="other">Andet</option>
           </select>
-
           <label for="formand-update-active">Opdatér medlemskab:</label>
           <select name="active" id="formand-update-active" autocomplete="off" required>
             <option value="true">Aktiv</option>
@@ -244,12 +235,11 @@
             <input type="checkbox" class="update-discipline" name="breaststroke" value="breaststroke" />
             Brystsvømning
           </label>
-          <input type="text" name="restance" value="" hidden>
+          <input type="text" name="restance" value="" hidden />
           <input type="submit" class="float buttonAni btn-green" id="btn-formand-update-submit2" value="Opdatér medlem" />
           <input type="button" class="float buttonAni btn-red" id="btn-formand-no-update" value="Annullér" />
         </form>
       </dialog>
-
       <dialog id="dialog-delete-member">
         <h2>Vil du slette dette medlem?</h2>
         <p id="dialog-delete-member-name">navn på medlem</p>
@@ -259,7 +249,6 @@
         </form>
       </dialog>
     </section>
-
     <section class="page-view" id="kasserer">
       <div class="kasserer-container">
         <div class="kasserer-header">
@@ -267,7 +256,6 @@
           <h2>Velkommen Kasserer</h2>
           <button id="btn-log-out" class="nav-link1"><a href="#front-page">Log Ud</a></button>
         </div>
-        <!-- <br id="header-gap"> -->
         <div class="kasserer-nav">
           <br />
           <br />
@@ -315,7 +303,7 @@
         </div>
         <div class="kasserer-overview">
           <div id="overview">
-            <h3>Overblik over medlemmer:</h3>
+            <!-- <h3>Overblik over medlemmer:</h3> -->
           </div>
           <article id="kasserer-income"></article>
           <article id="kasserer-member-overview"></article>
@@ -341,48 +329,45 @@
           <button id="kasserer-update-cancel" class="buttonAni btn-red">Annullér</button>
         </form>
       </dialog>
-
-      <!-- <button id="kasserer-update-button">Opdater medlem her</button> -->
-
-      <!-- <input type="text" value="abc" id="test" /> -->
     </section>
     <section class="page-view" id="trainer">
       <div class="trainer-container">
         <div class="trainer-header">
           <img id="logo" src="images/dolphin logo.png" alt="logo" />
           <h2>Velkommen Træner</h2>
-          <button id="btn-log-out" class="nav-link1"><a href="#front-page"><b>Log Ud</b></a></button>
+          <button id="btn-log-out" class="nav-link1">
+            <a href="#front-page"><b>Log Ud</b></a>
+          </button>
         </div>
-
         <div class="trainer-nav">
           <br />
           <button id="btn-trainer-create" class="buttonAni">Tilføj nyt resultat</button>
           <br />
           <br />
-          <br>
+          <br />
           <button id="btn-trainer-competition" class="buttonAni">Rediger stævner</button>
           <br />
           <br />
-          <br>
+          <br />
           <label for="topFive-select" id="nav-align">Vælg Top 5:</label>
-          <br>
+          <br />
           <select id="topFive-select" autocomplete="off">
             <option value="default"></option>
             <optgroup label="Juniors">
-                <option value="Junior-crawl">Crawl</option>
-                <option value="Junior-backCrawl">Backcrawl</option>
-                <option value="Junior-breaststroke">Breaststroke</option>
-                <option value="Junior-butterfly">Butterfly</option>
+              <option value="Junior-crawl">Crawl</option>
+              <option value="Junior-backCrawl">Rygcrawl</option>
+              <option value="Junior-breaststroke">Brystsvømning</option>
+              <option value="Junior-butterfly">Butterfly</option>
             </optgroup>
             <optgroup label="Seniors">
-                <option value="Senior-crawl">Crawl</option>
-                <option value="Senior-backCrawl">Backcrawl</option>
-                <option value="Senior-breaststroke">Breaststroke</option>
-                <option value="Senior-butterfly">Butterfly</option>
+              <option value="Senior-crawl">Crawl</option>
+              <option value="Senior-backCrawl">Rygcrawl</option>
+              <option value="Senior-breaststroke">Brystsvømning</option>
+              <option value="Senior-butterfly">Butterfly</option>
             </optgroup>
           </select>
-          <br>
-          <br>
+          <br />
+          <br />
           <label for="member-search-trainer" id="nav-align">Søg (Navn):</label>
           <br />
           <input type="search" id="member-search-trainer" placeholder="Søg efter navn" autocomplete="off" />
@@ -416,8 +401,7 @@
             </optgroup>
           </select>
         </div>
-
-        <div class="trainer-table">
+        <div class="trainer-table" id="trainer-table">
           <h2 id="trainer-h2">Medlemmer</h2>
           <table>
             <thead>
@@ -430,19 +414,18 @@
                 <th>Resultat (sek.)</th>
               </tr>
             </thead>
-            <tbody id="trainer-table-body">
-            
+            <tbody id="trainer-table-body"></tbody>
+          </table>
         </div>
-      
         <div class="trainer-topfive-table">
           <table>
-            <thead>
+            <!-- <thead>
               <tr class="thh">
-                <th></th>
-              </tr>
-            </thead>
+                <!-- <th></th> -->
+            <!-- </tr> -->
+            <!-- </thead> -->
             <tbody id="topfive-table-body">
-              <tr></tr>
+              <!-- <tr></tr> -->
             </tbody>
           </table>
         </div>
@@ -452,81 +435,73 @@
           </div>
         </div>
         <div class="page-footer"></div>
-        <dialog id="show-result-modal-trainer"></dialog>
+      </div>
+      <dialog id="show-result-modal-trainer"></dialog>
         <dialog id="delete-competiton-modal-trainer"></dialog>
         <dialog id="delete-result-modal-trainer"></dialog>
-        <dialog id="show-competition-modal-trainer">
-          <form id="competition-form-trainer">
-            <label for="name">Navn på stævne</label>
-            <input type="text" name="compName" placeholder="Fulde navn på stævnet" />
-            <label for="location">Sted</label>
-            <input type="text" name="location" placeholder="Navn på svømmehal" />
-            <label for="date">Dato</label>
-            <input type="text" name="date" placeholder="åååå-mm-dd">
-            <input type="submit" name="submit" class="buttonAni btn-green" value="Opret stævne">
-          </form>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+      <dialog id="show-competition-modal-trainer">
+        <form id="competition-form-trainer">
+          <label for="name">Navn på stævne</label>
+          <input type="text" name="compName" placeholder="Fulde navn på stævnet" />
+          <label for="location">Sted</label>
+          <input type="text" name="location" placeholder="Navn på svømmehal" />
+          <label for="date">Dato</label>
+          <input type="text" name="date" placeholder="åååå-mm-dd" />
+          <input type="submit" name="submit" class="buttonAni btn-green" value="Opret stævne" />
+        </form>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
           <p id="competition-create-error"></p>
-          <div>
-            <table id="competition-overview-trainer">
-              <thead>
-                <tr class="thh">
-                  <th>Navn på stævne</th>
-                  <th>Lokation</th>
-                  <th>Dato</th>
-                  <th>Slet stævne fra listen</th>
-                </tr>
-              </thead>
-              <tbody id="competition-table-trainer"></tbody>
-            </table>
-          </div>
-        </dialog>
-        <dialog id="create-result-modal-trainer">
-          <form id="create-result-form-trainer">
-            <label for="name">Konkurrentens navn</label>
-            <select name="name" id="create-result-name-trainer"></select>
-
-            <label for="type">Resultattype</label>
-            <select name="type" id="create-result-type-trainer" autocomplete="off">
-              <option value="true">Konkurrence</option>
-              <option value="false">Træning</option>
-            </select>
-
-            <label for="competition">Vælg stævne</label>
-
-            <select name="competition" id="create-result-competition-trainer"></select>
-
-            <label for="discipline">Vælg disciplin</label>
-            <select name="discipline" id="">
-              <option value="crawl">Crawl</option>
-              <option value="butterfly">Butterfly</option>
-              <option value="backCrawl">Rygcrawl</option>
-              <option value="breaststroke">Brystsvømning</option>
-            </select>
-
-            <label for="location">Sted</label>
-            <input type="text" name="location" disabled autocomplete="off" />
-            <label for="date">Dato</label>
-            <input type="text" name="date" required disabled autocomplete="off" placeholder="åååå-mm-dd" />
-            <label for="result">Resultat i sek.</label>
-            <input type="text" name="result" autocomplete="off" required placeholder="Fx 102 eller 97,3" />
-            <label for="placement">Placering</label>
-            <input type="number" name="placement" id="create-result-placement-trainer" required autocomplete="off" placeholder="Kommaløst tal" />
-
-            <input type="submit" value="Opret resultat" class="buttonAni btn-green" id="btn-trainer-submit"/>
-
-            <input type="reset" value="Luk vindue" class="buttonAni btn-red" id="btn-trainer-close"/>
-          </form>
+        <div>
+          <table id="competition-overview-trainer">
+            <thead>
+              <tr class="thh">
+                <th>Navn på stævne</th>
+                <th>Lokation</th>
+                <th>Dato</th>
+                <th>Slet stævne fra listen</th>
+              </tr>
+            </thead>
+            <tbody id="competition-table-trainer"></tbody>
+          </table>
+        </div>
+      </dialog>
+      <dialog id="create-result-modal-trainer">
+        <form id="create-result-form-trainer">
+          <label for="name">Konkurrentens navn</label>
+          <select name="name" id="create-result-name-trainer"></select>
+          <label for="type">Resultattype</label>
+          <select name="type" id="create-result-type-trainer" autocomplete="off">
+            <option value="true">Konkurrence</option>
+            <option value="false">Træning</option>
+          </select>
+          <label for="competition">Vælg stævne</label>
+          <select name="competition" id="create-result-competition-trainer"></select>
+          <label for="discipline">Vælg disciplin</label>
+          <select name="discipline" id="">
+            <option value="crawl">Crawl</option>
+            <option value="butterfly">Butterfly</option>
+            <option value="backCrawl">Rygcrawl</option>
+            <option value="breaststroke">Brystsvømning</option>
+          </select>
+          <label for="location">Sted</label>
+          <input type="text" name="location" disabled autocomplete="off" />
+          <label for="date">Dato</label>
+          <input type="text" name="date" required disabled autocomplete="off" placeholder="åååå-mm-dd" />
+          <label for="result">Resultat i sek.</label>
+          <input type="text" name="result" autocomplete="off" required placeholder="Fx 102 eller 97,3" />
+          <label for="placement">Placering</label>
+          <input type="number" name="placement" id="create-result-placement-trainer" required autocomplete="off" placeholder="Kommaløst tal" />
+          <input type="submit" value="Opret resultat" class="buttonAni btn-green" id="btn-trainer-submit" />
+          <input type="reset" value="Luk vindue" class="buttonAni btn-red" id="btn-trainer-close" />
+        </form>
           <p id="result-create-error"></p>
-        </dialog> 
-        <dialog id="show-member-modal-trainer"></dialog>
-      </div>
+      </dialog>
+      <dialog id="show-member-modal-trainer"></dialog>
     </section>
   </body>
-
   <script src="./js/script.js" type="module"></script>
 </html>
