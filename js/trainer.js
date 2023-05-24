@@ -88,6 +88,7 @@ function topFiveMembers() {
   showTopFiveTables(checkValueToTopFiveBy);
   }
 }
+
 function showTopFiveTables(topFive) {
   document.querySelector("#trainer-table-body").innerHTML = "";
   let lowerCaseString = valueToTopFiveBy.toLowerCase();
