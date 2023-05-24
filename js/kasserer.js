@@ -53,14 +53,14 @@ function showMemberKasserer(member) {
   // if (member.restance) {
   //   restance = "Ja";
   //   document.querySelector("tr.member-item-kasserer").classList.add("btn-red")
-  // } 
+  // }
   // else if (member.restance === false) restance = "Nej";
   let restance = "";
-  let idRedness = ""; 
+  let idRedness = "";
 
   if (member.restance) {
     restance = "Ja";
-    idRedness = "back-red"; 
+    idRedness = "back-red";
   } else if (member.restance === false) restance = "Nej";
 
   const html = /* html */ `
@@ -137,7 +137,7 @@ function kassererOverview(params) {
     <p><b>Forventet årlig indkomst:</b></p>
     <p id="income"><b>${totalYearlyIncome}</b> kr.</p>
     <p><b>Restancebeløb:</b></p>
-    <p id="restance"><b>${moneyInRestance}</b> kr.</p>
+    <p id="restanceRedText"><b>${moneyInRestance}</b> kr.</p>
     `
   );
 }
