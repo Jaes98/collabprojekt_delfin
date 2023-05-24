@@ -86,5 +86,46 @@ function refinedData(result) {
   return result;
 }
 
+function timeChecker(timeValue) {
+  let actualTime = timeValue
+  if (timeValue.includes(",")) {
+    actualTime = timeValue.replace(",", ".");
+  }
+  if (isNaN(Number(actualTime))) {
+    console.error("ERROR: Time is not a number");
+    return false
+  } else return true
+}
 
-export { checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes, refinedData };
+function dateChecker(dateValue) {
+  if (isNaN(Date.parse(dateValue))){
+    console.error("ERROR: Date is incorrect! Use format: åååå-mm-dd");
+    return false}
+  else return true
+}
+
+function competitionBooleanToString(result) {
+  let competition = "";
+  if (result.competition) competition = "Konkurrence";
+  else if (result.competition === false) competition = "Træning";
+  return competition;
+}
+
+function disciplinesEngToDa(result) {
+  let disciplin = "";
+  if (result.discipline === "crawl") disciplin = "Crawl";
+  else if (result.discipline === "butterfly") disciplin = "Butterfly";
+  else if (result.discipline === "backCrawl") disciplin = "Rygcrawl";
+  else if (result.discipline === "breaststroke") disciplin = "Bryst svømning";
+  return disciplin;
+}
+
+function dateToDato(result) {
+  let dato = "";
+  const dates = result.date.split("-");
+
+  dato = dates[2] + "-" + dates[1] + "-" + dates[0];
+  return dato;
+}
+
+export { checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes, refinedData, timeChecker, dateChecker, dateToDato,disciplinesEngToDa,competitionBooleanToString };

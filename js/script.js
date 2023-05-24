@@ -2,7 +2,7 @@
 
 import { viewControl } from "./SPA.js";
 import { updateMemberPUT, createdMember, deleteMember, getMembers } from "./REST.js";
-import { refinedData, checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes } from "./Helper-functions.js";
+import { refinedData, checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes, dateChecker } from "./Helper-functions.js";
 import { startKasserer } from "./kasserer.js";
 import { startTrainer } from "./trainer.js";
 
@@ -163,10 +163,34 @@ async function createNewMember(event) {
     breaststroke: form.breaststroke.checked,
     restance: false
   };
+
+  
+  const bdayCheck = dateChecker(newMember.bday)
+
+  let disciplineCheck = true
+  if (newMember.competetive){
+      if (form.backCrawl.checked) disciplineCheck = true
+      else if (form.butterfly.checked) disciplineCheck = true
+      else if(form.breaststroke.checked) disciplineCheck = true
+      else if (form.crawl.checked) disciplineCheck = true
+    else disciplineCheck = false
+  }
+
+  const errorMessage = document.querySelector("#create-member-error")
   console.log(newMember);
+
+  if(disciplineCheck && bdayCheck){
   const response = await createdMember(newMember);
+  errorMessage.innerHTML = ""
+  errorMessage.classList.remove("create-error")
   if (response.ok) getUpdatedFirebase();
-}
+  }
+  else {
+  errorMessage.classList.add("create-error");
+  if (disciplineCheck === false) {errorMessage.innerHTML = "Konkurrencemedlemmer skal have mindst én disciplin"}
+  else if (bdayCheck === false){ errorMessage.innerHTML = "Forkert fødselsdag. Brug formattet: åååå-mm-dd"}
+  else errorMessage.innerHTML = "Weird fucking error bro"
+}}
 
 function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");

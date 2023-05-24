@@ -1,5 +1,6 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, getCompetitions, creatingResult, createCompetition, updateResult } from "./REST.js";
+import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion,deletingResultFromDB,failedPrompt} from "./REST.js";
+import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString } from "./Helper-functions.js";
 
 let listOfResults;
 let listOfMembers;
@@ -31,7 +32,10 @@ async function updateResultsAndCompetitions() {
   updateListOfCompetitions();
   showResultTrainer(listOfResults);
   memberOverviewTrainer(listOfResults);
+  addAgeToResults();
   addNamesToResults();
+  topFiveMembers(listOfResults);
+  setSortAndFilters()
 }
 
 function setSortAndFilters() {
@@ -86,6 +90,14 @@ function topFiveMembers() {
 }
 function showTopFiveTables(topFive) {
   document.querySelector("#trainer-table-body").innerHTML = "";
+  let lowerCaseString = valueToTopFiveBy.toLowerCase();
+  let hyphenIndex = lowerCaseString.indexOf("-");
+  let indexAfterHyphen = lowerCaseString.substring(hyphenIndex + 1);
+  let titleCaseString =indexAfterHyphen.charAt(0).toUpperCase() + indexAfterHyphen.slice(1);
+  let hyphenToSpaceString = valueToTopFiveBy.replace("-", " ");
+  let ageThing = hyphenToSpaceString.substring(0, 6);
+  let finalString = `${ageThing} ${titleCaseString}`;
+  document.querySelector("#trainer-h2").textContent = `Top 5 ${finalString}`; 
 
   const slicedTopFive = topFive.slice(0, 5);
   for (let index = 0; index < slicedTopFive.length; index++) {
@@ -111,6 +123,7 @@ function showTopFiveTable(result, index) {
 
 function showResultTrainer(results) {
   document.querySelector("#trainer-table-body").innerHTML = "";
+  document.querySelector("#trainer-h2").textContent = `Medlemmer`;
 
   for (const result of results) {
     showMemberTrainer(result);
@@ -118,18 +131,23 @@ function showResultTrainer(results) {
   }
 }
 
-async function showMemberTrainer(result) {
+function showMemberTrainer(result) {
   const member = listOfMembers.find((member) => member.id === result.uid);
 
   if (member) {
     if (member.active === "Aktivt medlem" && member.competetive === "Konkurrent") {
+      const fixedStats = {
+      competition: competitionBooleanToString(result),
+      dato: dateToDato(result),
+      disciplines: disciplinesEngToDa(result)}
+
       const html = /*html*/ `
       <tr class="member-item-kasserer">
       <td>${member.name}</td>
       <td>${member.ageGroup}</td>
-      <td>${competitionBooleanToString(result)}</td>
-      <td>${dateToDato(result)}</td>
-      <td>${disciplinesEngToDa(result)}</td>
+      <td>${fixedStats.competition}</td>
+      <td>${fixedStats.dato}</td>
+      <td>${fixedStats.disciplines}</td>
       <td>${result.time}</td>
       
     </tr>
@@ -141,30 +159,53 @@ async function showMemberTrainer(result) {
   }
 }
 
-function showMemberModalTrainer(result) {
-  const member = listOfMembers.find((member) => member.id === result.uid);
-
-  const html = /*HTML*/ `
+function showMemberModalTrainer(result,fixedStats,member) {
+  console.log(result);
+let html;
+if(result.competition === false){
+  html = /*HTML*/ `
+  <article class="modal-item">
+    <h3>${member.name}
+      <button id="btn-close-modal-trainer" class="buttonAni">Tilbage</button>
+    </h3>
+    <section id="member-modal-section-trainer">
+    <p>Aldersgruppe: ${member.ageGroup}</p>
+    <p>Type: ${fixedStats.competition}</p>
+    <p>Lokation: ${result.location}</p>
+    <p>Dato: ${fixedStats.dato}</p>
+    <p>Disciplin: ${fixedStats.disciplines}</p>
+    <p>Resultat(sek.): ${result.time}</p>
+    </section>
+    <button id="btn-delete-result-trainer" class="buttonAni">Slet resultat</button>
+    
+  </article>
+  `;
+}
+else{
+   html = /*HTML*/ `
     <article class="modal-item">
       <h3>${member.name}
         <button id="btn-close-modal-trainer" class="buttonAni">Tilbage</button>
       </h3>
       <section id="member-modal-section-trainer">
       <p>Aldersgruppe: ${member.ageGroup}</p>
-      <p>Type: ${competitionBooleanToString(result)}</p>
+      <p>Type: ${fixedStats.competition}</p>
       <p>Stævne: ${result.compName}</p>
       <p>Lokation: ${result.location}</p>
-      <p>Dato: ${dateToDato(result)}</p>
-      <p>Disciplin: ${disciplinesEngToDa(result)}</p>
+      <p>Dato: ${fixedStats.dato}</p>
+      <p>Disciplin: ${fixedStats.disciplines}</p>
       <p>Resultat(sek.): ${result.time}</p>
       <p>Placering: ${result.placement}</p>
       </section>
+      <button id="btn-delete-result-trainer" class="buttonAni">Slet resultat</button>
     </article>
     `;
+}
   document.querySelector("#show-member-modal-trainer").innerHTML = html;
   document.querySelector("#show-member-modal-trainer").showModal();
 
   document.querySelector("#btn-close-modal-trainer").addEventListener("click", () => document.querySelector("#show-member-modal-trainer").close());
+  document.querySelector("#btn-delete-result-trainer").addEventListener("click", () => deleteResult(result));
 }
 
 function memberOverviewTrainer() {
@@ -217,33 +258,7 @@ function memberOverviewTrainer() {
   // console.log(member.competetive);
 }
 
-function competitionBooleanToString(result) {
-  let competition = "";
-  if (result.competition) competition = "Konkurrence";
-  else if (result.competition === false) competition = "Træning";
-  return competition;
-}
-
-function disciplinesEngToDa(result) {
-  let disciplin = "";
-  if (result.discipline === "crawl") disciplin = "Crawl";
-  else if (result.discipline === "butterfly") disciplin = "Butterfly";
-  else if (result.discipline === "backCrawl") disciplin = "Rygcrawl";
-  else if (result.discipline === "breaststroke") disciplin = "Bryst svømning";
-  return disciplin;
-}
-
-function dateToDato(result) {
-  let dato = "";
-  const dates = result.date.split("-");
-
-  dato = dates[2] + "-" + dates[1] + "-" + dates[0];
-  return dato;
-}
-
 function createResultClicked(event) {
-  
-  listOfResults.push({ competition: true, compName: "Vinterstævne" });
 
   document.querySelector("#create-result-modal-trainer").showModal();
   document.querySelector("#create-result-type-trainer").addEventListener("change", changeFormBasedOnResultType);
@@ -257,28 +272,12 @@ function createResultClicked(event) {
   for (const member of listOfMembers) {
     if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem") document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
-  console.log(document.querySelector("#create-result-name-trainer").children);
 
   const compList = document.querySelector("#create-result-competition-trainer");
   for (const competition of listOfCompetitions) {
     compList.insertAdjacentHTML("beforeend", `<option value="${competition.compName}">${competition.compName}</option>`);
   }
 
-  // for (let i = 0; i < listOfResults.length; i++) {
-  //   const currentResult = listOfResults[i];
-
-  //   let repeatCompetitionCheck = true;
-  //   if (i >= 1) {
-  //     for (const test of compList.children) {
-  //       repeatCompetitionCheck = test.value !== currentResult.compName;
-  //       if (repeatCompetitionCheck === false) break;
-  //     }
-  //   }
-
-  //   if (currentResult.competition === true && repeatCompetitionCheck) {
-  //     compList.insertAdjacentHTML("beforeend", `<option value="${currentResult.compName}">${currentResult.compName}</option>`);
-  //   }
-  // }
 
   changeFormBasedOnCompetition();
 
@@ -290,12 +289,12 @@ function createResultClicked(event) {
 
   function changeFormBasedOnResultType(event) {
     const target = event.target.value;
-
     if (target === "false") {
       form.location.disabled = false;
       form.date.disabled = false;
       form.competition.disabled = true;
       form.placement.disabled = true;
+      form.placement.required = false
 
       form.date.value = "";
       form.location.value = "";
@@ -306,36 +305,63 @@ function createResultClicked(event) {
       form.date.disabled = true;
       form.competition.disabled = false;
       form.placement.disabled = false;
+      form.placement.required = true
     }
   }
 }
 
-function submitResult(event) {
+async function submitResult(event) {
   event.preventDefault();
   const form = event.target;
-  const time = form.result.value;
-  let actualTime = time;
+  const formTime = form.result.value;
+  const formDate = form.date.value
+  const errorMessage = document.querySelector("#result-create-error")
 
-  if (time.includes(",")) {
-    actualTime = time.replace(",", ".");
-  }
-  if (isNaN(Number(actualTime))) {
-    console.log("ERROR: Time is not a number");
-  } else {
+    if(timeChecker(formTime) && dateChecker(formDate)){
     const newResult = {
       uid: form.name.value,
-      competition: form.type.value === true,
+      competition: form.type.value === "true",
       compName: form.competition.value,
       discipline: form.discipline.value,
       location: form.location.value,
-      date: form.date.value,
-      time: form.result.value,
+      date: formDate,
+      time: formTime,
       placement: form.placement.value,
     };
-    console.log(newResult);
-    creatingResult(newResult);
-    getUpdatedFirebase();
+    const response = await creatingResult(newResult);
+    errorMessage.innerHTML=""
+    errorMessage.classList.remove("create-error")
+    if (response.ok) getUpdatedFirebase();
   }
+  else{
+    errorMessage.innerHTML = "Forkert dato eller resultat. Tjek datoformat og at tiden er et korrekt tal"
+    errorMessage.classList.add("create-error")
+  }
+}
+
+async function deleteResult(result) {
+  console.log(result);
+    const deleteModal = document.querySelector("#delete-result-modal-trainer")
+    deleteModal.innerHTML = /*html*/ `
+    Du er ved at slette ${result.name}s resultat fra ${result.date}. Er du sikker? <br>
+    <button id="btn-confirm-result-delete">Slet </button> <br>
+    <button id="btn-deny-result-delete"> Fortryd </button>
+    `
+    const id = result.id
+    
+    document.querySelector("#btn-confirm-result-delete").addEventListener("click", sendResultToDeletion)
+    document.querySelector("#btn-deny-result-delete").addEventListener("click", ()=> deleteModal.close())
+    deleteModal.showModal()
+  
+    async function sendResultToDeletion() {
+      const response = await deletingResultFromDB(id)
+      if (response.ok){
+        deleteModal.close()
+        document.querySelector("#show-member-modal-trainer").close();
+      getUpdatedFirebase();
+      }
+    }
+  
 }
 
 function updateListOfCompetitions() {
@@ -344,25 +370,52 @@ function updateListOfCompetitions() {
   for (const competition of listOfCompetitions) {
     document
       .querySelector("#competition-table-trainer")
-      .insertAdjacentHTML("beforeend", `<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button>Slet stævne</button></td></tr>`);
+      .insertAdjacentHTML("beforeend", `<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button id="btn-competition-delete">Slet stævne</button></td></tr>`);
+      document.querySelector("#competition-table-trainer tr:last-child").addEventListener("click", ()=>deleteCompetition(competition))
   }
 }
 
-function submitCompetition(event) {
+ function deleteCompetition(competition) {
+  const deleteModal = document.querySelector("#delete-competiton-modal-trainer")
+  deleteModal.innerHTML = /*html*/ `
+  Du er ved at slette ${competition.compName}. Er du sikker? <br>
+  <button id="btn-confirm-result-delete">Slet </button> <br>
+  <button id="btn-deny-result-delete"> Fortryd </button>
+  `
+  const id = competition.id
+  
+  document.querySelector("#btn-confirm-result-delete").addEventListener("click", sendCompetitionToDeletion)
+  document.querySelector("#btn-deny-result-delete").addEventListener("click", ()=> deleteModal.close())
+  deleteModal.showModal()
+
+  async function sendCompetitionToDeletion() {
+    const response = await sentenceCompetitionToDeletion(id)
+    if (response.ok){
+      deleteModal.close()
+    getUpdatedFirebase();
+    }
+  }
+}
+
+async function submitCompetition(event) {
   event.preventDefault();
   const form = event.target;
+  const errorMessage = document.querySelector("#competition-create-error")
 
-  const dateCheck = Date.parse(form.date.value);
-
-  if (isNaN(dateCheck)) console.error("ERROR: Date is incorrect! Use format: åååå-mm-dd");
-  else {
+  if (dateChecker(form.date.value)){
     const competitionToSubmit = {
       compName: form.compName.value,
       location: form.location.value,
       date: form.date.value,
     };
-    createCompetition(competitionToSubmit);
+    await createCompetition(competitionToSubmit);
+    errorMessage.innerHTML = ""
+    errorMessage.classList.remove("create-error")
     getUpdatedFirebase();
+  }
+  else{
+    errorMessage.innerHTML = "Forkert dato. Brug formattet: 'åååå-mm-dd'"
+    errorMessage.classList.add("create-error")
   }
 }
 
@@ -374,8 +427,6 @@ function addNamesToResults() {
 }
 
 function sortList(listToSort) {
-  console.log(listToSort);
-  console.log("value to sort by:",valueToSortBy);
   if (valueToSortBy === "age") {
     return listToSort.sort((first, second) => first.age - second.age);
   } else {
@@ -408,7 +459,9 @@ function filterList(searchedList) {
   return searchedList.filter((result) => Object.values(result).includes(valueToFilterBy));
 }
 
-async function resultUpdater(params) {
+
+
+async function resultUpdater(event) {
   const resultToUpdate = {
     uid: "-ghdsk-sdljdsj7",
   };

@@ -563,6 +563,16 @@ section.active#trainer {
   border-radius: 5px;
   opacity: 1;
   transition: opacity 0.5s, visibility 0s 0.5s;
+  z-index: 999;
+}
+.create-error {
+  color: rgb(40, 30, 30);
+  font-size: 17px;
+  background-color: rgb(193, 98, 98);
+  /* width: 100%; */
+  padding: 3px;
+  margin: 2em;
+  border: 1px black solid;
 }
 
 #successNotifikation {
