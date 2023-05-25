@@ -165,21 +165,21 @@
             <option value="true">Konkurrence</option>
             <option value="false">Fritid</option>
           </select>
-          <label>Vælg disciplin(er):</label>
+          <label class="greyIt">Vælg disciplin(er):</label>
           <br />
-          <label>
+          <label class="greyIt">
             <input type="checkbox" name="crawl" class="create-discipline" autocomplete="off" />
             Crawl
           </label>
-          <label>
+          <label class="greyIt">
             <input type="checkbox" name="backCrawl" class="create-discipline" autocomplete="off" />
             Rygcrawl
           </label>
-          <label>
+          <label class="greyIt">
             <input type="checkbox" name="butterfly" class="create-discipline" autocomplete="off" />
             Butterfly
           </label>
-          <label>
+          <label class="greyIt">
             <input type="checkbox" name="breaststroke" class="create-discipline" autocomplete="off" />
             Brystsvømning
           </label>
@@ -269,7 +269,8 @@
           <select id="sort-kasserer" autocomplete="off">
             <option value="name">Navn</option>
             <option value="paymentGroup">Betalingsgruppe</option>
-            <option value="restance">I restance</option>
+            <option value="inRestance">I restance</option>
+            <option value="notRestance">Ikke i restance</option>
           </select>
           <br />
           <br />
@@ -277,6 +278,10 @@
           <br />
           <select id="nav-filter-kasserer" autocomplete="off">
             <option value="" selected>Intet filter</option>
+            <optgroup label="Restance:">
+                <option value="I restance">I restance</option>
+                <option value="Ikke i restance">Ikke i restance</option>
+            </optgroup>
             <optgroup label="Betalingsgruppe:">
               <option value="Aktiv Junior">Junior</option>
               <option value="Aktiv Senior">Senior</option>
@@ -402,7 +407,7 @@
           </select>
         </div>
         <div class="trainer-table" id="trainer-table">
-          <h2 id="trainer-h2">Medlemmer</h2>
+          <h2 id="trainer-h2">Medlems resultater</h2>
           <table>
             <thead>
               <tr class="thh">
@@ -437,8 +442,8 @@
         <div class="page-footer"></div>
       </div>
       <dialog id="show-result-modal-trainer"></dialog>
-        <dialog id="delete-competiton-modal-trainer"></dialog>
-        <dialog id="delete-result-modal-trainer"></dialog>
+      <dialog id="delete-competiton-modal-trainer"></dialog>
+      <dialog id="delete-result-modal-trainer"></dialog>
       <dialog id="show-competition-modal-trainer">
         <form id="competition-form-trainer">
           <label for="name">Navn på stævne</label>
@@ -448,13 +453,14 @@
           <label for="date">Dato</label>
           <input type="text" name="date" placeholder="åååå-mm-dd" />
           <input type="submit" name="submit" class="buttonAni btn-green" value="Opret stævne" />
+          <input type="button" name="btn-no-create-competition" id="btn-no-create-competition" class="buttonAni btn-red" value="Tilbage" />
         </form>
         <br />
         <br />
         <br />
         <br />
         <br />
-          <p id="competition-create-error"></p>
+        <p id="competition-create-error"></p>
         <div>
           <table id="competition-overview-trainer">
             <thead>
@@ -478,7 +484,7 @@
             <option value="true">Konkurrence</option>
             <option value="false">Træning</option>
           </select>
-          <label for="competition">Vælg stævne</label>
+          <label for="competition" class="greyIt">Vælg stævne</label>
           <select name="competition" id="create-result-competition-trainer"></select>
           <label for="discipline">Vælg disciplin</label>
           <select name="discipline" id="">
@@ -493,12 +499,12 @@
           <input type="text" name="date" required disabled autocomplete="off" placeholder="åååå-mm-dd" />
           <label for="result">Resultat i sek.</label>
           <input type="text" name="result" autocomplete="off" required placeholder="Fx 102 eller 97,3" />
-          <label for="placement">Placering</label>
+          <label for="placement" class="greyIt">Placering</label>
           <input type="number" name="placement" id="create-result-placement-trainer" required autocomplete="off" placeholder="Kommaløst tal" />
           <input type="submit" value="Opret resultat" class="buttonAni btn-green" id="btn-trainer-submit" />
           <input type="reset" value="Luk vindue" class="buttonAni btn-red" id="btn-trainer-close" />
         </form>
-          <p id="result-create-error"></p>
+        <p id="result-create-error"></p>
       </dialog>
       <dialog id="show-member-modal-trainer"></dialog>
     </section>
