@@ -1,6 +1,6 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion, deletingResultFromDB, failedPrompt } from "./REST.js";
-import { dateChecker, timeChecker, dateToDato, disciplinesEngToDa, competitionBooleanToString } from "./Helper-functions.js";
+import { getResults, getCompetitions, creatingResult, createCompetition, sentenceCompetitionToDeletion,deletingResultFromDB} from "./REST.js";
+import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString,checkDiscipline,checkDisciplineHTMLFormat } from "./Helper-functions.js";
 
 let listOfResults;
 let listOfMembers;
@@ -40,16 +40,19 @@ function setSortAndFilters() {
   const sortedList = sortList(listOfResults);
   const searchedList = sortedList.filter((result) => result.name.toLowerCase().includes(valueToSearchBy.toLowerCase()));
   const filteredList = filterList(searchedList);
+  const topFiveCheck = topFiveMembers(filteredList)
+
   if (filteredList.length === 0) {
     const noResultsHtml = /* html */ `<p>Ingen resultater fundet.</p>`;
     document.querySelector("#trainer-table-body").innerHTML = noResultsHtml;
-  } else showResultTrainer(filteredList);
+  } else if(topFiveCheck.length > 0) showTopFiveTables(topFiveCheck)
+  else showResultTrainer(filteredList);
 }
 
 let valueToTopFiveBy = "";
 function setValueToTopFiveBy(params) {
   valueToTopFiveBy = document.querySelector("#topFive-select").value;
-  topFiveMembers();
+  setSortAndFilters();
 }
 
 function addAgeToResults(params) {
@@ -61,29 +64,33 @@ function addAgeToResults(params) {
     }
   }
 }
-function topFiveMembers() {
-  let listOfDesiredResults = [];
+
+function topFiveMembers(filteredList) {
   const htmlToDiscipline = valueToTopFiveBy.substring(7);
   const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
 
-  for (const result of listOfResults) {
-    if (result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup) listOfDesiredResults.push(result);
-  }
-
-  console.log("sorted top 5", listOfDesiredResults.sort((a, b) => a.time - b.time).splice(0, 5));
-
   const checkCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
 
-  const checkValueToTopFiveBy = listOfResults.filter((result) => result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup && checkCompetitive.some((member) => member.id === result.uid));
+  let checkValueToTopFiveBy;
+  let listOfMembersInTopFive = []
 
-  checkValueToTopFiveBy.sort((a, b) => a.time - b.time);
-
-  console.log("topFivebyValue Sorteret", checkValueToTopFiveBy);
-  if (valueToTopFiveBy === "default") {
-    updateResultsAndCompetitions();
-  } else {
-    showTopFiveTables(checkValueToTopFiveBy);
+  if (valueToFilterBy === true || valueToFilterBy === false){
+  checkValueToTopFiveBy = filteredList.filter(noDuplicateMembers)
   }
+  else checkValueToTopFiveBy = listOfResults.filter(noDuplicateMembers)
+
+  function noDuplicateMembers(currentValue) {
+    if(currentValue.discipline === htmlToDiscipline &&
+      currentValue.ageGroup === htmlToAgeGroup &&
+    checkCompetitive.some((member) => member.id === currentValue.uid &&
+    !listOfMembersInTopFive.some((member) => member.name === currentValue.name)))
+
+    {listOfMembersInTopFive.push(currentValue)
+      return true}
+      else return false
+    }
+  
+  return checkValueToTopFiveBy.sort((a, b) => a.time - b.time);
 }
 
 function showTopFiveTables(topFive) {
@@ -130,11 +137,10 @@ function showTopFiveTable(result, index) {
 
 function showResultTrainer(results) {
   document.querySelector("#trainer-table-body").innerHTML = "";
-  document.querySelector("#trainer-h2").textContent = `Medlems resultater`;
+  document.querySelector("#trainer-h2").textContent = `Medlemsresultater`;
 
   for (const result of results) {
     showMemberTrainer(result);
-    // console.log(result);
   }
 }
 
@@ -168,7 +174,6 @@ function showMemberTrainer(result) {
 }
 
 function showMemberModalTrainer(result, fixedStats, member) {
-  console.log(result);
   let html;
   if (result.competition === false) {
     html = /*HTML*/ `
@@ -218,7 +223,6 @@ function showMemberModalTrainer(result, fixedStats, member) {
 function memberOverviewTrainer() {
   // checks active competition members
   const countCompetetive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
-  console.log(listOfResults);
   // checks crawl members
   const countCrawl = listOfResults.filter((result) => result.discipline === "crawl" && countCompetetive.some((member) => member.id === result.uid));
   const countCrawlJunior = countCrawl.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
@@ -260,7 +264,6 @@ function memberOverviewTrainer() {
     <p>Senior: ${countButterflySenior}</p>
     `
   );
-  // console.log(member.competetive);
 }
 
 function createResultClicked(event) {
@@ -269,12 +272,14 @@ function createResultClicked(event) {
   document.querySelector("#create-result-competition-trainer").addEventListener("change", changeFormBasedOnCompetition);
 
   document.querySelector("#create-result-competition-trainer").innerHTML = "";
-  document.querySelector("#create-result-name-trainer").innerHTML = "";
+  const nameChanger = document.querySelector("#create-result-name-trainer")
+  nameChanger.addEventListener("change", changeFormBasedOnMember)
+  nameChanger.innerHTML =""
 
   const form = document.querySelector("#create-result-form-trainer");
 
   for (const member of listOfMembers) {
-    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem") document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
+    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem") nameChanger.insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
 
   const compList = document.querySelector("#create-result-competition-trainer");
@@ -284,8 +289,9 @@ function createResultClicked(event) {
 
   changeFormBasedOnCompetition();
   changeFormBasedOnResultType();
+  changeFormBasedOnMember();
 
-  function changeFormBasedOnCompetition(event) {
+  function changeFormBasedOnCompetition() {
     const selectedCompetition = listOfCompetitions.find((competition) => competition.compName === form.competition.value);
     form.location.value = selectedCompetition.location;
     form.date.value = selectedCompetition.date;
@@ -293,7 +299,6 @@ function createResultClicked(event) {
 
   function changeFormBasedOnResultType() {
     const target = document.querySelector("#create-result-type-trainer").value;
-    console.log("target:", target);
     if (target === "false") {
       form.location.disabled = false;
       form.date.disabled = false;
@@ -311,6 +316,18 @@ function createResultClicked(event) {
       form.competition.disabled = false;
       form.placement.disabled = false;
       form.placement.required = true;
+    }
+  }
+
+  function changeFormBasedOnMember() {
+    const nameToAdaptTo = form.name.value
+    const currentMember = listOfMembers.find(member => member.id === nameToAdaptTo)
+    const currentMemberDisciplinesHTML = checkDisciplineHTMLFormat(currentMember)
+    const disciplinesForm = form.discipline
+    disciplinesForm.innerHTML = ""
+    for (const discipline of currentMemberDisciplinesHTML) {
+      const abc = disciplinesEngToDa(discipline);
+      disciplinesForm.insertAdjacentHTML("beforeend",`<option value="${discipline}">${abc}</option>`)
     }
   }
 }
@@ -348,7 +365,6 @@ async function submitResult(event) {
 }
 
 async function deleteResult(result) {
-  console.log(result);
   const deleteModal = document.querySelector("#delete-result-modal-trainer");
   deleteModal.innerHTML = /*html*/ `
     Du er ved at slette ${result.name}s resultat fra ${result.date}. Er du sikker? <br>
@@ -477,13 +493,5 @@ function labelToGreyTrainer() {
   }
 }
 
-// async function resultUpdater(event) {
-//   const resultToUpdate = {
-//     uid: "-ghdsk-sdljdsj7",
-//   };
-
-//   const id = "id1415";
-//   updateResult(resultToUpdate, id);
-// }
 
 export { startTrainer };

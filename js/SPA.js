@@ -20,10 +20,10 @@ function changeHash() {
   document.querySelector(currentPage).classList.add("active");
   setActivePage(currentPage);
 }
+
 function changeNavBar(params) {
   if (location.hash === "#front-page" || location.hash === "#log-in") document.querySelectorAll(".nav-link").forEach((page) => page.classList.add("hidden"));
   else {
-    console.log("elseeeee");
     document.querySelectorAll(".nav-link").forEach((page) => page.classList.remove("hidden"));
   }
 }

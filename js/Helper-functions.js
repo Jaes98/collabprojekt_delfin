@@ -33,6 +33,24 @@ function checkDiscipline(member) {
 
   return listOfDisciplines;
 }
+function checkDisciplineHTMLFormat(member) {
+  let listOfDisciplines = [];
+  if (member.crawl) {
+    listOfDisciplines.push("crawl");
+  }
+  if (member.backCrawl) {
+    listOfDisciplines.push("backCrawl");
+  }
+  if (member.breaststroke) {
+    listOfDisciplines.push("breaststroke");
+  }
+  if (member.butterfly) {
+    listOfDisciplines.push("butterfly");
+  }
+
+  return listOfDisciplines;
+}
+
 function checkCompetitorOrExerciser(member) {
   if (member.competetive) {
     member.competetive = "Konkurrent";
@@ -121,10 +139,10 @@ function competitionBooleanToString(result) {
 
 function disciplinesEngToDa(result) {
   let disciplin = "";
-  if (result.discipline === "crawl") disciplin = "Crawl";
-  else if (result.discipline === "butterfly") disciplin = "Butterfly";
-  else if (result.discipline === "backCrawl") disciplin = "Rygcrawl";
-  else if (result.discipline === "breaststroke") disciplin = "Bryst svømning";
+  if (result.discipline === "crawl" || result === "crawl") disciplin = "Crawl";
+  else if (result.discipline === "butterfly"|| result === "butterfly") disciplin = "Butterfly";
+  else if (result.discipline === "backCrawl"|| result === "backCrawl") disciplin = "Rygcrawl";
+  else if (result.discipline === "breaststroke"|| result === "breaststroke") disciplin = "Brystsvømning";
   return disciplin;
 }
 
@@ -136,4 +154,4 @@ function dateToDato(result) {
   return dato;
 }
 
-export { checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes, refinedData, timeChecker, dateChecker, dateToDato, disciplinesEngToDa, competitionBooleanToString };
+export { checkDiscipline, changeCreateCheckboxes, changeUpdateCheckboxes, refinedData, timeChecker, dateChecker, dateToDato,disciplinesEngToDa,competitionBooleanToString,checkDisciplineHTMLFormat };
