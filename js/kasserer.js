@@ -216,11 +216,17 @@ async function updateMemberKasserer(event) {
 }
 
 function sortList(listToSort) {
-  if (valueToSortBy === "restance") {
+  if (valueToSortBy === "notRestance") {
     return listToSort.sort((member1, member2) => {
       if (member1.restance === undefined) member1.restance = false;
       if (member2.restance === undefined) member2.restance = false;
       return member1.restance - member2.restance;
+    });
+  }else if (valueToSortBy === "inRestance") {
+    return listToSort.sort((member1, member2) => {
+      if (member1.restance === undefined) member1.restance = false;
+      if (member2.restance === undefined) member2.restance = false;
+      return member2.restance - member1.restance;
     });
   } else {
     return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
@@ -249,6 +255,8 @@ function chosenFilter() {
 function filterList(searchedList) {
   if (valueToFilterBy === "") return searchedList;
   if (valueToFilterBy === "Passiv") return searchedList.filter((member) => member.active.includes(valueToFilterBy));
+  else if (valueToFilterBy === "I restance") return searchedList.filter((member) => member.restance === true)
+  else if (valueToFilterBy === "Ikke i restance") return searchedList.filter((member) => member.restance === false)
   else return searchedList.filter((member) => member.paymentGroup === valueToFilterBy);
 }
 
