@@ -335,6 +335,16 @@ h3 {
 .trainer-header h2 {
   justify-self: center;
 }
+.trainer-header a {
+  width: 40%;
+}
+.kasserer-header a {
+  width: 40%;
+}
+.formand-header a {
+  width: 40%;
+}
+
 
 .trainer-nav {
   grid-row: auto;
@@ -455,7 +465,7 @@ h3 {
 
 #logo {
   position: relative;
-  width: 40%;
+  width: 100%;
   max-width: 100px;
   max-height: 100px;
   margin: 10px;
