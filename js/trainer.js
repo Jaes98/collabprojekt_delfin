@@ -69,12 +69,25 @@ function topFiveMembers(filteredList) {
   const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
 
   const checkCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
-  
+
   let checkValueToTopFiveBy;
+  let listOfMembersInTopFive = []
+
   if (valueToFilterBy === true || valueToFilterBy === false){
-  checkValueToTopFiveBy = filteredList.filter((result) => result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup && checkCompetitive.some((member) => member.id === result.uid));
+  checkValueToTopFiveBy = filteredList.filter(noDuplicateMembers)
   }
-  else checkValueToTopFiveBy = listOfResults.filter((result) => result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup && checkCompetitive.some((member) => member.id === result.uid));
+  else checkValueToTopFiveBy = listOfResults.filter(noDuplicateMembers)
+
+  function noDuplicateMembers(currentValue) {
+    if(currentValue.discipline === htmlToDiscipline &&
+      currentValue.ageGroup === htmlToAgeGroup &&
+    checkCompetitive.some((member) => member.id === currentValue.uid &&
+    !listOfMembersInTopFive.some((member) => member.name === currentValue.name)))
+
+    {listOfMembersInTopFive.push(currentValue)
+      return true}
+      else return false
+    }
   
   return checkValueToTopFiveBy.sort((a, b) => a.time - b.time);
 }
