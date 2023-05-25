@@ -269,7 +269,8 @@
           <select id="sort-kasserer" autocomplete="off">
             <option value="name">Navn</option>
             <option value="paymentGroup">Betalingsgruppe</option>
-            <option value="restance">I restance</option>
+            <option value="inRestance">I restance</option>
+            <option value="notRestance">Ikke i restance</option>
           </select>
           <br />
           <br />
@@ -277,6 +278,10 @@
           <br />
           <select id="nav-filter-kasserer" autocomplete="off">
             <option value="" selected>Intet filter</option>
+            <optgroup label="Restance:">
+                <option value="I restance">I restance</option>
+                <option value="Ikke i restance">Ikke i restance</option>
+            </optgroup>
             <optgroup label="Betalingsgruppe:">
               <option value="Aktiv Junior">Junior</option>
               <option value="Aktiv Senior">Senior</option>
