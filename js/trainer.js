@@ -452,8 +452,10 @@ function addNamesToResults() {
 }
 
 function sortList(listToSort) {
-  if (valueToSortBy === "age") {
-    return listToSort.sort((first, second) => first.age - second.age);
+  console.log(valueToSortBy);
+  console.log(listToSort);
+  if (valueToSortBy === "time") {
+    return listToSort.sort((first, second) => first[valueToSortBy] - second[valueToSortBy]);
   } else {
     return listToSort.sort((member1, member2) => member1[valueToSortBy].localeCompare(member2[valueToSortBy]));
   }
