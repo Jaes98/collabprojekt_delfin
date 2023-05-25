@@ -3,8 +3,6 @@
 body {
   width: 100%;
   margin: 0;
-
-  /* background-color: rgb(29, 108, 183); */
   background-color: #f3f3f3;
   /* font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
   font-family: Arial, sans-serif;
@@ -48,7 +46,6 @@ hr {
     position: relative;
     width: 100%;
     overflow: hidden;
-    /* background-color: #4caf50; */
   }
   #trainer-table {
     width: 99vw;
@@ -62,15 +59,12 @@ hr {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: repeat(6, 1fr);
-    /* gap: 10px; */
     width: 100%;
     justify-content: center;
-    /* justify-items: center; */
     overflow: hidden;
   }
   #trainer-table {
     position: relative;
-    /* left: 2.9%; */
     right: 3%;
     width: 135%;
   }
@@ -146,7 +140,6 @@ hr {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: repeat(6, 1fr);
-    /* gap: 10px; */
     width: 100%;
     justify-content: center;
     justify-items: center;
@@ -199,10 +192,6 @@ hr {
     margin-left: 20px;
     left: 0;
   }
-  /* .trainer-overview,
-  .overview {
-    /* padding: 25%; */
-  /* }  */
 }
 
 .formand-header {
@@ -264,7 +253,6 @@ hr {
 
 h3 {
   margin: 0;
-  /* color: red; */
 }
 
 /*********** kasserer-page ************/
@@ -518,7 +506,6 @@ section.active#front-page {
 }
 
 section.active#formand {
-  /* background-color: grey; */
   display: grid;
 }
 
@@ -535,12 +522,10 @@ section.active#log-in {
 }
 
 section.active#kasserer {
-  /* background-color: grey; */
   display: grid;
 }
 
 section.active#trainer {
-  /* background-color: grey; */
   display: grid;
 }
 
@@ -693,14 +678,12 @@ tr:nth-child(odd):hover {
 }
 
 tr.member-item:nth-child(even) button {
-  /* CSS properties for even buttons */
   background-color: blue;
   background-color: #1d568e;
   color: white;
 }
 
 tr.member-item:nth-child(odd) button {
-  /* CSS properties for odd buttons */
   background-color: red;
   background-color: #a3bfdc;
   color: black;
@@ -774,5 +757,4 @@ input {
 
 .label-grey {
   color: rgb(173, 166, 166);
-  /* background-color: red; */
 }
