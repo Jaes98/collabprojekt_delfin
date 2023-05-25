@@ -111,7 +111,7 @@ function refinedData(result) {
 }
 
 function timeChecker(timeValue) {
-  let actualTime = timeValue;
+  let actualTime = Number(timeValue)
   console.log(actualTime);
   if (timeValue.includes(",")) {
     actualTime = timeValue.replace(",", ".");
