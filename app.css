@@ -351,7 +351,6 @@ h3 {
   width: 40%;
 }
 
-
 .trainer-nav {
   grid-row: auto;
   grid-column: 1 / 2;
@@ -393,6 +392,11 @@ h3 {
   }
   .trainer-overview {
     margin-left: -14px;
+  }
+}
+@media (max-width: 800px) {
+  .trainer-overview, .formand-nav {
+    margin-left: 20px;
   }
 }
 
