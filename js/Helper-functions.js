@@ -88,6 +88,12 @@ function changeUpdateCheckboxes() {
   updateBoxes.forEach((box) => {
     box.disabled = !updateValue;
   });
+  const formUpdate = document.querySelector("#formand-form-update-member2");
+  if (formUpdate.competetive.value === "false") {
+    document.querySelectorAll(".greyIt").forEach((label) => label.classList.add("label-grey"));
+  } else if (formUpdate.competetive.value === "true") {
+    document.querySelectorAll(".greyIt").forEach((label) => label.classList.remove("label-grey"));
+  }
 }
 
 function refinedData(result) {
@@ -105,7 +111,7 @@ function refinedData(result) {
 }
 
 function timeChecker(timeValue) {
-  let actualTime = timeValue
+  let actualTime = timeValue;
   console.log(actualTime);
   if (timeValue.includes(",")) {
     actualTime = timeValue.replace(",", ".");
@@ -113,15 +119,15 @@ function timeChecker(timeValue) {
   console.log(actualTime);
   if (isNaN(Number(actualTime))) {
     console.error("ERROR: Time is not a number");
-    return false
-  } else return actualTime
+    return false;
+  } else return actualTime;
 }
 
 function dateChecker(dateValue) {
-  if (isNaN(Date.parse(dateValue))){
+  if (isNaN(Date.parse(dateValue))) {
     console.error("ERROR: Date is incorrect! Use format: åååå-mm-dd");
-    return false}
-  else return dateValue
+    return false;
+  } else return dateValue;
 }
 
 function competitionBooleanToString(result) {
