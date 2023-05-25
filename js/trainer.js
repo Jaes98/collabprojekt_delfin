@@ -377,7 +377,10 @@ function updateListOfCompetitions() {
   for (const competition of listOfCompetitions) {
     document
       .querySelector("#competition-table-trainer")
-      .insertAdjacentHTML("beforeend", `<tr><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button id="btn-competition-delete" class="buttonAni" >Slet stævne</button></td></tr>`);
+      .insertAdjacentHTML(
+        "beforeend",
+        `<tr class="member-item" ><td>${competition.compName}</td> <td>${competition.location}</td> <td>${competition.date}</td> <td><button id="btn-competition-delete" class="buttonAni" >Slet stævne</button></td></tr>`
+      );
     document.querySelector("#competition-table-trainer tr:last-child").addEventListener("click", () => deleteCompetition(competition));
   }
 }

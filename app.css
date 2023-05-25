@@ -692,6 +692,21 @@ tr:nth-child(odd):hover {
   background-color: #3a7bbc;
 }
 
+tr.member-item:nth-child(even) button {
+  /* CSS properties for even buttons */
+  background-color: blue;
+  background-color: #1d568e;
+  color: white;
+}
+
+tr.member-item:nth-child(odd) button {
+  /* CSS properties for odd buttons */
+  background-color: red;
+  background-color: #a3bfdc;
+  color: black;
+}
+
+
 .buttonAni {
   background-color: #a6c1db;
   border-width: 2px;

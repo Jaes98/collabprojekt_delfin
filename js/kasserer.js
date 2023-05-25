@@ -64,7 +64,7 @@ function showMemberKasserer(member) {
   } else if (member.restance === false) restance = "Nej";
 
   const html = /* html */ `
-    <tr class="member-item-kasserer" id="${idRedness}">
+    <tr class="member-item" id="${idRedness}">
       <td>${member.name}</td>
       <td>${member.paymentGroup}</td>
       <td>${restance}</td>
