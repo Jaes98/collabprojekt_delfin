@@ -452,8 +452,6 @@ function addNamesToResults() {
 }
 
 function sortList(listToSort) {
-  console.log(valueToSortBy);
-  console.log(listToSort);
   if (valueToSortBy === "time") {
     return listToSort.sort((first, second) => first[valueToSortBy] - second[valueToSortBy]);
   } else {
