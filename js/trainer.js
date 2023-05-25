@@ -1,4 +1,3 @@
-import { getUpdatedFirebase } from "./script.js";
 import { getResults, getCompetitions, creatingResult, createCompetition, sentenceCompetitionToDeletion,deletingResultFromDB} from "./REST.js";
 import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString,checkDiscipline,checkDisciplineHTMLFormat } from "./Helper-functions.js";
 
@@ -75,9 +74,9 @@ function topFiveMembers(filteredList) {
   let listOfMembersInTopFive = []
 
   if (valueToFilterBy === true || valueToFilterBy === false){
-  checkValueToTopFiveBy = filteredList.filter(noDuplicateMembers)
+  checkValueToTopFiveBy = filteredList.sort((a, b) => a.time - b.time).filter(noDuplicateMembers)
   }
-  else checkValueToTopFiveBy = listOfResults.filter(noDuplicateMembers)
+  else checkValueToTopFiveBy = listOfResults.sort((a, b) => a.time - b.time).filter(noDuplicateMembers)
 
   function noDuplicateMembers(currentValue) {
     if(currentValue.discipline === htmlToDiscipline &&
@@ -90,7 +89,7 @@ function topFiveMembers(filteredList) {
       else return false
     }
   
-  return checkValueToTopFiveBy.sort((a, b) => a.time - b.time);
+  return checkValueToTopFiveBy;
 }
 
 function showTopFiveTables(topFive) {
@@ -137,7 +136,7 @@ function showTopFiveTable(result, index) {
 
 function showResultTrainer(results) {
   document.querySelector("#trainer-table-body").innerHTML = "";
-  document.querySelector("#trainer-h2").textContent = `Medlemsresultater`;
+  document.querySelector("#trainer-h2").textContent = `Medlemsresultater - klik på resultater for flere detaljer`;
 
   for (const result of results) {
     showMemberTrainer(result);
@@ -356,7 +355,7 @@ async function submitResult(event) {
       form.placement.value = "";
       errorMessage.innerHTML = "";
       errorMessage.classList.remove("create-error");
-      getUpdatedFirebase();
+      updateResultsAndCompetitions()
     }
   } else {
     errorMessage.innerHTML = "Forkert dato eller resultat. Tjek datoformat og at tiden er et korrekt tal";
@@ -382,7 +381,7 @@ async function deleteResult(result) {
     if (response.ok) {
       deleteModal.close();
       document.querySelector("#show-member-modal-trainer").close();
-      getUpdatedFirebase();
+      updateResultsAndCompetitions()
     }
   }
 }
@@ -418,7 +417,7 @@ function deleteCompetition(competition) {
     const response = await sentenceCompetitionToDeletion(id);
     if (response.ok) {
       deleteModal.close();
-      getUpdatedFirebase();
+      updateResultsAndCompetitions();
     }
   }
 }
@@ -437,7 +436,7 @@ async function submitCompetition(event) {
     await createCompetition(competitionToSubmit);
     errorMessage.innerHTML = "";
     errorMessage.classList.remove("create-error");
-    getUpdatedFirebase();
+    updateResultsAndCompetitions()
   } else {
     errorMessage.innerHTML = "Forkert dato. Brug formattet: 'åååå-mm-dd'";
     errorMessage.classList.add("create-error");
