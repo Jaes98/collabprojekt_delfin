@@ -491,6 +491,14 @@ h3 {
 
 /*********** nav-link **************/
 
+.nav-link {
+  text-decoration: none;
+  color: black;
+  border-right: 2px solid black;
+  padding-right: 2px;
+  padding-left: 2px;
+}
+
 .nav label {
   margin-left: 20px;
 }
@@ -530,7 +538,8 @@ section.active#trainer {
 }
 
 .highlighted {
-  background-color: red;
+  background-color: #569bde;
+  font-weight: bold;
 }
 
 /* ************* rest feedback *********** */
@@ -688,7 +697,6 @@ tr.member-item:nth-child(odd) button {
   background-color: #a3bfdc;
   color: black;
 }
-
 
 .buttonAni {
   background-color: #a6c1db;
