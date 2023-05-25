@@ -202,12 +202,13 @@ hr {
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   max-height: 120px;
-  text-align: center;
   position: relative;
   background-color: #569bde;
-  /* #67a0d8; */
   align-items: center;
   justify-content: space-between;
+}
+.formand-header h2 {
+  justify-self: center;
 }
 
 .formand-nav {
@@ -265,12 +266,13 @@ h3 {
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   max-height: 120px;
-  text-align: center;
   position: relative;
   background-color: #569bde;
-  /* #67a0d8; */
   align-items: center;
   justify-content: space-between;
+}
+.kasserer-header h2 {
+  justify-self: center;
 }
 
 .kasserer-nav {
@@ -324,12 +326,14 @@ h3 {
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   max-height: 120px;
-  text-align: center;
   position: relative;
   background-color: #569bde;
-  /* #67a0d8; */
   align-items: center;
   justify-content: space-between;
+}
+
+.trainer-header h2 {
+  justify-self: center;
 }
 
 .trainer-nav {
@@ -415,12 +419,15 @@ h3 {
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   max-height: 120px;
-  text-align: center;
+  /* text-align: center; */
   position: relative;
   background-color: #67a0d8;
   align-items: center;
   justify-content: space-between;
   grid-area: header;
+}
+.front-page h1 {
+  justify-self: center;
 }
 
 #btn-logIn,
