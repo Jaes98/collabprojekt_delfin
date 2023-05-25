@@ -11,15 +11,17 @@
 
   <body>
     <nav>
-      <a class="nav-link highlighted" href="#front-page">frontpage</a>
-      <a class="nav-link" href="#log-in">login</a>
-      <a class="nav-link" href="#formand">formand</a>
-      <a class="nav-link" href="#kasserer">kasserer</a>
-      <a class="nav-link" href="#trainer">træner</a>
+      <a class="nav-link highlighted" href="#front-page">Forside</a>
+      <a class="nav-link" href="#log-in">Log in</a>
+      <a class="nav-link" href="#formand">Formand</a>
+      <a class="nav-link" href="#kasserer">Kasserer</a>
+      <a class="nav-link" href="#trainer">Træner</a>
     </nav>
     <section class="page-view front-page" id="front-page">
       <header>
-        <img id="logo" src="images/dolphin logo.png" alt="logo" />
+        <a href="#front-page">
+        <img id="logo" src="images/dolphin logo.png" alt="logo"/>
+        </a>
         <h1>Svømmeklub Delfinen</h1>
         <button id="btn-logIn" class="nav-link1"><a href="#log-in">Log Ind</a></button>
       </header>
@@ -70,7 +72,9 @@
     <section class="page-view active" id="formand">
       <div class="formand-container">
         <div class="formand-header">
-          <img id="logo" src="images/dolphin logo.png" alt="logo" />
+          <a href="#front-page">
+        <img id="logo" src="images/dolphin logo.png" alt="logo"/>
+        </a>
           <h2>Velkommen Formand</h2>
           <button id="btn-log-out" class="nav-link1"><a href="#front-page">Log Ud</a></button>
         </div>
@@ -253,7 +257,9 @@
     <section class="page-view" id="kasserer">
       <div class="kasserer-container">
         <div class="kasserer-header">
-          <img id="logo" src="images/dolphin logo.png" alt="logo" />
+          <a href="#front-page">
+        <img id="logo" src="images/dolphin logo.png" alt="logo"/>
+        </a>
           <h2>Velkommen Kasserer</h2>
           <button id="btn-log-out" class="nav-link1"><a href="#front-page">Log Ud</a></button>
         </div>
@@ -280,8 +286,8 @@
           <select id="nav-filter-kasserer" autocomplete="off">
             <option value="" selected>Intet filter</option>
             <optgroup label="Restance:">
-                <option value="I restance">I restance</option>
-                <option value="Ikke i restance">Ikke i restance</option>
+              <option value="I restance">I restance</option>
+              <option value="Ikke i restance">Ikke i restance</option>
             </optgroup>
             <optgroup label="Betalingsgruppe:">
               <option value="Aktiv Junior">Junior</option>
@@ -339,7 +345,9 @@
     <section class="page-view" id="trainer">
       <div class="trainer-container">
         <div class="trainer-header">
-          <img id="logo" src="images/dolphin logo.png" alt="logo" />
+          <a href="#front-page">
+        <img id="logo" src="images/dolphin logo.png" alt="logo"/>
+        </a>
           <h2>Velkommen Træner</h2>
           <button id="btn-log-out" class="nav-link1">
             <a href="#front-page"><b>Log Ud</b></a>
