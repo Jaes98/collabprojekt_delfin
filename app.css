@@ -52,6 +52,12 @@ hr {
   }
 }
 
+@media (max-width: 907px) {
+  .trainer-container {
+    font-size: 13px;
+  }
+}
+
 @media (min-width: 800px) {
   .formand-container,
   .kasserer-container,
