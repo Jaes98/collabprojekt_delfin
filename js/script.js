@@ -325,10 +325,10 @@ function logInAttempt(event) {
 }
 
 function labelToGrey() {
-  const form = document.querySelector("#form-create-member");
-  if (form.competetive.value === "false") {
+  const formCreate = document.querySelector("#form-create-member");
+  if (formCreate.competetive.value === "false") {
     document.querySelectorAll(".greyIt").forEach((label) => label.classList.add("label-grey"));
-  } else if (form.competetive.value === "true") {
+  } else if (formCreate.competetive.value === "true") {
     document.querySelectorAll(".greyIt").forEach((label) => label.classList.remove("label-grey"));
   }
 }
