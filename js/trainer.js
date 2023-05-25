@@ -1,5 +1,5 @@
 import { getUpdatedFirebase } from "./script.js";
-import { getResults, getCompetitions, creatingResult, createCompetition, updateResult, sentenceCompetitionToDeletion,deletingResultFromDB,failedPrompt} from "./REST.js";
+import { getResults, getCompetitions, creatingResult, createCompetition, sentenceCompetitionToDeletion,deletingResultFromDB,failedPrompt} from "./REST.js";
 import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString } from "./Helper-functions.js";
 
 let listOfResults;
@@ -39,16 +39,19 @@ function setSortAndFilters() {
   const sortedList = sortList(listOfResults);
   const searchedList = sortedList.filter((result) => result.name.toLowerCase().includes(valueToSearchBy.toLowerCase()));
   const filteredList = filterList(searchedList);
+  const topFiveCheck = topFiveMembers(filteredList)
+
   if (filteredList.length === 0) {
     const noResultsHtml = /* html */ `<p>Ingen resultater fundet.</p>`;
     document.querySelector("#trainer-table-body").innerHTML = noResultsHtml;
-  } else showResultTrainer(filteredList);
+  } else if(topFiveCheck.length > 0) showTopFiveTables(topFiveCheck)
+  else showResultTrainer(filteredList);
 }
 
 let valueToTopFiveBy = "";
 function setValueToTopFiveBy(params) {
   valueToTopFiveBy = document.querySelector("#topFive-select").value;
-  topFiveMembers();
+  setSortAndFilters();
 }
 
 function addAgeToResults(params) {
@@ -60,30 +63,20 @@ function addAgeToResults(params) {
     }
   }
 }
-function topFiveMembers() {
-  
-  let listOfDesiredResults = [];
+
+function topFiveMembers(filteredList) {
   const htmlToDiscipline = valueToTopFiveBy.substring(7);
   const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
 
-  for (const result of listOfResults) {
-    if (result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup) listOfDesiredResults.push(result);
-  }
-
-  console.log("sorted top 5", listOfDesiredResults.sort((a, b) => a.time - b.time).splice(0, 5));
-
   const checkCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
-
-  const checkValueToTopFiveBy = listOfResults.filter((result) => result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup && checkCompetitive.some((member) => member.id === result.uid));
-
-  checkValueToTopFiveBy.sort((a, b) => a.time - b.time);
-
-  console.log("topFivebyValue Sorteret", checkValueToTopFiveBy);
-  if (valueToTopFiveBy === "default") {
-    updateResultsAndCompetitions();
-  } else {
-  showTopFiveTables(checkValueToTopFiveBy);
+  
+  let checkValueToTopFiveBy;
+  if (valueToFilterBy === true || valueToFilterBy === false){
+  checkValueToTopFiveBy = filteredList.filter((result) => result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup && checkCompetitive.some((member) => member.id === result.uid));
   }
+  else checkValueToTopFiveBy = listOfResults.filter((result) => result.discipline === htmlToDiscipline && result.ageGroup === htmlToAgeGroup && checkCompetitive.some((member) => member.id === result.uid));
+  
+  return checkValueToTopFiveBy.sort((a, b) => a.time - b.time);
 }
 
 function showTopFiveTables(topFive) {
@@ -470,14 +463,5 @@ function filterList(searchedList) {
   else if (valueToFilterBy === "false") valueToFilterBy = false;
   return searchedList.filter((result) => Object.values(result).includes(valueToFilterBy));
 }
-
-// async function resultUpdater(event) {
-//   const resultToUpdate = {
-//     uid: "-ghdsk-sdljdsj7",
-//   };
-
-//   const id = "id1415";
-//   updateResult(resultToUpdate, id);
-// }
 
 export { startTrainer };
