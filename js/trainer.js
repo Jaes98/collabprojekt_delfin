@@ -37,14 +37,18 @@ async function updateResultsAndCompetitions() {
 
 function setSortAndFilters() {
   const sortedList = sortList(listOfResults);
+  console.log("sortedlist:",sortedList);
   const searchedList = sortedList.filter((result) => result.name.toLowerCase().includes(valueToSearchBy.toLowerCase()));
+  console.log("searchedlist:",searchedList);
   const filteredList = filterList(searchedList);
+  console.log("filteredlist:",filteredList);
   const topFiveCheck = topFiveMembers(filteredList)
 
-  if (filteredList.length === 0) {
+  console.log("topfivecheck:",topFiveCheck);
+if(topFiveCheck.length > 0) showTopFiveTables(topFiveCheck)
+  else if (filteredList.length === 0) {
     const noResultsHtml = /* html */ `<p>Ingen resultater fundet.</p>`;
-    document.querySelector("#trainer-table-body").innerHTML = noResultsHtml;
-  } else if(topFiveCheck.length > 0) showTopFiveTables(topFiveCheck)
+    document.querySelector("#trainer-table-body").innerHTML = noResultsHtml;}
   else showResultTrainer(filteredList);
 }
 
@@ -67,24 +71,33 @@ function addAgeToResults(params) {
 function topFiveMembers(filteredList) {
   const htmlToDiscipline = valueToTopFiveBy.substring(7);
   const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
+  const testArray = Array.from(listOfResults)
 
   const checkCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
 
   let checkValueToTopFiveBy;
   let listOfMembersInTopFive = []
+  console.log("filteredlist:",filteredList);
 
-  if (valueToFilterBy === true || valueToFilterBy === false){
+  if (valueToFilterBy === true || valueToFilterBy === false && filteredList.length >= 5){
   checkValueToTopFiveBy = filteredList.sort((a, b) => a.time - b.time).filter(noDuplicateMembers)
+  console.log("if");
   }
-  else checkValueToTopFiveBy = listOfResults.sort((a, b) => a.time - b.time).filter(noDuplicateMembers)
-
+  else {checkValueToTopFiveBy = testArray.sort((a, b) => a.time - b.time).filter(noDuplicateMembers); console.log("else");}
+  console.log("testarray:",testArray);
+  console.log("htmltoagegroup:",htmlToAgeGroup);
+  console.log("htmltodiscipline:",htmlToDiscipline);
+  console.log("123123123123:",htmlToDiscipline);
+  console.log("htmltodiscipline:",htmlToDiscipline);
   function noDuplicateMembers(currentValue) {
+    console.log("currentvalue.disc:",currentValue.discipline);
+    console.log("currentvalue.age:",currentValue.ageGroup);
     if(currentValue.discipline === htmlToDiscipline &&
       currentValue.ageGroup === htmlToAgeGroup &&
     checkCompetitive.some((member) => member.id === currentValue.uid &&
     !listOfMembersInTopFive.some((member) => member.name === currentValue.name)))
-
-    {listOfMembersInTopFive.push(currentValue)
+    {
+      listOfMembersInTopFive.push(currentValue)
       return true}
       else return false
     }
@@ -93,6 +106,7 @@ function topFiveMembers(filteredList) {
 }
 
 function showTopFiveTables(topFive) {
+  console.log("showtopfivetables");
   document.querySelector("#trainer-table-body").innerHTML = "";
   if (valueToTopFiveBy === "Junior-backCrawl") {
     valueToTopFiveBy = "Junior-Rygcrawl";
@@ -346,7 +360,7 @@ async function submitResult(event) {
       discipline: form.discipline.value,
       location: form.location.value,
       date: formDate,
-      time: formTime,
+      time: Number(formTime),
       placement: form.placement.value
     };
     const response = await creatingResult(newResult);
