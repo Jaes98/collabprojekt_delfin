@@ -1,6 +1,6 @@
 import { getUpdatedFirebase } from "./script.js";
 import { getResults, getCompetitions, creatingResult, createCompetition, sentenceCompetitionToDeletion,deletingResultFromDB} from "./REST.js";
-import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString } from "./Helper-functions.js";
+import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString,checkDiscipline,checkDisciplineHTMLFormat } from "./Helper-functions.js";
 
 let listOfResults;
 let listOfMembers;
@@ -141,7 +141,6 @@ function showResultTrainer(results) {
 
   for (const result of results) {
     showMemberTrainer(result);
-    // console.log(result);
   }
 }
 
@@ -175,7 +174,6 @@ function showMemberTrainer(result) {
 }
 
 function showMemberModalTrainer(result, fixedStats, member) {
-  console.log(result);
   let html;
   if (result.competition === false) {
     html = /*HTML*/ `
@@ -225,7 +223,6 @@ function showMemberModalTrainer(result, fixedStats, member) {
 function memberOverviewTrainer() {
   // checks active competition members
   const countCompetetive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
-  console.log(listOfResults);
   // checks crawl members
   const countCrawl = listOfResults.filter((result) => result.discipline === "crawl" && countCompetetive.some((member) => member.id === result.uid));
   const countCrawlJunior = countCrawl.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
@@ -267,7 +264,6 @@ function memberOverviewTrainer() {
     <p>Senior: ${countButterflySenior}</p>
     `
   );
-  // console.log(member.competetive);
 }
 
 function createResultClicked(event) {
@@ -276,12 +272,14 @@ function createResultClicked(event) {
   document.querySelector("#create-result-competition-trainer").addEventListener("change", changeFormBasedOnCompetition);
 
   document.querySelector("#create-result-competition-trainer").innerHTML = "";
-  document.querySelector("#create-result-name-trainer").innerHTML = "";
+  const nameChanger = document.querySelector("#create-result-name-trainer")
+  nameChanger.addEventListener("change", changeFormBasedOnMember)
+  nameChanger.innerHTML =""
 
   const form = document.querySelector("#create-result-form-trainer");
 
   for (const member of listOfMembers) {
-    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem") document.querySelector("#create-result-name-trainer").insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
+    if (member.competetive === "Konkurrent" && member.active === "Aktivt medlem") nameChanger.insertAdjacentHTML("beforeend", `<option value="${member.id}">${member.name}</option>`);
   }
 
   const compList = document.querySelector("#create-result-competition-trainer");
@@ -291,8 +289,9 @@ function createResultClicked(event) {
 
   changeFormBasedOnCompetition();
   changeFormBasedOnResultType();
+  changeFormBasedOnMember();
 
-  function changeFormBasedOnCompetition(event) {
+  function changeFormBasedOnCompetition() {
     const selectedCompetition = listOfCompetitions.find((competition) => competition.compName === form.competition.value);
     form.location.value = selectedCompetition.location;
     form.date.value = selectedCompetition.date;
@@ -300,7 +299,6 @@ function createResultClicked(event) {
 
   function changeFormBasedOnResultType() {
     const target = document.querySelector("#create-result-type-trainer").value;
-    console.log("target:", target);
     if (target === "false") {
       form.location.disabled = false;
       form.date.disabled = false;
@@ -318,6 +316,18 @@ function createResultClicked(event) {
       form.competition.disabled = false;
       form.placement.disabled = false;
       form.placement.required = true;
+    }
+  }
+
+  function changeFormBasedOnMember() {
+    const nameToAdaptTo = form.name.value
+    const currentMember = listOfMembers.find(member => member.id === nameToAdaptTo)
+    const currentMemberDisciplinesHTML = checkDisciplineHTMLFormat(currentMember)
+    const disciplinesForm = form.discipline
+    disciplinesForm.innerHTML = ""
+    for (const discipline of currentMemberDisciplinesHTML) {
+      const abc = disciplinesEngToDa(discipline);
+      disciplinesForm.insertAdjacentHTML("beforeend",`<option value="${discipline}">${abc}</option>`)
     }
   }
 }
@@ -355,7 +365,6 @@ async function submitResult(event) {
 }
 
 async function deleteResult(result) {
-  console.log(result);
   const deleteModal = document.querySelector("#delete-result-modal-trainer");
   deleteModal.innerHTML = /*html*/ `
     Du er ved at slette ${result.name}s resultat fra ${result.date}. Er du sikker? <br>
