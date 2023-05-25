@@ -91,6 +91,7 @@ function kassererOverview(params) {
   const totalYearlyIncomeCommaSeperated = Intl.NumberFormat('de-DE').format(totalYearlyIncome);
   const moneyInRestance = moneyCalculator(membersInRestance);
   const moneyInRestanceCommaSeperated = Intl.NumberFormat('de-DE').format(moneyInRestance);
+  // https://www.codingexercises.com/format-a-number-with-a-comma-as-a-thousands-separator-js
 
   function moneyCalculator(listOfMembersToCalculate) {
     let expectedIncome = 0;
