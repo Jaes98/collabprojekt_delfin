@@ -16,7 +16,6 @@ async function getResults() {
   // henter data og omdanner til objekter
   const resultsFromDatabase = await fetch(`${dolphinDatabase}/results.json`);
   const fetchedResults = await resultsFromDatabase.json();
-  console.log(fetchedResults);
 
   // sætter resultatsobjekter ind i et array
   return prepareData(fetchedResults);
@@ -30,7 +29,6 @@ async function getCompetitions() {
 }
 
 async function createCompetition(newCompetition) {
-  console.log("creatingResult");
   const json = JSON.stringify(newCompetition);
 
   const response = await fetch(`${dolphinDatabase}/competition.json`, {
@@ -61,7 +59,6 @@ function prepareData(listOfObjects) {
 
 
 async function createdMember(newMember) {
-  console.log("createdMember");
   const json = JSON.stringify(newMember);
 
   const response = await fetch(`${dolphinDatabase}/members.json`, {
@@ -123,7 +120,6 @@ async function deleteMember(id) {
   const response = await fetch(`${dolphinDatabase}/members/${id}.json`, {
     method: "DELETE",
   });
-  console.log(`${dolphinDatabase}/members/${id}.json`);
   // Hvis response er ok, udskriv log og opdater grid
 
   if (response.status === 200) {
@@ -163,7 +159,6 @@ function failedPrompt() {
 }
 
 async function creatingResult(newResult) {
-  console.log("creatingResult");
   const json = JSON.stringify(newResult);
 
   const response = await fetch(`${dolphinDatabase}/results.json`, {
@@ -185,8 +180,6 @@ async function creatingResult(newResult) {
 
 async function updateResult(updatedResult, id) {
   const objectToJSON = JSON.stringify(updatedResult);
-  console.log(objectToJSON);
-  console.log(id);
 
   const response = await fetch(`${dolphinDatabase}/results/${id}.json`, {
     method: "PATCH",
