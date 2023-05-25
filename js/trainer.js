@@ -1,5 +1,5 @@
-import { getResults, getCompetitions, creatingResult, createCompetition, sentenceCompetitionToDeletion,deletingResultFromDB} from "./REST.js";
-import { dateChecker, timeChecker,dateToDato,disciplinesEngToDa,competitionBooleanToString,checkDiscipline,checkDisciplineHTMLFormat } from "./Helper-functions.js";
+import { getResults, getCompetitions, creatingResult, createCompetition, sentenceCompetitionToDeletion, deletingResultFromDB } from "./REST.js";
+import { dateChecker, timeChecker, dateToDato, disciplinesEngToDa, competitionBooleanToString, checkDiscipline, checkDisciplineHTMLFormat } from "./Helper-functions.js";
 
 let listOfResults;
 let listOfMembers;
@@ -36,25 +36,26 @@ async function updateResultsAndCompetitions() {
 }
 
 function setSortAndFilters() {
-  const sortedList = sortList(listOfResults);
+  const filteredList = filterList(listOfResults);
+  const topFiveCheck = topFiveMembers(filteredList);
+  const sortedList = sortList(filteredList);
   const searchedList = sortedList.filter((result) => result.name.toLowerCase().includes(valueToSearchBy.toLowerCase()));
-  const filteredList = filterList(searchedList);
-  const topFiveCheck = topFiveMembers(filteredList)
 
-  if (filteredList.length === 0) {
+  console.log("topfivecheck:", topFiveCheck);
+  if (topFiveCheck.length > 0) showTopFiveTables(topFiveCheck);
+  else if (searchedList.length === 0 || topFiveCheck.length === 0) {
     const noResultsHtml = /* html */ `<p>Ingen resultater fundet.</p>`;
     document.querySelector("#trainer-table-body").innerHTML = noResultsHtml;
-  } else if(topFiveCheck.length > 0) showTopFiveTables(topFiveCheck)
-  else showResultTrainer(filteredList);
+  } else showResultTrainer(searchedList);
 }
 
-let valueToTopFiveBy = "";
-function setValueToTopFiveBy(params) {
+let valueToTopFiveBy = "default";
+function setValueToTopFiveBy() {
   valueToTopFiveBy = document.querySelector("#topFive-select").value;
   setSortAndFilters();
 }
 
-function addAgeToResults(params) {
+function addAgeToResults() {
   for (const result of listOfResults) {
     const member = listOfMembers.find((member) => member.id === result.uid);
     if (member !== undefined) {
@@ -65,49 +66,56 @@ function addAgeToResults(params) {
 }
 
 function topFiveMembers(filteredList) {
+  if (valueToTopFiveBy === "default") return false;
+
   const htmlToDiscipline = valueToTopFiveBy.substring(7);
   const htmlToAgeGroup = valueToTopFiveBy.substring(0, 6);
 
   const checkCompetitive = listOfMembers.filter((member) => member.competetive === "Konkurrent" && member.active === "Aktivt medlem");
 
   let checkValueToTopFiveBy;
-  let listOfMembersInTopFive = []
+  let listOfMembersInTopFive = [];
 
-  if (valueToFilterBy === true || valueToFilterBy === false){
-  checkValueToTopFiveBy = filteredList.sort((a, b) => a.time - b.time).filter(noDuplicateMembers)
+  if (valueToFilterBy === true || (valueToFilterBy === false && filteredList.length > 0)) {
+    checkValueToTopFiveBy = filteredList.sort((a, b) => a.time - b.time).filter(noDuplicateMembers);
+  } else {
+    checkValueToTopFiveBy = listOfResults.sort((a, b) => a.time - b.time).filter(noDuplicateMembers);
   }
-  else checkValueToTopFiveBy = listOfResults.sort((a, b) => a.time - b.time).filter(noDuplicateMembers)
 
   function noDuplicateMembers(currentValue) {
-    if(currentValue.discipline === htmlToDiscipline &&
+    if (
+      currentValue.discipline === htmlToDiscipline &&
       currentValue.ageGroup === htmlToAgeGroup &&
-    checkCompetitive.some((member) => member.id === currentValue.uid &&
-    !listOfMembersInTopFive.some((member) => member.name === currentValue.name)))
-
-    {listOfMembersInTopFive.push(currentValue)
-      return true}
-      else return false
+      checkCompetitive.some((member) => member.id === currentValue.uid && !listOfMembersInTopFive.some((member) => member.name === currentValue.name))
+    ) {
+      listOfMembersInTopFive.push(currentValue);
+      return true;
+    } else {
+      return false;
     }
-  
+  }
+
   return checkValueToTopFiveBy;
 }
 
 function showTopFiveTables(topFive) {
+  console.log("showtopfivetables");
   document.querySelector("#trainer-table-body").innerHTML = "";
+  let disciplinToDA = valueToTopFiveBy;
   if (valueToTopFiveBy === "Junior-backCrawl") {
-    valueToTopFiveBy = "Junior-Rygcrawl";
+    disciplinToDA = "Junior-Rygcrawl";
   } else if (valueToTopFiveBy === "Junior-breaststroke") {
-    valueToTopFiveBy = "Junior-Brystsvømning";
+    disciplinToDA = "Junior-Brystsvømning";
   } else if (valueToTopFiveBy === "Senior-backCrawl") {
-    valueToTopFiveBy = "Senior-Rygcrawl";
+    disciplinToDA = "Senior-Rygcrawl";
   } else if (valueToTopFiveBy === "Senior-breaststroke") {
-    valueToTopFiveBy = "Senior-Brystsvømning";
+    disciplinToDA = "Senior-Brystsvømning";
   }
-  let lowerCaseString = valueToTopFiveBy.toLowerCase();
+  let lowerCaseString = disciplinToDA.toLowerCase();
   let hyphenIndex = lowerCaseString.indexOf("-");
   let indexAfterHyphen = lowerCaseString.substring(hyphenIndex + 1);
   let titleCaseString = indexAfterHyphen.charAt(0).toUpperCase() + indexAfterHyphen.slice(1);
-  let hyphenToSpaceString = valueToTopFiveBy.replace("-", " ");
+  let hyphenToSpaceString = disciplinToDA.replace("-", " ");
   let ageThing = hyphenToSpaceString.substring(0, 6);
   let finalString = `${ageThing} ${titleCaseString}`;
   document.querySelector("#trainer-h2").textContent = `Top 5 ${finalString}`;
@@ -135,8 +143,9 @@ function showTopFiveTable(result, index) {
 }
 
 function showResultTrainer(results) {
+  console.log("showresulttrainer@@@");
   document.querySelector("#trainer-table-body").innerHTML = "";
-  document.querySelector("#trainer-h2").textContent = `Medlemsresultater - klik på resultater for flere detaljer`;
+  document.querySelector("#trainer-h2").textContent = `Medlemsresultater - klik på resultaterne for flere detaljer`;
 
   for (const result of results) {
     showMemberTrainer(result);
@@ -151,7 +160,7 @@ function showMemberTrainer(result) {
       const fixedStats = {
         competition: competitionBooleanToString(result),
         dato: dateToDato(result),
-        disciplines: disciplinesEngToDa(result)
+        disciplines: disciplinesEngToDa(result),
       };
 
       const html = /*html*/ `
@@ -235,7 +244,9 @@ function memberOverviewTrainer() {
   // checks breaststroke members
   const countBreaststroke = listOfResults.filter((result) => result.discipline === "breaststroke" && countCompetetive.some((member) => member.id === result.uid));
   const countBreaststrokeJunior = countBreaststroke.filter((result) => listOfMembers.some((member) => member.ageGroup === "Junior" && member.id === result.uid)).length;
-  const countBreaststrokeSenior = countBreaststroke.filter((result) => listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)).length;
+  const countBreaststrokeSenior = countBreaststroke.filter((result) =>
+    listOfMembers.some((member) => (member.ageGroup === "Senior" || member.ageGroup === "Senior+") && member.id === result.uid)
+  ).length;
 
   // checks butterfly members
   const countButterfly = listOfResults.filter((result) => result.discipline === "butterfly" && countCompetetive.some((member) => member.id === result.uid));
@@ -271,9 +282,9 @@ function createResultClicked(event) {
   document.querySelector("#create-result-competition-trainer").addEventListener("change", changeFormBasedOnCompetition);
 
   document.querySelector("#create-result-competition-trainer").innerHTML = "";
-  const nameChanger = document.querySelector("#create-result-name-trainer")
-  nameChanger.addEventListener("change", changeFormBasedOnMember)
-  nameChanger.innerHTML =""
+  const nameChanger = document.querySelector("#create-result-name-trainer");
+  nameChanger.addEventListener("change", changeFormBasedOnMember);
+  nameChanger.innerHTML = "";
 
   const form = document.querySelector("#create-result-form-trainer");
 
@@ -319,14 +330,14 @@ function createResultClicked(event) {
   }
 
   function changeFormBasedOnMember() {
-    const nameToAdaptTo = form.name.value
-    const currentMember = listOfMembers.find(member => member.id === nameToAdaptTo)
-    const currentMemberDisciplinesHTML = checkDisciplineHTMLFormat(currentMember)
-    const disciplinesForm = form.discipline
-    disciplinesForm.innerHTML = ""
+    const nameToAdaptTo = form.name.value;
+    const currentMember = listOfMembers.find((member) => member.id === nameToAdaptTo);
+    const currentMemberDisciplinesHTML = checkDisciplineHTMLFormat(currentMember);
+    const disciplinesForm = form.discipline;
+    disciplinesForm.innerHTML = "";
     for (const discipline of currentMemberDisciplinesHTML) {
       const abc = disciplinesEngToDa(discipline);
-      disciplinesForm.insertAdjacentHTML("beforeend",`<option value="${discipline}">${abc}</option>`)
+      disciplinesForm.insertAdjacentHTML("beforeend", `<option value="${discipline}">${abc}</option>`);
     }
   }
 }
@@ -346,8 +357,8 @@ async function submitResult(event) {
       discipline: form.discipline.value,
       location: form.location.value,
       date: formDate,
-      time: formTime,
-      placement: form.placement.value
+      time: Number(formTime),
+      placement: form.placement.value,
     };
     const response = await creatingResult(newResult);
     if (response.ok) {
@@ -355,7 +366,7 @@ async function submitResult(event) {
       form.placement.value = "";
       errorMessage.innerHTML = "";
       errorMessage.classList.remove("create-error");
-      updateResultsAndCompetitions()
+      updateResultsAndCompetitions();
     }
   } else {
     errorMessage.innerHTML = "Forkert dato eller resultat. Tjek datoformat og at tiden er et korrekt tal";
@@ -381,7 +392,7 @@ async function deleteResult(result) {
     if (response.ok) {
       deleteModal.close();
       document.querySelector("#show-member-modal-trainer").close();
-      updateResultsAndCompetitions()
+      updateResultsAndCompetitions();
     }
   }
 }
@@ -431,12 +442,12 @@ async function submitCompetition(event) {
     const competitionToSubmit = {
       compName: form.compName.value,
       location: form.location.value,
-      date: form.date.value
+      date: form.date.value,
     };
     await createCompetition(competitionToSubmit);
     errorMessage.innerHTML = "";
     errorMessage.classList.remove("create-error");
-    updateResultsAndCompetitions()
+    updateResultsAndCompetitions();
   } else {
     errorMessage.innerHTML = "Forkert dato. Brug formattet: 'åååå-mm-dd'";
     errorMessage.classList.add("create-error");
@@ -491,6 +502,5 @@ function labelToGreyTrainer() {
     document.querySelectorAll(".greyIt").forEach((label) => label.classList.remove("label-grey"));
   }
 }
-
 
 export { startTrainer };
