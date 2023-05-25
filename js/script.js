@@ -25,6 +25,7 @@ function start() {
   document.querySelector("#nav-filter").addEventListener("change", chosenFilter);
   document.querySelector("#log-in-reset").addEventListener("click", () => viewControl("#front-page"));
   document.querySelector("#log-in-form").addEventListener("submit", logInAttempt);
+  document.querySelector("#competetive").addEventListener("change", labelToGrey);
 
   document.querySelector("#member-search").addEventListener("keyup", searchBarChanged);
   document.querySelector("#member-search").addEventListener("search", searchBarChanged);
@@ -164,33 +165,34 @@ async function createNewMember(event) {
     restance: false
   };
 
-  
-  const bdayCheck = dateChecker(newMember.bday)
+  const bdayCheck = dateChecker(newMember.bday);
 
-  let disciplineCheck = true
-  if (newMember.competetive){
-      if (form.backCrawl.checked) disciplineCheck = true
-      else if (form.butterfly.checked) disciplineCheck = true
-      else if(form.breaststroke.checked) disciplineCheck = true
-      else if (form.crawl.checked) disciplineCheck = true
-    else disciplineCheck = false
+  let disciplineCheck = true;
+  if (newMember.competetive) {
+    if (form.backCrawl.checked) disciplineCheck = true;
+    else if (form.butterfly.checked) disciplineCheck = true;
+    else if (form.breaststroke.checked) disciplineCheck = true;
+    else if (form.crawl.checked) disciplineCheck = true;
+    else disciplineCheck = false;
   }
 
-  const errorMessage = document.querySelector("#create-member-error")
+  const errorMessage = document.querySelector("#create-member-error");
   console.log(newMember);
 
-  if(disciplineCheck && bdayCheck){
-  const response = await createdMember(newMember);
-  errorMessage.innerHTML = ""
-  errorMessage.classList.remove("create-error")
-  if (response.ok) getUpdatedFirebase();
+  if (disciplineCheck && bdayCheck) {
+    const response = await createdMember(newMember);
+    errorMessage.innerHTML = "";
+    errorMessage.classList.remove("create-error");
+    if (response.ok) getUpdatedFirebase();
+  } else {
+    errorMessage.classList.add("create-error");
+    if (disciplineCheck === false) {
+      errorMessage.innerHTML = "Konkurrencemedlemmer skal have mindst én disciplin";
+    } else if (bdayCheck === false) {
+      errorMessage.innerHTML = "Forkert fødselsdag. Brug formattet: åååå-mm-dd";
+    } else errorMessage.innerHTML = "Weird fucking error bro";
   }
-  else {
-  errorMessage.classList.add("create-error");
-  if (disciplineCheck === false) {errorMessage.innerHTML = "Konkurrencemedlemmer skal have mindst én disciplin"}
-  else if (bdayCheck === false){ errorMessage.innerHTML = "Forkert fødselsdag. Brug formattet: åååå-mm-dd"}
-  else errorMessage.innerHTML = "Weird fucking error bro"
-}}
+}
 
 function updateMemberClicked(member) {
   const updateForm = document.querySelector("#formand-form-update-member2");
@@ -239,8 +241,8 @@ async function updateMember(event) {
     breaststroke: form.breaststroke.checked,
     restance: form.restance.value === "true"
   };
-  
-  const id = form.getAttribute("data-id")
+
+  const id = form.getAttribute("data-id");
   const response = await updateMemberPUT(updatedMember, id);
   if (response.ok) {
     getUpdatedFirebase();
@@ -320,6 +322,15 @@ function logInAttempt(event) {
   if (form.brugernavn.value === "formand") viewControl("#formand");
   else if (form.brugernavn.value === "kasserer") viewControl("#kasserer");
   else if (form.brugernavn.value === "træner") viewControl("#trainer");
+}
+
+function labelToGrey() {
+  const form = document.querySelector("#form-create-member");
+  if (form.competetive.value === "false") {
+    document.querySelectorAll(".greyIt").forEach((label) => label.classList.add("label-grey"));
+  } else if (form.competetive.value === "true") {
+    document.querySelectorAll(".greyIt").forEach((label) => label.classList.remove("label-grey"));
+  }
 }
 
 export { getUpdatedFirebase };
