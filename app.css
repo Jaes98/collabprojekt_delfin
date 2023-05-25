@@ -3,7 +3,7 @@
 body {
   width: 100%;
   margin: 0;
-  background-color: #f3f3f3;
+  background-color: #eee;
   /* font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
   font-family: Arial, sans-serif;
 }
@@ -372,9 +372,11 @@ h3 {
 }
 
 @media (max-width: 1000px) {
-  .kasserer-overview,
+  .kasserer-overview {
+    margin-left: 9px;
+  }
   .trainer-overview {
-    margin-left: 0px;
+    margin-left: -14px;
   }
 }
 
