@@ -457,7 +457,9 @@ async function submitCompetition(event) {
 function addNamesToResults() {
   for (const result of listOfResults) {
     const correctMember = listOfMembers.find((member) => member.id === result.uid);
-    result.name = correctMember.name;
+    
+    if (correctMember !== undefined)result.name = correctMember.name;
+    else {result.name = "Slettet bruger"; console.log("else",result);}
   }
 }
 
